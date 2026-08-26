@@ -6,9 +6,7 @@ import {
   CheckCircle2,
   ArrowRight,
   Sparkles,
-  Compass,
-  ShieldCheck,
-  Award
+  Compass
 } from 'lucide-react';
 
 interface VedicCareerStagesProps {
@@ -105,10 +103,6 @@ export const VedicCareerStages: React.FC<VedicCareerStagesProps> = ({ onOpenBook
           <h2 className="font-serif-display text-3xl sm:text-4xl lg:text-5xl font-bold text-[#23120A] tracking-tight leading-tight">
             Vedic Career Guidance for Every Stage
           </h2>
-
-          <p className="mt-4 text-sm sm:text-base text-stone-600 font-normal leading-relaxed">
-            Whether you are stepping into the professional world, navigating critical mid-career transitions, or expanding enterprise leadership, our astrological diagnostics provide definitive clarity.
-          </p>
         </div>
 
         {/* 3-Column Responsive Grid */}
@@ -179,12 +173,6 @@ export const VedicCareerStages: React.FC<VedicCareerStagesProps> = ({ onOpenBook
                       </div>
                     ))}
                   </div>
-
-                  {/* Remedial Focus */}
-                  <div className="p-3 rounded-2xl bg-[#F8F3EC] border border-[#EADBCA] text-[11px] text-stone-700 leading-relaxed mb-6">
-                    <strong className="font-bold text-[#542510]">Remedial Focus: </strong>
-                    {card.remedyFocus}
-                  </div>
                 </div>
 
                 {/* Bottom CTA Button */}
@@ -201,11 +189,6 @@ export const VedicCareerStages: React.FC<VedicCareerStagesProps> = ({ onOpenBook
                     <span>{card.btnText}</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
-
-                  <div className="mt-2.5 flex items-center justify-center gap-1.5 text-[10px] text-stone-500 font-medium">
-                    <ShieldCheck className="w-3 h-3 text-emerald-600" />
-                    <span>Personalized 1-on-1 Consultation</span>
-                  </div>
                 </div>
 
               </div>

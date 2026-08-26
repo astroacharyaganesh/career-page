@@ -19,14 +19,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onOpenWhatsApp })
   }, []);
 
   const navLinks = [
-    { label: 'Career Journey', href: '#journey' },
-    { label: 'Pain Points', href: '#problems' },
-    { label: 'D1 & D10 Science', href: '#how-it-works' },
-    { label: 'Services', href: '#services' },
-    { label: 'Transformations', href: '#testimonials' },
-    { label: 'Masterclasses', href: '#videos' },
-    { label: 'Knowledge Hub', href: '#knowledge' },
-    { label: 'FAQs', href: '#faqs' },
+    { label: 'Overview', href: '#understanding-career-astrology' },
+    { label: 'Why Vedic Astrology', href: '#why-choose-us' },
+    { label: 'Career Stages', href: '#career-stages' },
+    { label: 'Reviews', href: '#verified-testimonials' },
+    { label: 'How It Works', href: '#consultation-process' },
+    { label: 'Deliverables', href: '#deliverables-and-diagnostics' },
+    { label: 'Knowledge Hub', href: '#vedic-career-hub' },
+    { label: 'FAQs', href: '#career-astrology-faqs' },
   ];
 
   return (

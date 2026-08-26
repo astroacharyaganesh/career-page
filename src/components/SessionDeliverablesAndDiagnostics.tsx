@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import expertPhoto from '../assets/images/regenerated_image_1787726256429.png';
 import posterImage from '../assets/images/career_astrology_poster_1787726633623.jpg';
+import consultationSessionImg from '../assets/images/career_consultation_session_1787729405450.jpg';
 import {
   Sparkles,
   Compass,
@@ -197,12 +198,6 @@ export const SessionDeliverablesAndDiagnostics: React.FC<SessionDeliverablesAndD
           <p className="mt-3.5 text-sm sm:text-base text-stone-700 font-normal leading-relaxed">
             A transparent, actionable consultation experience with complete clarity on your career roadmap, auspicious periods, and remedies.
           </p>
-
-          {/* Motion Notice Tag */}
-          <div className="mt-5 inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#EFE3D3] border border-[#DFCBB7] text-[11px] font-medium text-stone-700">
-            <span className="w-2 h-2 rounded-full bg-amber-600 animate-pulse" />
-            <span>8 Comprehensive Session Deliverables • Continuous Rolling Motion</span>
-          </div>
 
         </div>
 
@@ -437,7 +432,7 @@ export const SessionDeliverablesAndDiagnostics: React.FC<SessionDeliverablesAndD
                 </div>
 
                 {/* Radiant Solar Banner Hub Center */}
-                <div className="relative z-10 w-36 h-36 sm:w-44 sm:h-44 rounded-2xl sm:rounded-3xl flex items-center justify-center pointer-events-auto">
+                <div className="relative z-10 w-40 h-40 sm:w-48 sm:h-48 rounded-2xl sm:rounded-3xl flex items-center justify-center pointer-events-auto">
                   {/* Solar Flare Corona Glow */}
                   <div className="absolute -inset-2 bg-gradient-to-r from-amber-400 via-orange-500 to-amber-300 rounded-3xl blur-xl opacity-75 animate-pulse" />
                   
@@ -448,19 +443,19 @@ export const SessionDeliverablesAndDiagnostics: React.FC<SessionDeliverablesAndD
                   >
                     <div className="w-full h-full rounded-[14px] sm:rounded-[22px] overflow-hidden bg-[#1A0D08] relative">
                       <img
-                        src={posterImage}
-                        alt="Vedic Career Astrology Banner"
+                        src={consultationSessionImg}
+                        alt="Acharya Ganesh Career Astrology Consultation Session"
                         className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-500"
                       />
                       
                       {/* Gradient Dark/Gold Overlay for text legibility */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#23120A]/90 via-transparent to-black/30 pointer-events-none" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#23120A]/85 via-transparent to-black/20 pointer-events-none" />
 
                       {/* Golden Banner Badge on Center Hub */}
                       <div className="absolute bottom-2 left-2 right-2 px-2 py-1 rounded-lg bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 border border-amber-200/80 shadow-md flex items-center justify-center gap-1">
                         <Sparkles className="w-3 h-3 text-amber-950 fill-amber-950 flex-shrink-0 animate-spin-slow" />
                         <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-amber-950 whitespace-nowrap">
-                          Vedic Consultation
+                          1-on-1 Consultation
                         </span>
                       </div>
                     </div>

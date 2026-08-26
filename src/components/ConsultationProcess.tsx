@@ -22,42 +22,21 @@ export const ConsultationProcess: React.FC<ConsultationProcessProps> = ({ onOpen
       phase: 'PHASE 1',
       title: 'Book Your Consultation',
       badge: 'Flexible slots available 7 days a week',
-      icon: Calendar,
-      description:
-        'Select your preferred time slot and consultation format (1-on-1 Video Call via Zoom/Meet, Audio Call, or Comprehensive Written PDF Report).',
-      bullets: [
-        'Choose 1-on-1 Video (Zoom/Meet), Phone, or Written Report',
-        'Instant calendar confirmation across all global timezones',
-        'Flexible rescheduling anytime up to 12 hours prior'
-      ]
+      icon: Calendar
     },
     {
       number: '02',
       phase: 'PHASE 2',
       title: 'Share Your Career Birth Details',
       badge: '100% confidential & encrypted data handling',
-      icon: FileText,
-      description:
-        'Provide your accurate date, exact time, and city of birth. If birth time is slightly uncertain, our team applies Birth Time Rectification (BTR) principles.',
-      bullets: [
-        'Submit Birth Date, Time & City of Birth securely',
-        'Free Birth Time Rectification (BTR) for uncertain birth times',
-        '100% confidential, encrypted astrological privacy'
-      ]
+      icon: FileText
     },
     {
       number: '03',
       phase: 'PHASE 3',
       title: 'Receive Personalized Career Guidance',
       badge: 'Includes remedy chart + post-session summary',
-      icon: Video,
-      description:
-        'Direct interactive session with Acharya Hanish Bagga. Receive deep Kundli diagnostics, exact timing predictions, tailored Vedic remedies, and ask all your questions.',
-      bullets: [
-        'Live 1-on-1 direct session with Acharya Hanish Bagga',
-        'Detailed D1 & D10 chart mapping with exact month-by-month timing',
-        'Prescribed Vedic gemstone, mantra & behavioral remedies'
-      ]
+      icon: Video
     }
   ];
 
@@ -90,7 +69,7 @@ export const ConsultationProcess: React.FC<ConsultationProcessProps> = ({ onOpen
         </div>
 
         {/* Connected Vertical Stepper Container */}
-        <div className="relative pl-6 sm:pl-16 space-y-8 lg:space-y-10">
+        <div className="relative pl-6 sm:pl-16 space-y-6 lg:space-y-8">
           
           {/* Vertical Connecting Line with scroll reveal */}
           <motion.div
@@ -137,11 +116,11 @@ export const ConsultationProcess: React.FC<ConsultationProcessProps> = ({ onOpen
                   </span>
                 </motion.div>
 
-                {/* Step Content Card matching screenshot */}
-                <div className="flex-1 rounded-2xl bg-white border border-[#E8DACB] p-6 sm:p-7 shadow-sm hover:shadow-md hover:border-[#D8BF9F] transition-all duration-300">
+                {/* Step Content Card */}
+                <div className="flex-1 rounded-2xl bg-white border border-[#E8DACB] p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-[#D8BF9F] transition-all duration-300">
                   
                   {/* Top Row: Icon + Phase + Title + Green Pill Badge */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl bg-[#F6EFE6] border border-[#EADAC9] flex items-center justify-center text-[#6B2E13] flex-shrink-0 group-hover:bg-[#EBDDCB] transition-colors">
                         <Icon className="w-5 h-5 stroke-[1.8]" />
@@ -160,21 +139,6 @@ export const ConsultationProcess: React.FC<ConsultationProcessProps> = ({ onOpen
                       <CheckCircle2 className="w-3.5 h-3.5 text-[#16A34A]" />
                       <span>{step.badge}</span>
                     </div>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-xs sm:text-[13px] text-stone-600 leading-relaxed font-normal mb-4 pt-1">
-                    {step.description}
-                  </p>
-
-                  {/* Bullet points with gold circles */}
-                  <div className="pt-3 border-t border-stone-100 grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-3 text-xs text-stone-700">
-                    {step.bullets.map((bullet, bIdx) => (
-                      <div key={bIdx} className="flex items-start gap-2 leading-relaxed">
-                        <span className="text-[#C69C72] font-bold text-sm leading-none mt-0.5 select-none">☉</span>
-                        <span className="text-stone-600 text-[11px] sm:text-xs">{bullet}</span>
-                      </div>
-                    ))}
                   </div>
 
                 </div>

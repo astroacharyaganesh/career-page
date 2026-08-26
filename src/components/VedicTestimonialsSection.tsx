@@ -1,26 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Sparkles,
   Star,
   Quote,
   CheckCircle2,
-  Calendar,
-  ChevronLeft,
-  ChevronRight
+  Calendar
 } from 'lucide-react';
 
 export const VedicTestimonialsSection: React.FC = () => {
-  const [activeFilter, setActiveFilter] = useState('All Reviews');
-
-  const filters = [
-    'All Reviews',
-    'Job Switch & Timing',
-    'Promotion & Growth',
-    'Business & Startups',
-    'Abroad Relocation',
-    'Govt & Public Sector'
-  ];
-
   const testimonials = [
     {
       category: 'Job Switch & Timing',
@@ -51,10 +38,6 @@ export const VedicTestimonialsSection: React.FC = () => {
     }
   ];
 
-  const filteredTestimonials = activeFilter === 'All Reviews'
-    ? testimonials
-    : testimonials.filter((t) => t.category === activeFilter);
-
   return (
     <section
       id="verified-testimonials"
@@ -72,7 +55,7 @@ export const VedicTestimonialsSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Top Header Block */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           
           {/* Pill Badge */}
           <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#35180D] border border-amber-600/30 text-xs font-semibold text-amber-300 mb-4 shadow-sm">
@@ -104,30 +87,9 @@ export const VedicTestimonialsSection: React.FC = () => {
 
         </div>
 
-        {/* Filter Pills Row matching screenshot */}
-        <div className="flex items-center justify-center gap-2 flex-wrap mb-12">
-          {filters.map((filter) => {
-            const isActive = activeFilter === filter;
-            return (
-              <button
-                key={filter}
-                type="button"
-                onClick={() => setActiveFilter(filter)}
-                className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                  isActive
-                    ? 'bg-[#e2a850] text-[#1a0c06] shadow-md shadow-amber-900/30'
-                    : 'bg-[#2b140a] text-amber-200/80 hover:bg-[#381a0e] hover:text-white border border-amber-900/40'
-                }`}
-              >
-                {filter}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Testimonials 3-Card Grid matching screenshot */}
+        {/* Testimonials 3-Card Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredTestimonials.map((t, idx) => (
+          {testimonials.map((t, idx) => (
             <div
               key={idx}
               className="rounded-2xl bg-[#261208]/90 border border-amber-800/30 p-6 sm:p-7 shadow-xl flex flex-col justify-between hover:border-amber-600/50 transition-all group"

@@ -27,6 +27,60 @@ interface VedicCareerKnowledgeHubProps {
 
 export const VedicCareerKnowledgeHub: React.FC<VedicCareerKnowledgeHubProps> = ({ onOpenBooking }) => {
   const [expandedTopic, setExpandedTopic] = useState<string | null>(null);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
+  const careerFaqs = [
+    {
+      question: 'Which Chart is Used for Career Prediction?',
+      answer:
+        'In Vedic astrology, the Birth Chart with Dashamsha Chart (D10) are generally used for career prediction. These charts help to understand about the professional strengths, growth opportunities and future career. A detailed Career astrology analysis examines the planet positioning, houses and dashas to provide guidance with accuracy. Many choose career astrology by date of birth because it offers personalized insights and support for better planning through trusted astrology career prediction methods. Career astrology also things like your strengths, skills and timing of success. Book a consultation to know more about what kind of career is best for you.'
+    },
+    {
+      question: 'Which House is for Career in Astrology?',
+      answer:
+        'In career astrology, the 10th house is considered the main house in which we can check about profession and achievements. In career prediction astrology, an expert astrologer carefully analyzes the 10th house with this house ruling planet and supporting houses like 2, 6 and 11 respectively. A strong 10th house indicates better career growth and recognition. Career Astrology also studies planetary influences to understand work preferences and future opportunities. Through Career astrology by date of birth, it becomes easier to identify strengths, challenges and suitable career options.'
+    },
+    {
+      question: 'Can Career Astrology Prediction Predicts when will I get a Job?',
+      answer:
+        'Astrology can provide timing indications by studying planetary periods, transits and house activations. A detailed astrology career prediction can able to highlight favourable periods and employment opportunities. An expert combines job astrology with dasha analysis to tell when will professional growth may occur. While astrology cannot guarantee exact outcomes, it can tell the periods of growth and opportunities. A proper Career astrology consultation is able to understand career timing, improve preparation and helps to make better decision during professional life.'
+    },
+    {
+      question: 'When will I get a Job Prediction?',
+      answer:
+        'The timing of employment is generally analyzed by planetary dashas, transits and last the strength of career house. A personalized job prediction studies the 6th, 10th, and 11th houses to identify the most favourable periods for getting employment. Many people seek job prediction by date of birth to understand what opportunities and challenges may come in the future. Through career prediction astrology, an astrologer can provide phases for job opportunities and growth so that they can plan their efforts more effectively.'
+    },
+    {
+      question: 'When will I get Job Astrology Calculator?',
+      answer:
+        'An astrology calculator can only able to provide very basic insights but if someone wants accurate result a detailed chart analysis may be required. Professional job astrology considers planetary placements, dashas and transits that calculator cannot provide. For reliable job prediction by date of birth, a complete horoscope assessment is usually recommended. Many choose career astrology by date of birth because it offers personalized guidance instead of generic results. A detailed analysis can reveal better timing for employment, promotion or any career-related decisions.'
+    },
+    {
+      question: 'Which House in Horoscope if for Career?',
+      answer:
+        'The 10th house is the most important indicator for profession and achievements. A detailed career horoscope focuses on this house along with the 2nd, 6th and 11th houses to evaluate income, service and gains. In career astrology, the condition of the 10th house lord plays the major role as it determines the professional success. Through career prediction, astrologers study these types of combinations to provide insights on career potential, growth and suitable professional path for an individual.'
+    },
+    {
+      question: 'Why is Career Horoscope Today Trending Today?',
+      answer:
+        'People seek guidance about their jobs, promotions, business growth and changing career opportunities. As a result, daily career horoscope updates have become very popular among professional as well as students. A well-prepared career prediction can provide motivation and help individuals to stay focused on their upcoming opportunities. Interest in astrology career prediction has also become very popular among people who wants better clarity about their future. Daily insights often help to plan for any important professional decisions with better awareness.'
+    },
+    {
+      question: 'Which Career is best for me According to Career Astrology?',
+      answer:
+        'The most suitable profession depends on placement of planets, their strengths and natural talents shown in the birth chart. Career astrology analyses these factors to identify career that align with a person\'s potential. Career astrology consultation can give insights about in what field you will perform better like in business or in a job. With the help of career astrology by date of birth, an astrologer provides personalized recommendations that support long-term professional growth and satisfaction.'
+    },
+    {
+      question: 'How to Find Career in Astrology Chart?',
+      answer:
+        'Finding the right profession involves studying the 10th house, its lord, planetary strengths, dashas and supporting houses. A detailed career prediction astrology analysis also examines the Moon, Sun and important yogas that influence professional success. Many people use Career astrology career to know what are their strengths and ideal working environment in which they can excel. Through astrology career prediction, identifying your career paths, growth opportunities and potential challenges becomes easy. A complete chart reading provides deeper insights than general horoscope reading.'
+    },
+    {
+      question: 'How to Find Career in Astrology Chart (Step-by-Step Consultation)?',
+      answer:
+        'A professional assessment starts by analyzing the 10th house in your birth chart. Career prediction technique also includes the Dashamsha Chart for detailed analysis. Many astrologers combines these to understand skills, ambitions and growth potential. By evaluating planetary strengths and timing factors, career astrology can help to identify suitable professions. A professional career astrology consultation can help to gain all the insights that a person needs to make proper decision for their career. Contact us to get the right guidance with the help of astrology.'
+    }
+  ];
 
   const housesData = [
     {
@@ -129,16 +183,6 @@ export const VedicCareerKnowledgeHub: React.FC<VedicCareerKnowledgeHubProps> = (
           <h2 className="font-serif-display text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#23120A] tracking-tight leading-[1.2]">
             How Vedic Astrology Studies Your Professional Life
           </h2>
-
-          {/* Subtitle Paragraphs */}
-          <div className="mt-4 space-y-2 text-xs sm:text-sm text-stone-700 font-normal leading-relaxed max-w-3xl mx-auto">
-            <p>
-              Your career is influenced by education, skills, experience, choices, economic conditions, opportunities and personal effort. Vedic astrology provides an additional framework for understanding professional tendencies and timing through the birth chart.
-            </p>
-            <p className="font-medium text-stone-800">
-              A complete career astrology analysis does not depend on a single planet or house. Multiple factors are studied together before drawing conclusions.
-            </p>
-          </div>
 
         </div>
 
@@ -460,6 +504,67 @@ export const VedicCareerKnowledgeHub: React.FC<VedicCareerKnowledgeHubProps> = (
             <div className="mt-4 pt-3 border-t border-stone-100 text-[11px] text-stone-500">
               The goal is to complement your reading with practical steps that can be followed consistently.
             </div>
+          </div>
+
+        </div>
+
+        {/* ================= FREQUENTLY ASKED QUESTIONS SECTION ================= */}
+        <div id="career-astrology-faqs" className="pt-4 border-t border-stone-200/80">
+          
+          {/* FAQ Header */}
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#F5ECE1] border border-[#DFCBB7] text-xs font-semibold text-[#6B2E13] mb-3.5 shadow-sm">
+              <HelpCircle className="w-3.5 h-3.5 text-[#6B2E13]" />
+              <span>Got Questions?</span>
+            </div>
+            
+            <h3 className="font-serif-display text-2xl sm:text-3xl lg:text-4xl font-bold text-[#23120A] tracking-tight leading-tight">
+              Frequently Asked Questions About Career Astrology
+            </h3>
+
+            <p className="mt-2.5 text-xs sm:text-sm text-stone-600 font-normal leading-relaxed">
+              Find answers to common questions about our career guidance services.
+            </p>
+          </div>
+
+          {/* Accordion List */}
+          <div className="max-w-4xl mx-auto space-y-3.5 mb-14">
+            {careerFaqs.map((faq, idx) => {
+              const isOpen = openFaqIndex === idx;
+              return (
+                <div
+                  key={idx}
+                  className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
+                    isOpen
+                      ? 'bg-white border-[#C69C72] shadow-md'
+                      : 'bg-white/80 border-[#E8DACB] hover:border-[#D4BA9F] hover:bg-white'
+                  }`}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
+                    className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 cursor-pointer"
+                  >
+                    <span className="font-serif-display text-sm sm:text-base font-bold text-[#23120A] leading-snug">
+                      {faq.question}
+                    </span>
+                    <div
+                      className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-200 ${
+                        isOpen ? 'bg-[#6B2E13] text-white rotate-180' : 'bg-[#F6EFE6] text-[#6B2E13]'
+                      }`}
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                    </div>
+                  </button>
+
+                  {isOpen && (
+                    <div className="px-4 sm:px-5 pb-5 pt-1 text-xs sm:text-[13px] text-stone-700 leading-relaxed border-t border-stone-100 font-normal">
+                      <p>{faq.answer}</p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
 
         </div>

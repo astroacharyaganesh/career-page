@@ -40,25 +40,27 @@ export const Footer: React.FC = () => {
               Navigation
             </h4>
             <ul className="space-y-2">
-              <li><a href="#journey" className="hover:text-amber-300 transition-colors">Career Journey</a></li>
-              <li><a href="#problems" className="hover:text-amber-300 transition-colors">Pain Point Diagnosis</a></li>
-              <li><a href="#how-it-works" className="hover:text-amber-300 transition-colors">D10 Dashamsha Science</a></li>
-              <li><a href="#services" className="hover:text-amber-300 transition-colors">Bento Services</a></li>
-              <li><a href="#testimonials" className="hover:text-amber-300 transition-colors">Transformation Stories</a></li>
+              <li><a href="#understanding-career-astrology" className="hover:text-amber-300 transition-colors">Overview</a></li>
+              <li><a href="#why-choose-us" className="hover:text-amber-300 transition-colors">Why Vedic Astrology</a></li>
+              <li><a href="#career-stages" className="hover:text-amber-300 transition-colors">Career Stages</a></li>
+              <li><a href="#verified-testimonials" className="hover:text-amber-300 transition-colors">Client Reviews</a></li>
+              <li><a href="#consultation-process" className="hover:text-amber-300 transition-colors">Consultation Process</a></li>
+              <li><a href="#vedic-career-hub" className="hover:text-amber-300 transition-colors">Knowledge Hub</a></li>
+              <li><a href="#career-astrology-faqs" className="hover:text-amber-300 transition-colors">FAQs</a></li>
             </ul>
           </div>
 
-          {/* Col 3: Specialized Services */}
+          {/* Col 3: Key Diagnostics */}
           <div className="space-y-3">
             <h4 className="font-mono-code text-xs font-bold text-white uppercase tracking-wider">
-              Services
+              Diagnostics
             </h4>
             <ul className="space-y-2">
-              <li><a href="#services" className="hover:text-amber-300 transition-colors">Executive D10 Audit</a></li>
-              <li><a href="#services" className="hover:text-amber-300 transition-colors">Strategic Job Switch</a></li>
-              <li><a href="#services" className="hover:text-amber-300 transition-colors">Appraisal Timing</a></li>
-              <li><a href="#services" className="hover:text-amber-300 transition-colors">Startup & Founder Advisory</a></li>
-              <li><a href="#services" className="hover:text-amber-300 transition-colors">UPSC / Govt Exam Audit</a></li>
+              <li><a href="#deliverables-and-diagnostics" className="hover:text-amber-300 transition-colors">10th House Karma Bhava</a></li>
+              <li><a href="#deliverables-and-diagnostics" className="hover:text-amber-300 transition-colors">D10 Dashamsha Analysis</a></li>
+              <li><a href="#deliverables-and-diagnostics" className="hover:text-amber-300 transition-colors">Dasha & Transit Windows</a></li>
+              <li><a href="#deliverables-and-diagnostics" className="hover:text-amber-300 transition-colors">Amatyakaraka Career Lord</a></li>
+              <li><a href="#deliverables-and-diagnostics" className="hover:text-amber-300 transition-colors">Authentic Vedic Remedies</a></li>
             </ul>
           </div>
 

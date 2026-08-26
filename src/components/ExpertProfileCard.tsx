@@ -65,22 +65,6 @@ export const ExpertProfileCard: React.FC<ExpertProfileCardProps> = ({ onOpenBook
                 </p>
               </div>
 
-              {/* Checkmark Credentials */}
-              <div className="space-y-1.5 pt-1 text-xs text-slate-200">
-                <div className="flex items-center gap-2 justify-center sm:justify-start">
-                  <CheckCircle2 className="w-4 h-4 text-amber-400 flex-shrink-0" />
-                  <span className="font-semibold text-white">17+ Years of Experience</span>
-                </div>
-                <div className="flex items-center gap-2 justify-center sm:justify-start">
-                  <CheckCircle2 className="w-4 h-4 text-amber-400 flex-shrink-0" />
-                  <span><strong className="text-white">Zee News</strong> &amp; India TV Panellist</span>
-                </div>
-                <div className="flex items-center gap-2 justify-center sm:justify-start">
-                  <CheckCircle2 className="w-4 h-4 text-amber-400 flex-shrink-0" />
-                  <span><strong className="text-white">5.0</strong> Google Rating</span>
-                </div>
-              </div>
-
               {/* Available Today Green Pill */}
               <div className="pt-2 flex justify-center sm:justify-start">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs font-semibold shadow-sm">

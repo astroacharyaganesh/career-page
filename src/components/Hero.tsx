@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import {
   ChevronRight,
-  Shield,
-  Award,
-  Users,
   MessageCircle,
   Plus,
   Minus,
   CheckCircle2,
   Lock,
-  Compass,
   Palette,
   ChevronDown,
   Calendar,
@@ -145,19 +141,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
           
           {/* ================= LEFT COLUMN ================= */}
           <div className="lg:col-span-7 space-y-6">
-            
-            {/* Top Badges / Pill Tags */}
-            <div className="flex flex-wrap items-center gap-2.5">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#381607]/90 border border-amber-600/30 text-xs text-amber-100 font-medium shadow-sm backdrop-blur-sm">
-                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-                <span>Astrology for Career Growth & Job Uncertainty</span>
-              </div>
-
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#381607]/70 border border-amber-500/20 text-xs font-semibold text-amber-300 uppercase tracking-wider">
-                <Compass className="w-3.5 h-3.5 text-amber-400" />
-                <span>10TH HOUSE KARMA BHAVA</span>
-              </div>
-            </div>
 
             {/* Main Display Headline in Regal Serif */}
             <h1 className="font-serif-display text-3xl sm:text-4xl lg:text-[44px] font-bold text-amber-50 leading-[1.2] tracking-tight">
@@ -193,22 +176,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
                   <span>{text}</span>
                 </div>
               ))}
-            </div>
-
-            {/* Bottom Trust Badges */}
-            <div className="pt-3 border-t border-amber-500/20 flex flex-wrap items-center justify-start gap-y-3 gap-x-6 text-xs text-amber-200/90 font-medium">
-              <div className="flex items-center gap-2">
-                <Shield className="w-4 h-4 text-amber-400" />
-                <span>100% Private & Confidential</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Award className="w-4 h-4 text-amber-400" />
-                <span>17+ Yrs Vedic Experience</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Users className="w-4 h-4 text-amber-400" />
-                <span>50,000+ Consultations</span>
-              </div>
             </div>
 
           </div>

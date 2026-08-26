@@ -44,10 +44,6 @@ export const SingleVideoSection: React.FC<SingleVideoSectionProps> = ({ onOpenBo
           <h2 className="font-serif-display text-3xl sm:text-4xl lg:text-[42px] font-bold text-amber-50 tracking-tight leading-[1.2]">
             Watch Acharya Ganesh Explain Vedic Career Astrology
           </h2>
-
-          <p className="mt-3.5 text-xs sm:text-sm text-amber-100/75 font-normal leading-relaxed max-w-2xl mx-auto">
-            Discover how planetary Dashas, the D10 Dashamsha divisional chart, and auspicious timing cycles can transform your career decisions.
-          </p>
         </div>
 
         {/* Video Player Container Card */}

@@ -8,20 +8,9 @@ import { WhyChooseUs } from './components/WhyChooseUs';
 import { SingleVideoSection } from './components/SingleVideoSection';
 import { VedicCareerStages } from './components/VedicCareerStages';
 import { VedicTestimonialsSection } from './components/VedicTestimonialsSection';
-import { CareerJourneyTimeline } from './components/CareerJourneyTimeline';
-import { ProblemsSection } from './components/ProblemsSection';
-import { HowItWorksProcess } from './components/HowItWorksProcess';
-import { BentoServices } from './components/BentoServices';
-import { FreeAstroCalculator } from './components/FreeAstroCalculator';
 import { ConsultationProcess } from './components/ConsultationProcess';
 import { SessionDeliverablesAndDiagnostics } from './components/SessionDeliverablesAndDiagnostics';
 import { VedicCareerKnowledgeHub } from './components/VedicCareerKnowledgeHub';
-import { NetflixVideoVault } from './components/NetflixVideoVault';
-import { TestimonialsStories } from './components/TestimonialsStories';
-import { DeliverablesGrid } from './components/DeliverablesGrid';
-import { KnowledgeHub } from './components/KnowledgeHub';
-import { FaqSection } from './components/FaqSection';
-import { FinalCtaBanner } from './components/FinalCtaBanner';
 import { Footer } from './components/Footer';
 import { BookingModal } from './components/BookingModal';
 import { VideoPlayerModal } from './components/VideoPlayerModal';
@@ -118,63 +107,6 @@ export default function App() {
         {/* Vedic Career Astrology Guide & Knowledge Hub */}
         <VedicCareerKnowledgeHub
           onOpenBooking={(tier) => handleOpenBooking(tier)}
-        />
-
-        {/* 5-Stage Career Journey Vertical Timeline */}
-        <CareerJourneyTimeline
-          onOpenBooking={() => handleOpenBooking('executive')}
-        />
-
-        {/* Career Problems & Friction Diagnosis */}
-        <ProblemsSection
-          onOpenBooking={() => handleOpenBooking('executive')}
-        />
-
-        {/* How Career Astrology Works (Vedic Process Pipeline) */}
-        <HowItWorksProcess />
-
-        {/* Bento Suite of Specialized Career Services */}
-        <BentoServices
-          onOpenBooking={() => handleOpenBooking('executive')}
-        />
-
-        {/* Interactive Free Instant Vedic Career Calculator */}
-        <FreeAstroCalculator
-          onOpenBooking={() => handleOpenBooking('executive')}
-        />
-
-        {/* 4-Step Consultation Protocol & Pricing Packages */}
-        <ConsultationProcess
-          onOpenBooking={(tier) => handleOpenBooking(tier)}
-        />
-
-        {/* Netflix-Style Video Masterclass Vault */}
-        <NetflixVideoVault
-          onPlayVideo={(video) => setActiveVideo(video)}
-        />
-
-        {/* Executive Transformation Stories (Before → Consultation → After) */}
-        <TestimonialsStories
-          onOpenBooking={() => handleOpenBooking('executive')}
-        />
-
-        {/* 8 Signature Career Consultation Deliverables */}
-        <DeliverablesGrid
-          onOpenBooking={() => handleOpenBooking('executive')}
-        />
-
-        {/* Knowledge Hub & Research Guides */}
-        <KnowledgeHub />
-
-        {/* FAQs Accordion */}
-        <FaqSection
-          onOpenWhatsApp={handleOpenWhatsApp}
-        />
-
-        {/* Final Luxury Call to Action Banner */}
-        <FinalCtaBanner
-          onOpenBooking={() => handleOpenBooking('executive')}
-          onOpenWhatsApp={handleOpenWhatsApp}
         />
       </main>
 
