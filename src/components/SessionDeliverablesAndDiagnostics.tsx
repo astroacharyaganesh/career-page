@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import expertPhoto from '../assets/images/regenerated_image_1787726256429.png';
 import posterImage from '../assets/images/career_astrology_poster_1787726633623.jpg';
-import consultationSessionImg from '../assets/images/regenerated_image_1787735245542.webp';
+import consultationSessionImg from '../assets/images/regenerated_image_1787737199403.jpg';
+import careerBannerLeftImg from '../assets/images/regenerated_image_1787737100926.webp';
 import {
   Sparkles,
   Compass,
@@ -272,115 +273,36 @@ export const SessionDeliverablesAndDiagnostics: React.FC<SessionDeliverablesAndD
           {/* Main Grid: Left Value Proposition & Right Cosmic Kundli Astrolabe Wheel */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center relative z-10">
             
-            {/* ================= LEFT COLUMN: HERO CONTENT ================= */}
-            <div className="lg:col-span-5 space-y-6">
-              
-              {/* Badge: FIND CLARITY. CHOOSE YOUR DESTINY. */}
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A1838]/90 border border-[#433B78] text-[11px] font-bold tracking-widest text-[#B2A8FF] uppercase shadow-lg shadow-purple-950/30">
-                <span>FIND CLARITY. CHOOSE YOUR DESTINY.</span>
-              </div>
-
-              {/* Main Headline: Discover Your Ideal Career Path Before You Make Your Next Move */}
-              <h3 className="font-serif-display text-3xl sm:text-4xl lg:text-[44px] font-bold text-white tracking-tight leading-[1.15]">
-                Discover Your Ideal{' '}
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#FDE68A] via-[#F59E0B] to-[#D97706] drop-shadow-[0_2px_15px_rgba(245,158,11,0.35)]">
-                  Career Path
-                </span>
-                Before You Make Your Next Move
-              </h3>
-
-              {/* Description */}
-              <p className="text-sm sm:text-[15px] text-slate-300 font-normal leading-relaxed max-w-lg">
-                Personalized Career Astrology using your Birth Chart, D10, Planetary Timing &amp; Career Houses to bring clarity, direction &amp; success.
-              </p>
-
-              {/* Social Proof Bar */}
-              <div className="flex flex-wrap items-center gap-3.5 pt-2">
-                {/* 3 Overlapping Avatars */}
-                <div className="flex -space-x-2.5 overflow-hidden">
+            {/* ================= LEFT COLUMN: BANNER IMAGE ================= */}
+            <div className="lg:col-span-5 flex flex-col justify-center">
+              <div
+                onClick={() => onOpenBooking('executive')}
+                className="group relative rounded-3xl overflow-hidden border-2 border-amber-500/40 bg-black/50 shadow-2xl shadow-amber-950/40 cursor-pointer transition-all duration-300 hover:border-amber-400 hover:scale-[1.01]"
+              >
+                {/* Banner Image */}
+                <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full overflow-hidden">
                   <img
-                    className="inline-block h-9 w-9 rounded-full ring-2 ring-amber-400/80 object-cover"
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=120"
-                    alt="Client avatar 1"
+                    src={careerBannerLeftImg}
+                    alt="Vedic Career Astrology Guidance Banner"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-[0.95]"
                   />
-                  <img
-                    className="inline-block h-9 w-9 rounded-full ring-2 ring-amber-400/80 object-cover"
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120"
-                    alt="Client avatar 2"
-                  />
-                  <img
-                    className="inline-block h-9 w-9 rounded-full ring-2 ring-amber-400/80 object-cover"
-                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120"
-                    alt="Client avatar 3"
-                  />
+                  {/* Subtle Vignette Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#090C18] via-transparent to-transparent opacity-80" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#090C18]/40 via-transparent to-transparent opacity-60" />
                 </div>
 
-                {/* Star Rating & Happy Clients */}
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-1 text-amber-400">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                    ))}
+                {/* Floating Bottom Badge */}
+                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between p-3 rounded-2xl bg-[#11172E]/90 backdrop-blur-md border border-amber-500/30 text-xs shadow-lg">
+                  <div className="flex items-center gap-2 text-amber-200 font-semibold">
+                    <Sparkles className="w-4 h-4 text-amber-400" />
+                    <span>Personalized Vedic Career Blueprint</span>
                   </div>
-                  <span className="text-xs font-semibold text-slate-200 mt-0.5">
-                    50,000+ Happy Clients
+                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-400 uppercase tracking-wider group-hover:translate-x-1 transition-transform">
+                    <span>Consult Now</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </span>
                 </div>
-
-                <div className="h-6 w-px bg-slate-700 hidden sm:block" />
-
-                {/* Google 4.9/5 Badge */}
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/5 border border-white/10">
-                  <span className="font-bold text-xs tracking-tight">
-                    <span className="text-[#4285F4]">G</span>
-                    <span className="text-[#EA4335]">o</span>
-                    <span className="text-[#FBBC05]">o</span>
-                    <span className="text-[#4285F4]">g</span>
-                    <span className="text-[#34A853]">l</span>
-                    <span className="text-[#EA4335]">e</span>
-                  </span>
-                  <span className="text-xs font-bold text-white">4.9/5</span>
-                </div>
               </div>
-
-              {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-4 pt-4">
-                {/* Book 1-on-1 Consultation */}
-                <button
-                  type="button"
-                  onClick={() => onOpenBooking('executive')}
-                  className="px-6 py-3.5 rounded-full font-bold text-xs sm:text-[13px] tracking-wide text-stone-950 bg-gradient-to-r from-[#FDE047] via-[#FBBF24] to-[#F59E0B] hover:from-[#FEF08A] hover:to-[#FBBF24] shadow-lg shadow-amber-500/25 active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer"
-                >
-                  <span>Book 1-on-1 Consultation</span>
-                  <ArrowRight className="w-4 h-4 text-stone-950" />
-                </button>
-
-                {/* Watch Success Stories */}
-                <button
-                  type="button"
-                  onClick={handleWatchSuccessStories}
-                  className="px-5 py-3.5 rounded-full font-semibold text-xs sm:text-[13px] text-slate-200 hover:text-white bg-white/5 hover:bg-white/10 border border-white/15 active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer backdrop-blur-sm"
-                >
-                  <PlayCircle className="w-4 h-4 text-amber-400" />
-                  <span>Watch Success Stories</span>
-                </button>
-              </div>
-
-              {/* Active Selection Astrological Insight Box */}
-              <div className="mt-6 p-4 rounded-2xl bg-[#11172E]/90 border border-amber-500/30 text-xs text-slate-300 leading-relaxed shadow-lg">
-                <div className="flex items-center gap-2 text-amber-300 font-bold uppercase tracking-wider text-[11px] mb-1">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                  <span>{wheelNodes[selectedNode].title} ({wheelNodes[selectedNode].subtitle})</span>
-                </div>
-                <p className="text-slate-300 font-normal">
-                  {wheelNodes[selectedNode].description}
-                </p>
-                <div className="mt-2 text-[11px] text-amber-200/90 font-medium flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3 h-3 text-emerald-400 flex-shrink-0" />
-                  <span>{wheelNodes[selectedNode].insight}</span>
-                </div>
-              </div>
-
             </div>
 
             {/* ================= RIGHT COLUMN: INTERACTIVE KUNDLI ASTROLABE WHEEL ================= */}

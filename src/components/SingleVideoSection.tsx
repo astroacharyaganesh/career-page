@@ -6,6 +6,7 @@ import {
   Tv
 } from 'lucide-react';
 import { motion } from 'motion/react';
+import videoThumbnailImg from '../assets/images/acharya_ganesh_video_thumbnail_1787737353353.jpg';
 
 interface SingleVideoSectionProps {
   onOpenBooking: (tier?: any) => void;
@@ -80,21 +81,19 @@ export const SingleVideoSection: React.FC<SingleVideoSectionProps> = ({ onOpenBo
               />
             ) : (
               <div className="relative w-full h-full cursor-pointer" onClick={() => setIsPlaying(true)}>
-                {/* Custom Thumbnail Overlay */}
-                <motion.img
-                  initial={{ scale: 1.04 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.8, ease: 'easeOut' }}
-                  src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1200"
-                  alt="Career Astrology Video Preview"
-                  className="w-full h-full object-cover filter brightness-[0.65] contrast-[1.1] group-hover:scale-105 transition-transform duration-500"
+                {/* Masterclass Image of Acharya Ganesh */}
+                <img
+                  id="acharya-ganesh-masterclass-thumbnail"
+                  src={videoThumbnailImg}
+                  alt="Acharya Ganesh Vedic Career Astrology Masterclass"
+                  className="w-full h-full object-cover filter brightness-[0.88] contrast-[1.05] group-hover:scale-105 transition-transform duration-500"
                 />
 
-                {/* Dark Vignette & Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1B0C06]/90 via-black/30 to-black/40" />
+                {/* Subtle Vignette Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1B0C06]/85 via-black/20 to-black/30 pointer-events-none" />
 
                 {/* Pulsing Compact Play Button */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 pointer-events-none">
                   <motion.div
                     whileHover={{ scale: 1.12, rotate: 2 }}
                     whileTap={{ scale: 0.95 }}
@@ -110,26 +109,26 @@ export const SingleVideoSection: React.FC<SingleVideoSectionProps> = ({ onOpenBo
                       scale: { duration: 2.2, repeat: Infinity, ease: 'easeInOut' },
                       boxShadow: { duration: 2.2, repeat: Infinity, ease: 'easeInOut' }
                     }}
-                    className="w-13 h-13 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-amber-500 via-amber-400 to-amber-200 p-0.5 shadow-xl shadow-amber-500/40"
+                    className="w-13 h-13 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-amber-500 via-amber-400 to-amber-200 p-0.5 shadow-xl shadow-amber-500/40 pointer-events-auto"
                   >
                     <div className="w-full h-full rounded-full bg-[#2A1309] flex items-center justify-center">
                       <Play className="w-5 h-5 sm:w-6 sm:h-6 text-amber-300 fill-amber-300 ml-1" />
                     </div>
                   </motion.div>
                   <span className="px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-[11px] font-semibold text-amber-200 border border-amber-500/30 shadow-sm">
-                    Click to Play (16:40)
+                    Click to Play Masterclass (16:40)
                   </span>
                 </div>
 
                 {/* Top Badge */}
-                <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                  <span className="px-2.5 py-0.5 rounded-md bg-[#3D1A0C]/90 backdrop-blur-md border border-amber-600/40 text-[10px] font-bold text-amber-300 uppercase tracking-wider">
+                <div className="absolute top-3 left-3 flex items-center gap-1.5 pointer-events-none">
+                  <span className="px-2.5 py-0.5 rounded-md bg-[#3D1A0C]/90 backdrop-blur-md border border-amber-600/40 text-[10px] font-bold text-amber-300 uppercase tracking-wider shadow-sm">
                     HD MASTERCLASS
                   </span>
                 </div>
 
                 {/* Bottom Bar Info */}
-                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] text-amber-200/90">
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] text-amber-200/90 pointer-events-none">
                   <div className="flex items-center gap-1.5 font-medium">
                     <Clock className="w-3 h-3 text-amber-400" />
                     <span>Duration: 16m 40s</span>
