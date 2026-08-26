@@ -41,7 +41,7 @@ export const VedicTestimonialsSection: React.FC = () => {
   return (
     <section
       id="verified-testimonials"
-      className="py-16 lg:py-24 bg-[#1A0C06] text-stone-200 relative overflow-hidden border-b border-amber-950/40"
+      className="py-7 sm:py-9 bg-[#1A0C06] text-stone-200 relative overflow-hidden border-b border-amber-950/40"
     >
       {/* Background starlight dots pattern */}
       <div className="absolute inset-0 opacity-[0.12] pointer-events-none" style={{
@@ -55,10 +55,10 @@ export const VedicTestimonialsSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Top Header Block */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
           
           {/* Pill Badge */}
-          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#35180D] border border-amber-600/30 text-xs font-semibold text-amber-300 mb-4 shadow-sm">
+          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#35180D] border border-amber-600/30 text-xs font-semibold text-amber-300 mb-2.5 shadow-sm">
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
             <span>Verified Client Success Stories</span>
           </div>

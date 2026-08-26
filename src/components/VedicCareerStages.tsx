@@ -80,7 +80,7 @@ export const VedicCareerStages: React.FC<VedicCareerStagesProps> = ({ onOpenBook
   return (
     <section
       id="career-stages-guidance"
-      className="py-16 sm:py-20 lg:py-24 bg-[#FBF7F2] text-stone-800 border-b border-[#E9DACB] relative overflow-hidden"
+      className="py-7 sm:py-9 bg-[#FBF7F2] text-stone-800 border-b border-[#E9DACB] relative overflow-hidden"
     >
       {/* Background Sacred Geometric Pattern */}
       <div
@@ -94,13 +94,13 @@ export const VedicCareerStages: React.FC<VedicCareerStagesProps> = ({ onOpenBook
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#EFE3D3] border border-[#DFCBB7] text-xs font-semibold text-[#6B2E13] mb-4 shadow-sm">
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
+          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#EFE3D3] border border-[#DFCBB7] text-xs font-semibold text-[#6B2E13] mb-2.5 shadow-sm">
             <Compass className="w-3.5 h-3.5 text-[#B87A38]" />
             <span className="uppercase tracking-wider">LIFETIME VEDIC CAREER ROADMAP</span>
           </div>
 
-          <h2 className="font-serif-display text-3xl sm:text-4xl lg:text-5xl font-bold text-[#23120A] tracking-tight leading-tight">
+          <h2 className="font-serif-display text-2xl sm:text-3xl lg:text-4xl font-bold text-[#23120A] tracking-tight leading-tight">
             Vedic Career Guidance for Every Stage
           </h2>
         </div>

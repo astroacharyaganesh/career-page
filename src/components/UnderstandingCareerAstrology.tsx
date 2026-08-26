@@ -1,5 +1,5 @@
 import React from 'react';
-import posterImage from '../assets/images/career_astrology_poster_1787726633623.jpg';
+import posterImage from '../assets/images/regenerated_image_1787734998981.webp';
 import {
   Sparkles,
   Compass,
@@ -26,7 +26,7 @@ export const UnderstandingCareerAstrology: React.FC<UnderstandingCareerAstrology
   };
 
   return (
-    <section id="understanding-career-astrology" className="pt-8 sm:pt-10 lg:pt-12 pb-4 sm:pb-6 lg:pb-6 bg-[#FAF7F2] text-stone-800 relative overflow-hidden border-b border-stone-200">
+    <section id="understanding-career-astrology" className="py-7 sm:py-9 bg-[#FAF7F2] text-stone-800 relative overflow-hidden border-b border-stone-200">
       
       {/* Subtle background geometry patterns */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-amber-200/20 rounded-full blur-3xl pointer-events-none" />

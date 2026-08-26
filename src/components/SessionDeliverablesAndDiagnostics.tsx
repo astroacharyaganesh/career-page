@@ -176,33 +176,33 @@ export const SessionDeliverablesAndDiagnostics: React.FC<SessionDeliverablesAndD
   return (
     <section
       id="session-deliverables"
-      className="py-16 lg:py-24 bg-[#FAF5EE] text-stone-800 relative overflow-hidden border-b border-[#E7D6C5]"
+      className="py-7 sm:py-9 bg-[#FAF5EE] text-stone-800 relative overflow-hidden border-b border-[#E7D6C5]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Top Header Block matching screenshot */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
           
           {/* Pill Badge */}
-          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#E8DAC9] border border-[#D9C4AD] text-xs font-semibold text-[#6B2E13] mb-4 shadow-sm">
+          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#E8DAC9] border border-[#D9C4AD] text-xs font-semibold text-[#6B2E13] mb-2.5 shadow-sm">
             <Sparkles className="w-3.5 h-3.5 text-[#6B2E13]" />
             <span className="uppercase tracking-wider">SESSION DELIVERABLES &amp; IN-DEPTH INSIGHTS</span>
           </div>
 
           {/* Display Heading */}
-          <h2 className="font-serif-display text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#23120A] tracking-tight leading-[1.2]">
+          <h2 className="font-serif-display text-2xl sm:text-3xl lg:text-[38px] font-bold text-[#23120A] tracking-tight leading-[1.2]">
             What You'll Receive in Your Career Astrology Session
           </h2>
 
           {/* Subtitle */}
-          <p className="mt-3.5 text-sm sm:text-base text-stone-700 font-normal leading-relaxed">
+          <p className="mt-2 text-xs sm:text-sm text-stone-700 font-normal leading-relaxed">
             A transparent, actionable consultation experience with complete clarity on your career roadmap, auspicious periods, and remedies.
           </p>
 
         </div>
 
         {/* Rolling Horizontal Carousel / Deliverables Row (Infinite right to left continuous rolling) */}
-        <div className="relative mb-16 overflow-hidden py-3 -mx-4 sm:-mx-6 lg:-mx-8">
+        <div className="relative mb-8 sm:mb-10 overflow-hidden py-2 -mx-4 sm:-mx-6 lg:-mx-8">
           {/* Gradient Edge Masks for Smooth Edge Fade */}
           <div className="absolute top-0 bottom-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[#FAF5EE] via-[#FAF5EE]/90 to-transparent z-10 pointer-events-none" />
           <div className="absolute top-0 bottom-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[#FAF5EE] via-[#FAF5EE]/90 to-transparent z-10 pointer-events-none" />

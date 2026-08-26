@@ -20,7 +20,7 @@ export const SingleVideoSection: React.FC<SingleVideoSectionProps> = ({ onOpenBo
   return (
     <section
       id="featured-video-guidance"
-      className="py-12 lg:py-16 bg-[#1B0C06] text-stone-200 relative overflow-hidden border-b border-amber-950/50"
+      className="py-7 sm:py-9 bg-[#1B0C06] text-stone-200 relative overflow-hidden border-b border-amber-950/50"
     >
       {/* Background ambient glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-amber-600/10 rounded-full blur-[150px] pointer-events-none" />
@@ -40,14 +40,14 @@ export const SingleVideoSection: React.FC<SingleVideoSectionProps> = ({ onOpenBo
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-10 lg:mb-14"
+          className="text-center max-w-3xl mx-auto mb-6 sm:mb-8"
         >
-          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#36180C] border border-amber-600/40 text-xs font-semibold text-amber-300 mb-4 shadow-sm">
+          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#36180C] border border-amber-600/40 text-xs font-semibold text-amber-300 mb-2.5 shadow-sm">
             <Tv className="w-3.5 h-3.5 text-amber-400" />
             <span className="uppercase tracking-wider">FEATURED VIDEO MASTERCLASS</span>
           </div>
 
-          <h2 className="font-serif-display text-3xl sm:text-4xl lg:text-[42px] font-bold text-amber-50 tracking-tight leading-[1.2]">
+          <h2 className="font-serif-display text-2xl sm:text-3xl lg:text-[38px] font-bold text-amber-50 tracking-tight leading-[1.2]">
             Watch Acharya Ganesh Explain Vedic Career Astrology
           </h2>
         </motion.div>

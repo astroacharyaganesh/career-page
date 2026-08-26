@@ -166,28 +166,28 @@ export const VedicCareerKnowledgeHub: React.FC<VedicCareerKnowledgeHubProps> = (
   return (
     <section
       id="knowledge-hub"
-      className="py-16 lg:py-24 bg-[#FAF6F0] text-stone-800 relative overflow-hidden border-b border-[#E7D6C5]"
+      className="py-7 sm:py-9 bg-[#FAF6F0] text-stone-800 relative overflow-hidden border-b border-[#E7D6C5]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* ================= TOP SECTION HEADER ================= */}
-        <div className="text-center max-w-4xl mx-auto mb-14 lg:mb-18">
+        <div className="text-center max-w-4xl mx-auto mb-6 sm:mb-8">
           
           {/* Pill Badge */}
-          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#E8DAC9] border border-[#D9C4AD] text-xs font-semibold text-[#6B2E13] mb-4 shadow-sm">
+          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#E8DAC9] border border-[#D9C4AD] text-xs font-semibold text-[#6B2E13] mb-2.5 shadow-sm">
             <BookOpen className="w-3.5 h-3.5 text-[#6B2E13]" />
             <span className="uppercase tracking-wider">VEDIC CAREER ASTROLOGY GUIDE & KNOWLEDGE HUB</span>
           </div>
 
           {/* Main Display Heading */}
-          <h2 className="font-serif-display text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#23120A] tracking-tight leading-[1.2]">
+          <h2 className="font-serif-display text-2xl sm:text-3xl lg:text-[38px] font-bold text-[#23120A] tracking-tight leading-[1.2]">
             How Vedic Astrology Studies Your Professional Life
           </h2>
 
         </div>
 
         {/* ================= 2-CARD TOP ROW (WHAT IS + HOW DOES IT WORK) ================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           
           {/* Card 1: What Is Career Astrology? */}
           <div className="rounded-2xl bg-white border border-[#EADBCA] p-6 sm:p-8 shadow-sm flex flex-col justify-between">

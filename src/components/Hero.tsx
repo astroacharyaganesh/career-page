@@ -74,7 +74,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
   return (
     <section
       id="hero-banner"
-      className="relative min-h-[90vh] pt-10 pb-16 lg:pt-14 lg:pb-24 overflow-hidden bg-gradient-to-b from-[#5c270b] via-[#481d07] to-[#2e1104] text-white"
+      className="relative pt-4 pb-8 lg:pt-6 lg:pb-10 overflow-hidden bg-gradient-to-b from-[#5c270b] via-[#481d07] to-[#2e1104] text-white"
     >
       {/* 1. Sacred Vedic Geometry & Diamond Kundali Watermarks */}
       {/* Left side diamond horoscope watermark */}
@@ -120,8 +120,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Top Header Row: Breadcrumbs & Theme Indicator */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 pb-6 sm:pb-8 text-xs text-amber-200/80">
+        {/* Top Header Row: Breadcrumbs */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1 pb-3 sm:pb-4 text-xs text-amber-200/80">
           <nav className="flex items-center gap-1.5 flex-wrap font-medium">
             <span className="hover:text-white cursor-pointer transition-colors">Home</span>
             <span className="text-amber-400/60">›</span>
@@ -129,70 +129,99 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
             <span className="text-amber-400/60">›</span>
             <span className="text-amber-100 font-semibold">Career Growth & Job Uncertainty (Career Astrology)</span>
           </nav>
-
-          <div className="inline-flex items-center gap-1.5 self-start sm:self-auto px-3 py-1 rounded-full bg-[#3c1706]/80 border border-amber-500/25 text-amber-200/90 shadow-sm backdrop-blur-sm text-[11px]">
-            <Palette className="w-3 h-3 text-amber-400" />
-            <span>Theme: Sacred Terracotta</span>
-          </div>
         </div>
 
-        {/* Main Grid: Left Content (7 cols) + Right Consultation Card (5 cols) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+        {/* Main Grid: Left Content (7 cols) + Right Consultation Card (5 cols) - Equal & Balanced */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
           
           {/* ================= LEFT COLUMN ================= */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
 
-            {/* Main Display Headline in Regal Serif */}
-            <h1 className="font-serif-display text-3xl sm:text-4xl lg:text-[44px] font-bold text-amber-50 leading-[1.2] tracking-tight">
-              Understand Your Career Path with Vedic Astrology
-            </h1>
+            <div className="space-y-4">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#3c1706]/90 border border-amber-500/30 text-amber-200 text-xs font-semibold tracking-wide shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                <span>AUTHENTIC VEDIC CAREER GUIDANCE</span>
+              </div>
+
+              {/* Main Display Headline in Regal Serif */}
+              <h1 className="font-serif-display text-3xl sm:text-4xl lg:text-[42px] font-bold text-amber-50 leading-[1.22] tracking-tight">
+                Understand Your Career Path with Vedic Astrology
+              </h1>
+
+              {/* Subheading */}
+              <p className="text-sm sm:text-[15px] text-amber-100/90 font-normal leading-relaxed">
+                Gain deep clarity into your professional strengths, job switch timing, business potential, and customized planetary remedies through classical D1 Kundali & D10 Dashamsha analysis.
+              </p>
+            </div>
 
             {/* 5 Planetary Characteristic Chips */}
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-1">
-              {planets.map((p, idx) => (
-                <div
-                  key={idx}
-                  className="px-2.5 py-2 rounded-lg bg-[#381607]/85 border border-amber-600/25 text-center flex flex-col items-center justify-center transition-all hover:bg-[#4a1e0a]/90 hover:border-amber-500/40"
-                >
-                  <div className="text-xs font-semibold text-amber-100 flex items-center justify-center gap-1">
-                    <span>{p.name}</span>
-                    <span className="text-amber-300 text-sm">{p.symbol}</span>
+            <div className="space-y-2">
+              <div className="text-xs font-bold text-amber-200 uppercase tracking-wider">
+                Key Planetary Career Influences:
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                {planets.map((p, idx) => (
+                  <div
+                    key={idx}
+                    className="px-2.5 py-2 rounded-xl bg-[#381607]/85 border border-amber-600/25 text-center flex flex-col items-center justify-center transition-all hover:bg-[#4a1e0a]/90 hover:border-amber-500/40"
+                  >
+                    <div className="text-xs font-semibold text-amber-100 flex items-center justify-center gap-1">
+                      <span>{p.name}</span>
+                      <span className="text-amber-300 text-sm">{p.symbol}</span>
+                    </div>
+                    <div className="text-[10px] text-amber-200/75 leading-tight mt-0.5 whitespace-nowrap">
+                      {p.role}
+                    </div>
                   </div>
-                  <div className="text-[10px] text-amber-200/75 leading-tight mt-0.5 whitespace-nowrap">
-                    {p.role}
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
             {/* 2x2 Feature Matrix Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {highlights.map((text, idx) => (
                 <div
                   key={idx}
-                  className="p-3.5 rounded-xl bg-[#311306]/75 border border-amber-600/20 hover:border-amber-500/40 transition-colors flex items-start gap-2.5 text-xs sm:text-[13px] text-amber-100/95 leading-relaxed backdrop-blur-sm"
+                  className="p-3.5 rounded-xl bg-[#311306]/80 border border-amber-600/25 hover:border-amber-500/40 transition-colors flex items-start gap-2.5 text-xs sm:text-[13px] text-amber-100/95 leading-relaxed backdrop-blur-sm"
                 >
-                  <span className="text-amber-400 font-bold text-sm mt-[-1px] select-none">☉</span>
+                  <span className="text-amber-400 font-bold text-sm mt-[-1px] select-none">✦</span>
                   <span>{text}</span>
                 </div>
               ))}
             </div>
 
+            {/* Trust Badges Bar */}
+            <div className="pt-2 border-t border-amber-600/30 flex flex-wrap items-center justify-between gap-3 text-xs text-amber-200/80">
+              <div className="flex items-center gap-1.5">
+                <span className="text-amber-400 font-bold">★ 4.9/5</span>
+                <span>Client Rating</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-amber-300 font-bold">25,000+</span>
+                <span>Charts Analyzed</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-emerald-400 font-bold">100%</span>
+                <span>Confidential</span>
+              </div>
+            </div>
+
           </div>
 
           {/* ================= RIGHT COLUMN (WHITE CONSULTATION CARD) ================= */}
-          <div className="lg:col-span-5 w-full">
-            <div className="relative w-full rounded-2xl bg-white text-slate-800 p-6 sm:p-7 shadow-2xl shadow-black/40 border border-stone-100">
+          <div className="lg:col-span-5 w-full flex flex-col">
+            <div className="relative w-full h-full rounded-2xl bg-white text-slate-800 p-6 sm:p-7 shadow-2xl shadow-black/40 border border-stone-100 flex flex-col justify-between">
               
               {/* Top Center Pill */}
-              <div className="flex justify-center mb-3">
+              <div className="flex justify-center mb-2">
                 <span className="px-3.5 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-[#6d2c0d] text-amber-100 shadow-sm">
                   1-ON-1 CONSULTATION
                 </span>
               </div>
 
               {/* Card Title & Subtitle */}
-              <div className="text-center mb-5">
+              <div className="text-center mb-4">
                 <h3 className="font-serif-display text-xl sm:text-2xl font-bold text-stone-900 tracking-tight">
                   Book Career Consultation
                 </h3>
@@ -202,7 +231,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
               </div>
 
               {/* Consultation Booking Form */}
-              <form onSubmit={handleSubmit} className="space-y-3.5">
+              <form onSubmit={handleSubmit} className="space-y-3 flex-1 flex flex-col justify-between">
                 
                 {/* Full Name */}
                 <div>
@@ -272,7 +301,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
                 </div>
 
                 {/* Expandable Birth Details Accordion */}
-                <div className="pt-1">
+                <div className="pt-0.5">
                   <button
                     type="button"
                     onClick={() => setShowBirthDetails(!showBirthDetails)}
@@ -283,12 +312,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
                     ) : (
                       <Plus className="w-3.5 h-3.5 rounded-full border border-[#6d2c0d] p-0.5" />
                     )}
-                    <span>Add Birth Details Now (Optional for Faster Reading)</span>
+                    <span>Add Birth Details (Optional for Faster Reading)</span>
                   </button>
 
                   {showBirthDetails && (
-                    <div className="mt-3 p-3.5 rounded-xl bg-stone-50 border border-stone-200 space-y-3 animate-fadeIn">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <div className="mt-2.5 p-3 rounded-xl bg-stone-50 border border-stone-200 space-y-2.5 animate-fadeIn">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         <div>
                           <label className="block text-[11px] font-medium text-stone-600 mb-0.5">
                             Date of Birth
@@ -334,7 +363,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3 px-4 rounded-xl font-bold text-sm text-amber-50 bg-[#6d2c0d] hover:bg-[#572209] active:scale-[0.99] transition-all shadow-md shadow-amber-950/20 flex items-center justify-center gap-1.5 cursor-pointer mt-2"
+                  className="w-full py-3 px-4 rounded-xl font-bold text-sm text-amber-50 bg-[#6d2c0d] hover:bg-[#572209] active:scale-[0.99] transition-all shadow-md shadow-amber-950/20 flex items-center justify-center gap-1.5 cursor-pointer mt-1"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center gap-2">
@@ -354,14 +383,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
                   )}
                 </button>
 
-                {/* Instant Assistance Divider */}
-                <div className="text-center py-1">
-                  <span className="text-[11px] text-stone-500">
-                    or need instant assistance?
-                  </span>
-                </div>
-
-                {/* WhatsApp Button */}
+                {/* Instant WhatsApp Button */}
                 <button
                   type="button"
                   onClick={handleWhatsAppDirect}
@@ -372,7 +394,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
                 </button>
 
                 {/* Confidentiality Footer */}
-                <div className="pt-2 text-center text-[10px] text-stone-500 flex items-center justify-center gap-1.5">
+                <div className="pt-1 text-center text-[10px] text-stone-500 flex items-center justify-center gap-1.5">
                   <Lock className="w-3 h-3 text-stone-400" />
                   <span>Strict Confidentiality • 100% Verified Vedic Astrologers</span>
                 </div>

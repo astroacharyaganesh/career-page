@@ -43,26 +43,26 @@ export const ConsultationProcess: React.FC<ConsultationProcessProps> = ({ onOpen
   return (
     <section
       id="consultation-process"
-      className="py-16 lg:py-24 bg-[#F5ECE1] text-stone-800 relative overflow-hidden border-b border-[#E4D4C3]"
+      className="py-7 sm:py-9 bg-[#F5ECE1] text-stone-800 relative overflow-hidden border-b border-[#E4D4C3]"
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Top Header Block matching the screenshot */}
-        <div className="text-center max-w-3xl mx-auto mb-14 lg:mb-18">
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
           
           {/* Pill Badge */}
-          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#E8DAC9] border border-[#D9C4AD] text-xs font-semibold text-[#6B2E13] mb-4 shadow-sm">
+          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#E8DAC9] border border-[#D9C4AD] text-xs font-semibold text-[#6B2E13] mb-2.5 shadow-sm">
             <Sparkles className="w-3.5 h-3.5 text-[#6B2E13]" />
             <span className="uppercase tracking-wider">SIMPLE 3-STEP PROCESS</span>
           </div>
 
           {/* Display Heading */}
-          <h2 className="font-serif-display text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#23120A] tracking-tight leading-[1.2]">
+          <h2 className="font-serif-display text-2xl sm:text-3xl lg:text-[38px] font-bold text-[#23120A] tracking-tight leading-[1.2]">
             How Your Career Astrology Consultation Works
           </h2>
 
           {/* Subtitle */}
-          <p className="mt-3.5 text-sm sm:text-base text-stone-700 font-normal leading-relaxed">
+          <p className="mt-2 text-xs sm:text-sm text-stone-700 font-normal leading-relaxed">
             A structured, seamless, and completely confidential step-by-step pathway from booking to direct astrological clarity.
           </p>
 

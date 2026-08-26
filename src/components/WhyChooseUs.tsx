@@ -35,7 +35,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = () => {
   return (
     <section
       id="why-choose-us"
-      className="py-16 lg:py-20 bg-[#F4EBE0] text-stone-800 relative overflow-hidden"
+      className="py-7 sm:py-9 bg-[#F4EBE0] text-stone-800 relative overflow-hidden border-b border-[#E7D7C7]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -45,22 +45,22 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center max-w-3xl mx-auto mb-12 lg:mb-14"
+          className="text-center max-w-3xl mx-auto mb-6 sm:mb-8"
         >
           
           {/* Pill Badge */}
-          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#E8DAC9] border border-[#D9C4AD] text-xs font-semibold text-[#6B2E13] mb-4 shadow-sm">
+          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#E8DAC9] border border-[#D9C4AD] text-xs font-semibold text-[#6B2E13] mb-2.5 shadow-sm">
             <Sparkles className="w-3.5 h-3.5 text-[#6B2E13]" />
             <span className="uppercase tracking-wider">WHY CHOOSE OUR CAREER ASTROLOGY SERVICES?</span>
           </div>
 
           {/* Main Display Heading */}
-          <h2 className="font-serif-display text-3xl sm:text-4xl lg:text-[40px] font-bold text-[#23120A] tracking-tight leading-[1.2]">
+          <h2 className="font-serif-display text-2xl sm:text-3xl lg:text-[36px] font-bold text-[#23120A] tracking-tight leading-[1.2]">
             Why Choose Our Career Astrology Services?
           </h2>
 
           {/* Subtitle */}
-          <p className="mt-3 text-sm sm:text-base text-stone-700 font-normal leading-relaxed">
+          <p className="mt-2 text-xs sm:text-sm text-stone-700 font-normal leading-relaxed">
             Personalized Vedic insights and practical roadmaps formulated from your birth chart by Acharya Ganesh.
           </p>
 

@@ -17,9 +17,9 @@ interface ExpertProfileCardProps {
 
 export const ExpertProfileCard: React.FC<ExpertProfileCardProps> = ({ onOpenBooking }) => {
   return (
-    <section id="expert-profile" className="relative -mt-6 lg:-mt-10 mb-12 z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="expert-profile" className="relative -mt-4 lg:-mt-6 mb-6 lg:mb-8 z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Outer Glow & Gradient Container */}
-      <div className="relative rounded-3xl bg-[#0c071e]/95 backdrop-blur-2xl border border-violet-500/25 p-6 sm:p-8 lg:p-10 shadow-2xl shadow-black/80 overflow-hidden">
+      <div className="relative rounded-3xl bg-[#0c071e]/95 backdrop-blur-2xl border border-violet-500/25 p-5 sm:p-6 lg:p-7 shadow-2xl shadow-black/80 overflow-hidden">
         
         {/* Ambient background glows */}
         <div className="absolute -top-24 -left-24 w-80 h-80 bg-violet-600/20 rounded-full blur-[100px] pointer-events-none" />

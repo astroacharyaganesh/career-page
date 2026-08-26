@@ -3,7 +3,7 @@ import { Sparkles, ShieldCheck, Heart } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer id="main-footer" className="border-t border-white/[0.08] bg-[#050810] py-16 text-slate-400 text-xs">
+    <footer id="main-footer" className="border-t border-white/[0.08] bg-[#050810] py-10 sm:py-12 text-slate-400 text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
