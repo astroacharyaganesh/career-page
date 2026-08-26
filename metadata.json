@@ -1,0 +1,6 @@
+{
+  "name": "AstroCareer - Premium Vedic Career Astrology",
+  "description": "High-end Career Astrology & Planetary Timing platform engineered like modern SaaS for executives, founders, and professionals.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
