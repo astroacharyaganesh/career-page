@@ -61,7 +61,7 @@ export const ExpertProfileCard: React.FC<ExpertProfileCardProps> = ({ onOpenBook
                   ( Acharya Ganesh )
                 </p>
                 <p className="text-xs text-slate-300 font-medium mt-1">
-                  Celebrity Vedic Astrologer &amp; Vastu Shastra Mentor
+                  Vedic Astrologer &amp; Vastu Shastra Mentor
                 </p>
               </div>
 
@@ -131,7 +131,7 @@ export const ExpertProfileCard: React.FC<ExpertProfileCardProps> = ({ onOpenBook
               </div>
               <div>
                 <div className="font-display text-lg sm:text-xl font-extrabold text-white">
-                  4.9/5
+                  5.0/5
                 </div>
                 <div className="text-[11px] text-slate-300 font-medium leading-tight">
                   Google Rating

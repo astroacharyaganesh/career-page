@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import expertPhoto from '../assets/images/regenerated_image_1787726256429.png';
 import posterImage from '../assets/images/career_astrology_poster_1787726633623.jpg';
-import consultationSessionImg from '../assets/images/regenerated_image_1787737199403.jpg';
+import consultationSessionImg from '../assets/images/regenerated_image_1787746512619.webp';
 import careerBannerLeftImg from '../assets/images/regenerated_image_1787737100926.webp';
+import { AcharyaGaneshLogo } from './AcharyaGaneshLogo';
 import {
   Sparkles,
   Compass,
@@ -197,7 +198,7 @@ export const SessionDeliverablesAndDiagnostics: React.FC<SessionDeliverablesAndD
 
           {/* Subtitle */}
           <p className="mt-2 text-xs sm:text-sm text-stone-700 font-normal leading-relaxed">
-            A transparent, actionable consultation experience with complete clarity on your career roadmap, auspicious periods, and remedies.
+            A transparent, actionable consultation experience with complete clarity on your career roadmap, auspicious periods and remedies.
           </p>
 
         </div>

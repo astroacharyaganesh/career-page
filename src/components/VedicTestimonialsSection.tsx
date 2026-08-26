@@ -14,7 +14,7 @@ export const VedicTestimonialsSection: React.FC = () => {
       date: 'February 2026',
       rating: 5,
       quote:
-        'Salary and designation have hardly changed since the last four years, even regardless of good reviews. I studied my D10 chart, current Dasha and upcoming periods and got some good insights from Acharya Ganesh about the time that would be more favourable for me to move to another job.',
+        'Salary and destination have hardly changed since the last four years, even regardless of good reviews. I studied my D10 chart, current Dasha and upcoming periods and got some good insights from Acharya Ganesh about the time that would be more favourable for me to move to another job.',
       outcome:
         'Changing jobs during the recommended time frame and advancing to a more fulfilling position with greater challenge and higher pay. Here is the reason I was able to wait for the right job because the career prediction had given me enough confidence to do so.'
     },
@@ -34,7 +34,7 @@ export const VedicTestimonialsSection: React.FC = () => {
       quote:
         'When I looked at my date of birth chart and calculated the astrology of my 6th, 7th, 10th and 11th houses, along with Mercury, Rahu and my chart, it was evident that my career had a significant scope for improvement and transition from the job to a business was best done at a specific time.',
       outcome:
-        'I had planned my exit, instead of exiting suddenly and I started the business at the recommended time. The consultation process assisted me in making a thoughtful decision with clarity between a job and entrepreneurship.'
+        'I had planned my exit, instead of exiting suddenly and I started the business at the recommended time. The consultation helps me to make thoughtful decision with clarity.'
     }
   ];
 
@@ -80,7 +80,7 @@ export const VedicTestimonialsSection: React.FC = () => {
                 <Star key={i} className="w-4 h-4 fill-amber-400" />
               ))}
             </div>
-            <span className="text-white font-bold">4.9 / 5 Rating</span>
+            <span className="text-white font-bold">5.0 / 5 Rating</span>
             <span className="text-amber-400/50">•</span>
             <span className="text-amber-200/80">5,000+ Verified Google Reviews</span>
           </div>

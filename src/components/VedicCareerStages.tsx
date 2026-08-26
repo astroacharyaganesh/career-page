@@ -1,7 +1,7 @@
 import React from 'react';
 import studentImg from '../assets/images/career_stage_student_1787736478837.jpg';
-import stairsImg from '../assets/images/career_stage_stairs_1787736495503.jpg';
-import executiveImg from '../assets/images/career_stage_executive_1787736510021.jpg';
+import stairsImg from '../assets/images/regenerated_image_1787744209004.webp';
+import executiveImg from '../assets/images/regenerated_image_1787744140125.webp';
 import {
   Users,
   ShieldCheck,
@@ -152,7 +152,7 @@ export const VedicCareerStages: React.FC<VedicCareerStagesProps> = ({ onOpenBook
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
           <h2 className="font-serif-display text-3xl sm:text-4xl lg:text-[44px] font-bold text-white tracking-tight leading-tight">
-            Vedic Career Guidance for <span className="text-amber-400">Every Stage</span>
+            Stages of Career Guidance
           </h2>
           <p className="text-sm sm:text-base text-stone-300/90 font-normal mt-2.5 max-w-2xl mx-auto">
             Personalized astrology solutions to help you make the right career moves at the right time.
@@ -337,14 +337,14 @@ export const VedicCareerStages: React.FC<VedicCareerStagesProps> = ({ onOpenBook
               </div>
             </div>
 
-            {/* Stat 3: 4.9/5 Google Rating */}
+            {/* Stat 3: 5.0/5 Google Rating */}
             <div className="flex items-center gap-3 justify-center pt-2 md:pt-0">
               <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shadow-sm flex-shrink-0">
                 <Star className="w-5 h-5 fill-amber-400" />
               </div>
               <div className="text-left">
                 <div className="font-serif-display text-lg sm:text-xl font-bold text-white leading-none">
-                  4.9/5
+                  5.0/5
                 </div>
                 <div className="text-[11px] text-stone-400 font-medium mt-1">
                   Google Rating

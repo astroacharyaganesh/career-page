@@ -146,7 +146,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
 
               {/* Main Display Headline in Regal Serif */}
               <h1 className="font-serif-display text-3xl sm:text-4xl lg:text-[42px] font-bold text-amber-50 leading-[1.22] tracking-tight">
-                Understand Your Career Path with Vedic Astrology
+                Unlock Your Career Destiny Through Astrology
               </h1>
             </div>
 
@@ -189,7 +189,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
             {/* Trust Badges Bar */}
             <div className="pt-2 border-t border-amber-600/30 flex flex-wrap items-center justify-between gap-3 text-xs text-amber-200/80">
               <div className="flex items-center gap-1.5">
-                <span className="text-amber-400 font-bold">★ 4.9/5</span>
+                <span className="text-amber-400 font-bold">★ 5.0/5</span>
                 <span>Client Rating</span>
               </div>
               <div className="flex items-center gap-1.5">

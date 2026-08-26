@@ -63,7 +63,7 @@ export const ConsultationProcess: React.FC<ConsultationProcessProps> = ({ onOpen
 
           {/* Subtitle */}
           <p className="mt-2 text-xs sm:text-sm text-stone-700 font-normal leading-relaxed">
-            A structured, seamless, and completely confidential step-by-step pathway from booking to direct astrological clarity.
+            A structured, seamless and completely confidential step-by-step pathway from booking to direct astrological clarity.
           </p>
 
         </div>

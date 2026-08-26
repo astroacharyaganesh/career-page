@@ -50,7 +50,7 @@ export const UnderstandingCareerAstrology: React.FC<UnderstandingCareerAstrology
 
           {/* Subtitle */}
           <p className="mt-2 text-xs sm:text-sm text-stone-600 font-normal leading-relaxed">
-            Bridging ancient Vedic wisdom with modern career dilemmas to give you actionable clarity.
+            Bridging ancient Vedic wisdom with modern career problems to give you actionable clarity.
           </p>
 
         </div>
@@ -64,10 +64,8 @@ export const UnderstandingCareerAstrology: React.FC<UnderstandingCareerAstrology
             {/* Paragraphs */}
             <div className="text-xs sm:text-sm text-stone-700 leading-relaxed">
               <p>
-                Career astrology uses your exact date, time, and place of birth to evaluate your{' '}
-                <strong className="font-bold text-stone-950">10th House (Karma Bhava)</strong>, governing
-                planets, and current{' '}
-                <strong className="font-bold text-stone-950">Mahadasha &amp; Antardasha cycles</strong>.
+                Career astrology uses your exact birth details to evaluate your birth chart, governing planets and current{' '}
+                <strong className="font-bold text-stone-950">Mahadasha &amp; Antardasha</strong>.
               </p>
             </div>
 
