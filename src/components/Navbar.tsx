@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Sparkles, Calendar, MessageCircle, Menu, X, ShieldCheck, ChevronRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { Phone, User, Menu, X, ChevronRight } from 'lucide-react';
 
 interface NavbarProps {
   onOpenBooking: () => void;
@@ -7,196 +7,251 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onOpenWhatsApp }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const navLinks = [
-    { label: 'Overview', href: '#understanding-career-astrology' },
-    { label: 'Why Vedic Astrology', href: '#why-choose-us' },
-    { label: 'Career Stages', href: '#career-stages' },
-    { label: 'Reviews', href: '#verified-testimonials' },
-    { label: 'How It Works', href: '#consultation-process' },
-    { label: 'Deliverables', href: '#deliverables-and-diagnostics' },
-    { label: 'Knowledge Hub', href: '#vedic-career-hub' },
-    { label: 'FAQs', href: '#career-astrology-faqs' },
+  const navMenuItems = [
+    { label: 'Home', href: '#hero-banner' },
+    { label: 'About', href: '#why-choose-us' },
+    { label: 'Courses', href: '#career-stages' },
+    { label: 'Products', href: '#deliverables-and-diagnostics' },
+    { label: 'Services', href: '#understanding-career-astrology' },
+    { label: 'Contact', href: '#career-astrology-faqs' },
+    { label: 'Blogs', href: '#vedic-career-hub' },
   ];
 
   return (
     <header
       id="main-header"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-[#070a14]/85 backdrop-blur-xl border-b border-white/[0.08] shadow-2xl shadow-black/50 py-3'
-          : 'bg-transparent py-5'
-      }`}
+      className="sticky top-0 left-0 right-0 z-50 bg-white border-b border-stone-200/90 shadow-sm"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Brand Logo */}
+      {/* ================= TOP BAR (Logo + Contacts + Auth Buttons) ================= */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex items-center justify-between">
+        
+        {/* Brand Logo - Acharya Ganesh Emblem with Ribbon Banner */}
         <a
           href="#"
           id="nav-brand-logo"
-          className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-lg"
+          className="flex items-center gap-2 group focus:outline-none"
         >
-          <div className="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-violet-600 to-indigo-500 p-[1.5px] shadow-lg shadow-violet-500/20 group-hover:shadow-amber-500/30 transition-all duration-300">
-            <div className="w-full h-full bg-[#0B1020] rounded-[10px] flex items-center justify-center">
-              <span className="font-cinzel font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-100 to-violet-300 text-lg">
-                ॐ
-              </span>
+          <div className="flex flex-col items-center">
+            <div className="relative flex flex-col items-center">
+              {/* Circular Emblem */}
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-[#8B3E18] p-0.5 bg-[#FFF9F3] shadow-sm flex items-center justify-center relative overflow-hidden group-hover:scale-105 transition-transform duration-300">
+                <svg viewBox="0 0 100 100" className="w-full h-full">
+                  {/* Outer decorative ring */}
+                  <circle cx="50" cy="50" r="47" fill="#FBF3EA" stroke="#A95726" strokeWidth="2.5" strokeDasharray="3,2" />
+                  <circle cx="50" cy="50" r="42" fill="#8B3E18" />
+                  <circle cx="50" cy="50" r="40" fill="#FFF8F0" />
+                  
+                  {/* Aura Rays */}
+                  {[...Array(12)].map((_, i) => (
+                    <line
+                      key={i}
+                      x1="50"
+                      y1="50"
+                      x2={50 + 38 * Math.cos((i * 30 * Math.PI) / 180)}
+                      y2={50 + 38 * Math.sin((i * 30 * Math.PI) / 180)}
+                      stroke="#E4A86C"
+                      strokeWidth="0.75"
+                      opacity="0.6"
+                    />
+                  ))}
+                  
+                  {/* Acharya Avatar Figure */}
+                  {/* Halo */}
+                  <circle cx="50" cy="40" r="16" fill="#FCEBD5" stroke="#D18545" strokeWidth="1" />
+                  {/* Body / Saffron Robes */}
+                  <path d="M26 80 C 26 58, 38 52, 50 52 C 62 52, 74 58, 74 80 Z" fill="#D26522" />
+                  <path d="M38 56 L50 78 L62 56 Z" fill="#E8823B" opacity="0.8" />
+                  {/* Head */}
+                  <circle cx="50" cy="38" r="11" fill="#F5CBA7" />
+                  {/* Beard & Hair */}
+                  <path d="M42 34 Q50 26 58 34 Q57 44 50 49 Q43 44 42 34 Z" fill="#3D1D0E" />
+                  <circle cx="50" cy="37" r="8" fill="#F5CBA7" />
+                  {/* Tilak */}
+                  <line x1="50" y1="31" x2="50" y2="35" stroke="#C42818" strokeWidth="1.2" />
+                  <circle cx="50" cy="35" r="0.7" fill="#E89B16" />
+                  {/* Meditating Hands / Namaste */}
+                  <circle cx="50" cy="62" r="4.5" fill="#ECA97A" />
+                  <circle cx="50" cy="62" r="3" fill="#D26522" />
+                </svg>
+              </div>
+
+              {/* Ribbon Banner */}
+              <div className="-mt-2 relative z-10 bg-gradient-to-r from-[#8B3E18] via-[#B85D19] to-[#8B3E18] text-white px-2 sm:px-2.5 py-0.5 rounded-full shadow-sm border border-[#E9C39B]/60">
+                <span className="font-serif-display font-bold text-[9px] sm:text-[10px] tracking-tight block leading-tight whitespace-nowrap">
+                  Acharya Ganesh
+                </span>
+              </div>
             </div>
-            <div className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#070a14] animate-pulse" />
-          </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-display font-bold text-lg tracking-tight text-white group-hover:text-amber-200 transition-colors">
-                AstroCareer<span className="text-amber-400">™</span>
-              </span>
-              <span className="hidden sm:inline-flex text-[10px] uppercase font-mono-code tracking-wider px-1.5 py-0.5 rounded bg-violet-500/20 text-violet-300 border border-violet-500/30">
-                Vedic D10
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-400 font-medium tracking-tight -mt-0.5">
-              Acharya Ganesh Advisory
-            </p>
+            
+            {/* Sanskrit Motto */}
+            <span className="text-[7.5px] sm:text-[8px] text-[#8B3E18] font-medium tracking-tighter mt-0.5">
+              ॥ ॐ गं गणपतये नमः ॥
+            </span>
           </div>
         </a>
 
-        {/* Desktop Navigation Links */}
-        <nav id="desktop-nav" aria-label="Main Navigation" className="hidden lg:flex items-center gap-1 bg-white/[0.03] border border-white/[0.07] px-3 py-1.5 rounded-full backdrop-blur-md">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/[0.06] rounded-full transition-all duration-200"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* Actions */}
-        <div className="flex items-center gap-2.5">
-          {/* Live Availability Badge */}
-          <div className="hidden xl:flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] text-emerald-300 font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-            <span>3 VIP Slots Open Today</span>
-          </div>
-
-          {/* Quick Free Calculator Pill Link */}
+        {/* Desktop Right Group: Phone Contacts + Action Pills */}
+        <div className="hidden md:flex items-center gap-4 lg:gap-6">
+          
+          {/* Phone Number 1 */}
           <a
-            href="#free-calculator"
-            id="nav-free-calculator-pill"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-amber-300 bg-amber-500/10 border border-amber-500/25 hover:bg-amber-500/20 rounded-full transition-all duration-200"
+            href="tel:+917300004325"
+            className="flex items-center gap-2 text-stone-900 hover:text-[#8B3E18] transition-colors group cursor-pointer"
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>Free Alignment Check</span>
+            <div className="w-8 h-8 rounded-full border border-stone-800 flex items-center justify-center group-hover:border-[#8B3E18] group-hover:bg-[#FFF9F3] transition-colors">
+              <Phone className="w-4 h-4 text-stone-900 group-hover:text-[#8B3E18] transition-colors" />
+            </div>
+            <span className="text-[13px] lg:text-[14px] font-semibold text-stone-900 tracking-tight">
+              +91 73000-04325
+            </span>
           </a>
 
-          {/* WhatsApp Direct */}
-          <button
-            id="nav-whatsapp-btn"
-            onClick={onOpenWhatsApp}
-            aria-label="Direct WhatsApp Consultation Inquiry"
-            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-emerald-300 bg-white/[0.04] hover:bg-emerald-500/10 border border-white/[0.08] hover:border-emerald-500/30 rounded-full transition-all duration-200"
+          {/* Phone Number 2 */}
+          <a
+            href="tel:+917300004326"
+            className="flex items-center gap-2 text-stone-900 hover:text-[#8B3E18] transition-colors group cursor-pointer"
           >
-            <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="hidden lg:inline">WhatsApp</span>
-          </button>
+            <div className="w-8 h-8 rounded-full border border-stone-800 flex items-center justify-center group-hover:border-[#8B3E18] group-hover:bg-[#FFF9F3] transition-colors">
+              <Phone className="w-4 h-4 text-stone-900 group-hover:text-[#8B3E18] transition-colors" />
+            </div>
+            <span className="text-[13px] lg:text-[14px] font-semibold text-stone-900 tracking-tight">
+              +91 73000-04326
+            </span>
+          </a>
 
-          {/* Primary CTA Book Consultation */}
+          {/* Log in Pill Button */}
           <button
-            id="nav-book-consultation-btn"
+            type="button"
             onClick={onOpenBooking}
-            className="relative group overflow-hidden px-4 py-2 rounded-full text-xs font-bold text-slate-900 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-200 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center gap-1.5"
+            className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full border border-stone-800 bg-white hover:bg-stone-900 hover:text-white text-stone-900 text-[13px] lg:text-[14px] font-medium transition-all duration-200 shadow-sm"
           >
-            <Calendar className="w-3.5 h-3.5 text-slate-950" />
-            <span>Book Consultation</span>
-            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 pointer-events-none" />
+            <User className="w-3.5 h-3.5" />
+            <span>Log in</span>
           </button>
 
-          {/* Mobile Menu Toggle */}
+          {/* Course Login Pill Button */}
           <button
-            id="mobile-menu-toggle-btn"
+            type="button"
+            onClick={onOpenBooking}
+            className="inline-flex items-center px-5 py-1.5 rounded-full border border-stone-800 bg-white hover:bg-stone-900 hover:text-white text-stone-900 text-[13px] lg:text-[14px] font-medium transition-all duration-200 shadow-sm"
+          >
+            <span>Course Login</span>
+          </button>
+        </div>
+
+        {/* Mobile Contact & Hamburger Controls */}
+        <div className="flex md:hidden items-center gap-2">
+          <a
+            href="tel:+917300004325"
+            className="p-2 rounded-full border border-stone-800 text-stone-900"
+            aria-label="Call Acharya Ganesh"
+          >
+            <Phone className="w-4 h-4" />
+          </a>
+
+          <button
+            type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle Navigation Menu"
-            className="lg:hidden p-2 rounded-xl bg-white/[0.04] border border-white/[0.08] text-slate-300 hover:text-white"
+            className="p-2 rounded-lg border border-stone-300 text-stone-900 hover:bg-stone-100"
+            aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
+
       </div>
 
-      {/* Mobile Drawer Menu */}
-      {mobileMenuOpen && (
-        <div
-          id="mobile-nav-drawer"
-          className="lg:hidden mt-3 px-4 pt-3 pb-6 bg-[#0B1020]/95 backdrop-blur-2xl border-b border-white/[0.1] shadow-2xl space-y-2 animate-in fade-in slide-in-from-top-2 duration-200"
-        >
-          <div className="flex items-center justify-between px-3 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-xl mb-3">
-            <span className="text-xs text-emerald-300 font-medium flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-              Available for Consultations Today
-            </span>
-            <span className="text-[11px] font-bold text-emerald-400">3 Slots</span>
-          </div>
+      {/* ================= DIVIDER LINE ================= */}
+      <div className="border-b border-stone-200" />
 
-          <div className="grid grid-cols-2 gap-1.5">
-            {navLinks.map((link) => (
+      {/* ================= BOTTOM ROW: CENTERED NAVIGATION LINKS ================= */}
+      <div className="hidden md:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5">
+        <nav className="flex items-center justify-center gap-8 lg:gap-12 xl:gap-16">
+          {navMenuItems.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              className="text-[14px] lg:text-[15px] font-semibold text-stone-900 hover:text-[#8B3E18] transition-colors tracking-normal"
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      {/* ================= MOBILE MENU DRAWER ================= */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-white border-b border-stone-200 px-4 py-4 space-y-4 shadow-xl">
+          
+          {/* Navigation Links */}
+          <div className="flex flex-col space-y-2 border-b border-stone-100 pb-3">
+            {navMenuItems.map((item) => (
               <a
-                key={link.href}
-                href={link.href}
+                key={item.label}
+                href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2.5 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/[0.06] rounded-xl flex items-center justify-between border border-transparent hover:border-white/[0.06]"
+                className="py-1.5 text-sm font-semibold text-stone-900 hover:text-[#8B3E18] flex items-center justify-between"
               >
-                <span>{link.label}</span>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
+                <span>{item.label}</span>
+                <ChevronRight className="w-4 h-4 text-stone-400" />
               </a>
             ))}
           </div>
 
-          <div className="pt-3 border-t border-white/[0.08] flex flex-col gap-2">
+          {/* Contacts */}
+          <div className="space-y-2 pt-1">
             <a
-              href="#free-calculator"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full py-2.5 px-4 text-xs font-semibold text-center text-amber-300 bg-amber-500/10 border border-amber-500/30 rounded-xl flex items-center justify-center gap-2"
+              href="tel:+917300004325"
+              className="flex items-center gap-2.5 text-sm font-semibold text-stone-900 py-1"
             >
-              <Sparkles className="w-4 h-4 text-amber-400" />
-              Free Instant Career Alignment Check
+              <div className="w-7 h-7 rounded-full border border-stone-800 flex items-center justify-center">
+                <Phone className="w-3.5 h-3.5" />
+              </div>
+              <span>+91 73000-04325</span>
             </a>
 
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenWhatsApp();
-                }}
-                className="py-2.5 px-3 text-xs font-medium text-center text-slate-200 bg-white/[0.05] border border-white/[0.1] rounded-xl flex items-center justify-center gap-1.5"
-              >
-                <MessageCircle className="w-4 h-4 text-emerald-400" />
-                WhatsApp Us
-              </button>
-
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenBooking();
-                }}
-                className="py-2.5 px-3 text-xs font-bold text-center text-slate-900 bg-gradient-to-r from-amber-300 to-amber-400 rounded-xl shadow-lg shadow-amber-500/20 flex items-center justify-center gap-1.5"
-              >
-                <Calendar className="w-4 h-4 text-slate-950" />
-                Book Now
-              </button>
-            </div>
+            <a
+              href="tel:+917300004326"
+              className="flex items-center gap-2.5 text-sm font-semibold text-stone-900 py-1"
+            >
+              <div className="w-7 h-7 rounded-full border border-stone-800 flex items-center justify-center">
+                <Phone className="w-3.5 h-3.5" />
+              </div>
+              <span>+91 73000-04326</span>
+            </a>
           </div>
+
+          {/* Action Buttons */}
+          <div className="grid grid-cols-2 gap-2 pt-2 border-t border-stone-100">
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenBooking();
+              }}
+              className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-full border border-stone-800 text-stone-900 text-xs font-semibold hover:bg-stone-50"
+            >
+              <User className="w-3.5 h-3.5" />
+              <span>Log in</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenBooking();
+              }}
+              className="flex items-center justify-center py-2 px-3 rounded-full border border-stone-800 text-stone-900 text-xs font-semibold hover:bg-stone-50"
+            >
+              <span>Course Login</span>
+            </button>
+          </div>
+
         </div>
       )}
     </header>
   );
 };
+

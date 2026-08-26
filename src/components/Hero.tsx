@@ -74,7 +74,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
   return (
     <section
       id="hero-banner"
-      className="relative min-h-[92vh] pt-24 pb-16 lg:pt-28 lg:pb-24 overflow-hidden bg-gradient-to-b from-[#5c270b] via-[#481d07] to-[#2e1104] text-white"
+      className="relative min-h-[90vh] pt-10 pb-16 lg:pt-14 lg:pb-24 overflow-hidden bg-gradient-to-b from-[#5c270b] via-[#481d07] to-[#2e1104] text-white"
     >
       {/* 1. Sacred Vedic Geometry & Diamond Kundali Watermarks */}
       {/* Left side diamond horoscope watermark */}
