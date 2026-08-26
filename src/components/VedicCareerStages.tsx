@@ -4,7 +4,11 @@ import {
   Briefcase,
   Trophy,
   CheckCircle2,
-  ArrowRight
+  ArrowRight,
+  Sparkles,
+  Compass,
+  ShieldCheck,
+  Award
 } from 'lucide-react';
 
 interface VedicCareerStagesProps {
@@ -14,121 +18,194 @@ interface VedicCareerStagesProps {
 export const VedicCareerStages: React.FC<VedicCareerStagesProps> = ({ onOpenBooking }) => {
   const stageCards = [
     {
+      step: 'STAGE 01',
+      stageName: 'Early Career & College',
       icon: GraduationCap,
-      badge: 'STUDENTS & EARLY PROFESSIONALS',
+      badge: 'STUDENTS & GRADUATES',
       title: 'Career Path & Suitable Profession Analysis',
+      subtitle: 'Identify Your Natural Karmic Blueprint & Core Strengths',
       description:
-        'Identify natural karmic talents, ideal academic streams, and whether government or private corporate matches your birth chart.',
+        'Discover ideal academic streams, natural talents, and whether government service (UPSC/PCS) or private corporate aligns with your planetary combinations.',
       points: [
-        'Identification of ideal career sector (Tech, Finance, Law, Civil Services, Creative)',
-        'Government job feasibility (UPSC / State PCS / PSU) vs Private corporate track',
-        'Guidance on higher studies abroad vs domestic MBA / MS specialization',
-        'Auspicious timing for campus placements, first job offers, and internships'
+        'Ideal vocational sectors: Tech, Finance, Civil Services, or Creative',
+        'Government job feasibility vs. High-growth private corporate track',
+        'Higher education choices: Specialized Master’s, MBA, or Overseas Studies',
+        'Auspicious timing for placements, first offers, and internships'
       ],
-      btnText: 'SCHEDULE CAREER ENTRY READING',
-      tier: 'foundation'
+      remedyFocus: 'Mercury & Saraswati alignment for mental clarity, competitive edge, and interview confidence.',
+      btnText: 'Book Early Career Reading',
+      tier: 'foundation',
+      highlight: false
     },
     {
+      step: 'STAGE 02',
+      stageName: 'Mid-Level & Acceleration',
       icon: Briefcase,
       badge: 'MID-LEVEL PROFESSIONALS',
-      title: 'Job Change, Employment & Competition Analysis',
+      title: 'Job Switch, Appraisal & Workplace Politics',
+      subtitle: 'Navigate Critical Career Crossroads & Compensation Hikes',
       description:
-        'Pinpoint precise Dasha transitions to switch companies, negotiate substantial compensation hikes, and avoid bad transitions.',
+        'Pinpoint exact Dasha transition windows to switch jobs, negotiate substantial salary hikes, overcome toxic managers, and avoid career stagnation traps.',
       points: [
-        'Precise timing (month & year) for submitting resignations and joining new firms',
-        'Analysis of job stability vs sudden layoff risks during malefic transits',
-        'Salary increment potential & stock options (11th & 2nd house activation)',
-        'Overcoming toxic workplace politics, difficult managers, and promotion stalls'
+        'Precise timing (month & year) for job change & new offer letters',
+        'Appraisal negotiation potential & equity/salary maximization',
+        'Protection against sudden layoffs during malefic planetary transits',
+        'Resolution strategies for toxic office politics and delayed promotions'
       ],
-      btnText: 'ANALYZE JOB SWITCH TIMING',
-      tier: 'executive'
+      remedyFocus: 'Saturn & Sun propitiation for professional stability, executive favor, and smooth transitions.',
+      btnText: 'Book Mid-Career Analysis',
+      tier: 'executive',
+      highlight: true
     },
     {
+      step: 'STAGE 03',
+      stageName: 'Executive & Business Growth',
       icon: Trophy,
-      badge: 'SENIOR LEADERS & ENTREPRENEURS',
-      title: 'Promotions, Salary Growth & Recognition Prospects',
+      badge: 'SENIOR LEADERS & FOUNDERS',
+      title: 'Promotions, Salary Growth & Leadership Prospects',
+      subtitle: 'Achieve C-Suite Elevation, Global Mobility & Business Success',
       description:
-        'Unlock C-suite elevation, board appointments, international relocation, or transition smoothly into high-growth entrepreneurship.',
+        'Unlock C-suite elevation, international relocation, or transition securely from corporate employment into high-potential entrepreneurship.',
       points: [
-        'Timing for Director, VP, and Partner promotions with D10 Dashamsha mapping',
-        'Feasibility of launching your own startup / venture vs staying in corporate',
-        'Foreign visa approval, green card timelines, and international deputations',
-        'Remedies for maintaining authority, reputation (Kirti), and business cash flow'
+        'Timing for VP, Director, and Partner elevation via D10 Dashamsha',
+        'Feasibility & auspicious timing to launch a startup or venture',
+        'Global mobility: International relocation, visas, and overseas opportunities',
+        'Maintaining corporate authority, market reputation (Kirti), and revenue flow'
       ],
-      btnText: 'CONSULT ON LEADERSHIP & BUSINESS',
-      tier: 'strategic'
+      remedyFocus: 'Jupiter & 10th Lord empowerment for long-term wealth, authority, and industry stature.',
+      btnText: 'Book Executive Session',
+      tier: 'strategic',
+      highlight: false
     }
   ];
 
   return (
     <section
       id="career-stages-guidance"
-      className="py-16 lg:py-24 bg-[#FBF7F2] text-stone-800 relative overflow-hidden border-b border-[#E9DACB]"
+      className="py-16 sm:py-20 lg:py-24 bg-[#FBF7F2] text-stone-800 border-b border-[#E9DACB] relative overflow-hidden"
     >
+      {/* Background Sacred Geometric Pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.035] pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle, #6B2E13 1px, transparent 1px)',
+          backgroundSize: '28px 28px'
+        }}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
-          <h2 className="font-serif-display text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#23120A] tracking-tight leading-[1.2]">
-            Vedic Career Guidance for Every Stage of Your Professional Journey
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#EFE3D3] border border-[#DFCBB7] text-xs font-semibold text-[#6B2E13] mb-4 shadow-sm">
+            <Compass className="w-3.5 h-3.5 text-[#B87A38]" />
+            <span className="uppercase tracking-wider">LIFETIME VEDIC CAREER ROADMAP</span>
+          </div>
+
+          <h2 className="font-serif-display text-3xl sm:text-4xl lg:text-5xl font-bold text-[#23120A] tracking-tight leading-tight">
+            Vedic Career Guidance for Every Stage
           </h2>
-          <p className="mt-3.5 text-sm sm:text-base text-stone-600 font-normal leading-relaxed">
-            From choosing a suitable profession to navigating job transitions, promotions, or foreign career moves, Vedic Astrology provides precision timing for every career milestone.
+
+          <p className="mt-4 text-sm sm:text-base text-stone-600 font-normal leading-relaxed">
+            Whether you are stepping into the professional world, navigating critical mid-career transitions, or expanding enterprise leadership, our astrological diagnostics provide definitive clarity.
           </p>
         </div>
 
-        {/* 3 Career Stage Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch">
+        {/* 3-Column Responsive Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
           {stageCards.map((card, idx) => {
             const Icon = card.icon;
             return (
               <div
                 key={idx}
-                className="rounded-2xl bg-white border border-[#EADBCA] p-6 sm:p-7 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+                className={`rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative bg-white border ${
+                  card.highlight
+                    ? 'border-amber-500/80 shadow-xl shadow-amber-950/10 ring-2 ring-amber-400/30 -translate-y-1'
+                    : 'border-[#EADBCA] shadow-md hover:shadow-lg hover:border-amber-400/50'
+                }`}
               >
+                {/* Popular Stage Tag if highlight */}
+                {card.highlight && (
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold text-[10px] uppercase tracking-wider shadow-md flex items-center gap-1">
+                    <Sparkles className="w-3 h-3 text-amber-200" />
+                    <span>Most Popular Consultation</span>
+                  </div>
+                )}
+
                 <div>
-                  {/* Top Row: Icon and Badge */}
-                  <div className="flex items-center justify-between gap-2 mb-5">
-                    <div className="w-11 h-11 rounded-xl bg-[#F6EFE6] border border-[#E8D6C3] flex items-center justify-center text-[#6B2E13] flex-shrink-0">
-                      <Icon className="w-5 h-5 stroke-[1.8]" />
+                  {/* Top Header Row */}
+                  <div className="flex items-center justify-between gap-3 pb-4 mb-4 border-b border-[#F0E4D6]">
+                    <div className="flex items-center gap-3">
+                      <div className="w-11 h-11 rounded-2xl bg-[#F6EFE6] border border-[#E8D6C3] flex items-center justify-center text-[#6B2E13] shadow-sm flex-shrink-0">
+                        <Icon className="w-5 h-5 stroke-[1.8]" />
+                      </div>
+                      <div>
+                        <span className="font-mono-code text-[11px] font-bold text-[#9C5A24] tracking-wider uppercase block">
+                          {card.step}
+                        </span>
+                        <span className="text-xs font-bold text-stone-800">
+                          {card.stageName}
+                        </span>
+                      </div>
                     </div>
 
-                    <span className="px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-bold tracking-wider uppercase bg-[#F6EFE6] text-[#7A3617] border border-[#E5D2BE] whitespace-nowrap">
+                    <span className="px-2.5 py-1 rounded-md text-[9px] font-bold uppercase tracking-wider bg-[#F3E5D4] text-[#6B2E13] border border-[#E6D1BB]">
                       {card.badge}
                     </span>
                   </div>
 
-                  {/* Title */}
-                  <h3 className="font-serif-display text-lg sm:text-xl font-bold text-[#23120A] leading-snug mb-3">
+                  {/* Title & Tagline */}
+                  <h3 className="font-serif-display text-lg sm:text-xl font-bold text-[#23120A] leading-snug mb-1">
                     {card.title}
                   </h3>
+                  <p className="text-xs font-semibold text-[#8A491D] mb-3">
+                    {card.subtitle}
+                  </p>
 
-                  {/* Subtitle / Intro */}
-                  <p className="text-xs sm:text-[13px] text-stone-600 leading-relaxed font-normal mb-5">
+                  <p className="text-xs text-stone-600 leading-relaxed font-normal mb-5">
                     {card.description}
                   </p>
 
-                  {/* Points with checkmarks */}
-                  <div className="space-y-3 pt-4 border-t border-stone-100">
+                  {/* What is resolved checklist */}
+                  <div className="space-y-2 mb-5">
+                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#6B2E13] flex items-center gap-1.5">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-amber-600" />
+                      <span>Key Questions Resolved:</span>
+                    </div>
                     {card.points.map((pt, pIdx) => (
-                      <div key={pIdx} className="flex items-start gap-2.5 text-xs text-stone-700 leading-relaxed">
-                        <CheckCircle2 className="w-4 h-4 text-[#B87A38] flex-shrink-0 mt-0.5" />
+                      <div key={pIdx} className="flex items-start gap-2 text-xs text-stone-700 leading-relaxed">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0 mt-1.5" />
                         <span>{pt}</span>
                       </div>
                     ))}
                   </div>
+
+                  {/* Remedial Focus */}
+                  <div className="p-3 rounded-2xl bg-[#F8F3EC] border border-[#EADBCA] text-[11px] text-stone-700 leading-relaxed mb-6">
+                    <strong className="font-bold text-[#542510]">Remedial Focus: </strong>
+                    {card.remedyFocus}
+                  </div>
                 </div>
 
-                {/* Bottom Action Button */}
-                <div className="pt-6 mt-6 border-t border-stone-100">
+                {/* Bottom CTA Button */}
+                <div className="pt-4 border-t border-[#F0E4D6]">
                   <button
                     type="button"
                     onClick={() => onOpenBooking(card.tier)}
-                    className="w-full py-3 px-4 rounded-xl font-bold text-[11px] sm:text-xs tracking-wider uppercase text-[#542510] bg-[#F5ECE1] hover:bg-[#EBDCC9] border border-[#DFCBB5] active:scale-[0.99] transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                    className={`w-full py-3 px-4 rounded-xl font-bold text-xs tracking-wider uppercase active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm ${
+                      card.highlight
+                        ? 'text-amber-950 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 hover:from-amber-300 hover:to-amber-200 border border-amber-500/40 shadow-amber-900/10'
+                        : 'text-[#3D1A0C] bg-[#F4E6D6] hover:bg-[#EAD9C6] border border-[#DFCBB5]'
+                    }`}
                   >
                     <span>{card.btnText}</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <ArrowRight className="w-4 h-4" />
                   </button>
+
+                  <div className="mt-2.5 flex items-center justify-center gap-1.5 text-[10px] text-stone-500 font-medium">
+                    <ShieldCheck className="w-3 h-3 text-emerald-600" />
+                    <span>Personalized 1-on-1 Consultation</span>
+                  </div>
                 </div>
 
               </div>
@@ -140,3 +217,5 @@ export const VedicCareerStages: React.FC<VedicCareerStagesProps> = ({ onOpenBook
     </section>
   );
 };
+
+

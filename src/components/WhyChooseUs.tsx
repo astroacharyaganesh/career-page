@@ -15,27 +15,19 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = () => {
   const pillars = [
     {
       icon: Award,
-      title: 'Get Expert Vedic Career Analysis',
-      description:
-        'In-depth evaluation of your D1 Rasi & D10 Dashamsha charts by Acharya Ganesh with 17+ years of Vedic experience.'
+      title: 'Get Expert Vedic Career Analysis'
     },
     {
       icon: Users,
-      title: 'Personalized Horoscope-Based Guidance',
-      description:
-        'Tailored recommendations formulated specifically from your exact birth time, ascendant, and planetary dasha cycles.'
+      title: 'Personalized Horoscope-Based Guidance'
     },
     {
       icon: Shield,
-      title: 'Practical Direction Instead of Generic Answers',
-      description:
-        'Actionable timing windows, clear professional direction, and realistic Vedic remedies without superstition or fear.'
+      title: 'Practical Direction Instead of Generic Answers'
     },
     {
       icon: Briefcase,
-      title: 'Experience Across Different Career Situations',
-      description:
-        'Over 50,000+ professionals guided across corporate leadership, startups, government exams, and foreign relocation.'
+      title: 'Experience Across Different Career Situations'
     }
   ];
 
@@ -74,22 +66,17 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = () => {
             return (
               <div
                 key={idx}
-                className="rounded-2xl bg-white border border-[#E9DACB] p-6 sm:p-7 shadow-sm hover:shadow-md transition-all flex flex-col justify-start"
+                className="rounded-2xl bg-white border border-[#E9DACB] p-6 sm:p-7 shadow-sm hover:shadow-md transition-all flex flex-col justify-between items-start min-h-[160px]"
               >
                 {/* Icon in Rounded Box */}
-                <div className="w-12 h-12 rounded-xl bg-[#F6EFE6] border border-[#E4D1BD] flex items-center justify-center text-[#6B2E13] mb-5">
+                <div className="w-12 h-12 rounded-xl bg-[#F6EFE6] border border-[#E4D1BD] flex items-center justify-center text-[#6B2E13] mb-4">
                   <Icon className="w-6 h-6 stroke-[1.6]" />
                 </div>
 
                 {/* Card Title */}
-                <h3 className="font-serif-display text-lg sm:text-[19px] font-bold text-[#23120A] leading-snug mb-2.5">
+                <h3 className="font-serif-display text-lg sm:text-[19px] font-bold text-[#23120A] leading-snug">
                   {pillar.title}
                 </h3>
-
-                {/* Concise Card Description */}
-                <p className="text-xs sm:text-[13px] text-stone-600 leading-relaxed font-normal">
-                  {pillar.description}
-                </p>
               </div>
             );
           })}

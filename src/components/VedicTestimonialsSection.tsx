@@ -48,33 +48,6 @@ export const VedicTestimonialsSection: React.FC = () => {
         'When I looked at my date of birth chart and calculated the astrology of my 6th, 7th, 10th and 11th houses, along with Mercury, Rahu and my chart, it was evident that my career had a significant scope for improvement and transition from the job to a business was best done at a specific time.',
       outcome:
         'I had planned my exit, instead of exiting suddenly and I started the business at the recommended time. The consultation process assisted me in making a thoughtful decision with clarity between a job and entrepreneurship.'
-    },
-    {
-      category: 'Abroad Relocation',
-      date: 'November 2025',
-      rating: 5,
-      quote:
-        'I had two L1 visa rejections and was losing hope about international transfer. Acharya Ganesh analyzed my 9th and 12th houses with Rahu transit and pointed out a 3-month auspicious window in early 2026.',
-      outcome:
-        'Applied exactly in the recommended astrological period and received US visa stamping on the first attempt without any RFE questions.'
-    },
-    {
-      category: 'Govt & Public Sector',
-      date: 'October 2025',
-      rating: 5,
-      quote:
-        'Was caught between continuing corporate tech or preparing for State PSC exams. Acharya Ganesh evaluated Sun-Mars placement in my D10 chart confirming strong administrative yogas.',
-      outcome:
-        'Cleared the examination with state rank 14 in my first dedicated attempt with prescribed Surya Arghya and ruby remedy guidance.'
-    },
-    {
-      category: 'Job Switch & Timing',
-      date: 'September 2025',
-      rating: 5,
-      quote:
-        'Was offered an early-stage startup role with stock options vs staying in a Tier-1 IT MNC. Consultation broke down planetary strengths of 2nd vs 11th houses.',
-      outcome:
-        'Accepted the leadership offer right before Jupiter transit; firm raised Series B resulting in +160% valuation growth in my equity package.'
     }
   ];
 

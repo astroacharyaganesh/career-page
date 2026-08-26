@@ -1,4 +1,5 @@
 import React from 'react';
+import expertPhoto from '../assets/images/regenerated_image_1787726256429.png';
 import {
   Tv,
   Users,
@@ -34,7 +35,7 @@ export const ExpertProfileCard: React.FC<ExpertProfileCardProps> = ({ onOpenBook
               <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-full p-1 bg-gradient-to-tr from-amber-400 via-violet-500 to-amber-200 shadow-xl shadow-violet-950/60">
                 <div className="w-full h-full rounded-full overflow-hidden bg-[#d8ab6b] border-2 border-slate-900 flex items-center justify-center">
                   <img
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600"
+                    src={expertPhoto}
                     alt="Hanish Bagga (Acharya Ganesh)"
                     className="w-full h-full object-cover object-top scale-105"
                   />

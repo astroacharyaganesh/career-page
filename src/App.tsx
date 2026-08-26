@@ -5,6 +5,7 @@ import { Hero } from './components/Hero';
 import { ExpertProfileCard } from './components/ExpertProfileCard';
 import { UnderstandingCareerAstrology } from './components/UnderstandingCareerAstrology';
 import { WhyChooseUs } from './components/WhyChooseUs';
+import { SingleVideoSection } from './components/SingleVideoSection';
 import { VedicCareerStages } from './components/VedicCareerStages';
 import { VedicTestimonialsSection } from './components/VedicTestimonialsSection';
 import { CareerJourneyTimeline } from './components/CareerJourneyTimeline';
@@ -90,6 +91,11 @@ export default function App() {
           onOpenBooking={() => handleOpenBooking('executive')}
         />
 
+        {/* Featured Single YouTube Video Masterclass Section */}
+        <SingleVideoSection
+          onOpenBooking={(tier) => handleOpenBooking(tier)}
+        />
+
         {/* Vedic Career Guidance for Every Stage of Your Professional Journey */}
         <VedicCareerStages
           onOpenBooking={(tier) => handleOpenBooking(tier)}
@@ -106,6 +112,7 @@ export default function App() {
         {/* What You'll Receive in Your Career Astrology Session & Diagnostics Wheel */}
         <SessionDeliverablesAndDiagnostics
           onOpenBooking={(tier) => handleOpenBooking(tier)}
+          onWatchIntro={handleWatchIntro}
         />
 
         {/* Vedic Career Astrology Guide & Knowledge Hub */}

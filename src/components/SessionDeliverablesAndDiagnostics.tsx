@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Sparkles,
   Compass,
@@ -11,30 +11,35 @@ import {
   RotateCw,
   Pause,
   Play,
-  Eye,
   CheckCircle2,
   ChevronRight,
-  X,
-  FileText,
-  Zap,
-  Layers,
-  Clock
+  ArrowRight,
+  Star,
+  PlayCircle,
+  Building2,
+  Landmark,
+  Coins,
+  Gem,
+  Flame,
+  ShieldCheck,
+  CircleDot
 } from 'lucide-react';
 
 interface SessionDeliverablesAndDiagnosticsProps {
   onOpenBooking: (tier?: any) => void;
+  onWatchIntro?: () => void;
 }
 
 export const SessionDeliverablesAndDiagnostics: React.FC<SessionDeliverablesAndDiagnosticsProps> = ({
-  onOpenBooking
+  onOpenBooking,
+  onWatchIntro
 }) => {
   const [isWheelSpinning, setIsWheelSpinning] = useState(true);
-  const [activeDimension, setActiveDimension] = useState(0);
-  const [showReportPreviewModal, setShowReportPreviewModal] = useState(false);
+  const [selectedNode, setSelectedNode] = useState<number>(0);
   const [isHoveredMarquee, setIsHoveredMarquee] = useState(false);
   const marqueeRef = useRef<HTMLDivElement>(null);
 
-  // 8 Session Deliverables matching screenshot
+  // 8 Session Deliverables matching top row
   const deliverables = [
     {
       badge: 'COMBATTING OFFICE...',
@@ -86,63 +91,102 @@ export const SessionDeliverablesAndDiagnostics: React.FC<SessionDeliverablesAndD
     }
   ];
 
-  // 4 Core Dimensions analyzed in the chart
-  const dimensions = [
+  // 8 Kundli Wheel Orbital Nodes exactly matching user's screenshot
+  const wheelNodes = [
     {
-      tag: 'Vocation & Power',
-      title: '10th House Karma Matrix',
-      subtitle: 'Reveals your leadership ceiling, high-growth sectors (Tech, Govt, Corporate), and inherent professional authority.',
-      bulletList: [
-        'Identification of Amatyakaraka & 10th Lord placement',
-        'Sun & Mars leadership strength (Digbala alignment)',
-        'Dominant career archetypes: Executive vs Specialist'
-      ],
-      metricLabel: 'CAREER PATH ACCURACY',
-      metricValue: '98.4%'
+      id: 0,
+      title: '10th House',
+      subtitle: 'Career & Reputation',
+      position: 'top', // 12 o'clock
+      angleDeg: 0,
+      description:
+        'Governs Karma Bhava, public standing, executive leadership ceiling, and professional status in society.',
+      insight: 'Reveals dominant career field & recognition from superiors.'
     },
     {
-      tag: 'Divisional Strength',
-      title: 'D10 Dashamsha Blueprint',
-      subtitle: 'The micro-harmonic divisional chart that separates job stability from explosive promotion cycles and business success.',
-      bulletList: [
-        'Evaluation of 6th vs 7th vs 10th house strength in D10',
-        'Executive promotion timing and corporate status elevation',
-        'Distinguishing temporary stagnation from structural misalignment'
-      ],
-      metricLabel: 'D10 HARMONIC PRECISION',
-      metricValue: '99.1%'
+      id: 1,
+      title: 'Promotion',
+      subtitle: '& Growth',
+      position: 'top-right', // 1:30
+      angleDeg: 45,
+      description:
+        'Analyzed through the 10th Lord Dasha and 11th House of Gains, pinpointing exact corporate promotion windows.',
+      insight: 'Indicates corporate ladder leaps and leadership elevation.'
     },
     {
-      tag: 'Planetary Transits',
-      title: 'Vimshottari Dasha Map',
-      subtitle: '120-year planetary timeline cross-referenced with Gochar (transits) of Saturn, Jupiter, Rahu, and Ketu.',
-      bulletList: [
-        'Exact month & year for career jump or new offer letter',
-        'Safe exit timelines to avoid malefic transition traps',
-        'Auspicious dates for contracts, appraisals, and visas'
-      ],
-      metricLabel: 'TIMING WINDOW CLARITY',
-      metricValue: '97.8%'
+      id: 2,
+      title: 'Jupiter',
+      subtitle: 'Wisdom & Success',
+      position: 'right', // 3 o'clock
+      angleDeg: 90,
+      description:
+        'The supreme benefic planet bringing expansive wisdom, high-level advisory roles, and financial prosperity.',
+      insight: 'Guides ethical enterprise, teaching, advisory, and major breakthroughs.'
     },
     {
-      tag: 'Energization & Upaay',
-      title: 'Vedic Remedies & Yantras',
-      subtitle: 'Zero superstition, purely scientific resonance protocols to clear planetary afflictions and accelerate milestones.',
-      bulletList: [
-        'Certified natural untreated gemstone recommendations',
-        'Vedic sound vibration Beej mantras for mental focus',
-        'Specific behavioral and lifestyle alignment practices'
-      ],
-      metricLabel: 'REMEDIAL COMPLIANCE RATE',
-      metricValue: '96.5%'
+      id: 3,
+      title: 'Business',
+      subtitle: 'Potential',
+      position: 'bottom-right', // 4:30
+      angleDeg: 135,
+      description:
+        'Evaluated through 7th House of Partnerships, 3rd House of Enterprise, and Mercury-Sun planetary alignment.',
+      insight: 'Determines whether independent venture or partnership will succeed.'
+    },
+    {
+      id: 4,
+      title: 'Salary',
+      subtitle: '& Prosperity',
+      position: 'bottom', // 6 o'clock
+      angleDeg: 180,
+      description:
+        'Governed by the 2nd House (accumulated wealth) & 11th House (income streams), unlocking ESOPs and cash flow.',
+      insight: 'Maps highest compensation appraisal cycles & investment windfalls.'
+    },
+    {
+      id: 5,
+      title: 'Government',
+      subtitle: 'Job',
+      position: 'bottom-left', // 7:30
+      angleDeg: 225,
+      description:
+        'Assessed through Sun (Digbala strength), Mars in 10th House, and Amatyakaraka placement for PSU/UPSC success.',
+      insight: 'Evaluates public service exam clearance & administrative authority.'
+    },
+    {
+      id: 6,
+      title: 'Saturn',
+      subtitle: 'Discipline & Hard Work',
+      position: 'left', // 9 o'clock
+      angleDeg: 270,
+      description:
+        'The cosmic Karaka of Karma, rewarding perseverance, long-term mastery, corporate grit, and enduring stability.',
+      insight: 'Transforms career friction into unshakeable long-term authority.'
+    },
+    {
+      id: 7,
+      title: 'D10 Chart',
+      subtitle: 'Career Strength',
+      position: 'top-left', // 10:30
+      angleDeg: 315,
+      description:
+        'The Dashamsha divisional chart, micro-analyzing the hidden karmic engine behind your vocational destiny.',
+      insight: 'The ultimate astrological blueprint for career trajectory clarity.'
     }
   ];
 
-  const zodiacSigns = [
-    'ARIES', 'TAURUS', 'GEMINI', 'CANCER',
-    'LEO', 'VIRGO', 'LIBRA', 'SCORPIO',
-    'SAGITTARIUS', 'CAPRICORN', 'AQUARIUS', 'PISCES'
-  ];
+  const handleWatchSuccessStories = () => {
+    if (onWatchIntro) {
+      onWatchIntro();
+    } else {
+      const testimonialsElem = document.getElementById('testimonials-section') || document.getElementById('vedic-testimonials');
+      if (testimonialsElem) {
+        testimonialsElem.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        onOpenBooking('executive');
+      }
+    }
+  };
 
   return (
     <section
@@ -157,7 +201,7 @@ export const SessionDeliverablesAndDiagnostics: React.FC<SessionDeliverablesAndD
           {/* Pill Badge */}
           <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#E8DAC9] border border-[#D9C4AD] text-xs font-semibold text-[#6B2E13] mb-4 shadow-sm">
             <Sparkles className="w-3.5 h-3.5 text-[#6B2E13]" />
-            <span className="uppercase tracking-wider">SESSION DELIVERABLES & IN-DEPTH INSIGHTS</span>
+            <span className="uppercase tracking-wider">SESSION DELIVERABLES &amp; IN-DEPTH INSIGHTS</span>
           </div>
 
           {/* Display Heading */}
@@ -173,7 +217,7 @@ export const SessionDeliverablesAndDiagnostics: React.FC<SessionDeliverablesAndD
           {/* Motion Notice Tag */}
           <div className="mt-5 inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#EFE3D3] border border-[#DFCBB7] text-[11px] font-medium text-stone-700">
             <span className="w-2 h-2 rounded-full bg-amber-600 animate-pulse" />
-            <span>8 Comprehensive Session Deliverables • Continuous Rolling Motion (Hover or Tap to Pause)</span>
+            <span>8 Comprehensive Session Deliverables • Continuous Rolling Motion</span>
           </div>
 
         </div>
@@ -190,9 +234,7 @@ export const SessionDeliverablesAndDiagnostics: React.FC<SessionDeliverablesAndD
 
           <div
             ref={marqueeRef}
-            className={`flex gap-5 overflow-x-auto pb-4 no-scrollbar scroll-smooth ${
-              isHoveredMarquee ? '' : ''
-            }`}
+            className="flex gap-5 overflow-x-auto pb-4 no-scrollbar scroll-smooth"
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none'
@@ -233,189 +275,309 @@ export const SessionDeliverablesAndDiagnostics: React.FC<SessionDeliverablesAndD
           </div>
         </div>
 
-        {/* Deep Vedic Career Diagnostics & Sacred Kundli Wheel (Dark Obsidian Container) */}
-        <div className="rounded-3xl bg-[#1D0E07] border border-amber-800/40 p-6 sm:p-10 lg:p-12 text-amber-50 shadow-2xl relative overflow-hidden">
-          
-          {/* Background Astro Radial Glow and Starlight */}
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-amber-600/15 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-orange-700/15 rounded-full blur-3xl pointer-events-none" />
+        {/* =========================================================================
+            DEEP VEDIC CAREER DIAGNOSTICS & SACRED KUNDLI WHEEL SECTION
+            MATCHING USER SCREENSHOT PRECISELY
+            ========================================================================= */}
+        <div
+          id="sacred-kundli-wheel"
+          className="rounded-3xl bg-[#070B18] border border-amber-500/20 p-6 sm:p-10 lg:p-14 text-white shadow-2xl relative overflow-hidden"
+          style={{
+            background: 'radial-gradient(ellipse at 80% 50%, #151A38 0%, #080C1B 50%, #040711 100%)'
+          }}
+        >
+          {/* Starry Night Sky Dust & Nebula Glows */}
+          <div className="absolute inset-0 opacity-40 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px]" />
+          <div className="absolute top-10 right-10 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-10 right-1/4 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-1/3 left-10 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
 
-          {/* Header Row of the Diagnostics Container */}
-          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-10 relative z-10">
-            <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-950/80 border border-amber-700/50 text-xs font-semibold text-amber-300 mb-3 shadow-inner">
-                <span className="w-2 h-2 rounded-full bg-amber-400" />
-                <span>Deep Vedic Career Diagnostics & Kundli Reading</span>
+          {/* Mountain Silhouette Ridge at bottom */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none opacity-45 overflow-hidden">
+            <svg
+              viewBox="0 0 1200 200"
+              preserveAspectRatio="none"
+              className="w-full h-full fill-[#04060E]"
+            >
+              <path d="M0,200 L0,110 L150,150 L320,80 L480,140 L650,60 L820,130 L980,70 L1120,120 L1200,90 L1200,200 Z" />
+              <path
+                d="M0,200 L0,140 L180,170 L360,110 L540,165 L720,100 L900,155 L1080,115 L1200,140 L1200,200 Z"
+                opacity="0.6"
+              />
+            </svg>
+          </div>
+
+          {/* Main Grid: Left Value Proposition & Right Cosmic Kundli Astrolabe Wheel */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center relative z-10">
+            
+            {/* ================= LEFT COLUMN: HERO CONTENT ================= */}
+            <div className="lg:col-span-5 space-y-6">
+              
+              {/* Badge: FIND CLARITY. CHOOSE YOUR DESTINY. */}
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A1838]/90 border border-[#433B78] text-[11px] font-bold tracking-widest text-[#B2A8FF] uppercase shadow-lg shadow-purple-950/30">
+                <span>FIND CLARITY. CHOOSE YOUR DESTINY.</span>
               </div>
 
-              <h3 className="font-serif-display text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-snug">
-                Decode Your True Calling Through the Sacred Kundli Wheel
+              {/* Main Headline: Discover Your Ideal Career Path Before You Make Your Next Move */}
+              <h3 className="font-serif-display text-3xl sm:text-4xl lg:text-[44px] font-bold text-white tracking-tight leading-[1.15]">
+                Discover Your Ideal{' '}
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#FDE68A] via-[#F59E0B] to-[#D97706] drop-shadow-[0_2px_15px_rgba(245,158,11,0.35)]">
+                  Career Path
+                </span>
+                Before You Make Your Next Move
               </h3>
 
-              <p className="mt-3 text-xs sm:text-sm text-amber-100/75 leading-relaxed font-normal">
-                Your birth chart is an astronomical compass. Gain definitive answers on career growth, promotion timelines, job transitions, and authentic Vedic remedies.
+              {/* Description */}
+              <p className="text-sm sm:text-[15px] text-slate-300 font-normal leading-relaxed max-w-lg">
+                Personalized Career Astrology using your Birth Chart, D10, Planetary Timing &amp; Career Houses to bring clarity, direction &amp; success.
               </p>
-            </div>
 
-            {/* Wheel Control Button */}
-            <div className="flex items-center gap-3 self-start">
-              <button
-                type="button"
-                onClick={() => setIsWheelSpinning(!isWheelSpinning)}
-                className="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-[#33180D] hover:bg-[#442112] text-amber-200 border border-amber-700/40 flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
-              >
-                {isWheelSpinning ? (
-                  <>
-                    <Pause className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Pause Wheel</span>
-                  </>
-                ) : (
-                  <>
-                    <Play className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Spin Wheel</span>
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-
-          {/* Section: Dimension Navigator Tabs */}
-          <div className="mb-8 relative z-10">
-            <div className="text-[11px] font-bold uppercase tracking-wider text-amber-400/90 mb-3 flex items-center gap-1.5">
-              <Compass className="w-3.5 h-3.5" />
-              <span>EXPLORE CORE DIMENSIONS ANALYZED IN YOUR CHART:</span>
-            </div>
-
-            {/* 4 Dimension Selection Tabs */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {dimensions.map((dim, idx) => {
-                const isSelected = activeDimension === idx;
-                return (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => setActiveDimension(idx)}
-                    className={`p-3 sm:p-3.5 rounded-xl text-left transition-all border cursor-pointer ${
-                      isSelected
-                        ? 'bg-[#3D1D10] border-amber-400 text-white shadow-lg shadow-amber-950/50 scale-[1.02]'
-                        : 'bg-[#261208]/70 border-amber-900/40 text-amber-200/70 hover:bg-[#30160A] hover:text-amber-100'
-                    }`}
-                  >
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-amber-400">
-                      {dim.tag}
-                    </div>
-                    <div className="text-xs sm:text-[13px] font-semibold mt-0.5 truncate text-white">
-                      {dim.title}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Split Content: Left Detailed Dimension Card & Right Sacred Kundli Wheel Graphic */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-            
-            {/* Left Dimension Detail (7 cols) */}
-            <div className="lg:col-span-7 bg-[#2A140A]/90 rounded-2xl border border-amber-700/40 p-6 sm:p-8 flex flex-col justify-between shadow-xl">
-              <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-400 text-[#1A0C06]">
-                    {dimensions[activeDimension].tag}
-                  </span>
-                  <h4 className="font-serif-display text-lg sm:text-xl font-bold text-white">
-                    {dimensions[activeDimension].title}
-                  </h4>
+              {/* Social Proof Bar */}
+              <div className="flex flex-wrap items-center gap-3.5 pt-2">
+                {/* 3 Overlapping Avatars */}
+                <div className="flex -space-x-2.5 overflow-hidden">
+                  <img
+                    className="inline-block h-9 w-9 rounded-full ring-2 ring-amber-400/80 object-cover"
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=120"
+                    alt="Client avatar 1"
+                  />
+                  <img
+                    className="inline-block h-9 w-9 rounded-full ring-2 ring-amber-400/80 object-cover"
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120"
+                    alt="Client avatar 2"
+                  />
+                  <img
+                    className="inline-block h-9 w-9 rounded-full ring-2 ring-amber-400/80 object-cover"
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120"
+                    alt="Client avatar 3"
+                  />
                 </div>
 
-                <p className="text-xs sm:text-sm text-amber-100/80 leading-relaxed mb-6 font-normal">
-                  {dimensions[activeDimension].subtitle}
-                </p>
+                {/* Star Rating & Happy Clients */}
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-1 text-amber-400">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                    ))}
+                  </div>
+                  <span className="text-xs font-semibold text-slate-200 mt-0.5">
+                    50,000+ Happy Clients
+                  </span>
+                </div>
 
-                {/* Bullets */}
-                <div className="space-y-2.5 pt-4 border-t border-amber-900/40 mb-6">
-                  {dimensions[activeDimension].bulletList.map((pt, pIdx) => (
-                    <div key={pIdx} className="flex items-start gap-2.5 text-xs text-amber-200/90">
-                      <CheckCircle2 className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
-                      <span>{pt}</span>
-                    </div>
-                  ))}
+                <div className="h-6 w-px bg-slate-700 hidden sm:block" />
+
+                {/* Google 4.9/5 Badge */}
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/5 border border-white/10">
+                  <span className="font-bold text-xs tracking-tight">
+                    <span className="text-[#4285F4]">G</span>
+                    <span className="text-[#EA4335]">o</span>
+                    <span className="text-[#FBBC05]">o</span>
+                    <span className="text-[#4285F4]">g</span>
+                    <span className="text-[#34A853]">l</span>
+                    <span className="text-[#EA4335]">e</span>
+                  </span>
+                  <span className="text-xs font-bold text-white">4.9/5</span>
                 </div>
               </div>
 
-              {/* Bottom Stat Block & Action */}
-              <div className="pt-4 border-t border-amber-900/40 flex items-center justify-between gap-4">
-                <div>
-                  <div className="font-serif-display text-2xl sm:text-3xl font-bold text-amber-300">
-                    {dimensions[activeDimension].metricValue}
-                  </div>
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-amber-400/80">
-                    {dimensions[activeDimension].metricLabel}
-                  </div>
-                </div>
-
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-4 pt-4">
+                {/* Book 1-on-1 Consultation */}
                 <button
                   type="button"
                   onClick={() => onOpenBooking('executive')}
-                  className="px-5 py-2.5 rounded-xl font-bold text-xs bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-[#1D0E07] shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                  className="px-6 py-3.5 rounded-full font-bold text-xs sm:text-[13px] tracking-wide text-stone-950 bg-gradient-to-r from-[#FDE047] via-[#FBBF24] to-[#F59E0B] hover:from-[#FEF08A] hover:to-[#FBBF24] shadow-lg shadow-amber-500/25 active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer"
                 >
-                  <span>Book Consultation Slot</span>
-                  <ChevronRight className="w-4 h-4" />
+                  <span>Book 1-on-1 Consultation</span>
+                  <ArrowRight className="w-4 h-4 text-stone-950" />
                 </button>
+
+                {/* Watch Success Stories */}
+                <button
+                  type="button"
+                  onClick={handleWatchSuccessStories}
+                  className="px-5 py-3.5 rounded-full font-semibold text-xs sm:text-[13px] text-slate-200 hover:text-white bg-white/5 hover:bg-white/10 border border-white/15 active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer backdrop-blur-sm"
+                >
+                  <PlayCircle className="w-4 h-4 text-amber-400" />
+                  <span>Watch Success Stories</span>
+                </button>
+              </div>
+
+              {/* Active Selection Astrological Insight Box */}
+              <div className="mt-6 p-4 rounded-2xl bg-[#11172E]/90 border border-amber-500/30 text-xs text-slate-300 leading-relaxed shadow-lg">
+                <div className="flex items-center gap-2 text-amber-300 font-bold uppercase tracking-wider text-[11px] mb-1">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                  <span>{wheelNodes[selectedNode].title} ({wheelNodes[selectedNode].subtitle})</span>
+                </div>
+                <p className="text-slate-300 font-normal">
+                  {wheelNodes[selectedNode].description}
+                </p>
+                <div className="mt-2 text-[11px] text-amber-200/90 font-medium flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3 h-3 text-emerald-400 flex-shrink-0" />
+                  <span>{wheelNodes[selectedNode].insight}</span>
+                </div>
               </div>
 
             </div>
 
-            {/* Right Graphic: Sacred Kundli Rotating Astrological Wheel + Consultation Image Preview (5 cols) */}
-            <div className="lg:col-span-5 relative flex items-center justify-center min-h-[320px]">
+            {/* ================= RIGHT COLUMN: INTERACTIVE KUNDLI ASTROLABE WHEEL ================= */}
+            <div className="lg:col-span-7 relative flex items-center justify-center min-h-[480px] sm:min-h-[540px]">
               
-              {/* Rotating Astrological Zodiac Wheel SVG */}
-              <div
-                className={`absolute w-72 h-72 sm:w-80 sm:h-80 rounded-full border border-amber-500/20 flex items-center justify-center pointer-events-none transition-all ${
-                  isWheelSpinning ? 'animate-spin' : ''
-                }`}
-                style={{ animationDuration: '60s' }}
-              >
-                {/* Concentric rings */}
-                <div className="absolute inset-4 rounded-full border border-amber-400/15" />
-                <div className="absolute inset-10 rounded-full border border-dashed border-amber-400/25" />
-                <div className="absolute inset-16 rounded-full border border-amber-400/15" />
+              {/* Outer Cosmic Radial Rings & Concentric Astrolabe */}
+              <div className="relative w-[340px] h-[340px] sm:w-[440px] sm:h-[440px] flex items-center justify-center">
+                
+                {/* Outer Golden Dash Orbit Ring */}
+                <div className="absolute inset-0 rounded-full border border-amber-400/20" />
+                <div className="absolute inset-4 rounded-full border border-dashed border-amber-400/30 animate-spin-slow" />
+                <div className="absolute inset-10 rounded-full border border-amber-400/15" />
+                <div className="absolute inset-16 rounded-full border border-amber-400/25" />
 
-                {/* Zodiac signs around the perimeter */}
-                {zodiacSigns.map((sign, sIdx) => {
-                  const angle = (sIdx * 360) / 12;
-                  return (
-                    <div
-                      key={sign}
-                      className="absolute text-[8px] font-bold tracking-widest text-amber-400/40"
-                      style={{
-                        transform: `rotate(${angle}deg) translateY(-120px)`
-                      }}
-                    >
-                      {sign}
+                {/* Spinning Astrolabe Dial */}
+                <div
+                  className={`absolute inset-8 rounded-full border border-amber-500/30 flex items-center justify-center transition-all ${
+                    isWheelSpinning ? 'animate-spin' : ''
+                  }`}
+                  style={{ animationDuration: '90s' }}
+                >
+                  {/* 12 Divisional House Spokes */}
+                  {[...Array(12)].map((_, i) => {
+                    const angle = i * 30;
+                    return (
+                      <div
+                        key={i}
+                        className="absolute top-1/2 left-1/2 w-full h-px bg-gradient-to-r from-transparent via-amber-400/25 to-transparent -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                        style={{ transform: `translate(-50%, -50%) rotate(${angle}deg)` }}
+                      />
+                    );
+                  })}
+
+                  {/* 12 Zodiac Constellation Symbols along the rim */}
+                  {['♈', '♉', '♊', '♋', '♌', '♍', '♎', '♏', '♐', '♑', '♒', '♓'].map((symbol, idx) => {
+                    const angle = idx * 30;
+                    return (
+                      <div
+                        key={idx}
+                        className="absolute text-xs sm:text-sm font-serif text-amber-300/60 select-none"
+                        style={{
+                          transform: `rotate(${angle}deg) translateY(-145px)`
+                        }}
+                      >
+                        {symbol}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Radiant Solar Sun Centerburst */}
+                <div className="relative z-10 w-24 h-24 sm:w-28 sm:h-28 rounded-full flex items-center justify-center">
+                  {/* Solar Flare Corona Glow */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-amber-400 via-orange-500 to-amber-300 rounded-full blur-xl opacity-70 animate-pulse" />
+                  
+                  {/* Golden Center Sun Core */}
+                  <div className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full bg-gradient-to-br from-[#FFFBEB] via-[#FBBF24] to-[#B45309] flex items-center justify-center shadow-[0_0_30px_rgba(245,158,11,0.8)] border border-amber-200">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-amber-900/30 flex items-center justify-center text-amber-950">
+                      <Sparkles className="w-6 h-6 text-amber-950 fill-amber-300 animate-spin-slow" />
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                </div>
 
-              {/* Consultation Photo Card with Gold Border & Hover Modal Trigger */}
-              <div
-                onClick={() => setShowReportPreviewModal(true)}
-                className="relative z-10 rounded-2xl overflow-hidden border-2 border-amber-400/80 shadow-2xl bg-[#2A140A] group cursor-pointer hover:border-amber-300 transition-all transform hover:scale-[1.02]"
-              >
-                <div className="relative">
-                  <img
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop"
-                    alt="Acharya Ganesh Live Vedic Career Consultation"
-                    className="w-full h-56 sm:h-64 object-cover object-center group-hover:opacity-95 transition-opacity"
+                {/* Wheel Spin Pause Toggle in bottom right */}
+                <button
+                  type="button"
+                  onClick={() => setIsWheelSpinning(!isWheelSpinning)}
+                  className="absolute bottom-2 right-2 z-20 px-2.5 py-1 rounded-lg bg-[#141A33]/90 hover:bg-[#1C254A] border border-amber-500/30 text-[10px] font-semibold text-amber-200 flex items-center gap-1 backdrop-blur-sm transition-all shadow-md cursor-pointer"
+                >
+                  {isWheelSpinning ? (
+                    <>
+                      <Pause className="w-3 h-3 text-amber-400" />
+                      <span>Pause Rotation</span>
+                    </>
+                  ) : (
+                    <>
+                      <Play className="w-3 h-3 text-amber-400" />
+                      <span>Spin Wheel</span>
+                    </>
+                  )}
+                </button>
+
+                {/* =========================================================================
+                    8 FLOATING INTERACTIVE CAPSULE BADGES AROUND THE KUNDLI WHEEL
+                    Exact placement corresponding to user's screenshot
+                    ========================================================================= */}
+
+                {/* 1. TOP (12 o'clock) -> 10th House: Career & Reputation */}
+                <div className="absolute -top-3 sm:-top-5 left-1/2 -translate-x-1/2 z-20">
+                  <WheelCapsuleBadge
+                    node={wheelNodes[0]}
+                    isSelected={selectedNode === 0}
+                    onSelect={() => setSelectedNode(0)}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1D0E07] via-transparent to-black/20" />
                 </div>
 
-                <div className="p-3.5 bg-[#261208] text-center border-t border-amber-800/40 flex items-center justify-center gap-2 text-xs font-semibold text-amber-200 group-hover:text-white">
-                  <Eye className="w-4 h-4 text-amber-400" />
-                  <span>Click image to preview 4 chapters report</span>
+                {/* 2. TOP-RIGHT (1:30) -> Promotion & Growth */}
+                <div className="absolute top-6 sm:top-8 -right-2 sm:-right-6 z-20">
+                  <WheelCapsuleBadge
+                    node={wheelNodes[1]}
+                    isSelected={selectedNode === 1}
+                    onSelect={() => setSelectedNode(1)}
+                  />
                 </div>
+
+                {/* 3. RIGHT (3 o'clock) -> Jupiter: Wisdom & Success */}
+                <div className="absolute top-1/2 -right-4 sm:-right-10 -translate-y-1/2 z-20">
+                  <WheelCapsuleBadge
+                    node={wheelNodes[2]}
+                    isSelected={selectedNode === 2}
+                    onSelect={() => setSelectedNode(2)}
+                  />
+                </div>
+
+                {/* 4. BOTTOM-RIGHT (4:30) -> Business Potential */}
+                <div className="absolute bottom-6 sm:bottom-8 -right-2 sm:-right-4 z-20">
+                  <WheelCapsuleBadge
+                    node={wheelNodes[3]}
+                    isSelected={selectedNode === 3}
+                    onSelect={() => setSelectedNode(3)}
+                  />
+                </div>
+
+                {/* 5. BOTTOM (6 o'clock) -> Salary & Prosperity */}
+                <div className="absolute -bottom-3 sm:-bottom-5 left-1/2 -translate-x-1/2 z-20">
+                  <WheelCapsuleBadge
+                    node={wheelNodes[4]}
+                    isSelected={selectedNode === 4}
+                    onSelect={() => setSelectedNode(4)}
+                  />
+                </div>
+
+                {/* 6. BOTTOM-LEFT (7:30) -> Government Job */}
+                <div className="absolute bottom-6 sm:bottom-8 -left-2 sm:-left-4 z-20">
+                  <WheelCapsuleBadge
+                    node={wheelNodes[5]}
+                    isSelected={selectedNode === 5}
+                    onSelect={() => setSelectedNode(5)}
+                  />
+                </div>
+
+                {/* 7. LEFT (9 o'clock) -> Saturn: Discipline & Hard Work */}
+                <div className="absolute top-1/2 -left-4 sm:-left-10 -translate-y-1/2 z-20">
+                  <WheelCapsuleBadge
+                    node={wheelNodes[6]}
+                    isSelected={selectedNode === 6}
+                    onSelect={() => setSelectedNode(6)}
+                  />
+                </div>
+
+                {/* 8. TOP-LEFT (10:30) -> D10 Chart: Career Strength */}
+                <div className="absolute top-6 sm:top-8 -left-2 sm:-left-6 z-20">
+                  <WheelCapsuleBadge
+                    node={wheelNodes[7]}
+                    isSelected={selectedNode === 7}
+                    onSelect={() => setSelectedNode(7)}
+                  />
+                </div>
+
               </div>
 
             </div>
@@ -426,73 +588,45 @@ export const SessionDeliverablesAndDiagnostics: React.FC<SessionDeliverablesAndD
 
       </div>
 
-      {/* 4-Chapter Report Preview Modal */}
-      {showReportPreviewModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="relative w-full max-w-2xl rounded-2xl bg-[#1D0E07] border border-amber-600/50 p-6 sm:p-8 text-amber-50 shadow-2xl">
-            
-            {/* Close Button */}
-            <button
-              type="button"
-              onClick={() => setShowReportPreviewModal(false)}
-              className="absolute top-4 right-4 p-2 rounded-full bg-amber-950/80 border border-amber-700/50 text-amber-300 hover:text-white transition-colors cursor-pointer"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {/* Modal Content */}
-            <div className="space-y-4">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold">
-                <FileText className="w-3.5 h-3.5 text-amber-400" />
-                <span>25-PAGE CONFIDENTIAL REPORT PREVIEW</span>
-              </div>
-
-              <h3 className="font-serif-display text-2xl font-bold text-white">
-                Vedic Career Horoscope & Strategic Blueprint
-              </h3>
-
-              <p className="text-xs sm:text-sm text-amber-200/80 leading-relaxed font-normal">
-                Every consultation includes permanent access to your confidential report structured across 4 rigorous diagnostic chapters:
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
-                <div className="p-3.5 rounded-xl bg-[#2E150A] border border-amber-800/40">
-                  <div className="text-xs font-bold text-amber-400">Chapter 1: Karmic Foundation</div>
-                  <div className="text-[11px] text-amber-200/70 mt-1">D1 Ascendant, Moon sign, and 10th Lord core planetary disposition.</div>
-                </div>
-                <div className="p-3.5 rounded-xl bg-[#2E150A] border border-amber-800/40">
-                  <div className="text-xs font-bold text-amber-400">Chapter 2: D10 Dashamsha Analysis</div>
-                  <div className="text-[11px] text-amber-200/70 mt-1">Executive elevation, job vs business viability, and industry domain.</div>
-                </div>
-                <div className="p-3.5 rounded-xl bg-[#2E150A] border border-amber-800/40">
-                  <div className="text-xs font-bold text-amber-400">Chapter 3: 36-Month Opportunity Clock</div>
-                  <div className="text-[11px] text-amber-200/70 mt-1">Month-by-month Dasha and transit windows for job switch, appraisal, and visas.</div>
-                </div>
-                <div className="p-3.5 rounded-xl bg-[#2E150A] border border-amber-800/40">
-                  <div className="text-xs font-bold text-amber-400">Chapter 4: Vedic Remedial Protocol</div>
-                  <div className="text-[11px] text-amber-200/70 mt-1">Certified gemstones, energization dates, Beej mantras, and behavioral upaay.</div>
-                </div>
-              </div>
-
-              <div className="pt-4 mt-2 flex items-center justify-end gap-3">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowReportPreviewModal(false);
-                    onOpenBooking('executive');
-                  }}
-                  className="px-5 py-2.5 rounded-xl font-bold text-xs bg-amber-400 hover:bg-amber-300 text-[#1D0E07] shadow-md transition-all cursor-pointer"
-                >
-                  Book Session & Get Your Report
-                </button>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-      )}
-
     </section>
   );
 };
+
+// Reusable Capsule Badge Component for the 8 Astrological Positions
+interface WheelCapsuleBadgeProps {
+  node: {
+    id: number;
+    title: string;
+    subtitle: string;
+    description: string;
+    insight: string;
+  };
+  isSelected: boolean;
+  onSelect: () => void;
+}
+
+const WheelCapsuleBadge: React.FC<WheelCapsuleBadgeProps> = ({ node, isSelected, onSelect }) => {
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-2xl sm:rounded-full transition-all duration-300 flex flex-col items-center justify-center text-center cursor-pointer backdrop-blur-md shadow-lg ${
+        isSelected
+          ? 'bg-[#182046]/95 border-2 border-amber-300 text-white shadow-amber-500/30 scale-105 ring-2 ring-amber-400/40'
+          : 'bg-[#0E142C]/85 border border-[#2E3B68] text-slate-200 hover:bg-[#161F42] hover:border-amber-400/60 hover:scale-102'
+      }`}
+      style={{
+        minWidth: '105px',
+        maxWidth: '150px'
+      }}
+    >
+      <span className={`text-xs sm:text-[13px] font-bold leading-tight ${isSelected ? 'text-amber-300' : 'text-amber-200'}`}>
+        {node.title}
+      </span>
+      <span className="text-[10px] sm:text-[11px] text-slate-300 font-medium leading-tight">
+        {node.subtitle}
+      </span>
+    </button>
+  );
+};
+

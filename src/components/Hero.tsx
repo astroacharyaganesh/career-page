@@ -164,13 +164,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
               Understand Your Career Path with Vedic Astrology
             </h1>
 
-            {/* Subtitle / Paragraph */}
-            <p className="text-amber-100/90 text-sm sm:text-base leading-relaxed max-w-2xl font-normal">
-              Career choices shape your financial stability, growth, and satisfaction. Through in-depth
-              horoscope analysis by date of birth, Acharya Ganesh provides clear guidance to navigate
-              job changes, promotions, business decisions, and professional challenges.
-            </p>
-
             {/* 5 Planetary Characteristic Chips */}
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-1">
               {planets.map((p, idx) => (
