@@ -1,214 +1,425 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  Calendar,
-  Play,
-  Star,
-  ShieldCheck,
+  ChevronRight,
+  Shield,
   Award,
   Users,
+  MessageCircle,
+  Plus,
+  Minus,
+  CheckCircle2,
+  Lock,
+  Compass,
+  Palette,
+  ChevronDown,
+  Calendar,
   Clock,
-  Sparkles,
-  ArrowRight,
-  TrendingUp,
-  CheckCircle2
+  MapPin
 } from 'lucide-react';
 
 interface HeroProps {
-  onOpenBooking: () => void;
-  onOpenVideoIntro: () => void;
+  onOpenBooking: (tier?: any) => void;
+  onWatchIntro?: () => void;
+  onOpenVideoIntro?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onOpenVideoIntro }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenVideoIntro }) => {
+  const [fullName, setFullName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [careerFocus, setCareerFocus] = useState('Career Path & Suitable Field Analysis');
+  const [showBirthDetails, setShowBirthDetails] = useState(false);
+  const [dob, setDob] = useState('');
+  const [tob, setTob] = useState('');
+  const [pob, setPob] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!fullName || !phone) {
+      alert('Please provide your name and contact phone number to confirm your consultation.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      // Trigger booking modal or success step
+      setTimeout(() => {
+        onOpenBooking('executive');
+      }, 800);
+    }, 600);
+  };
+
+  const handleWhatsAppDirect = () => {
+    const text = encodeURIComponent(
+      `Namaste Acharya Ganesh, I want to book a Career Astrology consultation for "${careerFocus}". Name: ${fullName || 'Professional'}, Phone: ${phone || 'Direct'}.`
+    );
+    window.open(`https://wa.me/917300004325?text=${text}`, '_blank');
+  };
+
+  const planets = [
+    { name: 'Sun', symbol: '☉', role: 'Authority & Govt.' },
+    { name: 'Jupiter', symbol: '♃', role: 'Growth & Wisdom' },
+    { name: 'Saturn', symbol: '♄', role: 'Karma & Tenure' },
+    { name: 'Mercury', symbol: '☿', role: 'Business & Tech' },
+    { name: 'Rahu', symbol: '☊', role: 'Foreign Careers' },
+  ];
+
+  const highlights = [
+    'Identify suitable career fields matching your planetary strengths',
+    'Understand auspicious timing for job change, promotion & growth',
+    'Resolve business vs job dilemmas through Dashamsha (D10) chart',
+    'Practical, time-tested Vedic remedies to overcome roadblocks',
+  ];
+
   return (
     <section
-      id="hero-section"
-      className="relative min-h-[90vh] pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden flex items-center"
+      id="hero-banner"
+      className="relative min-h-[92vh] pt-24 pb-16 lg:pt-28 lg:pb-24 overflow-hidden bg-gradient-to-b from-[#5c270b] via-[#481d07] to-[#2e1104] text-white"
     >
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-violet-600/15 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute top-1/3 right-10 w-[450px] h-[450px] bg-amber-500/10 rounded-full blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-10 left-10 w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none" />
+      {/* 1. Sacred Vedic Geometry & Diamond Kundali Watermarks */}
+      {/* Left side diamond horoscope watermark */}
+      <div className="absolute top-12 -left-20 lg:left-[-60px] w-[500px] h-[500px] pointer-events-none opacity-[0.14] select-none">
+        <svg viewBox="0 0 400 400" className="w-full h-full stroke-amber-200 fill-none" strokeWidth="1.2">
+          {/* Outer Square */}
+          <rect x="20" y="20" width="360" height="360" />
+          {/* Inner Diamond (North Indian Kundali Chart) */}
+          <polygon points="200,20 380,200 200,380 20,200" />
+          {/* Cross lines */}
+          <line x1="20" y1="20" x2="380" y2="380" />
+          <line x1="380" y1="20" x2="20" y2="380" />
+          <circle cx="200" cy="200" r="140" strokeDasharray="4,4" />
+          <circle cx="200" cy="200" r="170" />
+        </svg>
+      </div>
 
-      {/* Decorative subtle cosmic circle lines */}
-      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] border border-white/[0.03] rounded-full pointer-events-none animate-pulse-subtle" />
-      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[850px] h-[850px] border border-violet-500/[0.04] rounded-full pointer-events-none" />
+      {/* Right side Astrolabe / Chakra watermark */}
+      <div className="absolute -bottom-20 -right-20 lg:right-[-40px] w-[540px] h-[540px] pointer-events-none opacity-[0.12] select-none">
+        <svg viewBox="0 0 500 500" className="w-full h-full stroke-amber-200 fill-none" strokeWidth="1">
+          <circle cx="250" cy="250" r="230" />
+          <circle cx="250" cy="250" r="200" strokeDasharray="6,4" />
+          <circle cx="250" cy="250" r="160" />
+          <circle cx="250" cy="250" r="110" />
+          <circle cx="250" cy="250" r="60" />
+          {/* 12 Radiant Rays */}
+          {[...Array(12)].map((_, i) => (
+            <line
+              key={i}
+              x1="250"
+              y1="250"
+              x2={250 + 230 * Math.cos((i * 30 * Math.PI) / 180)}
+              y2={250 + 230 * Math.sin((i * 30 * Math.PI) / 180)}
+              strokeDasharray="2,4"
+            />
+          ))}
+        </svg>
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      {/* Radiant ambient glow */}
+      <div className="absolute top-1/3 left-1/3 w-[600px] h-[450px] bg-amber-600/15 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 right-1/4 w-[450px] h-[450px] bg-orange-700/15 rounded-full blur-[150px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Top Header Row: Breadcrumbs & Theme Indicator */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 pb-6 sm:pb-8 text-xs text-amber-200/80">
+          <nav className="flex items-center gap-1.5 flex-wrap font-medium">
+            <span className="hover:text-white cursor-pointer transition-colors">Home</span>
+            <span className="text-amber-400/60">›</span>
+            <span className="hover:text-white cursor-pointer transition-colors">Services</span>
+            <span className="text-amber-400/60">›</span>
+            <span className="text-amber-100 font-semibold">Career Growth & Job Uncertainty (Career Astrology)</span>
+          </nav>
+
+          <div className="inline-flex items-center gap-1.5 self-start sm:self-auto px-3 py-1 rounded-full bg-[#3c1706]/80 border border-amber-500/25 text-amber-200/90 shadow-sm backdrop-blur-sm text-[11px]">
+            <Palette className="w-3 h-3 text-amber-400" />
+            <span>Theme: Sacred Terracotta</span>
+          </div>
+        </div>
+
+        {/* Main Grid: Left Content (7 cols) + Right Consultation Card (5 cols) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           
-          {/* Left Column: Headline, Value Proposition & CTAs */}
-          <div className="lg:col-span-7 space-y-7 text-center lg:text-left">
+          {/* ================= LEFT COLUMN ================= */}
+          <div className="lg:col-span-7 space-y-6">
             
-            {/* Top Pill Eyebrow */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-violet-500/15 via-purple-500/10 to-amber-500/15 border border-white/[0.1] backdrop-blur-md shadow-lg shadow-black/20">
-              <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
-              </span>
-              <span className="text-xs font-semibold uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-white to-violet-200">
-                Vedic Precision × Executive Trajectory
-              </span>
-              <span className="text-slate-600 text-xs">•</span>
-              <span className="text-xs text-amber-300 font-medium">D10 Dashamsha Analysis</span>
+            {/* Top Badges / Pill Tags */}
+            <div className="flex flex-wrap items-center gap-2.5">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#381607]/90 border border-amber-600/30 text-xs text-amber-100 font-medium shadow-sm backdrop-blur-sm">
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                <span>Astrology for Career Growth & Job Uncertainty</span>
+              </div>
+
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#381607]/70 border border-amber-500/20 text-xs font-semibold text-amber-300 uppercase tracking-wider">
+                <Compass className="w-3.5 h-3.5 text-amber-400" />
+                <span>10TH HOUSE KARMA BHAVA</span>
+              </div>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-[68px] font-extrabold tracking-tight text-white leading-[1.1]">
-              Decode Your <br className="hidden sm:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-200 to-amber-400">
-                Cosmic Career Code.
-              </span>
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-100 via-violet-200 to-indigo-300">
-                Master Timing. Scale Up.
-              </span>
+            {/* Main Display Headline in Regal Serif */}
+            <h1 className="font-serif-display text-3xl sm:text-4xl lg:text-[44px] font-bold text-amber-50 leading-[1.2] tracking-tight">
+              Understand Your Career Path with Vedic Astrology
             </h1>
 
-            {/* Description */}
-            <p className="text-slate-300 text-base sm:text-lg lg:text-xl font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
-              The high-precision career astrology platform engineered for executives, tech leads, and founders. 
-              Pinpoint the exact months to switch jobs for <span className="text-amber-300 font-semibold">50%+ salary appraisal</span>, break promotion stagnation, and align your karma with the D10 Dashamsha divisional matrix.
+            {/* Subtitle / Paragraph */}
+            <p className="text-amber-100/90 text-sm sm:text-base leading-relaxed max-w-2xl font-normal">
+              Career choices shape your financial stability, growth, and satisfaction. Through in-depth
+              horoscope analysis by date of birth, Acharya Ganesh provides clear guidance to navigate
+              job changes, promotions, business decisions, and professional challenges.
             </p>
 
-            {/* CTA Group */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-              <button
-                id="hero-primary-book-btn"
-                onClick={onOpenBooking}
-                className="w-full sm:w-auto relative group overflow-hidden px-8 py-4 rounded-full font-bold text-sm sm:text-base text-slate-950 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-200 shadow-xl shadow-amber-500/25 hover:shadow-amber-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer"
-              >
-                <Calendar className="w-5 h-5 text-slate-950" />
-                <span>Book 1-on-1 Consultation</span>
-                <ArrowRight className="w-4 h-4 text-slate-950 group-hover:translate-x-1 transition-transform" />
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/50 to-transparent transition-transform duration-700 pointer-events-none" />
-              </button>
-
-              <button
-                id="hero-secondary-watch-intro-btn"
-                onClick={onOpenVideoIntro}
-                className="w-full sm:w-auto px-6 py-4 rounded-full font-semibold text-sm sm:text-base text-slate-200 bg-white/[0.05] hover:bg-white/[0.09] border border-white/[0.1] hover:border-violet-400/40 shadow-lg shadow-black/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2.5 group cursor-pointer"
-              >
-                <div className="w-7 h-7 rounded-full bg-violet-500/20 border border-violet-400/40 flex items-center justify-center group-hover:bg-violet-500/30 transition-colors">
-                  <Play className="w-3.5 h-3.5 text-amber-300 fill-amber-300 ml-0.5" />
+            {/* 5 Planetary Characteristic Chips */}
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-1">
+              {planets.map((p, idx) => (
+                <div
+                  key={idx}
+                  className="px-2.5 py-2 rounded-lg bg-[#381607]/85 border border-amber-600/25 text-center flex flex-col items-center justify-center transition-all hover:bg-[#4a1e0a]/90 hover:border-amber-500/40"
+                >
+                  <div className="text-xs font-semibold text-amber-100 flex items-center justify-center gap-1">
+                    <span>{p.name}</span>
+                    <span className="text-amber-300 text-sm">{p.symbol}</span>
+                  </div>
+                  <div className="text-[10px] text-amber-200/75 leading-tight mt-0.5 whitespace-nowrap">
+                    {p.role}
+                  </div>
                 </div>
-                <span>Watch Introduction (2 Min)</span>
-              </button>
+              ))}
             </div>
 
-            {/* Micro Trust Indicators */}
-            <div className="pt-3 flex flex-wrap items-center justify-center lg:justify-start gap-y-2 gap-x-6 text-xs text-slate-400">
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>100% Private & Confidential (NDA Grade)</span>
+            {/* 2x2 Feature Matrix Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              {highlights.map((text, idx) => (
+                <div
+                  key={idx}
+                  className="p-3.5 rounded-xl bg-[#311306]/75 border border-amber-600/20 hover:border-amber-500/40 transition-colors flex items-start gap-2.5 text-xs sm:text-[13px] text-amber-100/95 leading-relaxed backdrop-blur-sm"
+                >
+                  <span className="text-amber-400 font-bold text-sm mt-[-1px] select-none">☉</span>
+                  <span>{text}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom Trust Badges */}
+            <div className="pt-3 border-t border-amber-500/20 flex flex-wrap items-center justify-start gap-y-3 gap-x-6 text-xs text-amber-200/90 font-medium">
+              <div className="flex items-center gap-2">
+                <Shield className="w-4 h-4 text-amber-400" />
+                <span>100% Private & Confidential</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>Manual Analysis by Acharya Ganesh</span>
+              <div className="flex items-center gap-2">
+                <Award className="w-4 h-4 text-amber-400" />
+                <span>17+ Yrs Vedic Experience</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>Zero Superstition / Zero Fear</span>
+              <div className="flex items-center gap-2">
+                <Users className="w-4 h-4 text-amber-400" />
+                <span>50,000+ Consultations</span>
               </div>
             </div>
 
           </div>
 
-          {/* Right Column: Acharya Profile Card with 4 Floating Highlight Badges */}
-          <div className="lg:col-span-5 relative flex items-center justify-center mt-6 lg:mt-0">
-            
-            {/* Outer glowing aura rings */}
-            <div className="absolute inset-0 bg-gradient-to-b from-amber-500/20 via-violet-600/20 to-indigo-600/10 rounded-3xl filter blur-2xl -z-10 transform scale-95" />
-
-            {/* Central Master Card */}
-            <div className="relative w-full max-w-[380px] sm:max-w-[420px] rounded-3xl bg-gradient-to-b from-slate-900/90 via-[#0B1020]/95 to-[#070A14] border border-white/[0.12] p-4 shadow-2xl shadow-black/80 backdrop-blur-2xl">
+          {/* ================= RIGHT COLUMN (WHITE CONSULTATION CARD) ================= */}
+          <div className="lg:col-span-5 w-full">
+            <div className="relative w-full rounded-2xl bg-white text-slate-800 p-6 sm:p-7 shadow-2xl shadow-black/40 border border-stone-100">
               
-              {/* Inner Acharya Frame */}
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-slate-950 border border-white/[0.08] group">
-                <img
-                  src="https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=800&auto=format&fit=crop"
-                  alt="Acharya Ganesh - Vedic Career Astrologer"
-                  className="w-full h-full object-cover object-top filter brightness-95 contrast-105 group-hover:scale-105 transition-transform duration-700"
-                />
-
-                {/* Gradient Overlays */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#070a14] via-transparent to-black/30" />
-                <div className="absolute inset-0 bg-gradient-to-tr from-violet-950/40 via-transparent to-amber-950/20 mix-blend-color" />
-
-                {/* Vedic Astrological Astrolabe Hologram Overlay */}
-                <div className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[11px] text-amber-300 font-mono-code">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                  <span>D10 Dashamsha Master</span>
-                </div>
-
-                {/* Bottom Master Bio Overlay */}
-                <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-2xl bg-black/75 backdrop-blur-xl border border-white/[0.12]">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="font-display text-base font-bold text-white flex items-center gap-1.5">
-                        Acharya Ganesh
-                        <ShieldCheck className="w-4 h-4 text-amber-400" />
-                      </h3>
-                      <p className="text-[11px] text-slate-300">
-                        Senior Vedic Career Strategist & D10 Specialist
-                      </p>
-                    </div>
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono-code font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">
-                      17+ YRS
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating Statistic Card 1: Google Rating (Top Left) */}
-              <div className="absolute -top-5 -left-4 sm:-left-8 px-4 py-2.5 rounded-2xl bg-[#0F172A]/90 backdrop-blur-xl border border-white/[0.12] shadow-xl shadow-black/60 flex items-center gap-3 animate-float-slow">
-                <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center">
-                  <Star className="w-5 h-5 text-amber-400 fill-amber-400" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-1">
-                    <span className="font-bold text-sm text-white">4.98 / 5.0</span>
-                    <span className="text-[10px] text-emerald-400 font-semibold bg-emerald-500/10 px-1 rounded">Verified</span>
-                  </div>
-                  <p className="text-[10px] text-slate-400">2,400+ Google Reviews</p>
-                </div>
-              </div>
-
-              {/* Floating Statistic Card 2: 50,000+ Clients (Top Right) */}
-              <div className="absolute -top-4 -right-4 sm:-right-8 px-4 py-2.5 rounded-2xl bg-[#0F172A]/90 backdrop-blur-xl border border-white/[0.12] shadow-xl shadow-black/60 flex items-center gap-3 animate-float-delay">
-                <div className="w-9 h-9 rounded-xl bg-violet-500/20 border border-violet-400/40 flex items-center justify-center">
-                  <Users className="w-5 h-5 text-violet-300" />
-                </div>
-                <div>
-                  <span className="font-bold text-sm text-white">50,000+</span>
-                  <p className="text-[10px] text-slate-400">Global Professionals</p>
-                </div>
-              </div>
-
-              {/* Floating Statistic Card 3: 17+ Years Master Experience (Bottom Left) */}
-              <div className="absolute -bottom-5 -left-3 sm:-left-6 px-3.5 py-2.5 rounded-2xl bg-[#0F172A]/90 backdrop-blur-xl border border-white/[0.12] shadow-xl shadow-black/60 flex items-center gap-2.5 animate-float-slow">
-                <div className="w-8 h-8 rounded-xl bg-indigo-500/20 border border-indigo-400/40 flex items-center justify-center">
-                  <Award className="w-4 h-4 text-indigo-300" />
-                </div>
-                <div>
-                  <span className="font-bold text-xs text-white">17+ Years</span>
-                  <p className="text-[10px] text-slate-400">Vedic Mastery</p>
-                </div>
-              </div>
-
-              {/* Floating Statistic Card 4: Available Today Badge (Bottom Right) */}
-              <div className="absolute -bottom-5 -right-3 sm:-right-6 px-3.5 py-2.5 rounded-2xl bg-[#0F172A]/90 backdrop-blur-xl border border-emerald-500/30 shadow-xl shadow-emerald-950/40 flex items-center gap-2.5 animate-float-delay">
-                <span className="relative flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+              {/* Top Center Pill */}
+              <div className="flex justify-center mb-3">
+                <span className="px-3.5 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-[#6d2c0d] text-amber-100 shadow-sm">
+                  1-ON-1 CONSULTATION
                 </span>
-                <div>
-                  <span className="font-bold text-xs text-emerald-300">Available Today</span>
-                  <p className="text-[10px] text-slate-400">3 VIP Slots Remaining</p>
-                </div>
               </div>
+
+              {/* Card Title & Subtitle */}
+              <div className="text-center mb-5">
+                <h3 className="font-serif-display text-xl sm:text-2xl font-bold text-stone-900 tracking-tight">
+                  Book Career Consultation
+                </h3>
+                <p className="text-xs sm:text-[13px] text-stone-600 mt-1 font-normal">
+                  Get personalized Vedic roadmap from Acharya Ganesh
+                </p>
+              </div>
+
+              {/* Consultation Booking Form */}
+              <form onSubmit={handleSubmit} className="space-y-3.5">
+                
+                {/* Full Name */}
+                <div>
+                  <label className="block text-xs font-semibold text-stone-700 mb-1">
+                    Full Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    placeholder="e.g. Rahul Sharma"
+                    className="w-full px-3.5 py-2.5 rounded-lg border border-stone-200 bg-stone-50/70 text-stone-900 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#6d2c0d]/30 focus:border-[#6d2c0d] transition-all placeholder:text-stone-400"
+                  />
+                </div>
+
+                {/* Phone & Email in 2 columns */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-semibold text-stone-700 mb-1">
+                      Phone / WhatsApp <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="+91 98765 43210"
+                      className="w-full px-3.5 py-2.5 rounded-lg border border-stone-200 bg-stone-50/70 text-stone-900 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#6d2c0d]/30 focus:border-[#6d2c0d] transition-all placeholder:text-stone-400"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-stone-700 mb-1">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="yourname@gmail.com"
+                      className="w-full px-3.5 py-2.5 rounded-lg border border-stone-200 bg-stone-50/70 text-stone-900 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#6d2c0d]/30 focus:border-[#6d2c0d] transition-all placeholder:text-stone-400"
+                    />
+                  </div>
+                </div>
+
+                {/* Primary Career Focus */}
+                <div>
+                  <label className="block text-xs font-semibold text-stone-700 mb-1">
+                    Primary Career Focus <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <select
+                      value={careerFocus}
+                      onChange={(e) => setCareerFocus(e.target.value)}
+                      className="w-full appearance-none px-3.5 py-2.5 rounded-lg border border-stone-200 bg-stone-50/70 text-stone-900 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#6d2c0d]/30 focus:border-[#6d2c0d] transition-all cursor-pointer pr-10"
+                    >
+                      <option value="Career Path & Suitable Field Analysis">Career Path & Suitable Field Analysis</option>
+                      <option value="Job Switch & Salary Appraisal Timing">Job Switch & Salary Appraisal Timing</option>
+                      <option value="Promotion Delay & Corporate Politics">Promotion Delay & Corporate Politics</option>
+                      <option value="Business vs Job (D10 Dashamsha Analysis)">Business vs Job (D10 Dashamsha Analysis)</option>
+                      <option value="Foreign Relocation & Visa Timing">Foreign Relocation & Visa Timing</option>
+                      <option value="Government Exam / UPSC Astrological Window">Government Exam / UPSC Astrological Window</option>
+                    </select>
+                    <ChevronDown className="w-4 h-4 text-stone-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  </div>
+                </div>
+
+                {/* Expandable Birth Details Accordion */}
+                <div className="pt-1">
+                  <button
+                    type="button"
+                    onClick={() => setShowBirthDetails(!showBirthDetails)}
+                    className="flex items-center gap-1.5 text-xs font-semibold text-[#6d2c0d] hover:text-[#522008] transition-colors focus:outline-none cursor-pointer"
+                  >
+                    {showBirthDetails ? (
+                      <Minus className="w-3.5 h-3.5 rounded-full border border-[#6d2c0d] p-0.5" />
+                    ) : (
+                      <Plus className="w-3.5 h-3.5 rounded-full border border-[#6d2c0d] p-0.5" />
+                    )}
+                    <span>Add Birth Details Now (Optional for Faster Reading)</span>
+                  </button>
+
+                  {showBirthDetails && (
+                    <div className="mt-3 p-3.5 rounded-xl bg-stone-50 border border-stone-200 space-y-3 animate-fadeIn">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        <div>
+                          <label className="block text-[11px] font-medium text-stone-600 mb-0.5">
+                            Date of Birth
+                          </label>
+                          <input
+                            type="date"
+                            value={dob}
+                            onChange={(e) => setDob(e.target.value)}
+                            className="w-full px-2.5 py-1.5 rounded-md border border-stone-200 bg-white text-stone-800 text-xs focus:outline-none focus:border-[#6d2c0d]"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-medium text-stone-600 mb-0.5">
+                            Time of Birth (Exact)
+                          </label>
+                          <input
+                            type="time"
+                            value={tob}
+                            onChange={(e) => setTob(e.target.value)}
+                            className="w-full px-2.5 py-1.5 rounded-md border border-stone-200 bg-white text-stone-800 text-xs focus:outline-none focus:border-[#6d2c0d]"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-medium text-stone-600 mb-0.5">
+                          Place of Birth (City, State, Country)
+                        </label>
+                        <input
+                          type="text"
+                          value={pob}
+                          onChange={(e) => setPob(e.target.value)}
+                          placeholder="e.g. New Delhi, India"
+                          className="w-full px-2.5 py-1.5 rounded-md border border-stone-200 bg-white text-stone-800 text-xs focus:outline-none focus:border-[#6d2c0d]"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Primary Submit Button */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-3 px-4 rounded-xl font-bold text-sm text-amber-50 bg-[#6d2c0d] hover:bg-[#572209] active:scale-[0.99] transition-all shadow-md shadow-amber-950/20 flex items-center justify-center gap-1.5 cursor-pointer mt-2"
+                >
+                  {isSubmitting ? (
+                    <span className="flex items-center gap-2">
+                      <span className="w-4 h-4 border-2 border-amber-200 border-t-transparent rounded-full animate-spin"></span>
+                      Reserving VIP Slot...
+                    </span>
+                  ) : isSubmitted ? (
+                    <span className="flex items-center gap-2 text-amber-200">
+                      <CheckCircle2 className="w-4 h-4" />
+                      Consultation Requested!
+                    </span>
+                  ) : (
+                    <>
+                      <span>Confirm Consultation Slot</span>
+                      <ChevronRight className="w-4 h-4 text-amber-200" />
+                    </>
+                  )}
+                </button>
+
+                {/* Instant Assistance Divider */}
+                <div className="text-center py-1">
+                  <span className="text-[11px] text-stone-500">
+                    or need instant assistance?
+                  </span>
+                </div>
+
+                {/* WhatsApp Button */}
+                <button
+                  type="button"
+                  onClick={handleWhatsAppDirect}
+                  className="w-full py-2.5 px-4 rounded-xl font-bold text-xs sm:text-sm text-white bg-[#10b981] hover:bg-[#059669] active:scale-[0.99] transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <MessageCircle className="w-4 h-4 text-white fill-white" />
+                  <span>Instant WhatsApp Booking (+91 73000-04325)</span>
+                </button>
+
+                {/* Confidentiality Footer */}
+                <div className="pt-2 text-center text-[10px] text-stone-500 flex items-center justify-center gap-1.5">
+                  <Lock className="w-3 h-3 text-stone-400" />
+                  <span>Strict Confidentiality • 100% Verified Vedic Astrologers</span>
+                </div>
+
+              </form>
 
             </div>
-
           </div>
 
         </div>

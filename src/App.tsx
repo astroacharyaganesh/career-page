@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import { ConstellationCanvas } from './components/ConstellationCanvas';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { TrustMarquee } from './components/TrustMarquee';
+import { ExpertProfileCard } from './components/ExpertProfileCard';
+import { UnderstandingCareerAstrology } from './components/UnderstandingCareerAstrology';
+import { WhyChooseUs } from './components/WhyChooseUs';
+import { VedicCareerStages } from './components/VedicCareerStages';
+import { VedicTestimonialsSection } from './components/VedicTestimonialsSection';
 import { CareerJourneyTimeline } from './components/CareerJourneyTimeline';
 import { ProblemsSection } from './components/ProblemsSection';
 import { HowItWorksProcess } from './components/HowItWorksProcess';
 import { BentoServices } from './components/BentoServices';
 import { FreeAstroCalculator } from './components/FreeAstroCalculator';
 import { ConsultationProcess } from './components/ConsultationProcess';
+import { SessionDeliverablesAndDiagnostics } from './components/SessionDeliverablesAndDiagnostics';
+import { VedicCareerKnowledgeHub } from './components/VedicCareerKnowledgeHub';
 import { NetflixVideoVault } from './components/NetflixVideoVault';
 import { TestimonialsStories } from './components/TestimonialsStories';
 import { DeliverablesGrid } from './components/DeliverablesGrid';
@@ -69,8 +75,43 @@ export default function App() {
           onWatchIntro={handleWatchIntro}
         />
 
-        {/* Social Proof & Trusted Marquee */}
-        <TrustMarquee />
+        {/* Celebrity Expert Profile Card Banner */}
+        <ExpertProfileCard
+          onOpenBooking={() => handleOpenBooking('executive')}
+        />
+
+        {/* Understanding Career Astrology by Date of Birth */}
+        <UnderstandingCareerAstrology
+          onOpenBooking={() => handleOpenBooking('executive')}
+        />
+
+        {/* Why Choose Our Career Astrology Services */}
+        <WhyChooseUs
+          onOpenBooking={() => handleOpenBooking('executive')}
+        />
+
+        {/* Vedic Career Guidance for Every Stage of Your Professional Journey */}
+        <VedicCareerStages
+          onOpenBooking={(tier) => handleOpenBooking(tier)}
+        />
+
+        {/* Verified Testimonials from Professionals Across Different Career Stages */}
+        <VedicTestimonialsSection />
+
+        {/* How Your Career Astrology Consultation Works (Simple 3-Step Process) */}
+        <ConsultationProcess
+          onOpenBooking={() => handleOpenBooking('executive')}
+        />
+
+        {/* What You'll Receive in Your Career Astrology Session & Diagnostics Wheel */}
+        <SessionDeliverablesAndDiagnostics
+          onOpenBooking={(tier) => handleOpenBooking(tier)}
+        />
+
+        {/* Vedic Career Astrology Guide & Knowledge Hub */}
+        <VedicCareerKnowledgeHub
+          onOpenBooking={(tier) => handleOpenBooking(tier)}
+        />
 
         {/* 5-Stage Career Journey Vertical Timeline */}
         <CareerJourneyTimeline

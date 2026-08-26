@@ -1,241 +1,156 @@
-import React, { useState } from 'react';
-import { CONSULTATION_PLANS } from '../data/careerAstrologyData';
-import { ConsultationTier } from '../types';
+import React from 'react';
 import {
-  Calendar,
-  FileSpreadsheet,
-  Cpu,
-  Video,
   Sparkles,
-  ArrowRight,
+  Calendar,
+  FileText,
+  Video,
   CheckCircle2,
+  Clock,
   ShieldCheck,
-  Star
+  Award
 } from 'lucide-react';
 
 interface ConsultationProcessProps {
-  onOpenBooking: (tier?: ConsultationTier) => void;
+  onOpenBooking?: (tier?: any) => void;
 }
 
 export const ConsultationProcess: React.FC<ConsultationProcessProps> = ({ onOpenBooking }) => {
-  const [selectedPlanTab, setSelectedPlanTab] = useState<ConsultationTier>('executive');
-
   const steps = [
     {
-      step: '01',
-      title: 'Book Consultation',
-      subtitle: 'Instant slot reservation',
-      description: 'Choose your consultation tier and pick an available calendar slot that suits your timezone.',
-      icon: <Calendar className="w-6 h-6 text-amber-300" />,
-      tag: 'Step 1'
+      number: '01',
+      phase: 'PHASE 1',
+      title: 'Book Your Consultation',
+      badge: 'Flexible slots available 7 days a week',
+      icon: Calendar,
+      description:
+        'Select your preferred time slot and consultation format (1-on-1 Video Call via Zoom/Meet, Audio Call, or Comprehensive Written PDF Report).',
+      bullets: [
+        'Choose 1-on-1 Video (Zoom/Meet), Phone, or Written Report',
+        'Instant calendar confirmation across all global timezones',
+        'Flexible rescheduling anytime up to 12 hours prior'
+      ]
     },
     {
-      step: '02',
-      title: 'Share Birth Details',
-      subtitle: 'Encrypted & confidential form',
-      description: 'Provide your exact birth date, time, city of birth, current career dilemma, and specific questions.',
-      icon: <FileSpreadsheet className="w-6 h-6 text-cyan-400" />,
-      tag: 'Step 2'
+      number: '02',
+      phase: 'PHASE 2',
+      title: 'Share Your Career Birth Details',
+      badge: '100% confidential & encrypted data handling',
+      icon: FileText,
+      description:
+        'Provide your accurate date, exact time, and city of birth. If birth time is slightly uncertain, our team applies Birth Time Rectification (BTR) principles.',
+      bullets: [
+        'Submit Birth Date, Time & City of Birth securely',
+        'Free Birth Time Rectification (BTR) for uncertain birth times',
+        '100% confidential, encrypted astrological privacy'
+      ]
     },
     {
-      step: '03',
-      title: 'Manual Horoscope Audit',
-      subtitle: 'D1 & D10 preparation',
-      description: 'Acharya Ganesh personally spends 45–60 mins computing your planetary coordinates and divisional charts.',
-      icon: <Cpu className="w-6 h-6 text-violet-400" />,
-      tag: 'Step 3'
-    },
-    {
-      step: '04',
-      title: 'Personalized 1-on-1 Session',
-      subtitle: 'Live call + Custom Blueprint',
-      description: 'Join the live 45-min Zoom call to receive your roadmap, remedies, HD recording, and 25-page PDF report.',
-      icon: <Video className="w-6 h-6 text-emerald-400" />,
-      tag: 'Step 4'
+      number: '03',
+      phase: 'PHASE 3',
+      title: 'Receive Personalized Career Guidance',
+      badge: 'Includes remedy chart + post-session summary',
+      icon: Video,
+      description:
+        'Direct interactive session with Acharya Hanish Bagga. Receive deep Kundli diagnostics, exact timing predictions, tailored Vedic remedies, and ask all your questions.',
+      bullets: [
+        'Live 1-on-1 direct session with Acharya Hanish Bagga',
+        'Detailed D1 & D10 chart mapping with exact month-by-month timing',
+        'Prescribed Vedic gemstone, mantra & behavioral remedies'
+      ]
     }
   ];
 
   return (
-    <section id="consultation-process" className="py-24 relative overflow-hidden bg-[#070A14]">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-violet-600/10 rounded-full blur-[160px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section
+      id="consultation-process"
+      className="py-16 lg:py-24 bg-[#F5ECE1] text-stone-800 relative overflow-hidden border-b border-[#E4D4C3]"
+    >
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/25 text-xs font-semibold text-violet-300 font-mono-code">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>THE 4-STEP PROTOCOL</span>
+        {/* Top Header Block matching the screenshot */}
+        <div className="text-center max-w-3xl mx-auto mb-14 lg:mb-18">
+          
+          {/* Pill Badge */}
+          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#E8DAC9] border border-[#D9C4AD] text-xs font-semibold text-[#6B2E13] mb-4 shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-[#6B2E13]" />
+            <span className="uppercase tracking-wider">SIMPLE 3-STEP PROCESS</span>
           </div>
 
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            Seamless 4-Step Consultation Process: <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-100 to-violet-300">
-              From Booking to Lifetime Clarity
-            </span>
+          {/* Display Heading */}
+          <h2 className="font-serif-display text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#23120A] tracking-tight leading-[1.2]">
+            How Your Career Astrology Consultation Works
           </h2>
 
-          <p className="text-slate-300 text-base sm:text-lg">
-            A frictionless, high-trust experience designed for busy professionals.
+          {/* Subtitle */}
+          <p className="mt-3.5 text-sm sm:text-base text-stone-700 font-normal leading-relaxed">
+            A structured, seamless, and completely confidential step-by-step pathway from booking to direct astrological clarity.
           </p>
+
         </div>
 
-        {/* 4-Step Connected Horizontal Timeline */}
-        <div className="relative mb-20">
-          {/* Connected horizontal glowing progress line */}
-          <div className="hidden lg:block absolute top-1/2 left-8 right-8 -translate-y-10 h-1 bg-gradient-to-r from-amber-400 via-violet-500 to-emerald-400 rounded-full shadow-[0_0_12px_rgba(139,92,246,0.6)] z-0" />
+        {/* Connected Vertical Stepper Container */}
+        <div className="relative pl-6 sm:pl-16 space-y-8 lg:space-y-10">
+          
+          {/* Vertical Connecting Line */}
+          <div className="absolute left-[23px] sm:left-[35px] top-6 bottom-6 w-[2px] bg-[#D4BA9F]" />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
-            {steps.map((s, idx) => (
-              <div
-                key={s.step}
-                id={`consult-step-${s.step}`}
-                className="p-6 rounded-3xl bg-slate-900/60 backdrop-blur-xl border border-white/[0.08] hover:border-amber-400/40 hover:bg-slate-900/90 transition-all duration-300 flex flex-col justify-between group shadow-xl"
-              >
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="w-14 h-14 rounded-2xl bg-white/[0.05] border border-white/[0.1] group-hover:border-amber-400/40 group-hover:bg-amber-500/10 flex items-center justify-center transition-all">
-                      {s.icon}
+          {steps.map((step, idx) => {
+            const Icon = step.icon;
+            return (
+              <div key={idx} className="relative flex items-start gap-4 sm:gap-6 group">
+                
+                {/* Step Number Circle */}
+                <div className="relative z-10 flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#F5ECE1] border-2 border-[#C69C72] flex items-center justify-center shadow-sm -ml-6 sm:-ml-7">
+                  <span className="font-serif-display text-sm sm:text-base font-bold text-[#6B2E13]">
+                    {step.number}
+                  </span>
+                </div>
+
+                {/* Step Content Card matching screenshot */}
+                <div className="flex-1 rounded-2xl bg-white border border-[#E8DACB] p-6 sm:p-7 shadow-sm hover:shadow-md transition-all">
+                  
+                  {/* Top Row: Icon + Phase + Title + Green Pill Badge */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-[#F6EFE6] border border-[#EADAC9] flex items-center justify-center text-[#6B2E13] flex-shrink-0">
+                        <Icon className="w-5 h-5 stroke-[1.8]" />
+                      </div>
+                      <div>
+                        <div className="text-[10px] sm:text-[11px] font-bold text-[#8A4A28] uppercase tracking-wider">
+                          {step.phase}
+                        </div>
+                        <h3 className="font-serif-display text-lg sm:text-xl font-bold text-[#23120A] tracking-tight">
+                          {step.title}
+                        </h3>
+                      </div>
                     </div>
-                    <span className="text-2xl font-mono-code font-black text-slate-500 group-hover:text-amber-300 transition-colors">
-                      {s.step}
-                    </span>
+
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F0FDF4] border border-[#BBF7D0] text-[11px] font-semibold text-[#15803D] self-start sm:self-auto shadow-2xs">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#16A34A]" />
+                      <span>{step.badge}</span>
+                    </div>
                   </div>
 
-                  <div>
-                    <span className="text-[11px] font-mono-code font-bold uppercase tracking-wider text-amber-300">
-                      {s.tag}
-                    </span>
-                    <h3 className="font-display text-lg font-bold text-white group-hover:text-amber-200 transition-colors mt-0.5">
-                      {s.title}
-                    </h3>
-                    <p className="text-xs text-violet-300 font-medium mt-0.5">
-                      {s.subtitle}
-                    </p>
-                  </div>
-
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    {s.description}
+                  {/* Description */}
+                  <p className="text-xs sm:text-[13px] text-stone-600 leading-relaxed font-normal mb-4 pt-1">
+                    {step.description}
                   </p>
+
+                  {/* Bullet points with gold circles */}
+                  <div className="pt-3 border-t border-stone-100 grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-3 text-xs text-stone-700">
+                    {step.bullets.map((bullet, bIdx) => (
+                      <div key={bIdx} className="flex items-start gap-2 leading-relaxed">
+                        <span className="text-[#C69C72] font-bold text-sm leading-none mt-0.5 select-none">☉</span>
+                        <span className="text-stone-600 text-[11px] sm:text-xs">{bullet}</span>
+                      </div>
+                    ))}
+                  </div>
+
                 </div>
 
-                <div className="mt-6 pt-3 border-t border-white/[0.06] flex items-center gap-1.5 text-[11px] font-mono-code text-slate-400">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Guaranteed within 24–48 hours</span>
-                </div>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Pricing & Consultation Packages Section */}
-        <div id="pricing-plans" className="space-y-8">
-          <div className="text-center max-w-2xl mx-auto space-y-2">
-            <h3 className="font-display text-2xl sm:text-3xl font-bold text-white">
-              Select Your Consultation Format
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-300">
-              Transparent, flat-rate pricing. No hidden fees or automated upsells.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {CONSULTATION_PLANS.map((plan) => {
-              const isPopular = plan.popular;
-
-              return (
-                <div
-                  key={plan.id}
-                  id={`pricing-card-${plan.id}`}
-                  className={`relative rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 ${
-                    isPopular
-                      ? 'bg-gradient-to-b from-slate-900/95 via-violet-950/40 to-slate-900/95 border-2 border-amber-400/80 shadow-2xl shadow-violet-950/60 scale-[1.02]'
-                      : 'bg-slate-900/50 hover:bg-slate-900/80 border border-white/[0.08] hover:border-white/[0.18]'
-                  }`}
-                >
-                  {/* Top Popular Ribbon */}
-                  {plan.badge && (
-                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-1 rounded-full text-[10px] font-mono-code font-bold uppercase tracking-wider bg-gradient-to-r from-amber-400 to-amber-300 text-slate-950 shadow-md whitespace-nowrap">
-                      {plan.badge}
-                    </div>
-                  )}
-
-                  <div className="space-y-5">
-                    <div>
-                      <h4 className="font-display text-xl font-bold text-white">
-                        {plan.name}
-                      </h4>
-                      <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                        {plan.tagline}
-                      </p>
-                    </div>
-
-                    {/* Price Block */}
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-3xl sm:text-4xl font-mono-code font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-100">
-                        {plan.price}
-                      </span>
-                      <span className="text-xs text-slate-500 line-through font-mono-code">
-                        {plan.originalPrice}
-                      </span>
-                      <span className="text-[11px] text-emerald-400 font-mono-code font-semibold ml-auto">
-                        Flat Fee
-                      </span>
-                    </div>
-
-                    <div className="p-3 rounded-xl bg-black/40 border border-white/[0.06] space-y-1 text-xs">
-                      <div className="flex items-center justify-between text-slate-300">
-                        <span className="font-mono-code text-slate-400">Duration:</span>
-                        <span className="font-semibold text-white">{plan.duration}</span>
-                      </div>
-                      <div className="flex items-center justify-between text-slate-300">
-                        <span className="font-mono-code text-slate-400">Format:</span>
-                        <span className="font-medium text-amber-200">{plan.format}</span>
-                      </div>
-                    </div>
-
-                    {/* Deliverables List */}
-                    <div className="space-y-2 pt-2">
-                      <p className="text-[11px] uppercase font-mono-code font-bold text-slate-400">
-                        Included In Consultation:
-                      </p>
-                      <ul className="space-y-2">
-                        {plan.deliverables.map((item, idx) => (
-                          <li key={idx} className="flex items-start gap-2 text-xs text-slate-300 leading-tight">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Booking CTA Button */}
-                  <div className="pt-6 mt-6 border-t border-white/[0.08]">
-                    <button
-                      id={`plan-book-btn-${plan.id}`}
-                      onClick={() => onOpenBooking(plan.id)}
-                      className={`w-full py-3.5 px-4 rounded-2xl font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer ${
-                        isPopular
-                          ? 'bg-gradient-to-r from-amber-300 via-amber-400 to-amber-200 text-slate-950 shadow-lg shadow-amber-500/25 hover:scale-[1.02]'
-                          : 'bg-white/[0.06] hover:bg-white/[0.12] text-white border border-white/[0.1]'
-                      }`}
-                    >
-                      <Calendar className="w-4 h-4" />
-                      <span>Select This Plan</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
-                    
-                    <p className="text-[10px] text-center text-slate-400 mt-2 font-mono-code">
-                      Ideal for: {plan.idealFor}
-                    </p>
-                  </div>
-
-                </div>
-              );
-            })}
-          </div>
+            );
+          })}
 
         </div>
 
