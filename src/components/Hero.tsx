@@ -148,11 +148,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
               <h1 className="font-serif-display text-3xl sm:text-4xl lg:text-[42px] font-bold text-amber-50 leading-[1.22] tracking-tight">
                 Understand Your Career Path with Vedic Astrology
               </h1>
-
-              {/* Subheading */}
-              <p className="text-sm sm:text-[15px] text-amber-100/90 font-normal leading-relaxed">
-                Gain deep clarity into your professional strengths, job switch timing, business potential, and customized planetary remedies through classical D1 Kundali & D10 Dashamsha analysis.
-              </p>
             </div>
 
             {/* 5 Planetary Characteristic Chips */}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import expertPhoto from '../assets/images/regenerated_image_1787726256429.png';
 import posterImage from '../assets/images/career_astrology_poster_1787726633623.jpg';
-import consultationSessionImg from '../assets/images/career_consultation_session_1787729405450.jpg';
+import consultationSessionImg from '../assets/images/regenerated_image_1787735245542.webp';
 import {
   Sparkles,
   Compass,
