@@ -1,4 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
+import expertPhoto from '../assets/images/regenerated_image_1787726256429.png';
+import posterImage from '../assets/images/career_astrology_poster_1787726633623.jpg';
 import {
   Sparkles,
   Compass,
@@ -6,23 +8,15 @@ import {
   Briefcase,
   ShieldAlert,
   Calendar,
-  Award,
   TrendingUp,
-  RotateCw,
+  Home,
+  Eye,
   Pause,
   Play,
   CheckCircle2,
-  ChevronRight,
   ArrowRight,
   Star,
-  PlayCircle,
-  Building2,
-  Landmark,
-  Coins,
-  Gem,
-  Flame,
-  ShieldCheck,
-  CircleDot
+  PlayCircle
 } from 'lucide-react';
 
 interface SessionDeliverablesAndDiagnosticsProps {
@@ -36,58 +30,48 @@ export const SessionDeliverablesAndDiagnostics: React.FC<SessionDeliverablesAndD
 }) => {
   const [isWheelSpinning, setIsWheelSpinning] = useState(true);
   const [selectedNode, setSelectedNode] = useState<number>(0);
-  const [isHoveredMarquee, setIsHoveredMarquee] = useState(false);
-  const marqueeRef = useRef<HTMLDivElement>(null);
 
-  // 8 Session Deliverables matching top row
+  // 8 Session Deliverables matching user's uploaded screenshots
   const deliverables = [
     {
       badge: 'COMBATTING OFFICE...',
       title: 'Career Challenges & Workplace Remedies',
-      icon: ShieldAlert,
-      desc: 'Defusing office politics, hostile management, and removing hidden career roadblocks with targeted Graha Shanti.'
+      icon: ShieldAlert
     },
     {
-      badge: '9TH & 12TH HOUSE...',
+      badge: '9TH & 12TH HOUSE ...',
       title: 'Foreign Settlement & Global Mobility',
-      icon: Globe,
-      desc: 'Accurate visa approval timing, international relocation feasibility, and overseas job settlement windows.'
+      icon: Globe
     },
     {
-      badge: '7TH, 3RD & 10TH H...',
+      badge: '7TH, 3RD & 10TH HO...',
       title: 'Business vs Job Feasibility',
-      icon: Briefcase,
-      desc: 'Clear distinction between entrepreneurial potential, startup viability, and corporate security.'
+      icon: Briefcase
     },
     {
       badge: 'LONG-TERM 5-TO-10...',
       title: 'Personalized Career Roadmap',
-      icon: Compass,
-      desc: 'A comprehensive 5-to-10 year strategic trajectory mapped with planetary Mahadasha & Antardasha milestones.'
+      icon: Compass
     },
     {
-      badge: 'TIMING TRANSITIONS',
-      title: 'Job Change & Appraisal Timing',
-      icon: Calendar,
-      desc: 'Pinpointing the exact 60-day calendar window to submit resignations and negotiate optimal salary packages.'
+      badge: 'VIMSHOTTARI DASH...',
+      title: 'Job Change Timing',
+      icon: Calendar
     },
     {
-      badge: 'D10 DASHAMSHA',
-      title: 'Leadership & Executive Authority Matrix',
-      icon: Award,
-      desc: 'Identifying C-suite promotion windows, director-level elevation, and organizational reputation (Kirti).'
+      badge: 'C-SUITE & LEADERSH...',
+      title: 'Promotion & Appraisal Prospects',
+      icon: TrendingUp
     },
     {
-      badge: 'DHANA YOGAS',
-      title: 'Salary Growth & Wealth Activation',
-      icon: TrendingUp,
-      desc: 'Unlocking 2nd (wealth) and 11th (gains) houses for stock options (ESOPs), bonus jumps, and dual revenue.'
+      badge: 'WORKSTATION & CA...',
+      title: 'Accurate Professional Vastu',
+      icon: Home
     },
     {
-      badge: 'CERTIFIED UPAAY',
-      title: 'Scientific Vedic Gemstones & Mantra Protocol',
-      icon: Sparkles,
-      desc: 'Prescription of genuine natural gemstones, specific carat weights, energization timings, and Beej mantras.'
+      badge: 'MICROSCOPIC DIVISI...',
+      title: 'D10 & 10th House Analysis',
+      icon: Eye
     }
   ];
 
@@ -222,53 +206,36 @@ export const SessionDeliverablesAndDiagnostics: React.FC<SessionDeliverablesAndD
 
         </div>
 
-        {/* Rolling Horizontal Carousel / Deliverables Row */}
-        <div
-          className="relative mb-16 overflow-hidden py-3"
-          onMouseEnter={() => setIsHoveredMarquee(true)}
-          onMouseLeave={() => setIsHoveredMarquee(false)}
-        >
-          {/* Gradient Edge Masks */}
-          <div className="absolute top-0 bottom-0 left-0 w-12 bg-gradient-to-r from-[#FAF5EE] to-transparent z-10 pointer-events-none" />
-          <div className="absolute top-0 bottom-0 right-0 w-12 bg-gradient-to-l from-[#FAF5EE] to-transparent z-10 pointer-events-none" />
+        {/* Rolling Horizontal Carousel / Deliverables Row (Infinite right to left continuous rolling) */}
+        <div className="relative mb-16 overflow-hidden py-3 -mx-4 sm:-mx-6 lg:-mx-8">
+          {/* Gradient Edge Masks for Smooth Edge Fade */}
+          <div className="absolute top-0 bottom-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[#FAF5EE] via-[#FAF5EE]/90 to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 bottom-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[#FAF5EE] via-[#FAF5EE]/90 to-transparent z-10 pointer-events-none" />
 
-          <div
-            ref={marqueeRef}
-            className="flex gap-5 overflow-x-auto pb-4 no-scrollbar scroll-smooth"
-            style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none'
-            }}
-          >
-            {deliverables.map((item, idx) => {
+          {/* Continuous Infinite Marquee Track (Right to Left) */}
+          <div className="flex gap-5 w-max animate-marquee hover:[animation-play-state:paused]">
+            {[...deliverables, ...deliverables].map((item, idx) => {
               const Icon = item.icon;
               return (
                 <div
                   key={idx}
-                  className="flex-shrink-0 w-[270px] sm:w-[300px] rounded-2xl bg-white border border-[#E8DACB] p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-[#D0B293] transition-all flex flex-col justify-between group"
+                  className="flex-shrink-0 w-[290px] sm:w-[320px] h-[142px] sm:h-[152px] rounded-[22px] bg-white border-2 border-[#E9DACB] p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-[#B87A38] transition-all flex flex-col justify-between"
                 >
-                  <div>
-                    {/* Top Row: Icon and Tag */}
-                    <div className="flex items-center justify-between gap-2 mb-4">
-                      <div className="w-10 h-10 rounded-xl bg-[#F6EFE6] border border-[#E9DACB] flex items-center justify-center text-[#6B2E13] group-hover:scale-105 transition-transform">
-                        <Icon className="w-5 h-5 stroke-[1.8]" />
-                      </div>
-
-                      <span className="px-2.5 py-0.5 rounded-md text-[10px] font-bold tracking-wider uppercase bg-[#F6EFE6] text-[#7A3617] border border-[#E5D2BE]">
-                        {item.badge}
-                      </span>
+                  {/* Top Row: Circular Icon on Left & Pill Badge on Right */}
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="w-11 h-11 rounded-full bg-[#FAF0E2] border border-[#ECD9C5] flex items-center justify-center text-[#7A3617] flex-shrink-0 shadow-sm">
+                      <Icon className="w-5 h-5 stroke-[1.9]" />
                     </div>
 
-                    {/* Title */}
-                    <h4 className="font-serif-display text-[15px] sm:text-base font-bold text-[#23120A] leading-snug mb-2 group-hover:text-[#6B2E13] transition-colors">
-                      {item.title}
-                    </h4>
-
-                    {/* Description */}
-                    <p className="text-xs text-stone-600 leading-relaxed font-normal">
-                      {item.desc}
-                    </p>
+                    <span className="px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-bold tracking-wider uppercase bg-[#FAF0E2] text-[#7A3617] border border-[#ECD9C5] truncate">
+                      {item.badge}
+                    </span>
                   </div>
+
+                  {/* Title */}
+                  <h4 className="font-serif-display text-lg sm:text-[19px] font-bold text-[#23120A] leading-snug truncate">
+                    {item.title}
+                  </h4>
                 </div>
               );
             })}
@@ -469,15 +436,38 @@ export const SessionDeliverablesAndDiagnostics: React.FC<SessionDeliverablesAndD
                   })}
                 </div>
 
-                {/* Radiant Solar Sun Centerburst */}
-                <div className="relative z-10 w-24 h-24 sm:w-28 sm:h-28 rounded-full flex items-center justify-center">
+                {/* Radiant Solar Banner Hub Center */}
+                <div className="relative z-10 w-36 h-36 sm:w-44 sm:h-44 rounded-2xl sm:rounded-3xl flex items-center justify-center pointer-events-auto">
                   {/* Solar Flare Corona Glow */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-amber-400 via-orange-500 to-amber-300 rounded-full blur-xl opacity-70 animate-pulse" />
+                  <div className="absolute -inset-2 bg-gradient-to-r from-amber-400 via-orange-500 to-amber-300 rounded-3xl blur-xl opacity-75 animate-pulse" />
                   
-                  {/* Golden Center Sun Core */}
-                  <div className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full bg-gradient-to-br from-[#FFFBEB] via-[#FBBF24] to-[#B45309] flex items-center justify-center shadow-[0_0_30px_rgba(245,158,11,0.8)] border border-amber-200">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-amber-900/30 flex items-center justify-center text-amber-950">
-                      <Sparkles className="w-6 h-6 text-amber-950 fill-amber-300 animate-spin-slow" />
+                  {/* Golden Banner Frame */}
+                  <div
+                    onClick={() => onOpenBooking('executive')}
+                    className="relative w-full h-full rounded-2xl sm:rounded-3xl p-1 bg-gradient-to-br from-[#FFFBEB] via-[#FBBF24] to-[#B45309] flex flex-col items-center justify-center shadow-[0_0_40px_rgba(245,158,11,0.9)] border-2 border-amber-300 overflow-hidden cursor-pointer group transition-transform duration-300 hover:scale-105"
+                  >
+                    <div className="w-full h-full rounded-[14px] sm:rounded-[22px] overflow-hidden bg-[#1A0D08] relative">
+                      <img
+                        src={posterImage}
+                        alt="Vedic Career Astrology Banner"
+                        className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-500"
+                      />
+                      
+                      {/* Gradient Dark/Gold Overlay for text legibility */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#23120A]/90 via-transparent to-black/30 pointer-events-none" />
+
+                      {/* Golden Banner Badge on Center Hub */}
+                      <div className="absolute bottom-2 left-2 right-2 px-2 py-1 rounded-lg bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 border border-amber-200/80 shadow-md flex items-center justify-center gap-1">
+                        <Sparkles className="w-3 h-3 text-amber-950 fill-amber-950 flex-shrink-0 animate-spin-slow" />
+                        <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-amber-950 whitespace-nowrap">
+                          Vedic Consultation
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Mini sacred sparkle badge at top-right */}
+                    <div className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 border border-white flex items-center justify-center shadow-md">
+                      <Sparkles className="w-3.5 h-3.5 text-stone-950 fill-amber-100" />
                     </div>
                   </div>
                 </div>

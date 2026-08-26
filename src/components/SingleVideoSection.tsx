@@ -2,15 +2,8 @@ import React, { useState } from 'react';
 import {
   Play,
   Sparkles,
-  CheckCircle2,
   Clock,
-  Eye,
-  Calendar,
-  ArrowRight,
-  Tv,
-  Share2,
-  Volume2,
-  ShieldCheck
+  Tv
 } from 'lucide-react';
 
 interface SingleVideoSectionProps {
@@ -24,33 +17,10 @@ export const SingleVideoSection: React.FC<SingleVideoSectionProps> = ({ onOpenBo
   // Using an embeddable educational video ID with privacy-enhanced youtube-nocookie
   const youtubeVideoId = 'tgbNymZ7vqY'; // Standard embeddable video or fallback
 
-  const keyHighlights = [
-    {
-      time: '01:20',
-      title: '10th House & Amatyakaraka',
-      desc: 'How the 10th house lord dictates your core vocational power and leadership ceiling.'
-    },
-    {
-      time: '04:45',
-      title: 'Job Switch & Dasha Windows',
-      desc: 'Pinpointing the exact 60-day transit periods when resignations yield the highest salary jumps.'
-    },
-    {
-      time: '09:15',
-      title: 'Corporate vs Entrepreneurship',
-      desc: 'Evaluating 7th & 3rd houses to determine whether a startup or corporate track is favored.'
-    },
-    {
-      time: '13:50',
-      title: 'Scientific Remedial Protocols',
-      desc: 'Why gemstone weights and Beej mantras must align with functional benefic planets.'
-    }
-  ];
-
   return (
     <section
       id="featured-video-guidance"
-      className="py-16 lg:py-24 bg-[#1B0C06] text-stone-200 relative overflow-hidden border-b border-amber-950/50"
+      className="py-12 lg:py-16 bg-[#1B0C06] text-stone-200 relative overflow-hidden border-b border-amber-950/50"
     >
       {/* Background ambient glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-amber-600/10 rounded-full blur-[150px] pointer-events-none" />
@@ -137,53 +107,6 @@ export const SingleVideoSection: React.FC<SingleVideoSectionProps> = ({ onOpenBo
                 </div>
               </div>
             )}
-          </div>
-
-          {/* Video Metadata & Chapter Breakdown */}
-          <div className="mt-8 pt-6 border-t border-amber-900/50">
-            <div className="flex items-center justify-between gap-4 flex-wrap mb-5">
-              <div>
-                <h3 className="font-serif-display text-xl sm:text-2xl font-bold text-white">
-                  Decoding Your Career Path: 10th House, D10 Chart & Dasha Timing
-                </h3>
-                <p className="text-xs sm:text-sm text-amber-200/75 mt-1">
-                  A step-by-step masterclass covering promotion timing, career roadblocks, and authentic Vedic remedies.
-                </p>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => onOpenBooking('executive')}
-                className="px-5 py-2.5 rounded-xl font-bold text-xs bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-[#1B0C06] transition-all flex items-center gap-2 shadow-lg shadow-amber-950/60 cursor-pointer"
-              >
-                <span>Book 1-on-1 Consultation</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* Key Timestamps Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 pt-2">
-              {keyHighlights.map((hl, idx) => (
-                <div
-                  key={idx}
-                  className="p-3.5 rounded-xl bg-[#32170D]/80 border border-amber-800/40 hover:border-amber-600/50 transition-colors"
-                >
-                  <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <span className="font-mono-code text-[11px] font-bold text-amber-400 bg-[#421E10] px-2 py-0.5 rounded border border-amber-700/40">
-                      {hl.time}
-                    </span>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-amber-400/80" />
-                  </div>
-                  <div className="text-xs font-bold text-white mb-1">
-                    {hl.title}
-                  </div>
-                  <div className="text-[11px] text-amber-200/70 leading-relaxed font-normal">
-                    {hl.desc}
-                  </div>
-                </div>
-              ))}
-            </div>
-
           </div>
 
         </div>
