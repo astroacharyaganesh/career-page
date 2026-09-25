@@ -7,6 +7,7 @@ import { UnderstandingCareerAstrology } from './components/UnderstandingCareerAs
 import { WhyChooseUs } from './components/WhyChooseUs';
 import { SingleVideoSection } from './components/SingleVideoSection';
 import { VedicCareerStages } from './components/VedicCareerStages';
+import { VastuMasterySection } from './components/vastu/VastuMasterySection';
 import { VedicTestimonialsSection } from './components/VedicTestimonialsSection';
 import { ConsultationProcess } from './components/ConsultationProcess';
 import { SessionDeliverablesAndDiagnostics } from './components/SessionDeliverablesAndDiagnostics';
@@ -88,6 +89,11 @@ export default function App() {
         {/* Vedic Career Guidance for Every Stage of Your Professional Journey */}
         <VedicCareerStages
           onOpenBooking={(tier) => handleOpenBooking(tier)}
+        />
+
+        {/* Modern Premium Vastu Shastra Section: 5 UI Concepts & 19 Dedicated Pages */}
+        <VastuMasterySection
+          onOpenBooking={() => handleOpenBooking('executive')}
         />
 
         {/* Verified Testimonials from Professionals Across Different Career Stages */}

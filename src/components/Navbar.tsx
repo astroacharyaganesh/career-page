@@ -11,6 +11,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onOpenWhatsApp })
 
   const navMenuItems = [
     { label: 'Home', href: '#hero-banner' },
+    { label: 'Vastu Shastra', href: '#vastu-mastery-section' },
     { label: 'About', href: '#why-choose-us' },
     { label: 'Courses', href: '#career-stages' },
     { label: 'Products', href: '#deliverables-and-diagnostics' },
