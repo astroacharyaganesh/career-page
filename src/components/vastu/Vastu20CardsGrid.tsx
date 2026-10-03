@@ -94,6 +94,32 @@ export const Vastu20CardsGrid: React.FC<Vastu20CardsGridProps> = ({
     }
   };
 
+  // Helper to generate clean Explore link matching the screenshot format ("Explore [Location/Subject] → ›")
+  const getExploreLabel = (title: string) => {
+    const clean = title.replace(/["”]/g, '').trim();
+    if (clean.includes('Puja Ghar')) return 'Explore Puja Ghar';
+    if (clean.includes('Main Door')) return 'Explore Main Door';
+    if (clean.includes('Kitchen')) return 'Explore Kitchen Vastu';
+    if (clean.includes('Bathroom')) return 'Explore Bathroom Vastu';
+    if (clean.includes('Bedroom')) return 'Explore Bedroom Vastu';
+    if (clean.includes('Study Room')) return 'Explore Study Room';
+    if (clean.includes('Living Room')) return 'Explore Living Room';
+    if (clean.includes('Terrace')) return 'Explore Terrace Vastu';
+    if (clean.includes('Staircase')) return 'Explore Staircase Vastu';
+    if (clean.includes('Dining')) return 'Explore Dining Vastu';
+    if (clean.includes('Home Studio')) return 'Explore Home Studio';
+    if (clean.includes('Newlywed')) return 'Explore Harmony Package';
+    if (clean.includes('Children')) return 'Explore Children Zone';
+    if (clean.includes('Cash Locker')) return 'Explore Cash Locker';
+    if (clean.includes('Water Tank')) return 'Explore Water Tank';
+    if (clean.includes('Director Cabin') || clean.includes('CEO')) return 'Explore Director Cabin';
+    if (clean.includes('Workstation')) return 'Explore Workstation Vastu';
+    if (clean.includes('Machinery')) return 'Explore Machinery Vastu';
+    if (clean.includes('Factory')) return 'Explore Industrial Vastu';
+    if (clean.includes('Parking')) return 'Explore Parking Vastu';
+    return `Explore ${clean}`;
+  };
+
   // Filter cards strictly by category
   const filteredTopics = useMemo(() => {
     return VASTU_TOPICS_20.filter((item) => {
@@ -216,82 +242,49 @@ export const Vastu20CardsGrid: React.FC<Vastu20CardsGridProps> = ({
       </div>
 
       {/* ========================================================================= */}
-      {/* 3. THE CLEAN CARDS GRID (Exactly like the reference image: Pure Image + Title + Arrow) */}
+      {/* 3. CARDS GRID (Exact same as screenshot: Full-Bleed Top Image, Title Only, Explore Link) */}
       {/* ========================================================================= */}
       {filteredTopics.length === 0 ? (
-        <div className="bg-white rounded-2xl p-12 text-center border border-[#EADBCE] space-y-3">
-          <p className="text-sm font-semibold text-[#2C1810]">No services found for "{searchQuery}" in this category.</p>
+        <div className="bg-white rounded-2xl p-12 text-center border border-neutral-200 space-y-3">
+          <p className="text-sm font-semibold text-[#18181B]">No services found for "{searchQuery}" in this category.</p>
           <button
             onClick={() => { setSearchQuery(''); setActiveCategory('all'); }}
-            className="px-4 py-2 rounded-lg bg-[#8B3E18] text-white text-xs font-semibold"
+            className="px-4 py-2 rounded-lg bg-[#C2410C] text-white text-xs font-semibold cursor-pointer"
           >
             Show All Services
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
           {filteredTopics.map((topic) => {
             return (
               <div
                 key={topic.id}
                 onClick={() => onSelectTopic(topic)}
-                className="group bg-white rounded-[22px] border border-[#EADBCE] hover:border-[#C48C5E] overflow-hidden shadow-[0_4px_20px_-4px_rgba(139,62,24,0.06)] hover:shadow-[0_16px_36px_-6px_rgba(139,62,24,0.18)] transition-all duration-300 flex flex-col justify-between cursor-pointer transform hover:-translate-y-1.5"
+                className="group bg-white rounded-xl sm:rounded-2xl border border-neutral-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col justify-between cursor-pointer overflow-hidden hover:-translate-y-1"
               >
-                {/* ---------------- CARD IMAGE (CLEAN: NO TEXT, NO BADGES EXCEPT BOTTOM-LEFT FLOATING ICON) ---------------- */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#1E110A]">
+                {/* ---------------- CARD TOP IMAGE: Compact Height (Clean Landscape, No Badges) ---------------- */}
+                <div className="relative h-36 sm:h-40 w-full overflow-hidden bg-neutral-100">
                   <img
                     src={topic.image}
                     alt={topic.title}
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out brightness-[0.96] group-hover:brightness-105"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
                     loading="lazy"
                   />
-                  
-                  {/* Subtle warm astrological shadow vignette at bottom */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1F0E06]/75 via-transparent to-transparent opacity-70 group-hover:opacity-50 transition-opacity pointer-events-none" />
-
-                  {/* BOTTOM-LEFT: Pure Floating Square Icon Badge (Directly Matching User's Screenshot) */}
-                  <div className="absolute bottom-2.5 left-2.5 z-10">
-                    <div className="w-9 h-9 rounded-xl bg-[#2A160C]/90 backdrop-blur-md border border-[#D4A373]/90 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:border-[#F59E0B] transition-all">
-                      {getCardIcon(topic.id)}
-                    </div>
-                  </div>
                 </div>
 
-                {/* ---------------- CARD BOTTOM: TITLE + BENEFIT + CIRCULAR ARROW BUTTON ---------------- */}
-                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3 bg-white">
-                  <div>
-                    {/* Clean Title as seen in screenshot */}
-                    <h3 className="text-base sm:text-[17px] font-bold font-serif-display text-[#2C1810] group-hover:text-[#8B3E18] transition-colors leading-snug">
-                      {topic.title}
-                    </h3>
+                {/* ---------------- CARD BODY: Compact Padding (ONLY Title + Explore Link) ---------------- */}
+                <div className="px-5 py-4 flex-1 flex flex-col justify-between space-y-3 bg-white">
+                  {/* Title Only */}
+                  <h3 className="text-[15px] sm:text-base font-bold text-[#18181B] leading-snug group-hover:text-[#C2410C] transition-colors">
+                    {topic.title}
+                  </h3>
 
-                    {/* Creative Benefit-Driven Hook (Short, Clean, Impactful) */}
-                    <p className="text-xs text-[#705244] font-medium mt-1 leading-relaxed line-clamp-2">
-                      {topic.subtitle}
-                    </p>
-                  </div>
-
-                  {/* Footer with Astrological Guidance Indicator + Circular Arrow CTA Button */}
-                  <div className="pt-2 flex items-center justify-between border-t border-[#F3E9DD]">
-                    <div className="flex items-center gap-1.5 text-[11px] font-semibold text-[#8B3E18]/90">
-                      <Sparkles className="w-3 h-3 text-[#D97706]" />
-                      <span className="truncate max-w-[170px]">
-                        {topic.planetaryLord ? `${topic.direction.split('/')[0].trim()} • ${topic.planetaryLord.split('&')[0].trim()}` : topic.direction}
-                      </span>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onSelectTopic(topic);
-                      }}
-                      className="w-8 h-8 rounded-full border border-[#D9C4B2] bg-[#FAF5EF] group-hover:bg-[#8B3E18] text-[#8B3E18] group-hover:text-white group-hover:border-[#8B3E18] group-hover:scale-105 transition-all duration-200 flex items-center justify-center shadow-sm cursor-pointer flex-shrink-0"
-                      title="Explore Dedicated Page & Remedies"
-                      aria-label={`Explore ${topic.title}`}
-                    >
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                    </button>
+                  {/* Explore Link: "Explore [Name] ➔ >" in Bold Terracotta as in Screenshot */}
+                  <div className="pt-1 flex items-center gap-1.5 text-[#C2410C] group-hover:text-[#9A3412] font-bold text-sm transition-colors">
+                    <span>{getExploreLabel(topic.title)}</span>
+                    <span className="font-bold text-base leading-none">→</span>
+                    <span className="text-sm font-bold text-[#C2410C] leading-none">›</span>
                   </div>
                 </div>
               </div>
