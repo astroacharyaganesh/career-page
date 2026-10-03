@@ -225,11 +225,10 @@ export const Vastu20CardsGrid: React.FC<Vastu20CardsGridProps> = ({
                       {topic.title}
                     </h3>
 
-                    {/* Explore Link: "Explore [Name] ➔ >" in Bold Terracotta as in Screenshot */}
+                    {/* Explore Link: "Explore [Name] →" */}
                     <div className="pt-1 flex items-center gap-1.5 text-[#C2410C] group-hover:text-[#9A3412] font-bold text-[13px] sm:text-sm transition-colors">
                       <span>{getExploreLabel(topic.title)}</span>
                       <span className="font-bold text-base leading-none">→</span>
-                      <span className="text-sm font-bold text-[#C2410C] leading-none">›</span>
                     </div>
                   </div>
                 </div>
