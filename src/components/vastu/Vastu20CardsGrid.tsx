@@ -25,28 +25,28 @@ interface CategoryConfig {
 const CATEGORY_CONFIGS: Record<VastuCategory, CategoryConfig> = {
   residential: {
     id: 'residential',
-    badgeLabel: 'Residential Vastu (15 Services)',
+    badgeLabel: 'Residential Vastu',
     heading: 'Residential & Home Vastu Solutions',
     subtitle: 'Harmonize your living sanctuary, bedroom, puja mandir, and family spaces for peace, health and deep bonding.',
     filterIcon: <Home className="w-3.5 h-3.5 text-[#B85D19]" />
   },
   commercial: {
     id: 'commercial',
-    badgeLabel: 'Commercial Vastu (5 Services)',
+    badgeLabel: 'Commercial Vastu',
     heading: 'Commercial & Office Vastu Solutions',
     subtitle: 'Maximize executive authority, eliminate employee turnover, accelerate business deals and boost cash velocity.',
     filterIcon: <Building2 className="w-3.5 h-3.5 text-[#B85D19]" />
   },
   industrial: {
     id: 'industrial',
-    badgeLabel: 'Industrial Vastu (5 Services)',
+    badgeLabel: 'Industrial Vastu',
     heading: 'Industrial & Factory Vastu Solutions',
     subtitle: 'Prevent costly equipment breakdowns, eliminate transport bottlenecks, optimize material storage and accelerate production output.',
     filterIcon: <Factory className="w-3.5 h-3.5 text-[#B85D19]" />
   },
   all: {
     id: 'all',
-    badgeLabel: 'All Vastu Services (25 Services)',
+    badgeLabel: 'All Vastu Services',
     heading: 'Our Complete Vastu Consultations',
     subtitle: 'Accurate, confidential & tailored Vedic guidance across Residential, Commercial and Industrial domains with practical non-demolition remedies.',
     filterIcon: <Sparkles className="w-3.5 h-3.5 text-[#B85D19]" />
@@ -59,6 +59,7 @@ export const Vastu20CardsGrid: React.FC<Vastu20CardsGridProps> = ({
 }) => {
   const [activeCategory, setActiveCategory] = useState<VastuCategory>('residential');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [showAll, setShowAll] = useState<boolean>(false);
 
   // Helper to generate clean Explore link matching the screenshot format ("Explore [Location/Subject] → ›")
   const getExploreLabel = (title: string) => {
@@ -88,6 +89,12 @@ export const Vastu20CardsGrid: React.FC<Vastu20CardsGridProps> = ({
       return matchesCategory && matchesSearch;
     });
   }, [activeCategory, searchQuery]);
+
+  // If a category has more than 8 cards, show only the first 8 cards initially
+  const hasMoreThanEight = filteredTopics.length > 8;
+  const displayedTopics = (hasMoreThanEight && !showAll)
+    ? filteredTopics.slice(0, 8)
+    : filteredTopics;
 
   const currentConfig = CATEGORY_CONFIGS[activeCategory];
 
@@ -123,10 +130,10 @@ export const Vastu20CardsGrid: React.FC<Vastu20CardsGridProps> = ({
         {/* Category Filter Badges */}
         <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 no-scrollbar">
           {[
-            { id: 'residential', label: 'Residential Vastu (15)', icon: Home },
-            { id: 'commercial', label: 'Commercial Vastu (5)', icon: Building2 },
-            { id: 'industrial', label: 'Industrial Vastu (5)', icon: Factory },
-            { id: 'all', label: `All Services (${VASTU_TOPICS_20.length})`, icon: Sparkles },
+            { id: 'residential', label: 'Residential Vastu', icon: Home },
+            { id: 'commercial', label: 'Commercial Vastu', icon: Building2 },
+            { id: 'industrial', label: 'Industrial Vastu', icon: Factory },
+            { id: 'all', label: 'All Services', icon: Sparkles },
           ].map((tab) => {
             const Icon = tab.icon;
             const isSelected = activeCategory === tab.id;
@@ -136,6 +143,7 @@ export const Vastu20CardsGrid: React.FC<Vastu20CardsGridProps> = ({
                 onClick={() => {
                   setActiveCategory(tab.id as VastuCategory);
                   setSearchQuery('');
+                  setShowAll(false);
                 }}
                 className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-[13px] font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
                   isSelected
@@ -156,13 +164,19 @@ export const Vastu20CardsGrid: React.FC<Vastu20CardsGridProps> = ({
           <input
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setShowAll(false);
+            }}
             placeholder="Search Vastu services..."
             className="w-full pl-9 pr-4 py-2 rounded-xl text-xs bg-[#FAF5EF] border border-[#EADBCE] text-[#2C1810] placeholder:text-[#A88B7B] focus:outline-none focus:border-[#8B3E18] focus:bg-white transition-all shadow-inner"
           />
           {searchQuery && (
             <button
-              onClick={() => setSearchQuery('')}
+              onClick={() => {
+                setSearchQuery('');
+                setShowAll(false);
+              }}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#A88B7B] hover:text-[#2C1810]"
             >
               ✕
@@ -178,48 +192,66 @@ export const Vastu20CardsGrid: React.FC<Vastu20CardsGridProps> = ({
         <div className="bg-white rounded-2xl p-12 text-center border border-neutral-200 space-y-3">
           <p className="text-sm font-semibold text-[#18181B]">No services found for "{searchQuery}" in this category.</p>
           <button
-            onClick={() => { setSearchQuery(''); setActiveCategory('all'); }}
+            onClick={() => { setSearchQuery(''); setActiveCategory('all'); setShowAll(false); }}
             className="px-4 py-2 rounded-lg bg-[#C2410C] text-white text-xs font-semibold cursor-pointer"
           >
             Show All Services
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
-          {filteredTopics.map((topic) => {
-            return (
-              <div
-                key={topic.id}
-                onClick={() => onSelectTopic(topic)}
-                className="group bg-white rounded-xl sm:rounded-2xl border border-neutral-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col justify-between cursor-pointer overflow-hidden hover:-translate-y-1"
-              >
-                {/* ---------------- CARD TOP IMAGE: Compact Height for 4-Column Grid ---------------- */}
-                <div className="relative h-32 sm:h-36 w-full overflow-hidden bg-neutral-100">
-                  <img
-                    src={topic.image}
-                    alt={topic.title}
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
-                    loading="lazy"
-                  />
-                </div>
+        <div className="space-y-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
+            {displayedTopics.map((topic) => {
+              return (
+                <div
+                  key={topic.id}
+                  onClick={() => onSelectTopic(topic)}
+                  className="group bg-white rounded-xl sm:rounded-2xl border border-neutral-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col justify-between cursor-pointer overflow-hidden hover:-translate-y-1"
+                >
+                  {/* ---------------- CARD TOP IMAGE: Compact Height for 4-Column Grid ---------------- */}
+                  <div className="relative h-32 sm:h-36 w-full overflow-hidden bg-neutral-100">
+                    <img
+                      src={topic.image}
+                      alt={topic.title}
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+                      loading="lazy"
+                    />
+                  </div>
 
-                {/* ---------------- CARD BODY: Compact Padding (ONLY Title + Explore Link) ---------------- */}
-                <div className="p-4 sm:px-4.5 sm:py-3.5 flex-1 flex flex-col justify-between space-y-3 bg-white">
-                  {/* Title Only */}
-                  <h3 className="text-sm sm:text-[15px] font-bold text-[#18181B] leading-snug group-hover:text-[#C2410C] transition-colors line-clamp-2">
-                    {topic.title}
-                  </h3>
+                  {/* ---------------- CARD BODY: Compact Padding (ONLY Title + Explore Link) ---------------- */}
+                  <div className="p-4 sm:px-4.5 sm:py-3.5 flex-1 flex flex-col justify-between space-y-3 bg-white">
+                    {/* Title Only */}
+                    <h3 className="text-sm sm:text-[15px] font-bold text-[#18181B] leading-snug group-hover:text-[#C2410C] transition-colors line-clamp-2">
+                      {topic.title}
+                    </h3>
 
-                  {/* Explore Link: "Explore [Name] ➔ >" in Bold Terracotta as in Screenshot */}
-                  <div className="pt-1 flex items-center gap-1.5 text-[#C2410C] group-hover:text-[#9A3412] font-bold text-[13px] sm:text-sm transition-colors">
-                    <span>{getExploreLabel(topic.title)}</span>
-                    <span className="font-bold text-base leading-none">→</span>
-                    <span className="text-sm font-bold text-[#C2410C] leading-none">›</span>
+                    {/* Explore Link: "Explore [Name] ➔ >" in Bold Terracotta as in Screenshot */}
+                    <div className="pt-1 flex items-center gap-1.5 text-[#C2410C] group-hover:text-[#9A3412] font-bold text-[13px] sm:text-sm transition-colors">
+                      <span>{getExploreLabel(topic.title)}</span>
+                      <span className="font-bold text-base leading-none">→</span>
+                      <span className="text-sm font-bold text-[#C2410C] leading-none">›</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+
+          {/* ========================================================================= */}
+          {/* VIEW ALL BUTTON (If category has > 8 cards, show button until clicked)    */}
+          {/* ========================================================================= */}
+          {hasMoreThanEight && !showAll && (
+            <div className="flex justify-center pt-2">
+              <button
+                type="button"
+                onClick={() => setShowAll(true)}
+                className="px-8 py-3 rounded-full bg-[#8B3E18] hover:bg-[#703012] text-white text-sm font-bold tracking-wide transition-all duration-300 shadow-md hover:shadow-xl hover:scale-105 flex items-center gap-2 cursor-pointer group"
+              >
+                <span>View All</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+          )}
         </div>
       )}
 
