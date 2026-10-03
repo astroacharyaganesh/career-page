@@ -12,7 +12,7 @@ interface Vastu20CardsGridProps {
   onOpenBooking: () => void;
 }
 
-type VastuCategory = 'all' | 'home' | 'office' | 'wealth' | 'relationship';
+type VastuCategory = 'residential' | 'commercial' | 'industrial' | 'all';
 
 interface CategoryConfig {
   id: VastuCategory;
@@ -23,40 +23,33 @@ interface CategoryConfig {
 }
 
 const CATEGORY_CONFIGS: Record<VastuCategory, CategoryConfig> = {
-  all: {
-    id: 'all',
-    badgeLabel: 'Divine Vedic Solutions',
-    heading: 'Our Vastu Services',
-    subtitle: 'Accurate, confidential & tailored Vedic guidance with practical, result-driven remedies.',
-    filterIcon: <Sparkles className="w-3.5 h-3.5 text-[#B85D19]" />
-  },
-  home: {
-    id: 'home',
-    badgeLabel: 'Home Vastu Solutions',
-    heading: 'Residential & Home Vastu Services',
+  residential: {
+    id: 'residential',
+    badgeLabel: 'Residential Vastu (15 Services)',
+    heading: 'Residential & Home Vastu Solutions',
     subtitle: 'Harmonize your living sanctuary, bedroom, puja mandir, and family spaces for peace, health and deep bonding.',
     filterIcon: <Home className="w-3.5 h-3.5 text-[#B85D19]" />
   },
-  office: {
-    id: 'office',
-    badgeLabel: 'Office & Business Vastu',
-    heading: 'Office, Director Cabin & Commercial Vastu',
+  commercial: {
+    id: 'commercial',
+    badgeLabel: 'Commercial Vastu (5 Services)',
+    heading: 'Commercial & Office Vastu Solutions',
     subtitle: 'Maximize executive authority, eliminate employee turnover, accelerate business deals and boost cash velocity.',
     filterIcon: <Building2 className="w-3.5 h-3.5 text-[#B85D19]" />
   },
-  wealth: {
-    id: 'wealth',
-    badgeLabel: 'Wealth & Prosperity Vastu',
-    heading: 'Wealth, Cash Locker & Treasury Vastu',
-    subtitle: 'Activate the northern Kubera currents, prevent unexpected money drain, and retain financial abundance.',
-    filterIcon: <Coins className="w-3.5 h-3.5 text-[#B85D19]" />
+  industrial: {
+    id: 'industrial',
+    badgeLabel: 'Industrial Vastu (5 Services)',
+    heading: 'Industrial & Factory Vastu Solutions',
+    subtitle: 'Prevent costly equipment breakdowns, eliminate transport bottlenecks, optimize material storage and accelerate production output.',
+    filterIcon: <Factory className="w-3.5 h-3.5 text-[#B85D19]" />
   },
-  relationship: {
-    id: 'relationship',
-    badgeLabel: 'Love & Family Harmony Vastu',
-    heading: 'Relationship, Marriage & Family Vastu',
-    subtitle: 'Dissolve marital friction, nurture children creativity, and anchor lasting emotional intimacy.',
-    filterIcon: <Heart className="w-3.5 h-3.5 text-[#B85D19]" />
+  all: {
+    id: 'all',
+    badgeLabel: 'All Vastu Services (25 Services)',
+    heading: 'Our Complete Vastu Consultations',
+    subtitle: 'Accurate, confidential & tailored Vedic guidance across Residential, Commercial and Industrial domains with practical non-demolition remedies.',
+    filterIcon: <Sparkles className="w-3.5 h-3.5 text-[#B85D19]" />
   }
 };
 
@@ -64,59 +57,13 @@ export const Vastu20CardsGrid: React.FC<Vastu20CardsGridProps> = ({
   onSelectTopic,
   onOpenBooking
 }) => {
-  const [activeCategory, setActiveCategory] = useState<VastuCategory>('all');
+  const [activeCategory, setActiveCategory] = useState<VastuCategory>('residential');
   const [searchQuery, setSearchQuery] = useState<string>('');
-
-  // Map each topic id to a tailored icon for the bottom-left floating badge (as in user reference image)
-  const getCardIcon = (id: string) => {
-    switch (id) {
-      case 'puja-ghar': return <Sparkles className="w-4 h-4 text-[#E6A055]" />;
-      case 'main-door': return <DoorOpen className="w-4 h-4 text-[#E6A055]" />;
-      case 'kitchen-agni': return <Flame className="w-4 h-4 text-[#E6A055]" />;
-      case 'bathroom-vastu': return <Droplets className="w-4 h-4 text-[#E6A055]" />;
-      case 'bedroom-vastu': return <Heart className="w-4 h-4 text-[#E6A055]" />;
-      case 'study-room': return <GraduationCap className="w-4 h-4 text-[#E6A055]" />;
-      case 'living-room': return <Home className="w-4 h-4 text-[#E6A055]" />;
-      case 'terrace-balcony': return <Wind className="w-4 h-4 text-[#E6A055]" />;
-      case 'staircase-vastu': return <Layers className="w-4 h-4 text-[#E6A055]" />;
-      case 'dining-room': return <Utensils className="w-4 h-4 text-[#E6A055]" />;
-      case 'home-studio': return <Video className="w-4 h-4 text-[#E6A055]" />;
-      case 'newlywed-harmony': return <HeartHandshake className="w-4 h-4 text-[#E6A055]" />;
-      case 'children-room': return <Smile className="w-4 h-4 text-[#E6A055]" />;
-      case 'cash-locker': return <Coins className="w-4 h-4 text-[#E6A055]" />;
-      case 'water-tank': return <Waves className="w-4 h-4 text-[#E6A055]" />;
-      case 'director-cabin': return <Crown className="w-4 h-4 text-[#E6A055]" />;
-      case 'manager-workstation': return <Laptop className="w-4 h-4 text-[#E6A055]" />;
-      case 'machinery-equipment': return <Cog className="w-4 h-4 text-[#E6A055]" />;
-      case 'factory-industrial': return <Factory className="w-4 h-4 text-[#E6A055]" />;
-      case 'parking-vastu': return <Car className="w-4 h-4 text-[#E6A055]" />;
-      default: return <Compass className="w-4 h-4 text-[#E6A055]" />;
-    }
-  };
 
   // Helper to generate clean Explore link matching the screenshot format ("Explore [Location/Subject] → ›")
   const getExploreLabel = (title: string) => {
-    const clean = title.replace(/["”]/g, '').trim();
-    if (clean.includes('Puja Ghar')) return 'Explore Puja Ghar';
-    if (clean.includes('Main Door')) return 'Explore Main Door';
-    if (clean.includes('Kitchen')) return 'Explore Kitchen Vastu';
-    if (clean.includes('Bathroom')) return 'Explore Bathroom Vastu';
-    if (clean.includes('Bedroom')) return 'Explore Bedroom Vastu';
-    if (clean.includes('Study Room')) return 'Explore Study Room';
-    if (clean.includes('Living Room')) return 'Explore Living Room';
-    if (clean.includes('Terrace')) return 'Explore Terrace Vastu';
-    if (clean.includes('Staircase')) return 'Explore Staircase Vastu';
-    if (clean.includes('Dining')) return 'Explore Dining Vastu';
-    if (clean.includes('Home Studio')) return 'Explore Home Studio';
-    if (clean.includes('Newlywed')) return 'Explore Harmony Package';
-    if (clean.includes('Children')) return 'Explore Children Zone';
-    if (clean.includes('Cash Locker')) return 'Explore Cash Locker';
-    if (clean.includes('Water Tank')) return 'Explore Water Tank';
-    if (clean.includes('Director Cabin') || clean.includes('CEO')) return 'Explore Director Cabin';
-    if (clean.includes('Workstation')) return 'Explore Workstation Vastu';
-    if (clean.includes('Machinery')) return 'Explore Machinery Vastu';
-    if (clean.includes('Factory')) return 'Explore Industrial Vastu';
-    if (clean.includes('Parking')) return 'Explore Parking Vastu';
+    const clean = title.split(':')[0].replace(/Consultation/g, '').trim();
+    if (clean.includes('Newlywed')) return 'Explore Newlywed Harmony';
     return `Explore ${clean}`;
   };
 
@@ -124,28 +71,12 @@ export const Vastu20CardsGrid: React.FC<Vastu20CardsGridProps> = ({
   const filteredTopics = useMemo(() => {
     return VASTU_TOPICS_20.filter((item) => {
       let matchesCategory = true;
-      if (activeCategory === 'home') {
-        // Home related cards
-        const homeIds = [
-          'puja-ghar', 'main-door', 'kitchen-agni', 'bathroom-vastu', 
-          'bedroom-vastu', 'study-room', 'living-room', 'terrace-balcony', 
-          'staircase-vastu', 'dining-room', 'children-room', 'water-tank', 
-          'newlywed-harmony', 'parking-vastu'
-        ];
-        matchesCategory = homeIds.includes(item.id);
-      } else if (activeCategory === 'office') {
-        // Office, Business & Commercial cards
-        const officeIds = [
-          'director-cabin', 'manager-workstation', 'machinery-equipment', 
-          'factory-industrial', 'home-studio', 'cash-locker', 'parking-vastu', 'main-door'
-        ];
-        matchesCategory = officeIds.includes(item.id);
-      } else if (activeCategory === 'wealth') {
-        const wealthIds = ['cash-locker', 'puja-ghar', 'main-door', 'water-tank', 'kitchen-agni'];
-        matchesCategory = wealthIds.includes(item.id);
-      } else if (activeCategory === 'relationship') {
-        const relationshipIds = ['bedroom-vastu', 'newlywed-harmony', 'children-room', 'dining-room', 'living-room'];
-        matchesCategory = relationshipIds.includes(item.id);
+      if (activeCategory === 'residential') {
+        matchesCategory = item.category === 'residential';
+      } else if (activeCategory === 'commercial') {
+        matchesCategory = item.category === 'commercial';
+      } else if (activeCategory === 'industrial') {
+        matchesCategory = item.category === 'industrial';
       }
 
       const q = searchQuery.toLowerCase().trim();
@@ -192,11 +123,10 @@ export const Vastu20CardsGrid: React.FC<Vastu20CardsGridProps> = ({
         {/* Category Filter Badges */}
         <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 no-scrollbar">
           {[
-            { id: 'all', label: `All Vastu Services (${VASTU_TOPICS_20.length})`, icon: Sparkles },
-            { id: 'home', label: 'Home Vastu', icon: Home },
-            { id: 'office', label: 'Office & Business Vastu', icon: Building2 },
-            { id: 'wealth', label: 'Wealth Vastu', icon: Coins },
-            { id: 'relationship', label: 'Relationship Vastu', icon: Heart },
+            { id: 'residential', label: 'Residential Vastu (15)', icon: Home },
+            { id: 'commercial', label: 'Commercial Vastu (5)', icon: Building2 },
+            { id: 'industrial', label: 'Industrial Vastu (5)', icon: Factory },
+            { id: 'all', label: `All Services (${VASTU_TOPICS_20.length})`, icon: Sparkles },
           ].map((tab) => {
             const Icon = tab.icon;
             const isSelected = activeCategory === tab.id;
@@ -255,7 +185,7 @@ export const Vastu20CardsGrid: React.FC<Vastu20CardsGridProps> = ({
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
           {filteredTopics.map((topic) => {
             return (
               <div
@@ -263,8 +193,8 @@ export const Vastu20CardsGrid: React.FC<Vastu20CardsGridProps> = ({
                 onClick={() => onSelectTopic(topic)}
                 className="group bg-white rounded-xl sm:rounded-2xl border border-neutral-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col justify-between cursor-pointer overflow-hidden hover:-translate-y-1"
               >
-                {/* ---------------- CARD TOP IMAGE: Compact Height (Clean Landscape, No Badges) ---------------- */}
-                <div className="relative h-36 sm:h-40 w-full overflow-hidden bg-neutral-100">
+                {/* ---------------- CARD TOP IMAGE: Compact Height for 4-Column Grid ---------------- */}
+                <div className="relative h-32 sm:h-36 w-full overflow-hidden bg-neutral-100">
                   <img
                     src={topic.image}
                     alt={topic.title}
@@ -274,14 +204,14 @@ export const Vastu20CardsGrid: React.FC<Vastu20CardsGridProps> = ({
                 </div>
 
                 {/* ---------------- CARD BODY: Compact Padding (ONLY Title + Explore Link) ---------------- */}
-                <div className="px-5 py-4 flex-1 flex flex-col justify-between space-y-3 bg-white">
+                <div className="p-4 sm:px-4.5 sm:py-3.5 flex-1 flex flex-col justify-between space-y-3 bg-white">
                   {/* Title Only */}
-                  <h3 className="text-[15px] sm:text-base font-bold text-[#18181B] leading-snug group-hover:text-[#C2410C] transition-colors">
+                  <h3 className="text-sm sm:text-[15px] font-bold text-[#18181B] leading-snug group-hover:text-[#C2410C] transition-colors line-clamp-2">
                     {topic.title}
                   </h3>
 
                   {/* Explore Link: "Explore [Name] ➔ >" in Bold Terracotta as in Screenshot */}
-                  <div className="pt-1 flex items-center gap-1.5 text-[#C2410C] group-hover:text-[#9A3412] font-bold text-sm transition-colors">
+                  <div className="pt-1 flex items-center gap-1.5 text-[#C2410C] group-hover:text-[#9A3412] font-bold text-[13px] sm:text-sm transition-colors">
                     <span>{getExploreLabel(topic.title)}</span>
                     <span className="font-bold text-base leading-none">→</span>
                     <span className="text-sm font-bold text-[#C2410C] leading-none">›</span>
