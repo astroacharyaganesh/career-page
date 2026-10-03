@@ -128,7 +128,7 @@ export const Vastu20CardsGrid: React.FC<Vastu20CardsGridProps> = ({
       {/* ========================================================================= */}
       <div className="bg-white/95 backdrop-blur-md rounded-2xl p-3 sm:p-4 border border-[#EADBCE] shadow-sm flex flex-col md:flex-row items-center justify-between gap-3">
         {/* Category Filter Badges */}
-        <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 no-scrollbar">
+        <div className="flex flex-wrap md:flex-nowrap items-center gap-2 w-full md:w-auto">
           {[
             { id: 'residential', label: 'Residential Vastu', icon: Home },
             { id: 'commercial', label: 'Commercial Vastu', icon: Building2 },
@@ -145,7 +145,7 @@ export const Vastu20CardsGrid: React.FC<Vastu20CardsGridProps> = ({
                   setSearchQuery('');
                   setShowAll(false);
                 }}
-                className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-[13px] font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
+                className={`flex-1 sm:flex-initial md:flex-none min-w-[130px] sm:min-w-0 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-[13px] font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 ${
                   isSelected
                     ? 'bg-[#8B3E18] text-white shadow-md shadow-[#8B3E18]/25 scale-[1.02]'
                     : 'bg-[#FAF5EF] text-[#6E4F42] hover:bg-[#F3E9DD] hover:text-[#2C1810] border border-[#EADBCE]'
