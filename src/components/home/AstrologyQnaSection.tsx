@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import {
   ASTROLOGY_QNA_CATEGORIES,
@@ -66,7 +66,7 @@ const VedicChakraEmblem: React.FC<VedicChakraEmblemProps> = ({ className = '', c
         {/* Outer Brass Rim & Zodiac Annular Band */}
         <circle cx="140" cy="140" r="135" fill={`url(#${rimId})`} stroke={`url(#${strokeId})`} strokeWidth="2.6" />
         <circle cx="140" cy="140" r="127" stroke="#965419" strokeWidth="1" strokeDasharray="2.5 3.5" />
-        <circle cx="140" cy="140" r="85" fill="#fffaf2" fillOpacity="0.72" stroke={`url(#${strokeId})`} strokeWidth="2.2" />
+        <circle cx="140" cy="140" r="86" fill="#fffaf2" fillOpacity="0.72" stroke={`url(#${strokeId})`} strokeWidth="2.2" />
 
         {/* Degree Tick Marks around Outer Bezel */}
         {!compact &&
@@ -154,12 +154,12 @@ const VedicChakraEmblem: React.FC<VedicChakraEmblemProps> = ({ className = '', c
             <stop offset="100%" stopColor="#e8ba62" />
           </linearGradient>
         </defs>
-        <circle cx="140" cy="140" r="78" stroke={`url(#${haloId})`} strokeWidth="1.15" strokeDasharray="3 4" />
+        <circle cx="140" cy="140" r="82" stroke={`url(#${haloId})`} strokeWidth="1.15" strokeDasharray="3 4" />
         {/* 12-Point Interlaced Sacred Lotus Star */}
         {Array.from({ length: 12 }).map((_, idx) => {
           const angle = (idx * 30 * Math.PI) / 180;
-          const x = 140 + Math.cos(angle) * 76;
-          const y = 140 + Math.sin(angle) * 76;
+          const x = 140 + Math.cos(angle) * 80;
+          const y = 140 + Math.sin(angle) * 80;
           return <circle key={`nak-${idx}`} cx={x} cy={y} r="1.8" fill="#c47e27" />;
         })}
         <rect
@@ -187,13 +187,13 @@ const VedicChakraEmblem: React.FC<VedicChakraEmblemProps> = ({ className = '', c
       {/* Stationary Center Medallion Holding Official Acharya Ganesh Logo */}
       <div
         className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-gradient-to-b from-[#fffdf8] to-[#fdf1db] border-2 border-[#cf8f37] ring-2 ring-[#f3d398]/70 shadow-[0_0_22px_rgba(181,101,29,0.36),inset_0_0_8px_rgba(232,186,98,0.4)] ${
-          compact ? 'h-[47%] w-[47%] p-1' : 'h-[46%] w-[46%] p-1.5'
+          compact ? 'h-[58%] w-[58%] p-[2px]' : 'h-[56%] w-[56%] p-0.5'
         }`}
       >
         <img
           src="/ag-images/logo.webp"
           alt="Acharya Ganesh"
-          className="h-full w-full object-contain drop-shadow-[0_1px_2px_rgba(93,46,10,0.18)]"
+          className="h-full w-full object-contain scale-[1.06] drop-shadow-[0_1px_2px_rgba(93,46,10,0.2)]"
         />
       </div>
     </div>
@@ -201,6 +201,8 @@ const VedicChakraEmblem: React.FC<VedicChakraEmblemProps> = ({ className = '', c
 };
 
 export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpenBooking }) => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isInView, setIsInView] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
@@ -208,6 +210,31 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
 
   const totalItems = ASTROLOGY_QNA_ITEMS.length;
   const currentItem = ASTROLOGY_QNA_ITEMS[activeIndex] || ASTROLOGY_QNA_ITEMS[0];
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    if (typeof IntersectionObserver === 'undefined') {
+      setIsInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.2
+      }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (isPaused || isMoreModalOpen || totalItems <= 1) return;
@@ -234,6 +261,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
 
   return (
     <section
+      ref={sectionRef}
       id="astrology-qna"
       aria-label="Do You Know Astrology Insights"
       className="w-full bg-background py-2.5 sm:py-4"
@@ -407,10 +435,14 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
           <div className="relative z-10 w-full px-4 py-3.5 sm:px-6 sm:py-4.5 md:pl-[212px] md:pr-[192px] lg:pl-[268px] lg:pr-[242px]">
             {/* MOBILE HEADER ROW: Circular Dual-Rolling Chakra + Enlarged DO YOU KNOW? Pill */}
             <div className="flex md:hidden items-center gap-3 pb-2.5 border-b border-[#d9b88c]/65">
-              <VedicChakraEmblem className="h-16 w-16 sm:h-18 sm:w-18" compact />
+              <VedicChakraEmblem className="h-18 w-18 sm:h-20 sm:w-20" compact />
 
               <div className="flex-1 min-w-0 flex items-center">
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#d49d4b] bg-gradient-to-b from-[#fff8e6] via-[#fbe4ba] to-[#f1c781] px-3.5 py-1.5 shadow-[0_6px_14px_-4px_rgba(148,86,17,0.34),inset_0_1px_0_rgba(255,255,255,0.92)]">
+                <div
+                  className={`inline-flex items-center gap-2 rounded-full border border-[#d49d4b] bg-gradient-to-b from-[#fff8e6] via-[#fbe4ba] to-[#f1c781] px-3.5 py-1.5 shadow-[0_6px_14px_-4px_rgba(148,86,17,0.34),inset_0_1px_0_rgba(255,255,255,0.92)] ${
+                    isInView ? 'qna-drop-in' : 'opacity-0 -translate-y-5'
+                  }`}
+                >
                   <span className="inline-flex h-4.5 w-4.5 items-center justify-center rounded-full bg-gradient-to-br from-[#eab55f] to-[#b06d1d] text-[#5c1111] shadow-inner shrink-0">
                     <svg viewBox="0 0 24 24" className="h-3 w-3" fill="currentColor" aria-hidden="true">
                       <path d="M12 1.5L14.4 9.6L22.5 12L14.4 14.4L12 22.5L9.6 14.4L1.5 12L9.6 9.6L12 1.5Z" />
@@ -432,7 +464,11 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
                 </svg>
               </div>
 
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#d49d4b] bg-gradient-to-b from-[#fff8e6] via-[#fbe4ba] to-[#f1c781] px-4.5 py-1.5 shadow-[0_6px_16px_-4px_rgba(148,86,17,0.34),inset_0_1px_0_rgba(255,255,255,0.92)]">
+              <div
+                className={`inline-flex items-center gap-2 rounded-full border border-[#d49d4b] bg-gradient-to-b from-[#fff8e6] via-[#fbe4ba] to-[#f1c781] px-4.5 py-1.5 shadow-[0_6px_16px_-4px_rgba(148,86,17,0.34),inset_0_1px_0_rgba(255,255,255,0.92)] ${
+                  isInView ? 'qna-drop-in' : 'opacity-0 -translate-y-5'
+                }`}
+              >
                 <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br from-[#eab55f] to-[#b06d1d] text-[#5c1111] shadow-inner shrink-0">
                   <svg viewBox="0 0 24 24" className="h-3 w-3" fill="currentColor" aria-hidden="true">
                     <path d="M12 1.5L14.4 9.6L22.5 12L14.4 14.4L12 22.5L9.6 14.4L1.5 12L9.6 9.6L12 1.5Z" />
@@ -530,7 +566,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
             </div>
           </div>
 
-          {/* 5-second auto-advance progress bar along bottom edge */}
+          {/* 10-second auto-advance progress bar along bottom edge */}
           {!isPaused && !isMoreModalOpen && (
             <div className="relative z-10 h-[3.5px] w-full bg-[#e3c6a0]/65 overflow-hidden" aria-hidden="true">
               <div

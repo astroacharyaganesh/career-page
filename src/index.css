@@ -161,12 +161,28 @@
   animation: qna-star-twinkle 4.2s ease-in-out infinite;
 }
 
+@keyframes qna-drop-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-22px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.qna-drop-in {
+  animation: qna-drop-in 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .qna-fade-slide,
   .qna-progress-bar,
   .qna-chakra-roll,
   .qna-chakra-counter-roll,
-  .qna-star-twinkle {
+  .qna-star-twinkle,
+  .qna-drop-in {
     animation: none;
   }
 }
