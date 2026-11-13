@@ -222,13 +222,17 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          setIsInView(true);
-          observer.disconnect();
+        for (const entry of entries) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
+            setIsInView(true);
+          } else if (!entry.isIntersecting) {
+            setIsInView(false);
+          }
         }
       },
       {
-        threshold: 0.2
+        rootMargin: '0px 0px -64px 0px',
+        threshold: [0, 0.4]
       }
     );
 
@@ -440,7 +444,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
               <div className="flex-1 min-w-0 flex items-center">
                 <div
                   className={`inline-flex items-center gap-2 rounded-full border border-[#d49d4b] bg-gradient-to-b from-[#fff8e6] via-[#fbe4ba] to-[#f1c781] px-3.5 py-1.5 shadow-[0_6px_14px_-4px_rgba(148,86,17,0.34),inset_0_1px_0_rgba(255,255,255,0.92)] ${
-                    isInView ? 'qna-drop-in' : 'opacity-0 -translate-y-5'
+                    isInView ? 'qna-drop-in' : 'opacity-0 -translate-y-6'
                   }`}
                 >
                   <span className="inline-flex h-4.5 w-4.5 items-center justify-center rounded-full bg-gradient-to-br from-[#eab55f] to-[#b06d1d] text-[#5c1111] shadow-inner shrink-0">
@@ -466,7 +470,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
 
               <div
                 className={`inline-flex items-center gap-2 rounded-full border border-[#d49d4b] bg-gradient-to-b from-[#fff8e6] via-[#fbe4ba] to-[#f1c781] px-4.5 py-1.5 shadow-[0_6px_16px_-4px_rgba(148,86,17,0.34),inset_0_1px_0_rgba(255,255,255,0.92)] ${
-                  isInView ? 'qna-drop-in' : 'opacity-0 -translate-y-5'
+                  isInView ? 'qna-drop-in' : 'opacity-0 -translate-y-6'
                 }`}
               >
                 <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br from-[#eab55f] to-[#b06d1d] text-[#5c1111] shadow-inner shrink-0">
