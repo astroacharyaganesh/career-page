@@ -1,42 +1,42 @@
-import React, { useState } from 'react';
-import { Compass, HelpCircle, Orbit, Sparkles, X, ArrowRight, ChevronUp } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { ArrowRight, ChevronLeft, ChevronRight, Sparkles, X } from 'lucide-react';
 import {
   ASTROLOGY_QNA_CATEGORIES,
   ASTROLOGY_QNA_ITEMS,
-  AstrologyQnaCategory,
-  AstrologyQnaItem
+  AstrologyQnaCategory
 } from '../../data/homePageData';
 
 interface AstrologyQnaSectionProps {
   onOpenBooking?: () => void;
 }
 
+const ROTATE_INTERVAL_MS = 5000;
+
 export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpenBooking }) => {
-  const [selectedCategory, setSelectedCategory] = useState<AstrologyQnaCategory>('Planets');
-  const [isAnswerOpen, setIsAnswerOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
   const [modalCategory, setModalCategory] = useState<AstrologyQnaCategory | 'All'>('All');
 
-  const featuredQuestion: AstrologyQnaItem =
-    ASTROLOGY_QNA_ITEMS.find((item) => item.category === selectedCategory) || ASTROLOGY_QNA_ITEMS[0];
+  const totalItems = ASTROLOGY_QNA_ITEMS.length;
+  const currentItem = ASTROLOGY_QNA_ITEMS[activeIndex] || ASTROLOGY_QNA_ITEMS[0];
 
-  const getCategoryIcon = (category: AstrologyQnaCategory, isActive: boolean) => {
-    const colorClass = isActive ? 'text-primary-foreground' : 'text-primary';
-    switch (category) {
-      case 'Planets':
-        return <Orbit className={`w-3.5 h-3.5 shrink-0 ${colorClass}`} aria-hidden="true" />;
-      case 'Houses':
-        return <Compass className={`w-3.5 h-3.5 shrink-0 ${colorClass}`} aria-hidden="true" />;
-      case 'Zodiac Signs':
-        return <Sparkles className={`w-3.5 h-3.5 shrink-0 ${colorClass}`} aria-hidden="true" />;
-      case 'Prashna Kundali':
-        return <HelpCircle className={`w-3.5 h-3.5 shrink-0 ${colorClass}`} aria-hidden="true" />;
-    }
+  useEffect(() => {
+    if (isPaused || isMoreModalOpen || totalItems <= 1) return;
+
+    const timer = window.setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % totalItems);
+    }, ROTATE_INTERVAL_MS);
+
+    return () => window.clearInterval(timer);
+  }, [isPaused, isMoreModalOpen, totalItems]);
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev - 1 + totalItems) % totalItems);
   };
 
-  const handleSelectCategory = (category: AstrologyQnaCategory) => {
-    setSelectedCategory(category);
-    setIsAnswerOpen(false);
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % totalItems);
   };
 
   const modalItems =
@@ -47,128 +47,122 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
   return (
     <section
       id="astrology-qna"
-      aria-labelledby="astrology-qna-heading"
-      className="w-full bg-background py-8 sm:py-10"
+      aria-label="Do You Know Astrology Insights"
+      className="w-full bg-background py-7 sm:py-9"
     >
       <div className="w-full max-w-[920px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Compact Header */}
-        <div className="text-center max-w-xl mx-auto">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
-            ASTROLOGY Q&amp;A
-          </p>
-          <h2
-            id="astrology-qna-heading"
-            className="mt-1.5 font-display text-2xl sm:text-[2rem] font-bold leading-[1.2] text-heading"
-          >
-            What Do You Want to Know?
-          </h2>
-          <p className="mt-2 text-sm sm:text-[0.9375rem] text-muted-foreground leading-relaxed">
-            Explore quick answers about planets, houses, zodiac signs and Prashna Kundali.
-          </p>
-        </div>
-
-        {/* 4 Compact Category Chips — single row centered on desktop, horizontal scroll on mobile */}
-        <div
-          role="tablist"
-          aria-label="Astrology Q&A Topics"
-          className="mt-5 -mx-4 px-4 sm:mx-0 sm:px-0 flex items-center md:justify-center gap-2.5 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        <article
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocus={() => setIsPaused(true)}
+          onBlur={() => setIsPaused(false)}
+          className="relative overflow-hidden rounded-2xl border border-[#e3cfb7] bg-gradient-to-br from-[#fdf5ee] via-[#fdfcf8] to-[#f8ead7] shadow-[0_12px_34px_-14px_rgba(93,46,10,0.16)] transition-shadow duration-300 hover:shadow-[0_16px_40px_-12px_rgba(93,46,10,0.22)]"
         >
-          {ASTROLOGY_QNA_CATEGORIES.map((category) => {
-            const isActive = selectedCategory === category;
-            return (
-              <button
-                key={category}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                onClick={() => handleSelectCategory(category)}
-                className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-xs sm:text-[0.8125rem] font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
-                  isActive
-                    ? 'bg-primary text-primary-foreground shadow-sm border border-primary'
-                    : 'bg-muted text-heading border border-border hover:border-primary/45 hover:bg-card'
-                }`}
-              >
-                {getCategoryIcon(category, isActive)}
-                <span>{category}</span>
-              </button>
-            );
-          })}
-        </div>
+          {/* Warm gold left architectural accent & subtle radial highlight */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-[#b5651d] via-[#d9954e] to-[#b5651d]"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-14 -right-14 h-44 w-44 rounded-full bg-[#f3d0a8]/35 blur-2xl"
+          />
 
-        {/* Single Featured Question Card */}
-        <article className="mt-5 w-full rounded-2xl bg-muted border border-border shadow-sm hover:shadow-md hover:border-primary/35 transition-all duration-200 p-5 sm:px-7 sm:py-6">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
-            <div className="space-y-1.5 min-w-0">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">
-                {featuredQuestion.topicTitle}
-              </p>
-              <h3 className="font-display text-lg sm:text-[1.375rem] font-bold text-heading leading-snug">
-                {featuredQuestion.question}
-              </h3>
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                {featuredQuestion.shortPreview}
+          <div className="relative pl-6 pr-5 py-5 sm:pl-9 sm:pr-8 sm:py-7">
+            {/* Top Bar: DO YOU KNOW? Eyebrow + Index & Subtle Prev/Next Controls */}
+            <div className="flex items-center justify-between gap-3">
+              <div className="inline-flex items-center gap-2">
+                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/12 text-primary border border-primary/25">
+                  <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
+                </span>
+                <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.2em] text-primary">
+                  DO YOU KNOW?
+                </span>
+              </div>
+
+              <div className="flex items-center gap-1.5">
+                <span className="mr-1 text-[11px] font-semibold tabular-nums text-muted-foreground">
+                  {String(activeIndex + 1).padStart(2, '0')} / {String(totalItems).padStart(2, '0')}
+                </span>
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  aria-label="Previous astrology question"
+                  className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-border bg-background/85 text-heading hover:bg-secondary/60 hover:border-primary/40 transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                >
+                  <ChevronLeft className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  aria-label="Next astrology question"
+                  className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-border bg-background/85 text-heading hover:bg-secondary/60 hover:border-primary/40 transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                >
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Animated Question & Answer Content (Rotates Every 5 Seconds) */}
+            <div key={currentItem.id} className="qna-fade-slide mt-3.5 space-y-2.5">
+              <h2 className="font-display text-xl sm:text-[1.6rem] font-bold text-heading leading-snug">
+                {currentItem.question}
+              </h2>
+
+              <p className="text-[13.5px] sm:text-[15px] text-foreground/95 leading-relaxed">
+                {currentItem.answer}
               </p>
             </div>
 
-            <div className="shrink-0">
+            {/* Bottom Step Dots + Explore More Trigger */}
+            <div className="mt-4 pt-3.5 border-t border-border/80 flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-1.5" role="tablist" aria-label="Astrology Q&A Slides">
+                {ASTROLOGY_QNA_ITEMS.map((item, idx) => {
+                  const isCurrent = idx === activeIndex;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={isCurrent}
+                      aria-label={`View question ${idx + 1}: ${item.question}`}
+                      onClick={() => setActiveIndex(idx)}
+                      className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                        isCurrent
+                          ? 'w-6 bg-primary'
+                          : 'w-2 bg-border hover:bg-primary/50'
+                      }`}
+                    />
+                  );
+                })}
+              </div>
+
               <button
                 type="button"
-                onClick={() => setIsAnswerOpen((prev) => !prev)}
-                aria-expanded={isAnswerOpen}
-                className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-secondary hover:bg-accent text-heading px-5 py-2.5 text-xs sm:text-sm font-bold whitespace-nowrap shadow-2xs transition-all duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                onClick={() => {
+                  setModalCategory('All');
+                  setIsMoreModalOpen(true);
+                }}
+                className="inline-flex items-center gap-1 text-xs sm:text-[13px] font-semibold text-primary hover:text-heading underline decoration-primary/35 hover:decoration-heading underline-offset-4 transition-colors cursor-pointer whitespace-nowrap"
               >
-                {isAnswerOpen ? (
-                  <>
-                    <span>Hide Answer</span>
-                    <ChevronUp className="w-4 h-4" />
-                  </>
-                ) : (
-                  <span>Read Answer →</span>
-                )}
+                Explore More Astrology Questions →
               </button>
             </div>
           </div>
 
-          {/* Lightweight Inline Traditional Answer */}
-          {isAnswerOpen && (
-            <div className="mt-4 pt-4 border-t border-border space-y-2.5">
-              <p className="text-xs sm:text-sm text-foreground leading-relaxed">
-                {featuredQuestion.answer}
-              </p>
-              <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
-                <p className="text-xs font-semibold text-primary">
-                  {featuredQuestion.keyTakeaway}
-                </p>
-                {onOpenBooking && (
-                  <button
-                    type="button"
-                    onClick={onOpenBooking}
-                    className="text-xs font-bold text-heading hover:text-primary underline decoration-primary/40 underline-offset-4 cursor-pointer"
-                  >
-                    Ask About Your Chart →
-                  </button>
-                )}
-              </div>
+          {/* 5-second auto-advance progress bar along bottom edge */}
+          {!isPaused && !isMoreModalOpen && (
+            <div className="h-[3px] w-full bg-[#e8ddd0]/70 overflow-hidden" aria-hidden="true">
+              <div
+                key={`progress-${activeIndex}`}
+                className="qna-progress-bar h-full w-full bg-gradient-to-r from-[#b5651d] via-[#d9954e] to-[#b5651d]"
+              />
             </div>
           )}
         </article>
-
-        {/* Bottom Text Link CTA */}
-        <div className="mt-4 text-center">
-          <button
-            type="button"
-            onClick={() => {
-              setModalCategory(selectedCategory);
-              setIsMoreModalOpen(true);
-            }}
-            className="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-primary hover:text-heading underline decoration-primary/35 hover:decoration-heading underline-offset-4 transition-colors cursor-pointer"
-          >
-            Explore More Astrology Questions →
-          </button>
-        </div>
       </div>
 
-      {/* Lightweight Quick Q&A Explorer Modal */}
+      {/* Quick Q&A Explorer Modal */}
       {isMoreModalOpen && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/65 p-4 backdrop-blur-xs"
@@ -184,7 +178,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
             <div className="px-5 py-4 bg-muted border-b border-border flex items-center justify-between gap-4">
               <div>
                 <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
-                  ASTROLOGY Q&amp;A
+                  DO YOU KNOW?
                 </p>
                 <h3
                   id="more-qna-modal-title"
@@ -203,7 +197,6 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
               </button>
             </div>
 
-            {/* Category Filter Tabs inside Modal */}
             <div className="px-5 py-3 bg-card border-b border-border flex items-center gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {(['All', ...ASTROLOGY_QNA_CATEGORIES] as const).map((cat) => {
                 const active = modalCategory === cat;
@@ -224,7 +217,6 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
               })}
             </div>
 
-            {/* Concise Question List */}
             <div className="flex-1 overflow-y-auto p-5 space-y-3.5">
               {modalItems.map((item) => (
                 <div
@@ -232,7 +224,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
                   className="rounded-xl bg-muted border border-border p-4 space-y-1.5"
                 >
                   <div className="flex items-center justify-between gap-2 text-[11px] font-semibold uppercase tracking-wider text-primary">
-                    <span>{item.topicTitle}</span>
+                    <span>DO YOU KNOW?</span>
                     <span className="text-muted-foreground">{item.category}</span>
                   </div>
                   <h4 className="font-display text-base font-bold text-heading">

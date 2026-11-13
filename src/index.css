@@ -100,6 +100,42 @@
   }
 }
 
+@keyframes qna-fade-slide {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.qna-fade-slide {
+  animation: qna-fade-slide 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes qna-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.qna-progress-bar {
+  transform-origin: left center;
+  animation: qna-progress 5s linear forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qna-fade-slide,
+  .qna-progress-bar {
+    animation: none;
+  }
+}
+
 /* Custom scrollbar matching warm heritage palette */
 ::-webkit-scrollbar {
   width: 8px;
