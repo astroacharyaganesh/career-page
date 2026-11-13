@@ -7,15 +7,15 @@ import {
   Star,
   Sparkles,
   ShieldCheck,
-  CheckCircle2,
-  Calendar
+  CheckCircle2
 } from 'lucide-react';
 
 interface ExpertProfileCardProps {
   onOpenBooking?: () => void;
 }
 
-export const ExpertProfileCard: React.FC<ExpertProfileCardProps> = ({ onOpenBooking }) => {
+export const ExpertProfileCard: React.FC<ExpertProfileCardProps> = () => {
+
   return (
     <section id="expert-profile" className="relative -mt-4 lg:-mt-6 mb-6 lg:mb-8 z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Outer Glow & Gradient Container */}

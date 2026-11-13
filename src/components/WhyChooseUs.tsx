@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Award,
-  Users,
-  Shield,
-  Briefcase,
-  Sparkles
-} from 'lucide-react';
+import { Award, Users, Shield, Briefcase, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 
 interface WhyChooseUsProps {
@@ -13,6 +7,7 @@ interface WhyChooseUsProps {
 }
 
 export const WhyChooseUs: React.FC<WhyChooseUsProps> = () => {
+
   const pillars = [
     {
       icon: Award,
@@ -47,26 +42,20 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = () => {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-6 sm:mb-8"
         >
-          
-          {/* Pill Badge */}
           <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#E8DAC9] border border-[#D9C4AD] text-xs font-semibold text-[#6B2E13] mb-2.5 shadow-sm">
             <Sparkles className="w-3.5 h-3.5 text-[#6B2E13]" />
             <span className="uppercase tracking-wider">WHY CHOOSE OUR CAREER ASTROLOGY SERVICES?</span>
           </div>
 
-          {/* Main Display Heading */}
           <h2 className="font-serif-display text-2xl sm:text-3xl lg:text-[36px] font-bold text-[#23120A] tracking-tight leading-[1.2]">
             Why Choose Our Career Astrology Services?
           </h2>
 
-          {/* Subtitle */}
           <p className="mt-2 text-xs sm:text-sm text-stone-700 font-normal leading-relaxed">
             Personalized Vedic insights and practical roadmaps formulated from your birth chart by Acharya Ganesh.
           </p>
-
         </motion.div>
 
-        {/* 4 Clean Minimal Cards with Staggered Wavy Zoom-Out Animation */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
           {pillars.map((pillar, idx) => {
             const Icon = pillar.icon;
@@ -88,7 +77,6 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = () => {
                 }}
                 className="group relative"
               >
-                {/* Continuous Staggered Harmonic Floating Wave */}
                 <motion.div
                   animate={{
                     y: [0, -7, 0],
@@ -103,7 +91,6 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = () => {
                   }}
                   className="w-full h-full rounded-2xl bg-white border border-[#E9DACB] p-6 sm:p-7 shadow-sm group-hover:shadow-lg group-hover:border-[#D4B99D] transition-all flex flex-col justify-between items-start min-h-[160px]"
                 >
-                  {/* Icon in Rounded Box with subtle rotation */}
                   <motion.div
                     whileHover={{ rotate: 8, scale: 1.1 }}
                     transition={{ type: 'spring', stiffness: 300, damping: 15 }}
@@ -112,7 +99,6 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = () => {
                     <Icon className="w-6 h-6 stroke-[1.6]" />
                   </motion.div>
 
-                  {/* Card Title */}
                   <h3 className="font-serif-display text-lg sm:text-[19px] font-bold text-[#23120A] leading-snug group-hover:text-[#6B2E13] transition-colors">
                     {pillar.title}
                   </h3>
@@ -126,4 +112,5 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = () => {
     </section>
   );
 };
+
 

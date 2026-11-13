@@ -8,22 +8,19 @@ import {
   ShieldCheck,
   Calendar,
   MessageCircle,
-  ArrowRight,
-  TrendingUp,
-  CheckCircle2
+  ArrowRight
 } from 'lucide-react';
 
 interface UnderstandingCareerAstrologyProps {
   onOpenBooking: (tier?: any) => void;
 }
 
-export const UnderstandingCareerAstrology: React.FC<UnderstandingCareerAstrologyProps> = ({ onOpenBooking }) => {
-  const handleWhatsApp = () => {
-    const text = encodeURIComponent(
-      'Namaste Acharya Ganesh, I would like to inquire about Career Astrology by Date of Birth and D10 Dashamsha analysis.'
-    );
-    window.open(`https://wa.me/917300004325?text=${text}`, '_blank');
-  };
+export const UnderstandingCareerAstrology: React.FC<UnderstandingCareerAstrologyProps> = ({
+  onOpenBooking
+}) => {
+  const whatsappHref = `https://wa.me/917300004325?text=${encodeURIComponent(
+    'Namaste Acharya Ganesh, I would like to inquire about Career Astrology by Date of Birth and D10 Dashamsha analysis.'
+  )}`;
 
   return (
     <section id="understanding-career-astrology" className="py-7 sm:py-9 bg-[#FAF7F2] text-stone-800 relative overflow-hidden border-b border-stone-200">
@@ -146,14 +143,15 @@ export const UnderstandingCareerAstrology: React.FC<UnderstandingCareerAstrology
                 <ArrowRight className="w-4 h-4 text-amber-200" />
               </button>
 
-              <button
-                type="button"
-                onClick={handleWhatsApp}
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-5 py-2.5 sm:py-3 rounded-xl font-bold text-xs sm:text-sm text-stone-800 bg-white hover:bg-stone-50 border border-stone-300 transition-all shadow-sm flex items-center gap-2 cursor-pointer"
               >
                 <MessageCircle className="w-4 h-4 text-emerald-500 fill-emerald-500" />
                 <span>Ask via WhatsApp</span>
-              </button>
+              </a>
             </div>
 
           </div>
@@ -161,7 +159,6 @@ export const UnderstandingCareerAstrology: React.FC<UnderstandingCareerAstrology
           {/* ================= RIGHT COLUMN (SINGLE POSTER IMAGE CROPPED TO CONTENT HEIGHT) ================= */}
           <div className="lg:col-span-5 w-full flex justify-center lg:justify-end h-full">
             <div className="relative w-full max-w-[420px] h-[340px] sm:h-[370px] lg:h-full lg:min-h-[350px] lg:max-h-[370px] rounded-3xl overflow-hidden shadow-xl shadow-stone-900/20 border-2 border-[#EADBCA] bg-[#FAF6F0] group">
-              {/* Single Consolidated Career Astrology Poster Image cropped to content */}
               <img
                 src={posterImage}
                 alt="Career Astrology - Discover the Right Path, Timing & Growth with Acharya Ganesh"
@@ -169,7 +166,6 @@ export const UnderstandingCareerAstrology: React.FC<UnderstandingCareerAstrology
                 onClick={() => onOpenBooking('executive')}
               />
 
-              {/* Subtle bottom gradient & top golden sheen border overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#23120A]/40 via-transparent to-transparent pointer-events-none" />
               <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-amber-900/10 pointer-events-none" />
             </div>
@@ -181,3 +177,4 @@ export const UnderstandingCareerAstrology: React.FC<UnderstandingCareerAstrology
     </section>
   );
 };
+

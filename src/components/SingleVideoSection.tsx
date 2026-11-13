@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Play,
-  Sparkles,
-  Clock,
-  Tv
-} from 'lucide-react';
+import { Play, Sparkles, Clock, Tv } from 'lucide-react';
 import { motion } from 'motion/react';
 import videoThumbnailImg from '../assets/images/acharya_ganesh_video_thumbnail_1787737353353.jpg';
 
@@ -12,10 +7,9 @@ interface SingleVideoSectionProps {
   onOpenBooking: (tier?: any) => void;
 }
 
-export const SingleVideoSection: React.FC<SingleVideoSectionProps> = ({ onOpenBooking }) => {
+export const SingleVideoSection: React.FC<SingleVideoSectionProps> = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
-  // High quality embeddable YouTube video on Career Astrology / Vedic Guidance
   const youtubeVideoId = 'tgbNymZ7vqY';
 
   return (
@@ -23,7 +17,6 @@ export const SingleVideoSection: React.FC<SingleVideoSectionProps> = ({ onOpenBo
       id="featured-video-guidance"
       className="py-7 sm:py-9 bg-[#1B0C06] text-stone-200 relative overflow-hidden border-b border-amber-950/50"
     >
-      {/* Background ambient glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-amber-600/10 rounded-full blur-[150px] pointer-events-none" />
       <div
         className="absolute inset-0 opacity-[0.08] pointer-events-none"
@@ -34,8 +27,6 @@ export const SingleVideoSection: React.FC<SingleVideoSectionProps> = ({ onOpenBo
       />
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 relative z-10">
-        
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -53,7 +44,6 @@ export const SingleVideoSection: React.FC<SingleVideoSectionProps> = ({ onOpenBo
           </h2>
         </motion.div>
 
-        {/* Video Player Container Card - Compact & Minimized Size */}
         <motion.div
           initial={{ opacity: 0, scale: 0.98, y: 20 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -68,8 +58,6 @@ export const SingleVideoSection: React.FC<SingleVideoSectionProps> = ({ onOpenBo
           }}
           className="rounded-2xl bg-[#261208] border border-amber-500/40 p-2.5 sm:p-3.5 shadow-xl shadow-black/70 relative"
         >
-          
-          {/* Main 16:9 Video Box - Compact Frame */}
           <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden bg-black border border-amber-900/60 shadow-lg group">
             {isPlaying ? (
               <iframe
@@ -81,7 +69,6 @@ export const SingleVideoSection: React.FC<SingleVideoSectionProps> = ({ onOpenBo
               />
             ) : (
               <div className="relative w-full h-full cursor-pointer" onClick={() => setIsPlaying(true)}>
-                {/* Masterclass Image of Acharya Ganesh */}
                 <img
                   id="acharya-ganesh-masterclass-thumbnail"
                   src={videoThumbnailImg}
@@ -89,10 +76,8 @@ export const SingleVideoSection: React.FC<SingleVideoSectionProps> = ({ onOpenBo
                   className="w-full h-full object-cover filter brightness-[0.88] contrast-[1.05] group-hover:scale-105 transition-transform duration-500"
                 />
 
-                {/* Subtle Vignette Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1B0C06]/85 via-black/20 to-black/30 pointer-events-none" />
 
-                {/* Pulsing Compact Play Button */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 pointer-events-none">
                   <motion.div
                     whileHover={{ scale: 1.12, rotate: 2 }}
@@ -120,14 +105,12 @@ export const SingleVideoSection: React.FC<SingleVideoSectionProps> = ({ onOpenBo
                   </span>
                 </div>
 
-                {/* Top Badge */}
                 <div className="absolute top-3 left-3 flex items-center gap-1.5 pointer-events-none">
                   <span className="px-2.5 py-0.5 rounded-md bg-[#3D1A0C]/90 backdrop-blur-md border border-amber-600/40 text-[10px] font-bold text-amber-300 uppercase tracking-wider shadow-sm">
                     HD MASTERCLASS
                   </span>
                 </div>
 
-                {/* Bottom Bar Info */}
                 <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] text-amber-200/90 pointer-events-none">
                   <div className="flex items-center gap-1.5 font-medium">
                     <Clock className="w-3 h-3 text-amber-400" />
@@ -141,10 +124,9 @@ export const SingleVideoSection: React.FC<SingleVideoSectionProps> = ({ onOpenBo
               </div>
             )}
           </div>
-
         </motion.div>
-
       </div>
     </section>
   );
 };
+

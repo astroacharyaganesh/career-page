@@ -1,13 +1,8 @@
 import React from 'react';
-import {
-  Sparkles,
-  Star,
-  Quote,
-  CheckCircle2,
-  Calendar
-} from 'lucide-react';
+import { Sparkles, Star, CheckCircle2, Calendar } from 'lucide-react';
 
 export const VedicTestimonialsSection: React.FC = () => {
+
   const testimonials = [
     {
       category: 'Job Switch & Timing',
@@ -43,37 +38,28 @@ export const VedicTestimonialsSection: React.FC = () => {
       id="verified-testimonials"
       className="py-7 sm:py-9 bg-[#1A0C06] text-stone-200 relative overflow-hidden border-b border-amber-950/40"
     >
-      {/* Background starlight dots pattern */}
       <div className="absolute inset-0 opacity-[0.12] pointer-events-none" style={{
         backgroundImage: 'radial-gradient(circle, #fcd34d 1px, transparent 1px)',
         backgroundSize: '32px 32px'
       }} />
 
-      {/* Radiant ambient glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-amber-600/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Top Header Block */}
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
-          
-          {/* Pill Badge */}
           <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#35180D] border border-amber-600/30 text-xs font-semibold text-amber-300 mb-2.5 shadow-sm">
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
             <span>Verified Client Success Stories</span>
           </div>
 
-          {/* Headline */}
           <h2 className="font-serif-display text-3xl sm:text-4xl lg:text-[42px] font-bold text-amber-50 tracking-tight leading-[1.2]">
             Trusted by Professionals Across Different Career Stages
           </h2>
 
-          {/* Subtitle */}
           <p className="mt-3.5 text-xs sm:text-sm text-amber-100/75 font-normal leading-relaxed max-w-2xl mx-auto">
             Real experiences from working professionals, senior executives, entrepreneurs, overseas job seekers and government-sector aspirants who sought guidance through career astrology.
           </p>
 
-          {/* Review Score Badge matching screenshot */}
           <div className="flex items-center justify-center gap-2 mt-4 text-xs sm:text-[13px] font-semibold text-amber-200">
             <div className="flex items-center text-amber-400 gap-0.5">
               {[...Array(5)].map((_, i) => (
@@ -84,10 +70,8 @@ export const VedicTestimonialsSection: React.FC = () => {
             <span className="text-amber-400/50">•</span>
             <span className="text-amber-200/80">5,000+ Verified Google Reviews</span>
           </div>
-
         </div>
 
-        {/* Testimonials 3-Card Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((t, idx) => (
             <div
@@ -95,7 +79,6 @@ export const VedicTestimonialsSection: React.FC = () => {
               className="rounded-2xl bg-[#261208]/90 border border-amber-800/30 p-6 sm:p-7 shadow-xl flex flex-col justify-between hover:border-amber-600/50 transition-all group"
             >
               <div>
-                {/* Header Date & Star Rating */}
                 <div className="flex items-center justify-between gap-2 mb-4 text-xs text-amber-200/70">
                   <div className="flex items-center gap-1.5 font-medium">
                     <Calendar className="w-3.5 h-3.5 text-amber-400" />
@@ -109,7 +92,6 @@ export const VedicTestimonialsSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Testimonial Quote */}
                 <div className="relative mb-6">
                   <span className="font-serif-display text-4xl text-amber-500/30 absolute -top-4 -left-1 select-none pointer-events-none">
                     “
@@ -120,7 +102,6 @@ export const VedicTestimonialsSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Outcome Box */}
               <div className="pt-4 border-t border-amber-900/40 mt-auto">
                 <div className="flex items-center gap-1.5 text-[11px] font-bold text-amber-400 uppercase tracking-wider mb-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
@@ -130,12 +111,11 @@ export const VedicTestimonialsSection: React.FC = () => {
                   {t.outcome}
                 </p>
               </div>
-
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
 };
+

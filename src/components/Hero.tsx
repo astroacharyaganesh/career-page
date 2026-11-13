@@ -6,11 +6,7 @@ import {
   Minus,
   CheckCircle2,
   Lock,
-  Palette,
-  ChevronDown,
-  Calendar,
-  Clock,
-  MapPin
+  ChevronDown
 } from 'lucide-react';
 
 interface HeroProps {
@@ -19,7 +15,7 @@ interface HeroProps {
   onOpenVideoIntro?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenVideoIntro }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -28,33 +24,31 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
   const [dob, setDob] = useState('');
   const [tob, setTob] = useState('');
   const [pob, setPob] = useState('');
+  const [formError, setFormError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName || !phone) {
-      alert('Please provide your name and contact phone number to confirm your consultation.');
+      setFormError('Please provide your name and contact phone number to confirm your consultation.');
       return;
     }
+    setFormError('');
 
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
-      // Trigger booking modal or success step
       setTimeout(() => {
         onOpenBooking('executive');
       }, 800);
     }, 600);
   };
 
-  const handleWhatsAppDirect = () => {
-    const text = encodeURIComponent(
-      `Namaste Acharya Ganesh, I want to book a Career Astrology consultation for "${careerFocus}". Name: ${fullName || 'Professional'}, Phone: ${phone || 'Direct'}.`
-    );
-    window.open(`https://wa.me/917300004325?text=${text}`, '_blank');
-  };
+  const whatsappDirectHref = `https://wa.me/917300004325?text=${encodeURIComponent(
+    `Namaste Acharya Ganesh, I want to book a Career Astrology consultation for "${careerFocus}". Name: ${fullName || 'Professional'}, Phone: ${phone || 'Direct'}.`
+  )}`;
 
   const planets = [
     { name: 'Sun', symbol: '☉', role: 'Authority & Govt.' },
@@ -354,6 +348,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
                   )}
                 </div>
 
+                {formError && (
+                  <p className="text-xs font-medium text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+                    {formError}
+                  </p>
+                )}
+
                 {/* Primary Submit Button */}
                 <button
                   type="submit"
@@ -378,15 +378,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onWatchIntro, onOpenV
                   )}
                 </button>
 
-                {/* Instant WhatsApp Button */}
-                <button
-                  type="button"
-                  onClick={handleWhatsAppDirect}
+                {/* Instant WhatsApp Link */}
+                <a
+                  href={whatsappDirectHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full py-2.5 px-4 rounded-xl font-bold text-xs sm:text-sm text-white bg-[#10b981] hover:bg-[#059669] active:scale-[0.99] transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4 text-white fill-white" />
                   <span>Instant WhatsApp Booking (+91 73000-04325)</span>
-                </button>
+                </a>
 
                 {/* Confidentiality Footer */}
                 <div className="pt-1 text-center text-[10px] text-stone-500 flex items-center justify-center gap-1.5">
