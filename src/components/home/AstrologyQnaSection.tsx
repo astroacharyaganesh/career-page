@@ -284,42 +284,20 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
 
           {/* MAIN CONTENT COLUMN */}
           <div className="relative z-10 w-full px-4 py-5 sm:px-7 sm:py-7 md:pl-[232px] md:pr-[185px] lg:pl-[272px] lg:pr-[215px]">
-            {/* MOBILE HEADER ROW: Rolling Chakra Emblem w/ Center Logo + Stacked Pill & Controls (Zero Text Overlap) */}
-            <div className="flex md:hidden items-center justify-between gap-3 pb-3.5 border-b border-[#d9b88c]/65">
+            {/* MOBILE HEADER ROW: Circular Rolling Chakra + Enlarged DO YOU KNOW? Pill (No number display) */}
+            <div className="flex md:hidden items-center gap-3.5 pb-3.5 border-b border-[#d9b88c]/65">
               <VedicChakraEmblem className="h-22 w-22 sm:h-24 sm:w-24" compact />
 
-              <div className="flex flex-col items-end gap-2 min-w-0">
-                <div className="inline-flex items-center gap-1.5 rounded-full border border-[#d6a04f] bg-gradient-to-b from-[#fff5dc] via-[#fae2b4] to-[#f2cb86] px-3 py-1 shadow-[0_3px_10px_-3px_rgba(148,86,17,0.32),inset_0_1px_0_rgba(255,255,255,0.85)]">
-                  <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-br from-[#e7b25a] to-[#b57322] text-[#5e1414] shadow-inner">
-                    <svg viewBox="0 0 24 24" className="h-2.5 w-2.5" fill="currentColor" aria-hidden="true">
+              <div className="flex-1 min-w-0 flex items-center">
+                <div className="inline-flex items-center gap-2 rounded-full border border-[#d6a04f] bg-gradient-to-b from-[#fff5dc] via-[#fae2b4] to-[#f2cb86] px-4 py-2 shadow-[0_3px_10px_-3px_rgba(148,86,17,0.32),inset_0_1px_0_rgba(255,255,255,0.85)]">
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br from-[#e7b25a] to-[#b57322] text-[#5e1414] shadow-inner shrink-0">
+                    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
                       <path d="M12 1.5L14.4 9.6L22.5 12L14.4 14.4L12 22.5L9.6 14.4L1.5 12L9.6 9.6L12 1.5Z" />
                     </svg>
                   </span>
-                  <span className="text-[11px] font-extrabold uppercase tracking-[0.12em] text-[#6d1414] whitespace-nowrap">
+                  <span className="text-[15px] sm:text-base font-extrabold uppercase tracking-[0.13em] text-[#6d1414] whitespace-nowrap">
                     DO YOU KNOW?
                   </span>
-                </div>
-
-                <div className="flex items-center gap-1.5">
-                  <span className="mr-1 text-xs font-semibold tabular-nums text-[#61341a]">
-                    {String(activeIndex + 1).padStart(2, '0')} / {String(totalItems).padStart(2, '0')}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={handlePrev}
-                    aria-label="Previous astrology question"
-                    className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#ddb986] bg-gradient-to-b from-[#fffaf0] to-[#f4dfbf] text-[#6d1414] shadow-2xs hover:from-[#fff4dc] hover:to-[#eccb99] transition-all cursor-pointer"
-                  >
-                    <ChevronLeft className="w-3.5 h-3.5" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleNext}
-                    aria-label="Next astrology question"
-                    className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#ddb986] bg-gradient-to-b from-[#fffaf0] to-[#f4dfbf] text-[#6d1414] shadow-2xs hover:from-[#fff4dc] hover:to-[#eccb99] transition-all cursor-pointer"
-                  >
-                    <ChevronRight className="w-3.5 h-3.5" />
-                  </button>
                 </div>
               </div>
             </div>
@@ -369,15 +347,35 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
               </div>
             </div>
 
-            {/* Animated Question & Answer (Clean Parchment Canvas, Zero Overlapping Art on Mobile) */}
-            <div key={currentItem.id} className="qna-fade-slide mt-4 sm:mt-5 space-y-2.5">
-              <h2 className="font-serif-display text-[1.25rem] sm:text-[1.75rem] font-bold text-[#6f0f13] leading-[1.25] tracking-[-0.01em]">
-                {currentItem.question}
-              </h2>
+            {/* Question & Answer Block with Mobile Left/Right Side Navigation Arrows */}
+            <div className="relative mt-4 sm:mt-5">
+              <button
+                type="button"
+                onClick={handlePrev}
+                aria-label="Previous astrology question"
+                className="md:hidden absolute -left-2 top-1/2 -translate-y-1/2 z-20 inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#ddb986] bg-gradient-to-b from-[#fffaf0] to-[#f4dfbf] text-[#6d1414] shadow-sm hover:from-[#fff4dc] hover:to-[#eccb99] transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6d1414]"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
 
-              <p className="text-[14px] sm:text-[15.5px] text-[#2c1f16] leading-[1.65] font-normal">
-                {currentItem.answer}
-              </p>
+              <button
+                type="button"
+                onClick={handleNext}
+                aria-label="Next astrology question"
+                className="md:hidden absolute -right-2 top-1/2 -translate-y-1/2 z-20 inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#ddb986] bg-gradient-to-b from-[#fffaf0] to-[#f4dfbf] text-[#6d1414] shadow-sm hover:from-[#fff4dc] hover:to-[#eccb99] transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6d1414]"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+
+              <div key={currentItem.id} className="qna-fade-slide px-8 sm:px-9 md:px-0 space-y-2.5">
+                <h2 className="font-serif-display text-[1.25rem] sm:text-[1.75rem] font-bold text-[#6f0f13] leading-[1.25] tracking-[-0.01em]">
+                  {currentItem.question}
+                </h2>
+
+                <p className="text-[14px] sm:text-[15.5px] text-[#2c1f16] leading-[1.65] font-normal">
+                  {currentItem.answer}
+                </p>
+              </div>
             </div>
 
             {/* Subtle Horizontal Tan Divider */}
