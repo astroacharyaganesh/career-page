@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { HomeHeader } from './components/home/HomeHeader';
 import { HomeHeroSection } from './components/home/HomeHeroSection';
 import { StatsBarSection } from './components/home/StatsBarSection';
+import { AstrologyQnaSection } from './components/home/AstrologyQnaSection';
 import { ServicesOfferedSection } from './components/home/ServicesOfferedSection';
 import { CoursesCarouselSection } from './components/home/CoursesCarouselSection';
 import { ZodiacCarouselSection } from './components/home/ZodiacCarouselSection';
@@ -37,6 +38,9 @@ export default function App() {
 
         {/* 2. Stats & Google Reviews Strip */}
         <StatsBarSection />
+
+        {/* Compact Astrology Q&A Module */}
+        <AstrologyQnaSection onOpenBooking={() => handleOpenBooking('executive')} />
 
         {/* 3. Services Offered */}
         <ServicesOfferedSection onOpenBooking={() => handleOpenBooking('executive')} />
