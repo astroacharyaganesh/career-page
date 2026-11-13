@@ -477,7 +477,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
                 </h2>
 
                 <div className="rounded-xl border border-[#e3c396]/85 border-l-[3px] border-l-[#b5651d] bg-white/68 backdrop-blur-xs px-3.5 py-2 sm:px-4.5 sm:py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.92),0_8px_18px_-10px_rgba(93,46,10,0.14)]">
-                  <p className="text-[13px] sm:text-[14.5px] text-[#2c1e14] leading-[1.45] font-normal line-clamp-2">
+                  <p className="text-[13px] sm:text-[14.5px] text-[#2c1e14] leading-[1.45] font-normal">
                     {currentItem.answer}
                   </p>
                 </div>
