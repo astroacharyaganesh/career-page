@@ -139,13 +139,34 @@
 }
 
 .qna-chakra-roll {
-  animation: qna-chakra-roll 22s linear infinite;
+  animation: qna-chakra-roll 24s linear infinite;
+}
+
+.qna-chakra-counter-roll {
+  animation: qna-chakra-roll 36s linear infinite reverse;
+}
+
+@keyframes qna-star-twinkle {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.12);
+  }
+}
+
+.qna-star-twinkle {
+  animation: qna-star-twinkle 4.2s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .qna-fade-slide,
   .qna-progress-bar,
-  .qna-chakra-roll {
+  .qna-chakra-roll,
+  .qna-chakra-counter-roll,
+  .qna-star-twinkle {
     animation: none;
   }
 }
