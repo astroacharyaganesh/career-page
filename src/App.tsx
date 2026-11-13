@@ -5,7 +5,7 @@ import { StatsBarSection } from './components/home/StatsBarSection';
 import { AstrologyQnaSection } from './components/home/AstrologyQnaSection';
 import { ServicesOfferedSection } from './components/home/ServicesOfferedSection';
 import { CoursesCarouselSection } from './components/home/CoursesCarouselSection';
-import { ZodiacCarouselSection } from './components/home/ZodiacCarouselSection';
+import { HoroscopeSection } from './components/home/HoroscopeSection';
 import { MemoriesGallerySection } from './components/home/MemoriesGallerySection';
 import { YouTubeInsightsSection } from './components/home/YouTubeInsightsSection';
 import { StudentReviewsSection } from './components/home/StudentReviewsSection';
@@ -48,8 +48,8 @@ export default function App() {
         {/* 4. India’s Highly Rated Astrology Courses */}
         <CoursesCarouselSection />
 
-        {/* 5. Zodiac Signs: Learn The Names And Symbols */}
-        <ZodiacCarouselSection />
+        {/* 5. Interactive Horoscope (Daily / Weekly / Monthly / Yearly) */}
+        <HoroscopeSection onOpenBooking={() => handleOpenBooking('executive')} />
 
         {/* 6. Memories Over The Years */}
         <MemoriesGallerySection />
