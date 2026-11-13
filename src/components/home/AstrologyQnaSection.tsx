@@ -234,15 +234,34 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
             <path d="M63 20 C63 46 50 63 20 63 L20 59 C47 59 59 47 59 20 Z" fill="url(#goldCornerBR)" />
           </svg>
 
+          {/* DESKTOP LEFT & RIGHT SIDE NAVIGATION ARROWS */}
+          <button
+            type="button"
+            onClick={handlePrev}
+            aria-label="Previous astrology question"
+            className="hidden md:inline-flex absolute left-2.5 lg:left-4 top-1/2 -translate-y-1/2 z-30 h-8 w-8 lg:h-9 lg:w-9 items-center justify-center rounded-full border border-[#ddb986] bg-gradient-to-b from-[#fffaf0] to-[#f4dfbf] text-[#6d1414] shadow-sm hover:from-[#fff4dc] hover:to-[#eccb99] transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6d1414]"
+          >
+            <ChevronLeft className="w-4 h-4 lg:w-4.5 lg:h-4.5" />
+          </button>
+
+          <button
+            type="button"
+            onClick={handleNext}
+            aria-label="Next astrology question"
+            className="hidden md:inline-flex absolute right-2.5 lg:right-4 top-1/2 -translate-y-1/2 z-30 h-8 w-8 lg:h-9 lg:w-9 items-center justify-center rounded-full border border-[#ddb986] bg-gradient-to-b from-[#fffaf0] to-[#f4dfbf] text-[#6d1414] shadow-sm hover:from-[#fff4dc] hover:to-[#eccb99] transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6d1414]"
+          >
+            <ChevronRight className="w-4 h-4 lg:w-4.5 lg:h-4.5" />
+          </button>
+
           {/* DESKTOP LEFT ROLLING CHAKRA WITH CENTER ACHARYA GANESH LOGO & HIGHLIGHTED ZODIAC SIGNS */}
-          <div className="pointer-events-none hidden md:flex items-center justify-center absolute left-4 lg:left-7 top-1/2 -translate-y-1/2 z-10">
-            <VedicChakraEmblem className="h-48 w-48 lg:h-54 lg:w-54" />
+          <div className="pointer-events-none hidden md:flex items-center justify-center absolute left-12 lg:left-16 top-1/2 -translate-y-1/2 z-10">
+            <VedicChakraEmblem className="h-40 w-40 lg:h-52 lg:w-52" />
           </div>
 
           {/* DESKTOP RIGHT SIDE VEDIC KUNDLI CHART ETCHING & BRASS ARMILLARY SPHERE */}
           <div
             aria-hidden="true"
-            className="pointer-events-none hidden md:block absolute right-1 lg:right-3 bottom-0 z-10 h-40 w-44 lg:h-44 lg:w-48 select-none"
+            className="pointer-events-none hidden md:block absolute right-12 lg:right-16 bottom-0 z-10 h-36 w-36 lg:h-44 lg:w-44 select-none"
           >
             <svg viewBox="0 0 210 185" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-full w-full">
               <defs>
@@ -283,7 +302,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
           </div>
 
           {/* MAIN CONTENT COLUMN */}
-          <div className="relative z-10 w-full px-4 py-5 sm:px-7 sm:py-7 md:pl-[232px] md:pr-[185px] lg:pl-[272px] lg:pr-[215px]">
+          <div className="relative z-10 w-full px-4 py-5 sm:px-7 sm:py-7 md:pl-[224px] md:pr-[204px] lg:pl-[298px] lg:pr-[264px]">
             {/* MOBILE HEADER ROW: Circular Rolling Chakra + Enlarged DO YOU KNOW? Pill (No number display) */}
             <div className="flex md:hidden items-center gap-3.5 pb-3.5 border-b border-[#d9b88c]/65">
               <VedicChakraEmblem className="h-22 w-22 sm:h-24 sm:w-24" compact />
@@ -302,48 +321,31 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
               </div>
             </div>
 
-            {/* DESKTOP TOP BAR: DO YOU KNOW? Pill + Star Line + Counter & Prev/Next Buttons */}
-            <div className="hidden md:flex items-center justify-between gap-3">
-              <div className="flex items-center gap-3 min-w-0">
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#d6a04f] bg-gradient-to-b from-[#fff5dc] via-[#fae2b4] to-[#f2cb86] px-3.5 py-1.5 shadow-[0_3px_10px_-3px_rgba(148,86,17,0.32),inset_0_1px_0_rgba(255,255,255,0.85)]">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br from-[#e7b25a] to-[#b57322] text-[#5e1414] shadow-inner">
-                    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
-                      <path d="M12 1.5L14.4 9.6L22.5 12L14.4 14.4L12 22.5L9.6 14.4L1.5 12L9.6 9.6L12 1.5Z" />
-                    </svg>
-                  </span>
-                  <span className="text-[13px] font-extrabold uppercase tracking-[0.14em] text-[#6d1414] whitespace-nowrap">
-                    DO YOU KNOW?
-                  </span>
-                </div>
-
-                <div aria-hidden="true" className="flex items-center">
-                  <svg viewBox="0 0 20 20" className="h-3.5 w-3.5 text-[#d4973c] shrink-0" fill="currentColor">
-                    <path d="M10 0L12.1 7.9L20 10L12.1 12.1L10 20L7.9 12.1L0 10L7.9 7.9L10 0Z" />
-                  </svg>
-                  <span className="h-px w-16 lg:w-24 bg-gradient-to-r from-[#d4973c]/80 to-transparent" />
-                </div>
+            {/* DESKTOP TOP BAR: Centered Slightly Larger DO YOU KNOW? Pill Flanked by Delicate Gold Hairlines (No number display) */}
+            <div className="hidden md:flex items-center justify-center gap-4">
+              <div aria-hidden="true" className="flex items-center flex-1 max-w-[130px] justify-end">
+                <span className="h-px flex-1 bg-gradient-to-l from-[#d4973c]/80 to-transparent" />
+                <svg viewBox="0 0 20 20" className="h-3.5 w-3.5 text-[#d4973c] shrink-0" fill="currentColor">
+                  <path d="M10 0L12.1 7.9L20 10L12.1 12.1L10 20L7.9 12.1L0 10L7.9 7.9L10 0Z" />
+                </svg>
               </div>
 
-              <div className="flex items-center gap-2 shrink-0">
-                <span className="mr-1 text-[13px] font-semibold tabular-nums text-[#61341a]">
-                  {String(activeIndex + 1).padStart(2, '0')} / {String(totalItems).padStart(2, '0')}
+              <div className="inline-flex items-center gap-2.5 rounded-full border border-[#d6a04f] bg-gradient-to-b from-[#fff5dc] via-[#fae2b4] to-[#f2cb86] px-5 py-2 shadow-[0_3px_10px_-3px_rgba(148,86,17,0.32),inset_0_1px_0_rgba(255,255,255,0.85)]">
+                <span className="inline-flex h-5.5 w-5.5 items-center justify-center rounded-full bg-gradient-to-br from-[#e7b25a] to-[#b57322] text-[#5e1414] shadow-inner shrink-0">
+                  <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
+                    <path d="M12 1.5L14.4 9.6L22.5 12L14.4 14.4L12 22.5L9.6 14.4L1.5 12L9.6 9.6L12 1.5Z" />
+                  </svg>
                 </span>
-                <button
-                  type="button"
-                  onClick={handlePrev}
-                  aria-label="Previous astrology question"
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#ddb986] bg-gradient-to-b from-[#fffaf0] to-[#f4dfbf] text-[#6d1414] shadow-2xs hover:from-[#fff4dc] hover:to-[#eccb99] transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6d1414]"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={handleNext}
-                  aria-label="Next astrology question"
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#ddb986] bg-gradient-to-b from-[#fffaf0] to-[#f4dfbf] text-[#6d1414] shadow-2xs hover:from-[#fff4dc] hover:to-[#eccb99] transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6d1414]"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
+                <span className="text-[15px] lg:text-base font-extrabold uppercase tracking-[0.15em] text-[#6d1414] whitespace-nowrap">
+                  DO YOU KNOW?
+                </span>
+              </div>
+
+              <div aria-hidden="true" className="flex items-center flex-1 max-w-[130px]">
+                <svg viewBox="0 0 20 20" className="h-3.5 w-3.5 text-[#d4973c] shrink-0" fill="currentColor">
+                  <path d="M10 0L12.1 7.9L20 10L12.1 12.1L10 20L7.9 12.1L0 10L7.9 7.9L10 0Z" />
+                </svg>
+                <span className="h-px flex-1 bg-gradient-to-r from-[#d4973c]/80 to-transparent" />
               </div>
             </div>
 
