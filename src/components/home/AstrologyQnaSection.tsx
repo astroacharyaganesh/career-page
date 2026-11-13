@@ -236,7 +236,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
     <section
       id="astrology-qna"
       aria-label="Do You Know Astrology Insights"
-      className="w-full bg-background py-4 sm:py-6"
+      className="w-full bg-background py-2.5 sm:py-4"
     >
       <div className="w-full max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
         <article
@@ -244,7 +244,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
           onMouseLeave={() => setIsPaused(false)}
           onFocus={() => setIsPaused(true)}
           onBlur={() => setIsPaused(false)}
-          className="group relative w-full overflow-hidden rounded-2xl border border-[#d6ab72] bg-gradient-to-br from-[#f3d8b4] via-[#fdf4e6] to-[#efd1aa] shadow-[0_20px_48px_-18px_rgba(92,42,14,0.26),0_4px_14px_-4px_rgba(181,101,29,0.14)] transition-shadow duration-300 hover:shadow-[0_24px_56px_-16px_rgba(92,42,14,0.32)]"
+          className="group relative w-full overflow-hidden rounded-2xl border border-[#d6ab72] bg-gradient-to-br from-[#f3d8b4] via-[#fdf4e6] to-[#efd1aa] shadow-[0_16px_38px_-16px_rgba(92,42,14,0.24),0_4px_12px_-4px_rgba(181,101,29,0.12)] transition-shadow duration-300 hover:shadow-[0_20px_46px_-14px_rgba(92,42,14,0.3)]"
         >
           {/* Warm Illuminated Center Luminance + Soft Celestial Ambient Glows */}
           <div
@@ -253,36 +253,36 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-48 w-[520px] rounded-full bg-[#ffe6b8]/45 blur-3xl"
+            className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 h-40 w-[480px] rounded-full bg-[#ffe6b8]/45 blur-3xl"
           />
 
           {/* Subtle Inner Manuscript Filigree Double Frame */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-[7px] rounded-[11px] border border-[#d4a15e]/35"
+            className="pointer-events-none absolute inset-[6px] rounded-[11px] border border-[#d4a15e]/35"
           />
 
           {/* Subtle Celestial Constellation Arcs & Twinkling Star Points */}
           <svg
             aria-hidden="true"
-            viewBox="0 0 1200 320"
+            viewBox="0 0 1200 260"
             preserveAspectRatio="none"
             className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.26] text-[#b4742a]"
             fill="none"
           >
-            <path d="M180 42 Q 600 -18 1020 42" stroke="currentColor" strokeWidth="0.7" strokeDasharray="3 5" />
-            <path d="M220 282 Q 600 330 980 282" stroke="currentColor" strokeWidth="0.7" strokeDasharray="3 5" />
-            <circle cx="320" cy="48" r="1.5" fill="currentColor" />
-            <circle cx="885" cy="54" r="1.5" fill="currentColor" />
-            <circle cx="290" cy="272" r="1.4" fill="currentColor" />
-            <circle cx="910" cy="268" r="1.4" fill="currentColor" />
+            <path d="M180 36 Q 600 -14 1020 36" stroke="currentColor" strokeWidth="0.7" strokeDasharray="3 5" />
+            <path d="M220 228 Q 600 270 980 228" stroke="currentColor" strokeWidth="0.7" strokeDasharray="3 5" />
+            <circle cx="320" cy="40" r="1.5" fill="currentColor" />
+            <circle cx="885" cy="46" r="1.5" fill="currentColor" />
+            <circle cx="290" cy="222" r="1.4" fill="currentColor" />
+            <circle cx="910" cy="218" r="1.4" fill="currentColor" />
           </svg>
 
           {/* Twinkling 4-Point Celestial Sparkles */}
           <svg
             aria-hidden="true"
             viewBox="0 0 20 20"
-            className="pointer-events-none hidden md:block absolute top-6 left-[27%] h-3 w-3 text-[#d19035] qna-star-twinkle"
+            className="pointer-events-none hidden md:block absolute top-4 left-[27%] h-3 w-3 text-[#d19035] qna-star-twinkle"
             fill="currentColor"
           >
             <path d="M10 0L12.1 7.9L20 10L12.1 12.1L10 20L7.9 12.1L0 10L7.9 7.9L10 0Z" />
@@ -291,7 +291,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
             aria-hidden="true"
             viewBox="0 0 20 20"
             style={{ animationDelay: '1.8s' }}
-            className="pointer-events-none hidden md:block absolute top-8 right-[26%] h-2.5 w-2.5 text-[#c9842c] qna-star-twinkle"
+            className="pointer-events-none hidden md:block absolute top-5 right-[26%] h-2.5 w-2.5 text-[#c9842c] qna-star-twinkle"
             fill="currentColor"
           >
             <path d="M10 0L12.1 7.9L20 10L12.1 12.1L10 20L7.9 12.1L0 10L7.9 7.9L10 0Z" />
@@ -301,7 +301,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
           <svg
             aria-hidden="true"
             viewBox="0 0 64 64"
-            className="pointer-events-none absolute top-0 left-0 z-20 h-9 w-9 sm:h-12 sm:w-12"
+            className="pointer-events-none absolute top-0 left-0 z-20 h-8 w-8 sm:h-10 sm:w-10"
             fill="none"
           >
             <defs>
@@ -318,7 +318,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
           <svg
             aria-hidden="true"
             viewBox="0 0 64 64"
-            className="pointer-events-none absolute bottom-0 right-0 z-20 h-9 w-9 sm:h-12 sm:w-12"
+            className="pointer-events-none absolute bottom-0 right-0 z-20 h-8 w-8 sm:h-10 sm:w-10"
             fill="none"
           >
             <defs>
@@ -337,32 +337,32 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
             type="button"
             onClick={handlePrev}
             aria-label="Previous astrology question"
-            className="hidden md:inline-flex absolute left-2.5 lg:left-4 top-1/2 -translate-y-1/2 z-30 h-9 w-9 lg:h-10 lg:w-10 items-center justify-center rounded-full border border-[#d6aa72] bg-gradient-to-b from-[#fffdf7]/95 to-[#f3dcba]/95 backdrop-blur-2xs text-[#6d1414] shadow-[0_6px_16px_-4px_rgba(92,42,14,0.25),inset_0_1px_0_rgba(255,255,255,0.9)] hover:scale-105 hover:border-[#b97728] hover:from-[#fff9eb] hover:to-[#ecc792] active:scale-95 transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6d1414]"
+            className="hidden md:inline-flex absolute left-2.5 lg:left-4 top-1/2 -translate-y-1/2 z-30 h-8 w-8 lg:h-9 lg:w-9 items-center justify-center rounded-full border border-[#d6aa72] bg-gradient-to-b from-[#fffdf7]/95 to-[#f3dcba]/95 backdrop-blur-2xs text-[#6d1414] shadow-[0_6px_16px_-4px_rgba(92,42,14,0.25),inset_0_1px_0_rgba(255,255,255,0.9)] hover:scale-105 hover:border-[#b97728] hover:from-[#fff9eb] hover:to-[#ecc792] active:scale-95 transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6d1414]"
           >
-            <ChevronLeft className="w-4.5 h-4.5" />
+            <ChevronLeft className="w-4 h-4" />
           </button>
 
           <button
             type="button"
             onClick={handleNext}
             aria-label="Next astrology question"
-            className="hidden md:inline-flex absolute right-2.5 lg:right-4 top-1/2 -translate-y-1/2 z-30 h-9 w-9 lg:h-10 lg:w-10 items-center justify-center rounded-full border border-[#d6aa72] bg-gradient-to-b from-[#fffdf7]/95 to-[#f3dcba]/95 backdrop-blur-2xs text-[#6d1414] shadow-[0_6px_16px_-4px_rgba(92,42,14,0.25),inset_0_1px_0_rgba(255,255,255,0.9)] hover:scale-105 hover:border-[#b97728] hover:from-[#fff9eb] hover:to-[#ecc792] active:scale-95 transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6d1414]"
+            className="hidden md:inline-flex absolute right-2.5 lg:right-4 top-1/2 -translate-y-1/2 z-30 h-8 w-8 lg:h-9 lg:w-9 items-center justify-center rounded-full border border-[#d6aa72] bg-gradient-to-b from-[#fffdf7]/95 to-[#f3dcba]/95 backdrop-blur-2xs text-[#6d1414] shadow-[0_6px_16px_-4px_rgba(92,42,14,0.25),inset_0_1px_0_rgba(255,255,255,0.9)] hover:scale-105 hover:border-[#b97728] hover:from-[#fff9eb] hover:to-[#ecc792] active:scale-95 transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6d1414]"
           >
-            <ChevronRight className="w-4.5 h-4.5" />
+            <ChevronRight className="w-4 h-4" />
           </button>
 
           {/* DESKTOP LEFT DUAL-ROTATING CHAKRA WITH CENTER ACHARYA GANESH LOGO & HIGHLIGHTED ZODIAC SIGNS */}
           <div className="pointer-events-none hidden md:flex items-center justify-center absolute left-13 lg:left-16 top-1/2 -translate-y-1/2 z-10">
-            <VedicChakraEmblem className="h-40 w-40 lg:h-52 lg:w-52" />
+            <VedicChakraEmblem className="h-36 w-36 lg:h-44 lg:w-44" />
           </div>
 
           {/* DESKTOP RIGHT SIDE VEDIC KUNDLI CHART ETCHING & BRASS ARMILLARY SPHERE */}
           <div
             aria-hidden="true"
-            className="pointer-events-none hidden md:block absolute right-12 lg:right-16 bottom-0 z-10 h-38 w-38 lg:h-46 lg:w-46 select-none"
+            className="pointer-events-none hidden md:block absolute right-12 lg:right-16 bottom-0 z-10 h-32 w-32 lg:h-38 lg:w-38 select-none"
           >
             {/* Warm Golden Aura Behind Armillary Sphere */}
-            <div className="pointer-events-none absolute right-2 bottom-4 h-32 w-32 rounded-full bg-[radial-gradient(circle,rgba(232,175,92,0.32)_0%,transparent_72%)] blur-lg" />
+            <div className="pointer-events-none absolute right-2 bottom-3 h-24 w-24 rounded-full bg-[radial-gradient(circle,rgba(232,175,92,0.32)_0%,transparent_72%)] blur-lg" />
 
             <svg viewBox="0 0 210 185" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative h-full w-full">
               <defs>
@@ -404,19 +404,19 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
           </div>
 
           {/* MAIN CONTENT COLUMN */}
-          <div className="relative z-10 w-full px-4 py-5 sm:px-7 sm:py-7 md:pl-[228px] md:pr-[208px] lg:pl-[302px] lg:pr-[268px]">
+          <div className="relative z-10 w-full px-4 py-3.5 sm:px-6 sm:py-4.5 md:pl-[212px] md:pr-[192px] lg:pl-[268px] lg:pr-[242px]">
             {/* MOBILE HEADER ROW: Circular Dual-Rolling Chakra + Enlarged DO YOU KNOW? Pill */}
-            <div className="flex md:hidden items-center gap-3.5 pb-4 border-b border-[#d9b88c]/65">
-              <VedicChakraEmblem className="h-22 w-22 sm:h-24 sm:w-24" compact />
+            <div className="flex md:hidden items-center gap-3 pb-2.5 border-b border-[#d9b88c]/65">
+              <VedicChakraEmblem className="h-16 w-16 sm:h-18 sm:w-18" compact />
 
               <div className="flex-1 min-w-0 flex items-center">
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#d49d4b] bg-gradient-to-b from-[#fff8e6] via-[#fbe4ba] to-[#f1c781] px-4 py-2 shadow-[0_6px_14px_-4px_rgba(148,86,17,0.34),inset_0_1px_0_rgba(255,255,255,0.92)]">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br from-[#eab55f] to-[#b06d1d] text-[#5c1111] shadow-inner shrink-0">
-                    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
+                <div className="inline-flex items-center gap-2 rounded-full border border-[#d49d4b] bg-gradient-to-b from-[#fff8e6] via-[#fbe4ba] to-[#f1c781] px-3.5 py-1.5 shadow-[0_6px_14px_-4px_rgba(148,86,17,0.34),inset_0_1px_0_rgba(255,255,255,0.92)]">
+                  <span className="inline-flex h-4.5 w-4.5 items-center justify-center rounded-full bg-gradient-to-br from-[#eab55f] to-[#b06d1d] text-[#5c1111] shadow-inner shrink-0">
+                    <svg viewBox="0 0 24 24" className="h-3 w-3" fill="currentColor" aria-hidden="true">
                       <path d="M12 1.5L14.4 9.6L22.5 12L14.4 14.4L12 22.5L9.6 14.4L1.5 12L9.6 9.6L12 1.5Z" />
                     </svg>
                   </span>
-                  <span className="text-[15px] sm:text-base font-extrabold uppercase tracking-[0.14em] text-[#6a1014] whitespace-nowrap">
+                  <span className="text-[14px] sm:text-[15px] font-extrabold uppercase tracking-[0.14em] text-[#6a1014] whitespace-nowrap">
                     DO YOU KNOW?
                   </span>
                 </div>
@@ -432,13 +432,13 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
                 </svg>
               </div>
 
-              <div className="inline-flex items-center gap-2.5 rounded-full border border-[#d49d4b] bg-gradient-to-b from-[#fff8e6] via-[#fbe4ba] to-[#f1c781] px-5.5 py-2 shadow-[0_6px_16px_-4px_rgba(148,86,17,0.34),inset_0_1px_0_rgba(255,255,255,0.92)]">
-                <span className="inline-flex h-5.5 w-5.5 items-center justify-center rounded-full bg-gradient-to-br from-[#eab55f] to-[#b06d1d] text-[#5c1111] shadow-inner shrink-0">
-                  <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#d49d4b] bg-gradient-to-b from-[#fff8e6] via-[#fbe4ba] to-[#f1c781] px-4.5 py-1.5 shadow-[0_6px_16px_-4px_rgba(148,86,17,0.34),inset_0_1px_0_rgba(255,255,255,0.92)]">
+                <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br from-[#eab55f] to-[#b06d1d] text-[#5c1111] shadow-inner shrink-0">
+                  <svg viewBox="0 0 24 24" className="h-3 w-3" fill="currentColor" aria-hidden="true">
                     <path d="M12 1.5L14.4 9.6L22.5 12L14.4 14.4L12 22.5L9.6 14.4L1.5 12L9.6 9.6L12 1.5Z" />
                   </svg>
                 </span>
-                <span className="text-[15px] lg:text-base font-extrabold uppercase tracking-[0.16em] text-[#6a1014] whitespace-nowrap">
+                <span className="text-[14px] lg:text-[15px] font-extrabold uppercase tracking-[0.16em] text-[#6a1014] whitespace-nowrap">
                   DO YOU KNOW?
                 </span>
               </div>
@@ -451,8 +451,8 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
               </div>
             </div>
 
-            {/* Question & Illuminated Answer Surface with Mobile Left/Right Navigation Arrows */}
-            <div className="relative mt-4 sm:mt-5">
+            {/* Question & Compact 2-Line Illuminated Answer with Mobile Left/Right Navigation Arrows */}
+            <div className="relative mt-2.5 sm:mt-3">
               <button
                 type="button"
                 onClick={handlePrev}
@@ -471,13 +471,13 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
                 <ChevronRight className="w-4 h-4" />
               </button>
 
-              <div key={currentItem.id} className="qna-fade-slide px-8 sm:px-9 md:px-0 space-y-3">
-                <h2 className="font-serif-display text-[1.28rem] sm:text-[1.68rem] lg:text-[1.82rem] font-bold text-[#610b0f] leading-[1.24] tracking-[-0.012em] drop-shadow-[0_1px_0_rgba(255,255,255,0.75)]">
+              <div key={currentItem.id} className="qna-fade-slide px-8 sm:px-9 md:px-0 space-y-2">
+                <h2 className="font-serif-display text-[1.15rem] sm:text-[1.42rem] lg:text-[1.56rem] font-bold text-[#610b0f] leading-[1.22] tracking-[-0.012em] drop-shadow-[0_1px_0_rgba(255,255,255,0.75)]">
                   {currentItem.question}
                 </h2>
 
-                <div className="rounded-xl border border-[#e3c396]/85 border-l-[3px] border-l-[#b5651d] bg-white/68 backdrop-blur-xs px-3.5 py-3 sm:px-5 sm:py-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.92),0_10px_22px_-12px_rgba(93,46,10,0.16)]">
-                  <p className="text-[13.5px] sm:text-[15.5px] text-[#2c1e14] leading-[1.65] font-normal">
+                <div className="rounded-xl border border-[#e3c396]/85 border-l-[3px] border-l-[#b5651d] bg-white/68 backdrop-blur-xs px-3.5 py-2 sm:px-4.5 sm:py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.92),0_8px_18px_-10px_rgba(93,46,10,0.14)]">
+                  <p className="text-[13px] sm:text-[14.5px] text-[#2c1e14] leading-[1.45] font-normal line-clamp-2">
                     {currentItem.answer}
                   </p>
                 </div>
@@ -487,11 +487,11 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
             {/* Subtle Horizontal Tan Divider */}
             <div
               aria-hidden="true"
-              className="mt-4 sm:mt-5 h-px w-full bg-gradient-to-r from-[#d2aa77]/65 via-[#cfa46e]/80 to-transparent"
+              className="mt-3 h-px w-full bg-gradient-to-r from-[#d2aa77]/65 via-[#cfa46e]/80 to-transparent"
             />
 
             {/* Bottom Controls Row: Step Indicators + Luminous Maroon-Gold CTA Button */}
-            <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3.5 sm:gap-4">
+            <div className="mt-2.5 sm:mt-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 sm:gap-4">
               <div className="flex items-center justify-center sm:justify-start gap-2" role="tablist" aria-label="Astrology Q&A Slides">
                 {ASTROLOGY_QNA_ITEMS.map((item, idx) => {
                   const isCurrent = idx === activeIndex;
@@ -519,7 +519,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
                   setModalCategory('All');
                   setIsMoreModalOpen(true);
                 }}
-                className="group/cta relative overflow-hidden inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-[#d8a65a] bg-gradient-to-b from-[#9b2428] via-[#761317] to-[#520a0d] hover:from-[#ac2a2f] hover:to-[#630d11] px-5.5 py-2.5 text-xs sm:text-[13.5px] font-semibold text-white shadow-[0_10px_22px_-6px_rgba(86,11,14,0.58),inset_0_1px_0_rgba(255,224,185,0.42)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer whitespace-nowrap"
+                className="group/cta relative overflow-hidden inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-[#d8a65a] bg-gradient-to-b from-[#9b2428] via-[#761317] to-[#520a0d] hover:from-[#ac2a2f] hover:to-[#630d11] px-4.5 py-2 text-xs sm:text-[13px] font-semibold text-white shadow-[0_8px_18px_-6px_rgba(86,11,14,0.58),inset_0_1px_0_rgba(255,224,185,0.42)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer whitespace-nowrap"
               >
                 <span
                   aria-hidden="true"
@@ -611,7 +611,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
                     {item.question}
                   </h4>
                   <p className="text-xs sm:text-sm text-foreground/90 leading-relaxed">
-                    {item.answer}
+                    {item.detailedAnswer || item.answer}
                   </p>
                 </div>
               ))}

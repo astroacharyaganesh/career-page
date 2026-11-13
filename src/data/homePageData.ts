@@ -640,6 +640,7 @@ export interface AstrologyQnaItem {
   question: string;
   shortPreview: string;
   answer: string;
+  detailedAnswer?: string;
   keyTakeaway: string;
 }
 
@@ -657,7 +658,8 @@ export const ASTROLOGY_QNA_ITEMS: AstrologyQnaItem[] = [
     topicTitle: 'Venus in the 7th House',
     question: 'What happens when Venus is placed in the 7th house?',
     shortPreview: 'Explore its traditional meaning for relationships, partnerships and attraction.',
-    answer:
+    answer: 'Venus in the 7th house fosters charm, devotion, and graceful partnership harmony.',
+    detailedAnswer:
       'In classical Vedic astrology, the 7th house governs marriage, committed partnerships, and public dealings, while Venus (Shukra) signifies love, harmony, beauty, and diplomacy. Placed here, Venus generally fosters natural charm, mutual affection, and a desire for balanced, graceful relationships—though exact results always depend on its sign dignity, aspects, and running Dasha.',
     keyTakeaway: 'Favors warmth and partnership harmony when unafflicted in the birth chart.'
   },
@@ -667,7 +669,8 @@ export const ASTROLOGY_QNA_ITEMS: AstrologyQnaItem[] = [
     topicTitle: 'Saturn in the 10th House',
     question: 'Does Saturn in the 10th house delay career growth?',
     shortPreview: 'Understand how Shani builds lasting authority through steady discipline and patience.',
-    answer:
+    answer: 'Saturn rarely denies growth; steady effort builds lasting authority and respect.',
+    detailedAnswer:
       'Saturn in the 10th house rarely denies success; rather, it rewards sustained effort, integrity, and structured responsibility. Early career milestones may feel slower, yet over time it often grants enduring leadership and institutional respect.',
     keyTakeaway: 'Slow early momentum often matures into durable professional authority.'
   },
@@ -677,7 +680,8 @@ export const ASTROLOGY_QNA_ITEMS: AstrologyQnaItem[] = [
     topicTitle: 'The 10th House (Karma Bhava)',
     question: 'How does the 10th house shape your career and public standing?',
     shortPreview: 'See how planets and the 10th lord indicate vocation, reputation, and leadership.',
-    answer:
+    answer: 'The 10th house and D10 chart reveal vocation, achievements, and public standing.',
+    detailedAnswer:
       'Known as Karma Bhava, the 10th house represents profession, visible achievements, and societal contribution. Reading both the Rashi (D1) 10th house and the Dashamsha (D10) chart reveals whether an individual thrives best in advisory roles, independent enterprise, or structured leadership.',
     keyTakeaway: 'Read the 10th house alongside the 10th lord and D10 Dashamsha chart.'
   },
@@ -687,7 +691,8 @@ export const ASTROLOGY_QNA_ITEMS: AstrologyQnaItem[] = [
     topicTitle: 'The 7th House (Kalatra Bhava)',
     question: 'What does the 7th house reveal beyond marriage?',
     shortPreview: 'Discover its classical role in business alliances, contracts, and client relationships.',
-    answer:
+    answer: 'Beyond marriage, it governs business alliances, contracts, and client rapport.',
+    detailedAnswer:
       'While widely known as the house of spouse and marriage, the 7th house equally governs business partnerships, legal agreements, and one-on-one client rapport. Its strength indicates how harmoniously you collaborate with others.',
     keyTakeaway: 'Key house for both committed relationships and business collaborations.'
   },
@@ -697,7 +702,8 @@ export const ASTROLOGY_QNA_ITEMS: AstrologyQnaItem[] = [
     topicTitle: 'Ascendant vs. Moon Sign',
     question: 'Which sign matters more in Vedic astrology: Lagna or Moon Sign?',
     shortPreview: 'Learn how your Rising Sign maps life events while the Moon Sign reflects your mind.',
-    answer:
+    answer: 'Lagna sets your 12-house life map, while Moon Sign governs mind and transits.',
+    detailedAnswer:
       'Your Ascendant (Lagna) fixes the exact house structure of all 12 life areas and is essential for accurate timing and event prediction. Meanwhile, your Moon Sign (Janma Rashi) reflects emotional temperament, mental resilience, and serves as the anchor for transit (Gochar) and Nakshatra reading.',
     keyTakeaway: 'Lagna sets the house blueprint; Moon sign governs mind and transits.'
   },
@@ -707,7 +713,8 @@ export const ASTROLOGY_QNA_ITEMS: AstrologyQnaItem[] = [
     topicTitle: 'Elements of the 12 Signs',
     question: 'How do Agni, Prithvi, Vayu and Jala elements shape personality?',
     shortPreview: 'See how Vedic elemental temperament explains compatibility and natural instincts.',
-    answer:
+    answer: 'Fire brings drive, Earth practicality, Air intellect, and Water deep intuition.',
+    detailedAnswer:
       'Fire signs bring initiative, Earth signs bring practicality, Air signs bring curiosity and communication, and Water signs bring intuition and emotional depth. Understanding elemental balance helps explain why certain partnerships feel effortless.',
     keyTakeaway: 'Elemental harmony reveals natural communication and decision styles.'
   },
@@ -717,7 +724,8 @@ export const ASTROLOGY_QNA_ITEMS: AstrologyQnaItem[] = [
     topicTitle: 'Prashna Kundali Explained',
     question: 'How does Prashna Kundali answer a question without birth time?',
     shortPreview: 'Discover how a chart cast for the moment of inquiry reveals immediate clarity.',
-    answer:
+    answer: 'A chart cast for the exact moment of inquiry reveals answers without birth time.',
+    detailedAnswer:
       'Prashna Kundali (Horary Vedic Astrology) casts a planetary chart for the exact time and place a sincere question is asked. When exact birth details are unavailable—or when you face an urgent career, property, or legal choice—the Prashna Lagna and Moon reveal the unfolding outcome.',
     keyTakeaway: 'Ideal for time-sensitive decisions or charts with uncertain birth time.'
   },
@@ -727,7 +735,8 @@ export const ASTROLOGY_QNA_ITEMS: AstrologyQnaItem[] = [
     topicTitle: 'Timing Events via Prashna',
     question: 'Can Prashna Kundali indicate when an outcome will happen?',
     shortPreview: 'Understand classical planetary degrees and Moon movement used for near-term timing.',
-    answer:
+    answer: 'Planetary aspects and Moon motion in Prashna indicate pace and near-term timing.',
+    detailedAnswer:
       'Classical Prashna texts examine the applying aspects between the Lagna lord and Karyesha (significator of the question) alongside Navamsha strength to estimate whether a matter resolves quickly, faces a temporary hurdle, or requires patience.',
     keyTakeaway: 'Applying planetary aspects indicate pace and near-term fruition.'
   }
