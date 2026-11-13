@@ -126,7 +126,7 @@
 
 .qna-progress-bar {
   transform-origin: left center;
-  animation: qna-progress 5s linear forwards;
+  animation: qna-progress 10s linear forwards;
 }
 
 @keyframes qna-chakra-roll {

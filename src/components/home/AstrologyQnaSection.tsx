@@ -10,7 +10,7 @@ interface AstrologyQnaSectionProps {
   onOpenBooking?: () => void;
 }
 
-const ROTATE_INTERVAL_MS = 5000;
+const ROTATE_INTERVAL_MS = 10000;
 
 const ZODIAC_GLYPHS = [
   '♈\uFE0E',
@@ -217,7 +217,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
     }, ROTATE_INTERVAL_MS);
 
     return () => window.clearInterval(timer);
-  }, [isPaused, isMoreModalOpen, totalItems]);
+  }, [activeIndex, isPaused, isMoreModalOpen, totalItems]);
 
   const handlePrev = () => {
     setActiveIndex((prev) => (prev - 1 + totalItems) % totalItems);
