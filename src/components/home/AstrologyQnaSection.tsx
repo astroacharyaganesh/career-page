@@ -13,7 +13,6 @@ interface AstrologyQnaSectionProps {
 const ROTATE_INTERVAL_MS = 10000;
 const TYPEWRITER_CHAR_MS = 26;
 const TYPEWRITER_START_DELAY_MS = 220;
-const TYPEWRITER_REVEAL_DELAY_MS = 460;
 
 const ZODIAC_GLYPHS = [
   '♈\uFE0E',
@@ -205,11 +204,7 @@ const VedicChakraEmblem: React.FC<VedicChakraEmblemProps> = ({ className = '', c
 
 export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpenBooking }) => {
   const sectionRef = useRef<HTMLElement>(null);
-  const expandedPanelRef = useRef<HTMLElement>(null);
-  const isInitialRevealRef = useRef(false);
   const [isInView, setIsInView] = useState(false);
-  const [isRevealed, setIsRevealed] = useState(false);
-  const [isFromClickReveal, setIsFromClickReveal] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
@@ -262,11 +257,6 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
   }, []);
 
   useEffect(() => {
-    if (!isRevealed) {
-      setTypedLength(0);
-      return;
-    }
-
     if (prefersReducedMotion) {
       setTypedLength(fullAnswer.length);
       return;
@@ -278,10 +268,8 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
     }
 
     setTypedLength(0);
-    const delayMs = isInitialRevealRef.current ? TYPEWRITER_REVEAL_DELAY_MS : TYPEWRITER_START_DELAY_MS;
     let intervalId: number | undefined;
     const startTimer = window.setTimeout(() => {
-      isInitialRevealRef.current = false;
       intervalId = window.setInterval(() => {
         setTypedLength((prev) => {
           if (prev >= fullAnswer.length) {
@@ -291,41 +279,29 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
           return prev + 1;
         });
       }, TYPEWRITER_CHAR_MS);
-    }, delayMs);
+    }, TYPEWRITER_START_DELAY_MS);
 
     return () => {
       window.clearTimeout(startTimer);
       if (intervalId !== undefined) window.clearInterval(intervalId);
     };
-  }, [activeIndex, fullAnswer, isInView, isRevealed, prefersReducedMotion]);
+  }, [activeIndex, fullAnswer, isInView, prefersReducedMotion]);
 
   useEffect(() => {
-    if (!isRevealed || isPaused || isMoreModalOpen || totalItems <= 1) return;
+    if (isPaused || isMoreModalOpen || totalItems <= 1) return;
 
     const timer = window.setInterval(() => {
-      setIsFromClickReveal(false);
       setActiveIndex((prev) => (prev + 1) % totalItems);
     }, ROTATE_INTERVAL_MS);
 
     return () => window.clearInterval(timer);
-  }, [activeIndex, isPaused, isMoreModalOpen, isRevealed, totalItems]);
-
-  const handleRevealSection = () => {
-    isInitialRevealRef.current = true;
-    setIsFromClickReveal(true);
-    setIsRevealed(true);
-    window.requestAnimationFrame(() => {
-      expandedPanelRef.current?.focus({ preventScroll: true });
-    });
-  };
+  }, [activeIndex, isPaused, isMoreModalOpen, totalItems]);
 
   const handlePrev = () => {
-    setIsFromClickReveal(false);
     setActiveIndex((prev) => (prev - 1 + totalItems) % totalItems);
   };
 
   const handleNext = () => {
-    setIsFromClickReveal(false);
     setActiveIndex((prev) => (prev + 1) % totalItems);
   };
 
@@ -342,118 +318,12 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
       className="w-full bg-background py-2.5 sm:py-4"
     >
       <div className="w-full max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
-        {!isRevealed ? (
-          <button
-            type="button"
-            onClick={handleRevealSection}
-            aria-expanded={false}
-            aria-controls="astrology-qna-expanded-panel"
-            className="group relative w-full text-left overflow-hidden rounded-2xl border-[1.5px] border-[#f0c56c] bg-[radial-gradient(ellipse_78%_95%_at_50%_45%,#931118_0%,#5c070b_56%,#2d0204_100%)] shadow-[0_18px_42px_-12px_rgba(68,5,8,0.58),0_0_26px_-4px_rgba(232,179,84,0.36),inset_0_0_18px_rgba(245,196,95,0.2)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_50px_-12px_rgba(68,5,8,0.68),0_0_34px_-2px_rgba(245,196,95,0.5)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ffe8a6] cursor-pointer"
-          >
-            {/* Soft Subtle Breathing Golden Spotlight */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_56%_72%_at_50%_50%,rgba(255,220,128,0.2)_0%,transparent_72%)] qna-teaser-aura"
-            />
-
-            {/* Periodic Specular Gold Sheen */}
-            {isInView && (
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-[#ffe9a6]/16 to-transparent qna-badge-glint"
-              />
-            )}
-
-            {/* Top Edge Gold Highlight & Manuscript Hairline Frame */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-[2px] w-[72%] bg-gradient-to-r from-transparent via-[#fff2b5]/80 to-transparent blur-[0.5px]"
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-[6px] rounded-[11px] border border-[#f2c66d]/55"
-            />
-
-            {/* Subtle Top/Bottom Corner Filigree Accents */}
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 64 64"
-              className="pointer-events-none absolute top-1 left-1 z-20 h-8 w-8 sm:h-9 sm:w-9"
-              fill="none"
-            >
-              <defs>
-                <linearGradient id="teaserGoldCorner" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stopColor="#fff7c8" />
-                  <stop offset="45%" stopColor="#ebb14d" />
-                  <stop offset="100%" stopColor="#9e5a10" />
-                </linearGradient>
-              </defs>
-              <path d="M4 46 C4 18 16 4 46 4" stroke="url(#teaserGoldCorner)" strokeWidth="2" strokeLinecap="round" />
-              <circle cx="15" cy="15" r="2" fill="#fff3bc" />
-            </svg>
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 64 64"
-              className="pointer-events-none absolute top-1 right-1 z-20 h-8 w-8 sm:h-9 sm:w-9 -scale-x-100"
-              fill="none"
-            >
-              <path d="M4 46 C4 18 16 4 46 4" stroke="url(#teaserGoldCorner)" strokeWidth="2" strokeLinecap="round" />
-              <circle cx="15" cy="15" r="2" fill="#fff3bc" />
-            </svg>
-
-            <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 sm:gap-5 px-5 py-4 sm:px-7 sm:py-4.5">
-              <div className="flex items-center gap-3.5 sm:gap-5 min-w-0">
-                <VedicChakraEmblem className="h-14 w-14 sm:h-16 sm:w-16 shrink-0" compact />
-
-                <div className="min-w-0 flex-1 space-y-1.5">
-                  <div
-                    className={`relative overflow-hidden inline-flex items-center gap-2 rounded-full border border-[#ffecb3] bg-gradient-to-b from-[#fff0a8] via-[#f4be54] to-[#cc8019] px-3.5 py-1 shadow-[0_6px_16px_-4px_rgba(0,0,0,0.45),0_0_16px_rgba(245,196,95,0.4),inset_0_1px_0_rgba(255,255,255,0.95)] ${
-                      isInView ? 'qna-drop-in' : 'opacity-0 -translate-y-6'
-                    }`}
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-transparent via-white/45 to-transparent qna-badge-glint"
-                    />
-                    <span className="relative inline-flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-br from-[#cf871d] to-[#834609] text-[#fff6d6] shadow-inner shrink-0">
-                      <svg viewBox="0 0 24 24" className="h-2.5 w-2.5" fill="currentColor" aria-hidden="true">
-                        <path d="M12 1.5L14.4 9.6L22.5 12L14.4 14.4L12 22.5L9.6 14.4L1.5 12L9.6 9.6L12 1.5Z" />
-                      </svg>
-                    </span>
-                    <span className="relative text-[12px] sm:text-[13px] font-extrabold uppercase tracking-[0.15em] text-[#460709] whitespace-nowrap">
-                      DO YOU KNOW?
-                    </span>
-                  </div>
-
-                  <h2 className="font-serif-display text-[1.12rem] sm:text-[1.35rem] lg:text-[1.5rem] font-bold text-[#fff9e8] leading-[1.24] tracking-[-0.01em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
-                    {currentItem.question}
-                  </h2>
-                </div>
-              </div>
-
-              <div className="shrink-0 w-full sm:w-auto flex items-center justify-center sm:justify-end">
-                <span className="relative overflow-hidden inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-[#ffe8a6] bg-gradient-to-b from-[#ffec9f] via-[#f0bc58] to-[#cb8420] px-5 py-2.5 min-h-[42px] text-xs sm:text-[13px] font-extrabold text-[#450608] shadow-[0_8px_20px_-4px_rgba(0,0,0,0.48),0_0_16px_rgba(245,196,95,0.42),inset_0_1px_0_rgba(255,255,255,0.92)] group-hover:brightness-105 transition-all whitespace-nowrap shrink-0">
-                  <span
-                    aria-hidden="true"
-                    style={{ animationDelay: '1.6s' }}
-                    className="pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-transparent via-white/40 to-transparent qna-badge-glint"
-                  />
-                  <span className="relative">Reveal Answer</span>
-                  <ArrowRight className="relative w-3.5 h-3.5 stroke-[2.5] transition-transform duration-200 group-hover:translate-x-0.5" />
-                </span>
-              </div>
-            </div>
-          </button>
-        ) : (
         <article
-          ref={expandedPanelRef}
-          id="astrology-qna-expanded-panel"
-          tabIndex={-1}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
           onFocus={() => setIsPaused(true)}
           onBlur={() => setIsPaused(false)}
-          className="qna-reveal-section group relative w-full overflow-hidden rounded-2xl border-[1.5px] border-[#f0c56c] bg-[radial-gradient(ellipse_78%_90%_at_50%_42%,#931118_0%,#5c070b_54%,#2d0204_100%)] shadow-[0_20px_48px_-12px_rgba(68,5,8,0.6),0_0_28px_-4px_rgba(232,179,84,0.38),inset_0_0_22px_rgba(245,196,95,0.22)] transition-shadow duration-300 hover:shadow-[0_24px_54px_-12px_rgba(68,5,8,0.7),0_0_34px_-2px_rgba(245,196,95,0.48)] focus:outline-none"
+          className="group relative w-full overflow-hidden rounded-2xl border-[1.5px] border-[#f0c56c] bg-[radial-gradient(ellipse_78%_90%_at_50%_42%,#931118_0%,#5c070b_54%,#2d0204_100%)] shadow-[0_20px_48px_-12px_rgba(68,5,8,0.6),0_0_28px_-4px_rgba(232,179,84,0.38),inset_0_0_22px_rgba(245,196,95,0.22)] transition-shadow duration-300 hover:shadow-[0_24px_54px_-12px_rgba(68,5,8,0.7),0_0_34px_-2px_rgba(245,196,95,0.48)]"
         >
           {/* Overhead Golden Spotlight Illuminating Question & Answer + Left/Right Celestial Glows */}
           <div
@@ -675,7 +545,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
               <div className="flex-1 min-w-0 flex items-center">
                 <div
                   className={`relative overflow-hidden inline-flex items-center gap-2 rounded-full border border-[#ffecb3] bg-gradient-to-b from-[#fff0a8] via-[#f4be54] to-[#cc8019] px-4 py-1.5 shadow-[0_6px_18px_-4px_rgba(0,0,0,0.48),0_0_18px_rgba(245,196,95,0.42),inset_0_1px_0_rgba(255,255,255,0.95)] ${
-                    isFromClickReveal ? '' : isInView ? 'qna-drop-in' : 'opacity-0 -translate-y-6'
+                    isInView ? 'qna-drop-in' : 'opacity-0 -translate-y-6'
                   }`}
                 >
                   <span
@@ -706,7 +576,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
 
               <div
                 className={`relative overflow-hidden inline-flex items-center gap-2.5 rounded-full border border-[#ffecb3] bg-gradient-to-b from-[#fff0a8] via-[#f4be54] to-[#cc8019] px-5 py-1.5 shadow-[0_8px_20px_-4px_rgba(0,0,0,0.48),0_0_20px_rgba(245,196,95,0.45),inset_0_1px_0_rgba(255,255,255,0.95)] ${
-                  isFromClickReveal ? '' : isInView ? 'qna-drop-in' : 'opacity-0 -translate-y-6'
+                  isInView ? 'qna-drop-in' : 'opacity-0 -translate-y-6'
                 }`}
               >
                 <span
@@ -757,11 +627,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
                   {currentItem.question}
                 </h2>
 
-                <div
-                  className={`relative rounded-xl sm:rounded-full border-[1.5px] border-[#f4c76a] bg-gradient-to-b from-[#fffdf7] via-[#fdf3dc] to-[#f8e1b4] px-4 py-2 sm:px-6 sm:py-2.5 shadow-[0_12px_28px_-8px_rgba(0,0,0,0.52),0_0_20px_-4px_rgba(245,196,95,0.42),inset_0_1px_0_rgba(255,255,255,0.96)] ${
-                    isFromClickReveal ? 'qna-answer-reveal' : ''
-                  }`}
-                >
+                <div className="relative rounded-xl sm:rounded-full border-[1.5px] border-[#f4c76a] bg-gradient-to-b from-[#fffdf7] via-[#fdf3dc] to-[#f8e1b4] px-4 py-2 sm:px-6 sm:py-2.5 shadow-[0_12px_28px_-8px_rgba(0,0,0,0.52),0_0_20px_-4px_rgba(245,196,95,0.42),inset_0_1px_0_rgba(255,255,255,0.96)]">
                   <span
                     aria-hidden="true"
                     className="hidden sm:block absolute left-2.5 top-1/2 -translate-y-1/2 h-1.5 w-1.5 rotate-45 bg-[#b87118]"
@@ -808,10 +674,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
                       role="tab"
                       aria-selected={isCurrent}
                       aria-label={`View question ${idx + 1}: ${item.question}`}
-                      onClick={() => {
-                        setIsFromClickReveal(false);
-                        setActiveIndex(idx);
-                      }}
+                      onClick={() => setActiveIndex(idx)}
                       className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                         isCurrent
                           ? 'w-8 bg-gradient-to-r from-[#ffe699] via-[#f0b44b] to-[#d48820] shadow-[0_0_12px_rgba(245,196,95,0.75)]'
@@ -850,7 +713,6 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
             </div>
           )}
         </article>
-        )}
       </div>
 
       {/* Quick Q&A Explorer Modal */}
