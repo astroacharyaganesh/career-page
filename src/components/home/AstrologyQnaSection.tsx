@@ -11,6 +11,8 @@ interface AstrologyQnaSectionProps {
 }
 
 const ROTATE_INTERVAL_MS = 10000;
+const TYPEWRITER_CHAR_MS = 26;
+const TYPEWRITER_START_DELAY_MS = 220;
 
 const ZODIAC_GLYPHS = [
   '♈\uFE0E',
@@ -207,9 +209,23 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
   const [isPaused, setIsPaused] = useState(false);
   const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
   const [modalCategory, setModalCategory] = useState<AstrologyQnaCategory | 'All'>('All');
+  const [typedLength, setTypedLength] = useState(0);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   const totalItems = ASTROLOGY_QNA_ITEMS.length;
   const currentItem = ASTROLOGY_QNA_ITEMS[activeIndex] || ASTROLOGY_QNA_ITEMS[0];
+  const fullAnswer = currentItem.answer;
+  const typedAnswer = prefersReducedMotion ? fullAnswer : fullAnswer.slice(0, typedLength);
+  const isTypingComplete = prefersReducedMotion || typedLength >= fullAnswer.length;
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -239,6 +255,37 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setTypedLength(fullAnswer.length);
+      return;
+    }
+
+    if (!isInView) {
+      setTypedLength(0);
+      return;
+    }
+
+    setTypedLength(0);
+    let intervalId: number | undefined;
+    const startTimer = window.setTimeout(() => {
+      intervalId = window.setInterval(() => {
+        setTypedLength((prev) => {
+          if (prev >= fullAnswer.length) {
+            if (intervalId !== undefined) window.clearInterval(intervalId);
+            return prev;
+          }
+          return prev + 1;
+        });
+      }, TYPEWRITER_CHAR_MS);
+    }, TYPEWRITER_START_DELAY_MS);
+
+    return () => {
+      window.clearTimeout(startTimer);
+      if (intervalId !== undefined) window.clearInterval(intervalId);
+    };
+  }, [activeIndex, fullAnswer, isInView, prefersReducedMotion]);
 
   useEffect(() => {
     if (isPaused || isMoreModalOpen || totalItems <= 1) return;
@@ -276,49 +323,61 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
           onMouseLeave={() => setIsPaused(false)}
           onFocus={() => setIsPaused(true)}
           onBlur={() => setIsPaused(false)}
-          className="group relative w-full overflow-hidden rounded-2xl border-[1.5px] border-[#ecc067] bg-[radial-gradient(ellipse_76%_88%_at_50%_45%,#8c0f15_0%,#5c070b_54%,#310204_100%)] shadow-[0_18px_42px_-12px_rgba(68,5,8,0.54),0_0_24px_-4px_rgba(232,179,84,0.34),inset_0_0_18px_rgba(245,196,95,0.2)] transition-shadow duration-300 hover:shadow-[0_22px_50px_-12px_rgba(68,5,8,0.65),0_0_28px_-2px_rgba(245,196,95,0.42)]"
+          className="group relative w-full overflow-hidden rounded-2xl border-[1.5px] border-[#f0c56c] bg-[radial-gradient(ellipse_78%_90%_at_50%_42%,#931118_0%,#5c070b_54%,#2d0204_100%)] shadow-[0_20px_48px_-12px_rgba(68,5,8,0.6),0_0_28px_-4px_rgba(232,179,84,0.38),inset_0_0_22px_rgba(245,196,95,0.22)] transition-shadow duration-300 hover:shadow-[0_24px_54px_-12px_rgba(68,5,8,0.7),0_0_34px_-2px_rgba(245,196,95,0.48)]"
         >
-          {/* Rich Crimson Velvet Depth + Luminous Top/Bottom Gold Specular Streaks */}
+          {/* Overhead Golden Spotlight Illuminating Question & Answer + Left/Right Celestial Glows */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_50%,rgba(196,35,38,0.24)_0%,transparent_44%),radial-gradient(circle_at_88%_55%,rgba(232,175,92,0.16)_0%,transparent_40%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_56%_62%_at_50%_26%,rgba(255,220,128,0.2)_0%,transparent_72%),radial-gradient(circle_at_14%_52%,rgba(214,48,48,0.26)_0%,transparent_44%),radial-gradient(circle_at_88%_56%,rgba(238,180,92,0.18)_0%,transparent_42%)]"
+          />
+
+          {/* Viewport-Triggered Golden Sheen Sweep Across Card */}
+          {isInView && (
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-[#ffe9a6]/14 to-transparent qna-sheen-sweep"
+            />
+          )}
+
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-[2px] w-[76%] bg-gradient-to-r from-transparent via-[#fff2b5]/85 to-transparent blur-[0.5px]"
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-[2px] w-[72%] bg-gradient-to-r from-transparent via-[#fff0ad]/80 to-transparent blur-[0.5px]"
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-[72%] bg-gradient-to-r from-transparent via-[#fff0ad]/60 to-transparent blur-[0.5px]"
+            className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-[76%] bg-gradient-to-r from-transparent via-[#fff2b5]/65 to-transparent blur-[0.5px]"
           />
 
           {/* Gold Manuscript Double Inner Frame */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-[6px] rounded-[11px] border border-[#f2c66d]/55"
+            className="pointer-events-none absolute inset-[6px] rounded-[11px] border border-[#f2c66d]/60"
           />
 
-          {/* Subtle Crimson/Gold Zodiac Arcs & Twinkling Star Points */}
+          {/* Subtle Crimson/Gold Planetary Orbit Arcs & Star Nodes */}
           <svg
             aria-hidden="true"
             viewBox="0 0 1200 260"
             preserveAspectRatio="none"
-            className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.24] text-[#f5c05e]"
+            className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.28] text-[#f5c465]"
             fill="none"
           >
-            <path d="M180 36 Q 600 -14 1020 36" stroke="currentColor" strokeWidth="0.7" strokeDasharray="3 5" />
-            <path d="M220 228 Q 600 270 980 228" stroke="currentColor" strokeWidth="0.7" strokeDasharray="3 5" />
-            <circle cx="320" cy="40" r="1.5" fill="currentColor" />
-            <circle cx="885" cy="46" r="1.5" fill="currentColor" />
-            <circle cx="290" cy="222" r="1.4" fill="currentColor" />
-            <circle cx="910" cy="218" r="1.4" fill="currentColor" />
+            <path d="M150 38 Q 600 -18 1050 38" stroke="currentColor" strokeWidth="0.75" strokeDasharray="3 5" />
+            <path d="M210 228 Q 600 272 990 228" stroke="currentColor" strokeWidth="0.75" strokeDasharray="3 5" />
+            <path d="M240 24 Q 600 66 960 24" stroke="currentColor" strokeWidth="0.45" strokeOpacity="0.5" />
+            <circle cx="315" cy="39" r="2" fill="#ffe79e" />
+            <circle cx="885" cy="44" r="2" fill="#ffe79e" />
+            <circle cx="290" cy="222" r="1.6" fill="currentColor" />
+            <circle cx="910" cy="218" r="1.6" fill="currentColor" />
+            <circle cx="430" cy="40" r="1.1" fill="currentColor" />
+            <circle cx="770" cy="40" r="1.1" fill="currentColor" />
           </svg>
 
           {/* Twinkling 4-Point Celestial Sparkles */}
           <svg
             aria-hidden="true"
             viewBox="0 0 20 20"
-            className="pointer-events-none hidden md:block absolute top-4 left-[27%] h-3 w-3 text-[#ffe394] qna-star-twinkle"
+            className="pointer-events-none hidden md:block absolute top-4 left-[25%] h-3.5 w-3.5 text-[#ffe699] qna-star-twinkle"
             fill="currentColor"
           >
             <path d="M10 0L12.1 7.9L20 10L12.1 12.1L10 20L7.9 12.1L0 10L7.9 7.9L10 0Z" />
@@ -327,7 +386,25 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
             aria-hidden="true"
             viewBox="0 0 20 20"
             style={{ animationDelay: '1.8s' }}
-            className="pointer-events-none hidden md:block absolute top-5 right-[26%] h-2.5 w-2.5 text-[#ffd978] qna-star-twinkle"
+            className="pointer-events-none hidden md:block absolute top-5 right-[25%] h-3 w-3 text-[#ffdc7c] qna-star-twinkle"
+            fill="currentColor"
+          >
+            <path d="M10 0L12.1 7.9L20 10L12.1 12.1L10 20L7.9 12.1L0 10L7.9 7.9L10 0Z" />
+          </svg>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 20 20"
+            style={{ animationDelay: '0.9s' }}
+            className="pointer-events-none hidden md:block absolute bottom-10 left-[22%] h-2.5 w-2.5 text-[#ffd56b] qna-star-twinkle"
+            fill="currentColor"
+          >
+            <path d="M10 0L12.1 7.9L20 10L12.1 12.1L10 20L7.9 12.1L0 10L7.9 7.9L10 0Z" />
+          </svg>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 20 20"
+            style={{ animationDelay: '2.6s' }}
+            className="pointer-events-none hidden md:block absolute bottom-11 right-[22%] h-2.5 w-2.5 text-[#ffe699] qna-star-twinkle"
             fill="currentColor"
           >
             <path d="M10 0L12.1 7.9L20 10L12.1 12.1L10 20L7.9 12.1L0 10L7.9 7.9L10 0Z" />
@@ -445,12 +522,15 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
 
                 <circle cx="52" cy="54" r="42" stroke="url(#brassMain)" strokeWidth="4.2" />
                 <circle cx="52" cy="54" r="35" stroke="#a66217" strokeWidth="1.2" strokeDasharray="3 2" />
-                <ellipse cx="52" cy="54" rx="40" ry="15" transform="rotate(-24 52 54)" stroke="url(#brassMain)" strokeWidth="3" />
-                <ellipse cx="52" cy="54" rx="40" ry="15" transform="rotate(32 52 54)" stroke="url(#brassMain)" strokeWidth="2.6" />
-                <ellipse cx="52" cy="54" rx="16" ry="38" transform="rotate(-12 52 54)" stroke="url(#brassMain)" strokeWidth="2.2" />
+                <g className="qna-armillary-spin">
+                  <ellipse cx="52" cy="54" rx="40" ry="15" transform="rotate(-24 52 54)" stroke="url(#brassMain)" strokeWidth="3" />
+                  <ellipse cx="52" cy="54" rx="40" ry="15" transform="rotate(32 52 54)" stroke="url(#brassMain)" strokeWidth="2.6" />
+                  <ellipse cx="52" cy="54" rx="16" ry="38" transform="rotate(-12 52 54)" stroke="url(#brassMain)" strokeWidth="2.2" />
+                  <circle cx="92" cy="54" r="2.6" fill="#fff3bc" />
+                </g>
                 <line x1="28" y1="16" x2="76" y2="92" stroke="url(#brassMain)" strokeWidth="2.4" />
-                <circle cx="52" cy="54" r="7" fill="url(#brassMain)" />
-                <circle cx="50" cy="52" r="2.2" fill="#fff8d6" />
+                <circle cx="52" cy="54" r="7.5" fill="url(#brassMain)" />
+                <circle cx="50" cy="52" r="2.4" fill="#fffbe3" />
                 <circle cx="52" cy="9" r="3.5" fill="url(#brassMain)" />
               </g>
             </svg>
@@ -459,60 +539,70 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
           {/* MAIN CONTENT COLUMN */}
           <div className="relative z-10 w-full px-4 py-3.5 sm:px-6 sm:py-4.5 md:pl-[212px] md:pr-[192px] lg:pl-[268px] lg:pr-[242px]">
             {/* MOBILE HEADER ROW: Circular Dual-Rolling Chakra + Enlarged DO YOU KNOW? Pill */}
-            <div className="flex md:hidden items-center gap-3 pb-2.5 border-b border-[#f0c064]/30">
+            <div className="flex md:hidden items-center gap-3 pb-2.5 border-b border-[#f0c064]/35">
               <VedicChakraEmblem className="h-18 w-18 sm:h-20 sm:w-20" compact />
 
               <div className="flex-1 min-w-0 flex items-center">
                 <div
-                  className={`inline-flex items-center gap-2 rounded-full border border-[#ffe8a8] bg-gradient-to-b from-[#ffeb9e] via-[#f2bb53] to-[#cf841d] px-3.5 py-1.5 shadow-[0_6px_16px_-4px_rgba(0,0,0,0.45),0_0_14px_rgba(245,196,95,0.35),inset_0_1px_0_rgba(255,255,255,0.92)] ${
+                  className={`relative overflow-hidden inline-flex items-center gap-2 rounded-full border border-[#ffecb3] bg-gradient-to-b from-[#fff0a8] via-[#f4be54] to-[#cc8019] px-4 py-1.5 shadow-[0_6px_18px_-4px_rgba(0,0,0,0.48),0_0_18px_rgba(245,196,95,0.42),inset_0_1px_0_rgba(255,255,255,0.95)] ${
                     isInView ? 'qna-drop-in' : 'opacity-0 -translate-y-6'
                   }`}
                 >
-                  <span className="inline-flex h-4.5 w-4.5 items-center justify-center rounded-full bg-gradient-to-br from-[#cf871d] to-[#8a4d0c] text-[#460709] shadow-inner shrink-0">
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-transparent via-white/45 to-transparent qna-badge-glint"
+                  />
+                  <span className="relative inline-flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br from-[#cf871d] to-[#834609] text-[#fff6d6] shadow-inner shrink-0">
                     <svg viewBox="0 0 24 24" className="h-3 w-3" fill="currentColor" aria-hidden="true">
                       <path d="M12 1.5L14.4 9.6L22.5 12L14.4 14.4L12 22.5L9.6 14.4L1.5 12L9.6 9.6L12 1.5Z" />
                     </svg>
                   </span>
-                  <span className="text-[14px] sm:text-[15px] font-extrabold uppercase tracking-[0.14em] text-[#460709] whitespace-nowrap">
+                  <span className="relative text-[14.5px] sm:text-[15.5px] font-extrabold uppercase tracking-[0.14em] text-[#460709] whitespace-nowrap">
                     DO YOU KNOW?
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* DESKTOP TOP BAR: Centered Prominent DO YOU KNOW? Pill Flanked by Glowing Gold Hairlines */}
+            {/* DESKTOP TOP BAR: Centered Prominent DO YOU KNOW? Plaque Flanked by Glowing Gold Hairlines */}
             <div className="hidden md:flex items-center justify-center gap-4">
-              <div aria-hidden="true" className="flex items-center flex-1 max-w-[140px] justify-end">
-                <span className="h-px flex-1 bg-gradient-to-l from-[#ffe08a]/85 to-transparent" />
-                <svg viewBox="0 0 20 20" className="h-3.5 w-3.5 text-[#ffe394] shrink-0" fill="currentColor">
+              <div aria-hidden="true" className="flex items-center flex-1 max-w-[160px] justify-end">
+                <span className="h-px flex-1 bg-gradient-to-l from-[#ffe394]/90 to-transparent" />
+                <span className="mx-1.5 h-1.5 w-1.5 rotate-45 bg-[#ffe394]" />
+                <svg viewBox="0 0 20 20" className="h-4 w-4 text-[#ffe394] shrink-0" fill="currentColor">
                   <path d="M10 0L12.1 7.9L20 10L12.1 12.1L10 20L7.9 12.1L0 10L7.9 7.9L10 0Z" />
                 </svg>
               </div>
 
               <div
-                className={`inline-flex items-center gap-2 rounded-full border border-[#ffe8a8] bg-gradient-to-b from-[#ffeb9e] via-[#f2bb53] to-[#cf841d] px-4.5 py-1.5 shadow-[0_6px_16px_-4px_rgba(0,0,0,0.45),0_0_16px_rgba(245,196,95,0.38),inset_0_1px_0_rgba(255,255,255,0.92)] ${
+                className={`relative overflow-hidden inline-flex items-center gap-2.5 rounded-full border border-[#ffecb3] bg-gradient-to-b from-[#fff0a8] via-[#f4be54] to-[#cc8019] px-5 py-1.5 shadow-[0_8px_20px_-4px_rgba(0,0,0,0.48),0_0_20px_rgba(245,196,95,0.45),inset_0_1px_0_rgba(255,255,255,0.95)] ${
                   isInView ? 'qna-drop-in' : 'opacity-0 -translate-y-6'
                 }`}
               >
-                <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br from-[#cf871d] to-[#8a4d0c] text-[#460709] shadow-inner shrink-0">
-                  <svg viewBox="0 0 24 24" className="h-3 w-3" fill="currentColor" aria-hidden="true">
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-transparent via-white/45 to-transparent qna-badge-glint"
+                />
+                <span className="relative inline-flex h-5.5 w-5.5 items-center justify-center rounded-full bg-gradient-to-br from-[#cf871d] to-[#834609] text-[#fff6d6] shadow-inner shrink-0">
+                  <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
                     <path d="M12 1.5L14.4 9.6L22.5 12L14.4 14.4L12 22.5L9.6 14.4L1.5 12L9.6 9.6L12 1.5Z" />
                   </svg>
                 </span>
-                <span className="text-[14px] lg:text-[15px] font-extrabold uppercase tracking-[0.16em] text-[#460709] whitespace-nowrap">
+                <span className="relative text-[14.5px] lg:text-[15.5px] font-extrabold uppercase tracking-[0.17em] text-[#460709] whitespace-nowrap">
                   DO YOU KNOW?
                 </span>
               </div>
 
-              <div aria-hidden="true" className="flex items-center flex-1 max-w-[140px]">
-                <svg viewBox="0 0 20 20" className="h-3.5 w-3.5 text-[#ffe394] shrink-0" fill="currentColor">
+              <div aria-hidden="true" className="flex items-center flex-1 max-w-[160px]">
+                <svg viewBox="0 0 20 20" className="h-4 w-4 text-[#ffe394] shrink-0" fill="currentColor">
                   <path d="M10 0L12.1 7.9L20 10L12.1 12.1L10 20L7.9 12.1L0 10L7.9 7.9L10 0Z" />
                 </svg>
-                <span className="h-px flex-1 bg-gradient-to-r from-[#ffe08a]/85 to-transparent" />
+                <span className="mx-1.5 h-1.5 w-1.5 rotate-45 bg-[#ffe394]" />
+                <span className="h-px flex-1 bg-gradient-to-r from-[#ffe394]/90 to-transparent" />
               </div>
             </div>
 
-            {/* Question & Bold Cream-Gold Illuminated Answer with Mobile Left/Right Navigation Arrows */}
+            {/* Question & Bold Cream-Gold Illuminated Answer Plaque with Mobile Left/Right Navigation Arrows */}
             <div className="relative mt-2.5 sm:mt-3">
               <button
                 type="button"
@@ -532,24 +622,45 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
                 <ChevronRight className="w-4 h-4 stroke-[2.6]" />
               </button>
 
-              <div key={currentItem.id} className="qna-fade-slide px-8 sm:px-9 md:px-0 space-y-2">
-                <h2 className="font-serif-display text-[1.15rem] sm:text-[1.42rem] lg:text-[1.56rem] font-bold text-[#fff7e2] leading-[1.22] tracking-[-0.012em] drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]">
+              <div key={currentItem.id} className="qna-fade-slide px-8 sm:px-9 md:px-0 space-y-2.5">
+                <h2 className="font-serif-display text-[1.18rem] sm:text-[1.48rem] lg:text-[1.64rem] font-bold text-[#fff9e8] leading-[1.2] tracking-[-0.012em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.52)]">
                   {currentItem.question}
                 </h2>
 
-                <div className="rounded-xl sm:rounded-full border border-[#f2c465] bg-gradient-to-b from-[#fffbf2] via-[#fdf2da] to-[#f8e1b6] px-4 py-2 sm:px-5 sm:py-2.5 shadow-[0_10px_24px_-8px_rgba(0,0,0,0.48),0_0_16px_-4px_rgba(245,196,95,0.36),inset_0_1px_0_rgba(255,255,255,0.95)]">
-                  <p className="text-[13px] sm:text-[14.5px] text-[#3a120a] leading-[1.45] font-bold">
-                    {currentItem.answer}
+                <div className="relative rounded-xl sm:rounded-full border-[1.5px] border-[#f4c76a] bg-gradient-to-b from-[#fffdf7] via-[#fdf3dc] to-[#f8e1b4] px-4 py-2 sm:px-6 sm:py-2.5 shadow-[0_12px_28px_-8px_rgba(0,0,0,0.52),0_0_20px_-4px_rgba(245,196,95,0.42),inset_0_1px_0_rgba(255,255,255,0.96)]">
+                  <span
+                    aria-hidden="true"
+                    className="hidden sm:block absolute left-2.5 top-1/2 -translate-y-1/2 h-1.5 w-1.5 rotate-45 bg-[#b87118]"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="hidden sm:block absolute right-2.5 top-1/2 -translate-y-1/2 h-1.5 w-1.5 rotate-45 bg-[#b87118]"
+                  />
+                  <p className="relative text-[13px] sm:text-[14.5px] text-[#350d08] leading-[1.45] font-bold">
+                    <span className="opacity-0 pointer-events-none select-none">
+                      {fullAnswer}
+                    </span>
+                    <span aria-hidden="true" className="absolute inset-0">
+                      {typedAnswer}
+                      {isInView && !prefersReducedMotion && (
+                        <span
+                          className={`inline-block align-[-0.14em] ml-[1.5px] -mr-[3.5px] h-[1.08em] w-[2px] rounded-full bg-[#8b1218] ${
+                            isTypingComplete ? 'qna-cursor-blink' : 'opacity-100'
+                          }`}
+                        />
+                      )}
+                    </span>
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Subtle Horizontal Gold Divider */}
-            <div
-              aria-hidden="true"
-              className="mt-3 h-px w-full bg-gradient-to-r from-[#f2c46d]/45 via-[#f2c46d]/65 to-transparent"
-            />
+            {/* Subtle Horizontal Gold Divider with Central Star Node */}
+            <div aria-hidden="true" className="mt-3 flex items-center gap-2">
+              <span className="h-px flex-1 bg-gradient-to-r from-[#f2c46d]/25 via-[#f2c46d]/65 to-[#f2c46d]/65" />
+              <span className="h-1.5 w-1.5 rotate-45 bg-[#f2c46d]/80" />
+              <span className="h-px flex-1 bg-gradient-to-l from-transparent via-[#f2c46d]/55 to-[#f2c46d]/65" />
+            </div>
 
             {/* Bottom Controls Row: Glowing Gold Step Indicators + Ruby-Gold CTA Button */}
             <div className="mt-2.5 sm:mt-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 sm:gap-4">
@@ -566,7 +677,7 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
                       onClick={() => setActiveIndex(idx)}
                       className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                         isCurrent
-                          ? 'w-8 bg-gradient-to-r from-[#ffe699] via-[#f0b44b] to-[#d48820] shadow-[0_0_10px_rgba(245,196,95,0.65)]'
+                          ? 'w-8 bg-gradient-to-r from-[#ffe699] via-[#f0b44b] to-[#d48820] shadow-[0_0_12px_rgba(245,196,95,0.75)]'
                           : 'w-2 bg-[#f3d199]/55 hover:bg-[#ffe1a6]'
                       }`}
                     />
@@ -580,11 +691,12 @@ export const AstrologyQnaSection: React.FC<AstrologyQnaSectionProps> = ({ onOpen
                   setModalCategory('All');
                   setIsMoreModalOpen(true);
                 }}
-                className="group/cta relative overflow-hidden inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-[#f2c465] bg-gradient-to-b from-[#a81a20] via-[#780b10] to-[#460407] hover:from-[#be2128] hover:to-[#59070b] px-5 py-2 text-xs sm:text-[13px] font-semibold text-white shadow-[0_8px_18px_-6px_rgba(0,0,0,0.55),0_0_14px_-2px_rgba(242,196,101,0.35),inset_0_1px_0_rgba(255,224,185,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer whitespace-nowrap"
+                className="group/cta relative overflow-hidden inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-[#f4c76a] bg-gradient-to-b from-[#ae1c22] via-[#780b10] to-[#460407] hover:from-[#c4242b] hover:to-[#59070b] px-5 py-2 text-xs sm:text-[13px] font-semibold text-white shadow-[0_8px_20px_-6px_rgba(0,0,0,0.58),0_0_16px_-2px_rgba(242,196,101,0.4),inset_0_1px_0_rgba(255,224,185,0.48)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer whitespace-nowrap"
               >
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 -translate-x-full group-hover/cta:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                  style={{ animationDelay: '1.2s' }}
+                  className="pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-transparent via-white/25 to-transparent qna-badge-glint"
                 />
                 <span className="relative">Explore More Astrology Questions →</span>
               </button>
