@@ -242,6 +242,49 @@
   animation: qna-cursor-blink 0.9s steps(1, end) infinite;
 }
 
+@keyframes qna-teaser-aura {
+  0%, 100% {
+    opacity: 0.42;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+.qna-teaser-aura {
+  animation: qna-teaser-aura 3.6s ease-in-out infinite;
+}
+
+@keyframes qna-reveal-section {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.qna-reveal-section {
+  animation: qna-reveal-section 0.48s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes qna-answer-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.qna-answer-reveal {
+  animation: qna-answer-reveal 0.42s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both;
+}
+
 @keyframes horoscope-panel-enter {
   from {
     opacity: 0;
@@ -268,6 +311,9 @@
   .qna-badge-glint,
   .qna-armillary-spin,
   .qna-cursor-blink,
+  .qna-teaser-aura,
+  .qna-reveal-section,
+  .qna-answer-reveal,
   .horoscope-panel-enter {
     animation: none;
   }
