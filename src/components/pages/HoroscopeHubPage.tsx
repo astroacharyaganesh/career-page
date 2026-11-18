@@ -6,7 +6,6 @@ import {
   HoroscopePeriod,
   PERIOD_TO_SLUG,
   ZODIAC_HOROSCOPES,
-  getHoroscopeFocus,
   getPeriodHref,
   getZodiacImagePath
 } from '../../data/horoscopeData';
@@ -124,15 +123,6 @@ export const HoroscopeHubPage: React.FC<HoroscopeHubPageProps> = ({ onOpenBookin
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {ZODIAC_HOROSCOPES.map((sign) => {
-              const summaryText =
-                selectedPeriod === 'Daily'
-                  ? sign.daily.overall
-                  : selectedPeriod === 'Weekly'
-                  ? sign.weekly.overall
-                  : selectedPeriod === 'Monthly'
-                  ? sign.monthly.overview
-                  : sign.yearly.overview;
-              const focusText = getHoroscopeFocus(sign.id, selectedPeriod);
               const mainHref = getPeriodHref(selectedPeriod, sign.id);
 
               return (
@@ -140,45 +130,38 @@ export const HoroscopeHubPage: React.FC<HoroscopeHubPageProps> = ({ onOpenBookin
                   key={sign.id}
                   className="group flex flex-col justify-between rounded-2xl border border-[#d6b989] bg-[#fdfaf4] p-5 shadow-xs hover:border-[#b98735] hover:shadow-md transition-all"
                 >
-                  <div>
-                    <div className="flex items-start gap-3.5 pb-3.5 border-b border-[#eadbc4]">
-                      <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-[#c79948] bg-[#162849]">
-                        <img
-                          src={getZodiacImagePath(sign.id)}
-                          alt={`${sign.name} (${sign.vedicName}) zodiac illustration`}
-                          loading="lazy"
-                          className="h-full w-full object-cover object-top scale-[1.18] origin-top"
-                        />
-                      </div>
-
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center justify-between gap-2">
-                          <h3 className="font-serif-display text-xl font-bold text-[#6e121b]">
-                            <AppLink href={mainHref} className="hover:underline underline-offset-4">
-                              {sign.name}
-                            </AppLink>
-                          </h3>
-                          <span aria-hidden="true" className="text-xl text-[#9e6b16] font-semibold">
-                            {sign.glyph}
-                          </span>
-                        </div>
-                        <p className="text-xs font-medium text-[#1b3a75]">
-                          {sign.vedicName} (Chandra Rashi) · {sign.element} Element
-                        </p>
-                        <p className="text-[11px] text-[#746352] mt-0.5">
-                          Planet: {sign.rulingPlanet} · Sounds: {sign.moonSyllables}
-                        </p>
-                      </div>
+                  <div className="flex items-start gap-3.5 pb-3.5 border-b border-[#eadbc4]">
+                    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-[#c79948] bg-[#162849]">
+                      <img
+                        src={getZodiacImagePath(sign.id)}
+                        alt={`${sign.name} (${sign.vedicName}) zodiac illustration`}
+                        loading="lazy"
+                        className="h-full w-full object-cover object-top scale-[1.18] origin-top"
+                      />
                     </div>
 
-                    <p className="mt-3.5 text-sm text-[#31261d] leading-relaxed">{summaryText}</p>
-                    <p className="mt-2 text-xs text-[#5d4d3e]">
-                      <span className="font-semibold text-[#6e121b]">Focus:</span> {focusText}
-                    </p>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-2">
+                        <h3 className="font-serif-display text-xl font-bold text-[#6e121b]">
+                          <AppLink href={mainHref} className="hover:underline underline-offset-4">
+                            {sign.name}
+                          </AppLink>
+                        </h3>
+                        <span aria-hidden="true" className="text-xl text-[#9e6b16] font-semibold">
+                          {sign.glyph}
+                        </span>
+                      </div>
+                      <p className="text-xs font-medium text-[#1b3a75]">
+                        {sign.vedicName} (Chandra Rashi) · {sign.element} Element
+                      </p>
+                      <p className="text-[11px] text-[#746352] mt-0.5">
+                        Planet: {sign.rulingPlanet}
+                      </p>
+                    </div>
                   </div>
 
                   {/* Crawlable Period Links for Every Sign */}
-                  <div className="mt-4 pt-3.5 border-t border-[#eadbc4] space-y-3">
+                  <div className="pt-3.5 space-y-3">
                     <div className="flex flex-wrap items-center gap-1.5">
                       {HOROSCOPE_PERIODS.map((p) => {
                         const pSlug = PERIOD_TO_SLUG[p];
