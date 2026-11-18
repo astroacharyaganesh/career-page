@@ -300,7 +300,7 @@ export const HoroscopeSection: React.FC<HoroscopeSectionProps> = ({ onOpenBookin
                     isSelected ? 'text-[#edd197]' : 'text-[#736252]'
                   }`}
                 >
-                  {sign.dateRange}
+                  {sign.vedicName}
                 </span>
               </button>
             );
@@ -349,7 +349,7 @@ export const HoroscopeSection: React.FC<HoroscopeSectionProps> = ({ onOpenBookin
                     <span aria-hidden="true">·</span>
                     <span>{activeProfile.element} Sign</span>
                     <span aria-hidden="true">·</span>
-                    <span>{activeProfile.dateRange}</span>
+                    <span>Chandra Rashi</span>
                   </div>
                 </div>
               </div>
@@ -635,7 +635,7 @@ export const HoroscopeSection: React.FC<HoroscopeSectionProps> = ({ onOpenBookin
                 </div>
                 <div>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9c6b17]">
-                    {activeProfile.vedicName} Rashi · {activeProfile.dateRange}
+                    {activeProfile.vedicName} (Chandra Rashi) · {activeProfile.rulingPlanet}
                   </p>
                   <h3
                     id="full-horoscope-modal-title"

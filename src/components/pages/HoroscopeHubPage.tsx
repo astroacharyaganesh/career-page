@@ -163,10 +163,10 @@ export const HoroscopeHubPage: React.FC<HoroscopeHubPageProps> = ({ onOpenBookin
                           </span>
                         </div>
                         <p className="text-xs font-medium text-[#1b3a75]">
-                          {sign.vedicName} Rashi · {sign.dateRange}
+                          {sign.vedicName} (Chandra Rashi) · {sign.element} Element
                         </p>
                         <p className="text-[11px] text-[#746352] mt-0.5">
-                          Planet: {sign.rulingPlanet} · Element: {sign.element}
+                          Planet: {sign.rulingPlanet} · Sounds: {sign.moonSyllables}
                         </p>
                       </div>
                     </div>
@@ -260,7 +260,7 @@ export const HoroscopeHubPage: React.FC<HoroscopeHubPageProps> = ({ onOpenBookin
                 Consult Hanish Bagga One-on-One
               </h3>
               <p className="mt-2 text-xs sm:text-sm text-[#e6dac4] leading-relaxed">
-                Sun-sign predictions offer broad guidance; your Janma Kundli, Navamsha, and Dasha reveal exact timing for career shifts, marriage, finance, and remedies.
+                Chandra Rashi (Moon Sign) horoscopes reflect transits from your Natal Moon; your full Janma Kundli, Navamsha, and Dasha reveal exact timing for career shifts, marriage, finance, and Astro Vastu remedies.
               </p>
               <button
                 type="button"

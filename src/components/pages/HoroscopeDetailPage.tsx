@@ -150,7 +150,7 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
 
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#f5d384]">
-                  {profile.vedicName} Rashi · {profile.dateRange} · {profile.element} Sign
+                  {profile.vedicName} (Chandra Rashi) · {profile.element} Element · Vedic Moon Sign
                 </p>
                 <h1 className="mt-1 font-serif-display text-3xl sm:text-4xl lg:text-[2.65rem] font-bold text-[#fff8e9] leading-tight">
                   {profile.name} {period} Horoscope

@@ -76,7 +76,7 @@ export interface ZodiacHoroscopeProfile {
   name: string;
   vedicName: string;
   glyph: string;
-  dateRange: string;
+  moonSyllables: string;
   element: 'Fire' | 'Earth' | 'Air' | 'Water';
   rulingPlanet: string;
   planetaryInsight: string;
@@ -94,7 +94,7 @@ export const ZODIAC_HOROSCOPES: ZodiacHoroscopeProfile[] = [
     name: 'Aries',
     vedicName: 'Mesha',
     glyph: '♈\uFE0E',
-    dateRange: 'Mar 21 – Apr 19',
+    moonSyllables: 'Chu, Che, Cho, La, Li, Lu, Le, Lo, A',
     element: 'Fire',
     rulingPlanet: 'Mars',
     planetaryInsight:
@@ -158,7 +158,7 @@ export const ZODIAC_HOROSCOPES: ZodiacHoroscopeProfile[] = [
     name: 'Taurus',
     vedicName: 'Vrishabha',
     glyph: '♉\uFE0E',
-    dateRange: 'Apr 20 – May 20',
+    moonSyllables: 'I, U, E, O, Va, Vi, Vu, Ve, Vo',
     element: 'Earth',
     rulingPlanet: 'Venus',
     planetaryInsight:
@@ -222,7 +222,7 @@ export const ZODIAC_HOROSCOPES: ZodiacHoroscopeProfile[] = [
     name: 'Gemini',
     vedicName: 'Mithuna',
     glyph: '♊\uFE0E',
-    dateRange: 'May 21 – Jun 20',
+    moonSyllables: 'Ka, Ki, Ku, Gha, Ng, Chha, Ke, Ko, Ha',
     element: 'Air',
     rulingPlanet: 'Mercury',
     planetaryInsight:
@@ -286,7 +286,7 @@ export const ZODIAC_HOROSCOPES: ZodiacHoroscopeProfile[] = [
     name: 'Cancer',
     vedicName: 'Karka',
     glyph: '♋\uFE0E',
-    dateRange: 'Jun 21 – Jul 22',
+    moonSyllables: 'Hi, Hu, He, Ho, Da, Di, Du, De, Do',
     element: 'Water',
     rulingPlanet: 'Moon',
     planetaryInsight:
@@ -350,7 +350,7 @@ export const ZODIAC_HOROSCOPES: ZodiacHoroscopeProfile[] = [
     name: 'Leo',
     vedicName: 'Simha',
     glyph: '♌\uFE0E',
-    dateRange: 'Jul 23 – Aug 22',
+    moonSyllables: 'Ma, Mi, Mu, Me, Mo, Ta, Ti, Tu, Te',
     element: 'Fire',
     rulingPlanet: 'Sun',
     planetaryInsight:
@@ -414,7 +414,7 @@ export const ZODIAC_HOROSCOPES: ZodiacHoroscopeProfile[] = [
     name: 'Virgo',
     vedicName: 'Kanya',
     glyph: '♍\uFE0E',
-    dateRange: 'Aug 23 – Sep 22',
+    moonSyllables: 'To, Pa, Pi, Pu, Sha, Na, Tha, Pe, Po',
     element: 'Earth',
     rulingPlanet: 'Mercury',
     planetaryInsight:
@@ -478,7 +478,7 @@ export const ZODIAC_HOROSCOPES: ZodiacHoroscopeProfile[] = [
     name: 'Libra',
     vedicName: 'Tula',
     glyph: '♎\uFE0E',
-    dateRange: 'Sep 23 – Oct 22',
+    moonSyllables: 'Ra, Ri, Ru, Re, Ro, Ta, Ti, Tu, Te',
     element: 'Air',
     rulingPlanet: 'Venus',
     planetaryInsight:
@@ -542,7 +542,7 @@ export const ZODIAC_HOROSCOPES: ZodiacHoroscopeProfile[] = [
     name: 'Scorpio',
     vedicName: 'Vrishchika',
     glyph: '♏\uFE0E',
-    dateRange: 'Oct 23 – Nov 21',
+    moonSyllables: 'To, Na, Ni, Nu, Ne, No, Ya, Yi, Yu',
     element: 'Water',
     rulingPlanet: 'Mars',
     planetaryInsight:
@@ -606,7 +606,7 @@ export const ZODIAC_HOROSCOPES: ZodiacHoroscopeProfile[] = [
     name: 'Sagittarius',
     vedicName: 'Dhanu',
     glyph: '♐\uFE0E',
-    dateRange: 'Nov 22 – Dec 21',
+    moonSyllables: 'Ye, Yo, Bha, Bhi, Bhu, Dha, Pha, Bhe',
     element: 'Fire',
     rulingPlanet: 'Jupiter',
     planetaryInsight:
@@ -670,7 +670,7 @@ export const ZODIAC_HOROSCOPES: ZodiacHoroscopeProfile[] = [
     name: 'Capricorn',
     vedicName: 'Makara',
     glyph: '♑\uFE0E',
-    dateRange: 'Dec 22 – Jan 19',
+    moonSyllables: 'Bho, Ja, Ji, Khi, Khu, Khe, Kho, Ga, Gi',
     element: 'Earth',
     rulingPlanet: 'Saturn',
     planetaryInsight:
@@ -734,7 +734,7 @@ export const ZODIAC_HOROSCOPES: ZodiacHoroscopeProfile[] = [
     name: 'Aquarius',
     vedicName: 'Kumbha',
     glyph: '♒\uFE0E',
-    dateRange: 'Jan 20 – Feb 18',
+    moonSyllables: 'Gu, Ge, Go, Sa, Si, Su, Se, So, Da',
     element: 'Air',
     rulingPlanet: 'Saturn',
     planetaryInsight:
@@ -798,7 +798,7 @@ export const ZODIAC_HOROSCOPES: ZodiacHoroscopeProfile[] = [
     name: 'Pisces',
     vedicName: 'Meena',
     glyph: '♓\uFE0E',
-    dateRange: 'Feb 19 – Mar 20',
+    moonSyllables: 'Di, Du, Tha, Jha, De, Do, Cha, Chi',
     element: 'Water',
     rulingPlanet: 'Jupiter',
     planetaryInsight:
