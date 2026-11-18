@@ -2,7 +2,12 @@ import { StrictMode } from 'react';
 import { renderToString } from 'react-dom/server';
 import App from './App';
 import { setSsrSnapshotNowMs } from './data/panchangData';
-import { buildSitemapXml, getRouteSeoMetadata, parseAppRoute } from './data/seoRoutes';
+import {
+  buildSitemapXml,
+  getAllSitemapPaths,
+  getRouteSeoMetadata,
+  parseAppRoute
+} from './data/seoRoutes';
 
 function escapeHtmlAttr(value: string): string {
   return value
@@ -61,4 +66,4 @@ export function render(url: string): { html: string; headTags: string } {
   }
 }
 
-export { buildSitemapXml };
+export { buildSitemapXml, getAllSitemapPaths };

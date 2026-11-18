@@ -25,7 +25,7 @@ async function createAppServer() {
     });
     app.use(vite.middlewares);
   } else {
-    const clientDistDir = path.resolve(__dirname, 'dist/client');
+    const clientDistDir = path.resolve(__dirname, 'dist');
     app.use(express.static(clientDistDir, { index: false }));
   }
 
@@ -34,7 +34,7 @@ async function createAppServer() {
       return (await vite.ssrLoadModule('/src/entry-server.tsx')) as ServerEntryModule;
     }
     const prodEntryUrl = pathToFileURL(
-      path.resolve(__dirname, 'dist/server/entry-server.js')
+      path.resolve(__dirname, 'dist-ssr/entry-server.js')
     ).href;
     return (await import(prodEntryUrl)) as ServerEntryModule;
   }
@@ -51,7 +51,7 @@ async function createAppServer() {
 
   app.get('/robots.txt', (_req, res) => {
     const robotsPath = isProduction
-      ? path.resolve(__dirname, 'dist/client/robots.txt')
+      ? path.resolve(__dirname, 'dist/robots.txt')
       : path.resolve(__dirname, 'public/robots.txt');
     if (fs.existsSync(robotsPath)) {
       res.status(200).set({ 'Content-Type': 'text/plain; charset=utf-8' }).sendFile(robotsPath);
@@ -71,7 +71,7 @@ async function createAppServer() {
         const rawTemplate = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf-8');
         template = await vite.transformIndexHtml(url, rawTemplate);
       } else {
-        template = fs.readFileSync(path.resolve(__dirname, 'dist/client/index.html'), 'utf-8');
+        template = fs.readFileSync(path.resolve(__dirname, 'dist-ssr/template.html'), 'utf-8');
       }
 
       const { render } = await loadServerEntry();
