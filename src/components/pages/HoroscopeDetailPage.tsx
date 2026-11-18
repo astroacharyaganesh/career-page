@@ -357,7 +357,7 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
                 <h2 className="font-serif-display text-xl font-bold text-[#fff8e9]">
                   Consult Hanish Bagga
                 </h2>
-                <p className="text-xs text-[#e6dac4]">Vedic Astrology &amp; Astro-Vastu</p>
+                <p className="text-xs text-[#e6dac4]">Astro Vastu Expert</p>
               </div>
             </div>
             <p className="mt-4 text-xs sm:text-sm text-[#e6dac4] leading-relaxed">

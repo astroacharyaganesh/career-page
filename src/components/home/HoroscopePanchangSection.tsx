@@ -179,7 +179,7 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
             <div className="hidden md:flex items-end justify-center self-end pt-3">
               <img
                 src={hanishPortrait}
-                alt="Hanish Bagga — Acharya Ganesh Vedic Astrologer"
+                alt="Hanish Bagga — Acharya Ganesh Astro Vastu Expert"
                 className="h-44 lg:h-48 w-auto object-contain object-bottom drop-shadow-[0_10px_22px_rgba(0,0,0,0.45)]"
               />
             </div>

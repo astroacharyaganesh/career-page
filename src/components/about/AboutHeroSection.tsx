@@ -126,7 +126,7 @@ export const AboutHeroSection: React.FC<AboutHeroSectionProps> = ({
 
               <img
                 src={hanishPortrait}
-                alt="Acharya Ganesh – Hanish Bagga, Vedic Astrologer & Astro-Vastu Expert"
+                alt="Acharya Ganesh – Hanish Bagga, Astro Vastu Expert"
                 className="w-full max-w-[330px] h-[340px] sm:h-[380px] object-contain object-bottom relative z-10 block"
               />
             </div>

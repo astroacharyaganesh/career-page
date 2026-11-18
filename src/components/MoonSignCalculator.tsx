@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowRight,
   Calendar,
@@ -8,11 +8,14 @@ import {
   MapPin,
   Moon,
   RotateCcw,
-  Sparkles
+  Search,
+  Sparkles,
+  X
 } from 'lucide-react';
 import { HoroscopePeriod, getPeriodHref, getZodiacImagePath, getZodiacProfile, ZodiacId } from '../data/horoscopeData';
 import {
   BIRTH_CITY_PRESETS,
+  BirthCityPreset,
   MoonSignCalculationResult,
   NAMAKSHAR_LOOKUP,
   calculateMoonSign
@@ -42,12 +45,51 @@ export const MoonSignCalculator: React.FC<MoonSignCalculatorProps> = ({
   const [birthTime, setBirthTime] = useState('09:30');
   const [timeUnknown, setTimeUnknown] = useState(false);
   const [cityId, setCityId] = useState('delhi');
+  const [citySearchQuery, setCitySearchQuery] = useState(BIRTH_CITY_PRESETS[0].label);
+  const [hasTypedCityQuery, setHasTypedCityQuery] = useState(false);
+  const [isCityDropdownOpen, setIsCityDropdownOpen] = useState(false);
+  const [highlightedCityIndex, setHighlightedCityIndex] = useState(0);
   const [errorMsg, setErrorMsg] = useState('');
   const [result, setResult] = useState<MoonSignCalculationResult | null>(null);
   const [selectedNameRashiId, setSelectedNameRashiId] = useState<ZodiacId | null>(null);
 
+  const cityDropdownRef = useRef<HTMLDivElement | null>(null);
+  const cityInputRef = useRef<HTMLInputElement | null>(null);
+
   const selectedCity =
     BIRTH_CITY_PRESETS.find((c) => c.id === cityId) || BIRTH_CITY_PRESETS[0];
+
+  const filteredCities = useMemo(() => {
+    const q = citySearchQuery.trim().toLowerCase();
+    if (!hasTypedCityQuery || !q) {
+      return BIRTH_CITY_PRESETS;
+    }
+    return BIRTH_CITY_PRESETS.filter((city) => {
+      const haystack = `${city.label} ${city.keywords || ''} ${city.timezoneLabel}`.toLowerCase();
+      return haystack.includes(q);
+    });
+  }, [citySearchQuery, hasTypedCityQuery]);
+
+  useEffect(() => {
+    if (!isCityDropdownOpen) return;
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (cityDropdownRef.current && !cityDropdownRef.current.contains(e.target as Node)) {
+        setIsCityDropdownOpen(false);
+        setHasTypedCityQuery(false);
+        setCitySearchQuery(selectedCity.label);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, [isCityDropdownOpen, selectedCity.label]);
+
+  const handleSelectCity = (city: BirthCityPreset) => {
+    setCityId(city.id);
+    setCitySearchQuery(city.label);
+    setHasTypedCityQuery(false);
+    setIsCityDropdownOpen(false);
+    setHighlightedCityIndex(0);
+  };
 
   const handleCalculate = (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,6 +122,9 @@ export const MoonSignCalculator: React.FC<MoonSignCalculatorProps> = ({
     setBirthTime('09:30');
     setTimeUnknown(false);
     setCityId('delhi');
+    setCitySearchQuery(BIRTH_CITY_PRESETS[0].label);
+    setHasTypedCityQuery(false);
+    setIsCityDropdownOpen(false);
     setErrorMsg('');
     setResult(null);
     setSelectedNameRashiId(null);
@@ -99,12 +144,12 @@ export const MoonSignCalculator: React.FC<MoonSignCalculatorProps> = ({
   return (
     <div
       id="moon-sign-calculator"
-      className="relative overflow-hidden rounded-2xl border border-[#cfa458] bg-gradient-to-br from-[#fffdf8] via-[#faf2e2] to-[#f2e4ca] shadow-[0_14px_36px_-18px_rgba(92,58,20,0.22)]"
+      className="relative rounded-2xl border border-[#cfa458] bg-gradient-to-br from-[#fffdf8] via-[#faf2e2] to-[#f2e4ca] shadow-[0_14px_36px_-18px_rgba(92,58,20,0.22)]"
     >
       {/* Subtle Top Ornamental Hairline */}
       <div
         aria-hidden="true"
-        className="h-[3px] w-full bg-gradient-to-r from-[#0e1b36] via-[#d4a24c] to-[#6e121b]"
+        className="h-[3px] w-full rounded-t-2xl bg-gradient-to-r from-[#0e1b36] via-[#d4a24c] to-[#6e121b]"
       />
 
       <div className={compactHeader ? 'p-4 sm:p-5' : 'p-4 sm:p-6'}>
@@ -221,27 +266,159 @@ export const MoonSignCalculator: React.FC<MoonSignCalculatorProps> = ({
                 />
               </div>
 
-              {/* Birth Place / Timezone */}
-              <div>
-                <label
-                  htmlFor="rashi-city"
-                  className="flex items-center gap-1.5 text-xs font-semibold text-[#4a3929] mb-1.5"
-                >
-                  <MapPin className="w-3.5 h-3.5 text-[#9e6b16]" aria-hidden="true" />
-                  <span>Birth Region / Timezone</span>
-                </label>
-                <select
-                  id="rashi-city"
-                  value={cityId}
-                  onChange={(e) => setCityId(e.target.value)}
-                  className="w-full h-11 rounded-xl border border-[#d6bd93] bg-[#fffdf8] px-3 text-sm font-medium text-[#2c221a] focus:border-[#6e121b] focus:outline-none focus:ring-2 focus:ring-[#c79948]/40 cursor-pointer"
-                >
-                  {BIRTH_CITY_PRESETS.map((city) => (
-                    <option key={city.id} value={city.id}>
-                      {city.label} · {city.timezoneLabel}
-                    </option>
-                  ))}
-                </select>
+              {/* Searchable Birth City / Region Combobox */}
+              <div ref={cityDropdownRef} className="relative">
+                <div className="flex items-center justify-between gap-2 mb-1.5">
+                  <label
+                    htmlFor="rashi-city-search"
+                    className="flex items-center gap-1.5 text-xs font-semibold text-[#4a3929]"
+                  >
+                    <MapPin className="w-3.5 h-3.5 text-[#9e6b16]" aria-hidden="true" />
+                    <span>Birth City / Region</span>
+                  </label>
+                  <span className="text-[11px] font-semibold text-[#1b3a75] tabular-nums">
+                    {selectedCity.timezoneLabel}
+                  </span>
+                </div>
+
+                <div className="relative flex items-center">
+                  <Search
+                    className="pointer-events-none absolute left-3 w-4 h-4 text-[#9e6b16]"
+                    aria-hidden="true"
+                  />
+                  <input
+                    ref={cityInputRef}
+                    id="rashi-city-search"
+                    type="text"
+                    role="combobox"
+                    aria-expanded={isCityDropdownOpen}
+                    aria-controls="rashi-city-listbox"
+                    aria-autocomplete="list"
+                    autoComplete="off"
+                    placeholder="Type city, state, or country..."
+                    value={citySearchQuery}
+                    onFocus={(e) => {
+                      setIsCityDropdownOpen(true);
+                      e.currentTarget.select();
+                    }}
+                    onChange={(e) => {
+                      setCitySearchQuery(e.target.value);
+                      setHasTypedCityQuery(true);
+                      setIsCityDropdownOpen(true);
+                      setHighlightedCityIndex(0);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        setIsCityDropdownOpen(true);
+                        setHighlightedCityIndex((prev) =>
+                          filteredCities.length === 0 ? 0 : Math.min(prev + 1, filteredCities.length - 1)
+                        );
+                      } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        setHighlightedCityIndex((prev) => Math.max(prev - 1, 0));
+                      } else if (e.key === 'Enter' && isCityDropdownOpen) {
+                        if (filteredCities.length > 0) {
+                          e.preventDefault();
+                          const chosen =
+                            filteredCities[highlightedCityIndex] || filteredCities[0];
+                          handleSelectCity(chosen);
+                        }
+                      } else if (e.key === 'Escape') {
+                        setIsCityDropdownOpen(false);
+                        setHasTypedCityQuery(false);
+                        setCitySearchQuery(selectedCity.label);
+                      }
+                    }}
+                    className="w-full h-11 rounded-xl border border-[#d6bd93] bg-[#fffdf8] pl-9 pr-9 text-sm font-medium text-[#2c221a] placeholder:text-[#9a8672] focus:border-[#6e121b] focus:outline-none focus:ring-2 focus:ring-[#c79948]/40"
+                  />
+                  {citySearchQuery && (
+                    <button
+                      type="button"
+                      aria-label="Clear birth city search"
+                      onClick={() => {
+                        setCitySearchQuery('');
+                        setHasTypedCityQuery(true);
+                        setIsCityDropdownOpen(true);
+                        setHighlightedCityIndex(0);
+                        cityInputRef.current?.focus();
+                      }}
+                      className="absolute right-2.5 inline-flex h-6 w-6 items-center justify-center rounded-full text-[#7a6754] hover:bg-[#efe2ca] hover:text-[#4a1117] transition-colors cursor-pointer"
+                    >
+                      <X className="w-3.5 h-3.5" aria-hidden="true" />
+                    </button>
+                  )}
+                </div>
+
+                {/* Dropdown Search Results */}
+                {isCityDropdownOpen && (
+                  <div
+                    id="rashi-city-listbox"
+                    role="listbox"
+                    aria-label="Matching birth cities and regions"
+                    className="absolute left-0 right-0 top-full mt-1.5 z-40 max-h-60 overflow-y-auto rounded-xl border border-[#cfa053] bg-[#fffdf9] p-1.5 shadow-[0_18px_36px_-10px_rgba(32,20,10,0.3)]"
+                  >
+                    {filteredCities.length > 0 ? (
+                      filteredCities.map((city, idx) => {
+                        const isSelected = city.id === selectedCity.id;
+                        const isHighlighted = idx === highlightedCityIndex;
+                        return (
+                          <button
+                            key={city.id}
+                            type="button"
+                            role="option"
+                            aria-selected={isSelected}
+                            onMouseEnter={() => setHighlightedCityIndex(idx)}
+                            onClick={() => handleSelectCity(city)}
+                            className={`w-full flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-xs transition-colors cursor-pointer ${
+                              isSelected
+                                ? 'bg-[#6e121b] text-[#fff6e3] font-semibold'
+                                : isHighlighted
+                                ? 'bg-[#f4e5c8] text-[#2c221a]'
+                                : 'text-[#2c221a] hover:bg-[#f7ebd4]'
+                            }`}
+                          >
+                            <span className="truncate flex items-center gap-1.5">
+                              {isSelected && <Check className="w-3.5 h-3.5 shrink-0 text-[#f9dc92]" aria-hidden="true" />}
+                              <span className="truncate">{city.label}</span>
+                            </span>
+                            <span
+                              className={`shrink-0 text-[11px] tabular-nums ${
+                                isSelected ? 'text-[#f4d48e]' : 'text-[#73604e]'
+                              }`}
+                            >
+                              {city.timezoneLabel}
+                            </span>
+                          </button>
+                        );
+                      })
+                    ) : (
+                      <div className="p-2.5 space-y-2 text-xs">
+                        <p className="text-[#5c4a38]">
+                          No exact city match for <strong className="text-[#4a1117]">“{citySearchQuery}”</strong>. Pick your birth time zone:
+                        </p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {['delhi', 'dubai', 'london', 'newyork', 'losangeles', 'sydney'].map(
+                            (fallbackId) => {
+                              const preset = BIRTH_CITY_PRESETS.find((c) => c.id === fallbackId);
+                              if (!preset) return null;
+                              return (
+                                <button
+                                  key={preset.id}
+                                  type="button"
+                                  onClick={() => handleSelectCity(preset)}
+                                  className="rounded-md border border-[#d6bd93] bg-[#faf1df] hover:bg-[#efdcb6] px-2.5 py-1 text-[11px] font-semibold text-[#4a1117] cursor-pointer"
+                                >
+                                  {preset.timezoneLabel}
+                                </button>
+                              );
+                            }
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* Action Button */}

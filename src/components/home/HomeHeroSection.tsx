@@ -113,7 +113,7 @@ export const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({ onOpenBooking 
                 <span className="mx-2 text-white/40" aria-hidden="true">
                   ●
                 </span>
-                <span>Astrology &amp; Astro Vastu Expert</span>
+                <span>Astro Vastu Expert</span>
               </p>
 
               {/* 3D Sacred Book-Page CTA Button */}

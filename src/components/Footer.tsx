@@ -28,7 +28,7 @@ export const Footer: React.FC<FooterProps> = ({
                   Acharya Ganesh
                 </span>
                 <p className="text-[11px] text-amber-200/70">
-                  Hanish Bagga · Vedic Astrologer &amp; Astro-Vastu Expert
+                  Hanish Bagga · Astro Vastu Expert
                 </p>
               </div>
             </div>

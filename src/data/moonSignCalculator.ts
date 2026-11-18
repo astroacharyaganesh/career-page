@@ -3,23 +3,59 @@ import { ZODIAC_HOROSCOPES, ZodiacHoroscopeProfile, ZodiacId } from './horoscope
 export interface BirthCityPreset {
   id: string;
   label: string;
+  keywords?: string;
   timezoneLabel: string;
   utcOffsetMinutes: number;
 }
 
 export const BIRTH_CITY_PRESETS: BirthCityPreset[] = [
-  { id: 'delhi', label: 'New Delhi / NCR, India', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
-  { id: 'mumbai', label: 'Mumbai / Pune, India', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
-  { id: 'bengaluru', label: 'Bengaluru / Chennai, India', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
-  { id: 'kolkata', label: 'Kolkata / East India', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
-  { id: 'jaipur', label: 'Jaipur / Ahmedabad, India', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
-  { id: 'hyderabad', label: 'Hyderabad / Telangana, India', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
-  { id: 'dubai', label: 'Dubai / Abu Dhabi, UAE', timezoneLabel: 'GST (UTC+4:00)', utcOffsetMinutes: 240 },
-  { id: 'singapore', label: 'Singapore', timezoneLabel: 'SGT (UTC+8:00)', utcOffsetMinutes: 480 },
-  { id: 'london', label: 'London, UK', timezoneLabel: 'GMT (UTC+0:00)', utcOffsetMinutes: 0 },
-  { id: 'newyork', label: 'New York, USA', timezoneLabel: 'EST (UTC-5:00)', utcOffsetMinutes: -300 },
-  { id: 'losangeles', label: 'Los Angeles, USA', timezoneLabel: 'PST (UTC-8:00)', utcOffsetMinutes: -480 },
-  { id: 'sydney', label: 'Sydney, Australia', timezoneLabel: 'AEST (UTC+10:00)', utcOffsetMinutes: 600 }
+  { id: 'delhi', label: 'New Delhi / NCR, India', keywords: 'delhi noida gurgaon gurugram faridabad ghaziabad ncr', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'mumbai', label: 'Mumbai, Maharashtra, India', keywords: 'bombay thane navi mumbai konkan', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'pune', label: 'Pune, Maharashtra, India', keywords: 'poona maharashtra', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'bengaluru', label: 'Bengaluru, Karnataka, India', keywords: 'bangalore mysore mangalore karnataka', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'hyderabad', label: 'Hyderabad, Telangana, India', keywords: 'secunderabad warangal andhra', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'chennai', label: 'Chennai, Tamil Nadu, India', keywords: 'madras coimbatore madurai tamilnadu', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'kolkata', label: 'Kolkata, West Bengal, India', keywords: 'calcutta howrah siliguri bengal', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'ahmedabad', label: 'Ahmedabad, Gujarat, India', keywords: 'gandhinagar gujarat', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'surat', label: 'Surat, Gujarat, India', keywords: 'gujarat', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'vadodara', label: 'Vadodara / Rajkot, Gujarat, India', keywords: 'baroda gujarat jamnagar', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'jaipur', label: 'Jaipur, Rajasthan, India', keywords: 'ajmer kota bikaner rajasthan', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'udaipur', label: 'Udaipur / Jodhpur, Rajasthan, India', keywords: 'mewar marwar rajasthan', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'lucknow', label: 'Lucknow, Uttar Pradesh, India', keywords: 'up awadh barabanki', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'kanpur', label: 'Kanpur, Uttar Pradesh, India', keywords: 'up cawnpore', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'varanasi', label: 'Varanasi / Prayagraj, UP, India', keywords: 'kashi banaras benaras allahabad uttar pradesh', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'agra', label: 'Agra / Mathura, UP, India', keywords: 'vrindavan uttar pradesh meerut', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'indore', label: 'Indore, Madhya Pradesh, India', keywords: 'ujjain mp malwa', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'bhopal', label: 'Bhopal / Jabalpur, MP, India', keywords: 'gwalior madhya pradesh', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'patna', label: 'Patna / Gaya, Bihar, India', keywords: 'muzaffarpur darbhanga bihar', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'ranchi', label: 'Ranchi / Jamshedpur, Jharkhand, India', keywords: 'dhanbad jharkhand', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'chandigarh', label: 'Chandigarh / Mohali, Punjab, India', keywords: 'panchkula haryana ambala punjab', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'amritsar', label: 'Amritsar / Ludhiana / Jalandhar, Punjab', keywords: 'patiala punjab', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'dehradun', label: 'Dehradun / Haridwar, Uttarakhand, India', keywords: 'rishikesh nainital uttarakhand', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'shimla', label: 'Shimla / Jammu / Srinagar, North India', keywords: 'himachal kashmir jammu', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'nagpur', label: 'Nagpur / Nashik, Maharashtra, India', keywords: 'aurangabad vidarbha maharashtra', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'raipur', label: 'Raipur / Bilaspur, Chhattisgarh, India', keywords: 'chhattisgarh', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'bhubaneswar', label: 'Bhubaneswar / Cuttack, Odisha, India', keywords: 'puri orissa odisha', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'guwahati', label: 'Guwahati, Assam / Northeast India', keywords: 'assam shillong tripura manipur', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'kochi', label: 'Kochi / Thiruvananthapuram, Kerala, India', keywords: 'cochin trivandrum kozhikode kerala', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'visakhapatnam', label: 'Visakhapatnam / Vijayawada, AP, India', keywords: 'vizag tirupati andhra pradesh', timezoneLabel: 'IST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'kathmandu', label: 'Kathmandu, Nepal', keywords: 'pokhara nepal npt', timezoneLabel: 'NPT (UTC+5:45)', utcOffsetMinutes: 345 },
+  { id: 'colombo', label: 'Colombo, Sri Lanka', keywords: 'kandy sri lanka', timezoneLabel: 'SLST (UTC+5:30)', utcOffsetMinutes: 330 },
+  { id: 'dhaka', label: 'Dhaka, Bangladesh', keywords: 'chittagong bangladesh', timezoneLabel: 'BST (UTC+6:00)', utcOffsetMinutes: 360 },
+  { id: 'dubai', label: 'Dubai / Abu Dhabi, UAE', keywords: 'sharjah emirates uae', timezoneLabel: 'GST (UTC+4:00)', utcOffsetMinutes: 240 },
+  { id: 'doha', label: 'Doha / Riyadh, Middle East', keywords: 'qatar saudi arabia kuwait bahrain oman', timezoneLabel: 'AST (UTC+3:00)', utcOffsetMinutes: 180 },
+  { id: 'singapore', label: 'Singapore', keywords: 'sg asia', timezoneLabel: 'SGT (UTC+8:00)', utcOffsetMinutes: 480 },
+  { id: 'kualalumpur', label: 'Kuala Lumpur, Malaysia', keywords: 'penang malaysia', timezoneLabel: 'MYT (UTC+8:00)', utcOffsetMinutes: 480 },
+  { id: 'bangkok', label: 'Bangkok, Thailand', keywords: 'thailand jakarta vietnam', timezoneLabel: 'ICT (UTC+7:00)', utcOffsetMinutes: 420 },
+  { id: 'tokyo', label: 'Tokyo, Japan', keywords: 'osaka japan korea', timezoneLabel: 'JST (UTC+9:00)', utcOffsetMinutes: 540 },
+  { id: 'london', label: 'London / Manchester, UK', keywords: 'birmingham uk britain england scotland ireland', timezoneLabel: 'GMT (UTC+0:00)', utcOffsetMinutes: 0 },
+  { id: 'berlin', label: 'Berlin / Paris / Frankfurt, Europe', keywords: 'germany france netherlands italy switzerland spain', timezoneLabel: 'CET (UTC+1:00)', utcOffsetMinutes: 60 },
+  { id: 'newyork', label: 'New York / New Jersey / Toronto', keywords: 'boston washington atlanta miami canada usa est', timezoneLabel: 'EST (UTC-5:00)', utcOffsetMinutes: -300 },
+  { id: 'chicago', label: 'Chicago / Dallas / Houston, USA', keywords: 'texas illinois minneapolis cst', timezoneLabel: 'CST (UTC-6:00)', utcOffsetMinutes: -360 },
+  { id: 'denver', label: 'Denver / Phoenix / Calgary', keywords: 'colorado arizona alberta mst', timezoneLabel: 'MST (UTC-7:00)', utcOffsetMinutes: -420 },
+  { id: 'losangeles', label: 'Los Angeles / San Francisco / Vancouver', keywords: 'seattle california silicon valley pst', timezoneLabel: 'PST (UTC-8:00)', utcOffsetMinutes: -480 },
+  { id: 'sydney', label: 'Sydney / Melbourne, Australia', keywords: 'brisbane canberra australia', timezoneLabel: 'AEST (UTC+10:00)', utcOffsetMinutes: 600 },
+  { id: 'auckland', label: 'Auckland, New Zealand', keywords: 'wellington nz', timezoneLabel: 'NZST (UTC+12:00)', utcOffsetMinutes: 720 }
 ];
 
 export interface NakshatraInfo {

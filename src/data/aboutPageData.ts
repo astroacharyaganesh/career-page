@@ -129,11 +129,11 @@ export interface AboutPageCmsData {
 
 export const DEFAULT_ABOUT_PAGE_DATA: AboutPageCmsData = {
   seo: {
-    pageTitle: 'Acharya Ganesh – Hanish Bagga | Vedic Astrologer & Astro-Vastu Expert',
+    pageTitle: 'Acharya Ganesh – Hanish Bagga | Astro Vastu Expert',
     metaDescription:
       'For 17+ years, Acharya Ganesh (Hanish Bagga) has read birth charts one-on-one to help people decide on career, marriage, money and home with clarity.',
     canonicalUrl: 'https://acharyaganesh.com/about',
-    ogTitle: 'Acharya Ganesh – Hanish Bagga · Vedic Astrologer & Astro-Vastu Expert',
+    ogTitle: 'Acharya Ganesh – Hanish Bagga · Astro Vastu Expert',
     ogDescription:
       'For 17+ years, Acharya Ganesh has read birth charts one-on-one to help people decide on career, marriage, money and home with clarity. No generic software reports, only a close reading of your own kundli.',
     ogImage: 'https://acharyaganesh.com/assets/acharya-ganesh-hanish-bagga.jpg'
@@ -141,7 +141,7 @@ export const DEFAULT_ABOUT_PAGE_DATA: AboutPageCmsData = {
   hero: {
     hindiLine: 'आचार्य गणेश',
     h1: 'Acharya Ganesh',
-    subheading: 'Hanish Bagga · Vedic Astrologer & Astro-Vastu Expert',
+    subheading: 'Hanish Bagga · Astro Vastu Expert',
     intro:
       'For 17+ years, Acharya Ganesh has read birth charts one-on-one to help people decide on career, marriage, money and home with clarity. No generic software reports, only a close reading of your own kundli.',
     trustChips: [
@@ -339,7 +339,7 @@ export const DEFAULT_ABOUT_PAGE_DATA: AboutPageCmsData = {
       {
         question: 'Who is Acharya Ganesh?',
         answer:
-          'Acharya Ganesh, also known as Hanish Bagga, is a Vedic astrologer and Astro-Vastu expert with 17+ years of experience, based in Indirapuram, Ghaziabad. He guides clients across India and abroad.'
+          'Acharya Ganesh, also known as Hanish Bagga, is an Astro Vastu expert with 17+ years of experience, based in Indirapuram, Ghaziabad. He guides clients across India and abroad.'
       },
       {
         question: 'What does he specialise in?',

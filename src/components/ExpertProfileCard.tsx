@@ -61,7 +61,7 @@ export const ExpertProfileCard: React.FC<ExpertProfileCardProps> = () => {
                   ( Acharya Ganesh )
                 </p>
                 <p className="text-xs text-slate-300 font-medium mt-1">
-                  Vedic Astrologer &amp; Vastu Shastra Mentor
+                  Astro Vastu Expert
                 </p>
               </div>
 

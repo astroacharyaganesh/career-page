@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ArrowRight,
+  BookOpen,
   CalendarDays,
   CheckCircle2,
   Compass,
+  Download,
   Flame,
   MapPin,
   Moon,
@@ -11,7 +13,9 @@ import {
   Sun,
   Sunrise,
   Sunset,
-  XCircle
+  X,
+  XCircle,
+  ZoomIn
 } from 'lucide-react';
 import hanishPortrait from '../../assets/images/regenerated_image_1787726256429.png';
 import { ZODIAC_HOROSCOPES, getPeriodHref } from '../../data/horoscopeData';
@@ -27,6 +31,19 @@ interface PanchangPageProps {
 
 export const PanchangPage: React.FC<PanchangPageProps> = ({ mode, onOpenBooking }) => {
   const [selectedLocationId, setSelectedLocationId] = useState<string>('new-delhi');
+  const [isPatrikaZoomed, setIsPatrikaZoomed] = useState(false);
+
+  useEffect(() => {
+    if (!isPatrikaZoomed) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsPatrikaZoomed(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isPatrikaZoomed]);
+
   const panchang = getPanchangSnapshot(selectedLocationId);
   const currentLocation =
     PANCHANG_LOCATIONS.find((loc) => loc.id === selectedLocationId) || PANCHANG_LOCATIONS[0];
@@ -299,6 +316,117 @@ export const PanchangPage: React.FC<PanchangPageProps> = ({ mode, onOpenBooking 
           </section>
         </div>
 
+        {/* Daily Hindi Patrika Showcase (आज का पंचांग Image Poster) */}
+        <section
+          aria-labelledby="daily-patrika-heading"
+          className="relative overflow-hidden rounded-2xl border border-[#cfa458] bg-gradient-to-br from-[#fffdf8] via-[#f9efdc] to-[#f1e0c1] p-5 sm:p-7 shadow-[0_14px_34px_-16px_rgba(92,58,20,0.18)]"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+            {/* Framed Patrika Visual */}
+            <div className="lg:col-span-5 flex flex-col items-center">
+              <button
+                type="button"
+                onClick={() => setIsPatrikaZoomed(true)}
+                aria-label="Enlarge Acharya Ganesh Aaj Ka Panchang image"
+                className="group relative w-full max-w-[330px] overflow-hidden rounded-2xl border-2 border-[#c79948] bg-[#fdfaf3] p-2 shadow-[0_16px_36px_-14px_rgba(74,17,23,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_42px_-14px_rgba(74,17,23,0.38)] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6e121b]"
+              >
+                <div className="relative overflow-hidden rounded-xl border border-[#e3cfa9] bg-[#f4e7cf]">
+                  <img
+                    src="/assets/aistudio/18_nov.jpg_797e2c23.jpeg"
+                    alt="Acharya Ganesh Aaj Ka Panchang — 18 November 2026 Hindi Patrika with Tithi, Nakshatra, Rahu Kaal and Vikram Samvat 2083 details"
+                    loading="lazy"
+                    className="w-full h-auto max-h-[500px] object-contain mx-auto transition-transform duration-300 group-hover:scale-[1.015]"
+                  />
+                  <span className="pointer-events-none absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full border border-[#cfa053] bg-[#0e1b36]/85 px-3 py-1.5 text-[11px] font-semibold text-[#fae091] shadow-sm backdrop-blur-xs">
+                    <ZoomIn className="w-3.5 h-3.5" aria-hidden="true" />
+                    <span>View Full Patrika</span>
+                  </span>
+                </div>
+              </button>
+            </div>
+
+            {/* Editorial Companion Details */}
+            <div className="lg:col-span-7 space-y-5">
+              <div className="space-y-2 border-b border-[#e2cfa9] pb-4">
+                <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#9e6b16]">
+                  <BookOpen className="w-3.5 h-3.5" aria-hidden="true" />
+                  <span>Acharya Ganesh · Daily Hindi Edition</span>
+                </p>
+                <h2
+                  id="daily-patrika-heading"
+                  className="font-serif-display text-2xl sm:text-3xl font-bold text-[#6e121b] leading-tight [text-wrap:balance]"
+                >
+                  आज का पंचांग — Official Daily Patrika Card
+                </h2>
+                <p className="text-sm text-[#4a392a] leading-relaxed">
+                  Save or share today’s traditional Devanagari Panchang patrika curated by <strong className="text-[#4a1117]">Acharya Ganesh</strong>. Designed for quick morning reference before puja, sankalpa, travel, and family scheduling.
+                </p>
+              </div>
+
+              {/* Clean Bilingual Quick-Reference Breakdown */}
+              <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 divide-y divide-[#e6d5b7] text-xs sm:text-[13px] border-b border-[#e6d5b7]">
+                <div className="py-2.5 flex items-center justify-between gap-3">
+                  <dt className="font-semibold text-[#645342]">दिनांक · वार</dt>
+                  <dd className="font-bold text-[#4a1117] text-right">18 नवम्बर 2026 · बुधवार</dd>
+                </div>
+                <div className="py-2.5 flex items-center justify-between gap-3">
+                  <dt className="font-semibold text-[#645342]">पक्ष · तिथि</dt>
+                  <dd className="font-bold text-[#4a1117] text-right">शुक्ल पक्ष · नवमी</dd>
+                </div>
+                <div className="py-2.5 flex items-center justify-between gap-3">
+                  <dt className="font-semibold text-[#645342]">नक्षत्र · योग</dt>
+                  <dd className="font-bold text-[#4a1117] text-right">शतभिषा · ध्रुव</dd>
+                </div>
+                <div className="py-2.5 flex items-center justify-between gap-3">
+                  <dt className="font-semibold text-[#645342]">चंद्र राशि · मास</dt>
+                  <dd className="font-bold text-[#4a1117] text-right">कुम्भ · कार्तिक</dd>
+                </div>
+                <div className="py-2.5 flex items-center justify-between gap-3">
+                  <dt className="font-semibold text-[#645342]">सूर्योदय / सूर्यास्त</dt>
+                  <dd className="font-bold text-[#4a1117] tabular-nums text-right">06:46 AM / 05:26 PM</dd>
+                </div>
+                <div className="py-2.5 flex items-center justify-between gap-3">
+                  <dt className="font-semibold text-[#645342]">चन्द्रोदय · दिशा शूल</dt>
+                  <dd className="font-bold text-[#4a1117] tabular-nums text-right">12:21 PM · उत्तर</dd>
+                </div>
+                <div className="py-2.5 flex items-center justify-between gap-3">
+                  <dt className="font-semibold text-[#8c1d24]">राहु काल</dt>
+                  <dd className="font-bold text-[#6e121b] tabular-nums text-right">12:06 PM – 01:26 PM</dd>
+                </div>
+                <div className="py-2.5 flex items-center justify-between gap-3">
+                  <dt className="font-semibold text-[#645342]">अभिजित · सम्वत</dt>
+                  <dd className="font-bold text-[#4a1117] text-right">कोई नहीं · 2083 रौद्र</dd>
+                </div>
+              </dl>
+
+              <p className="text-xs text-[#645342] leading-relaxed">
+                <strong className="text-[#4a1117]">Note on Abhijit Muhurat:</strong> In classical Panchang tradition, Abhijit Muhurat is omitted (<span className="font-semibold">कोई नहीं</span>) on Wednesdays when Rahu Kaal falls directly across midday (12:06 – 01:26 PM), keeping major new commencements aligned with morning or late-afternoon Shubh Choghadiya.
+              </p>
+
+              {/* Interactive Zoom & Save Actions */}
+              <div className="flex flex-wrap items-center gap-3 pt-1">
+                <button
+                  type="button"
+                  onClick={() => setIsPatrikaZoomed(true)}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[#b57b1d] bg-gradient-to-b from-[#fae091] via-[#e6b34d] to-[#c98b24] hover:brightness-105 px-5 py-2.5 text-xs sm:text-sm font-bold text-[#460709] shadow-sm transition-all cursor-pointer whitespace-nowrap"
+                >
+                  <ZoomIn className="w-4 h-4" aria-hidden="true" />
+                  <span>Open Full-Size Patrika</span>
+                </button>
+
+                <a
+                  href="/assets/aistudio/18_nov.jpg_797e2c23.jpeg"
+                  download="acharya-ganesh-aaj-ka-panchang.jpg"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[#cfa053] bg-[#fffdf8] hover:bg-[#f6ead3] px-5 py-2.5 text-xs sm:text-sm font-semibold text-[#6e121b] transition-colors whitespace-nowrap"
+                >
+                  <Download className="w-4 h-4" aria-hidden="true" />
+                  <span>Save Patrika Image</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Important Daily Notes + Detailed Panchang Significance */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <section
@@ -393,6 +521,55 @@ export const PanchangPage: React.FC<PanchangPageProps> = ({ mode, onOpenBooking 
           </div>
         </section>
       </div>
+
+      {/* Full-Size Patrika Lightbox Modal */}
+      {isPatrikaZoomed && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Acharya Ganesh Aaj Ka Panchang Full View"
+          onClick={() => setIsPatrikaZoomed(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#091224]/85 p-4 sm:p-6 backdrop-blur-xs"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative flex max-h-[92vh] w-full max-w-lg flex-col overflow-hidden rounded-2xl border-2 border-[#d4a24c] bg-[#fdfaf3] shadow-2xl"
+          >
+            <div className="flex items-center justify-between gap-3 border-b border-[#e5d5bc] bg-[#0e1b36] px-4 py-3 text-[#fff8e9]">
+              <div>
+                <p className="text-xs font-bold text-[#f5d384]">आज का पंचांग · Acharya Ganesh</p>
+                <p className="text-[11px] text-[#e6dac4]">18 नवम्बर 2026 · विक्रम सम्वत 2083</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <a
+                  href="/assets/aistudio/18_nov.jpg_797e2c23.jpeg"
+                  download="acharya-ganesh-aaj-ka-panchang.jpg"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-[#cfa053] bg-[#fff8e9]/10 hover:bg-[#fff8e9]/20 px-3 py-1 text-xs font-semibold text-[#fae091]"
+                >
+                  <Download className="w-3.5 h-3.5" aria-hidden="true" />
+                  <span>Save</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setIsPatrikaZoomed(false)}
+                  aria-label="Close full-size Patrika"
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#cfa053]/60 text-[#fff8e9] hover:bg-white/15 cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            <div className="overflow-y-auto bg-[#efe2ca] p-3 sm:p-4">
+              <img
+                src="/assets/aistudio/18_nov.jpg_797e2c23.jpeg"
+                alt="Acharya Ganesh Aaj Ka Panchang Full View"
+                className="mx-auto w-full h-auto rounded-xl border border-[#c79948]"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
