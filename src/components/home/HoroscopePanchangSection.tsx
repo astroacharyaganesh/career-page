@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   Activity,
+  ArrowDown,
   ArrowRight,
   Briefcase,
   Calendar,
@@ -30,12 +31,15 @@ import {
 } from '../../data/horoscopeData';
 import { getIndiaCalendarInfo, getPanchangSnapshot } from '../../data/panchangData';
 import { AppLink } from '../AppLink';
+import { MoonSignCalculator } from '../MoonSignCalculator';
 
 interface HoroscopePanchangSectionProps {
   onOpenBooking?: () => void;
 }
 
-export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> = () => {
+export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> = ({
+  onOpenBooking
+}) => {
   const [selectedPeriod, setSelectedPeriod] = useState<HoroscopePeriod>('Daily');
   const [selectedSignId, setSelectedSignId] = useState<ZodiacId>('aries');
 
@@ -104,18 +108,25 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
   const focusText = getHoroscopeFocus(activeProfile.id, selectedPeriod);
   const fullHoroscopeHref = getPeriodHref(selectedPeriod, activeProfile.id);
 
+  const scrollToCalculator = () => {
+    const el = document.getElementById('moon-sign-calculator');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
   return (
     <section
       id="horoscope"
       aria-labelledby="horoscope-panchang-heading"
-      className="relative w-full overflow-hidden bg-gradient-to-b from-[#f6efe2] via-[#fbf6ec] to-[#f4ead9] border-y border-[#dec9a4] py-8 sm:py-12"
+      className="relative w-full overflow-hidden bg-gradient-to-b from-[#f5ede0] via-[#fbf6ec] to-[#f3e8d5] border-y border-[#dec9a4] py-9 sm:py-14"
     >
       {/* Subtle Astronomical Background Pattern */}
       <svg
         aria-hidden="true"
         viewBox="0 0 1440 720"
         preserveAspectRatio="xMidYMid slice"
-        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.12] text-[#9b6c24]"
+        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.11] text-[#9b6c24]"
         fill="none"
       >
         <circle cx="720" cy="400" r="320" stroke="currentColor" strokeWidth="0.7" strokeDasharray="3 6" />
@@ -126,7 +137,7 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
 
       <div className="relative z-10 w-full max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         {/* Celestial Header Banner Inspired by Acharya Ganesh Identity */}
-        <div className="relative overflow-hidden rounded-2xl border border-[#c79948]/70 bg-gradient-to-r from-[#0e1b36] via-[#172c54] to-[#3f2913] shadow-[0_18px_40px_-14px_rgba(16,28,54,0.45)]">
+        <div className="relative overflow-hidden rounded-2xl border border-[#cfa458]/80 bg-gradient-to-r from-[#0a152c] via-[#14274c] to-[#3b2511] shadow-[0_20px_44px_-16px_rgba(14,26,52,0.5)]">
           {/* Celestial Stars, Zodiac Ring & Planetary Orbit Lines */}
           <svg
             aria-hidden="true"
@@ -138,11 +149,11 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
             <defs>
               <radialGradient id="bannerGoldGlow" cx="22%" cy="50%" r="48%">
                 <stop offset="0%" stopColor="#f5c96e" stopOpacity="0.34" />
-                <stop offset="100%" stopColor="#0e1b36" stopOpacity="0" />
+                <stop offset="100%" stopColor="#0a152c" stopOpacity="0" />
               </radialGradient>
               <radialGradient id="bannerLampGlow" cx="84%" cy="60%" r="36%">
                 <stop offset="0%" stopColor="#f3b655" stopOpacity="0.32" />
-                <stop offset="100%" stopColor="#3f2913" stopOpacity="0" />
+                <stop offset="100%" stopColor="#3b2511" stopOpacity="0" />
               </radialGradient>
             </defs>
             <rect width="1200" height="240" fill="url(#bannerGoldGlow)" />
@@ -175,14 +186,14 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
 
             {/* Center Headline & Supporting Line */}
             <div className="text-center md:py-7">
-              <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#f5d384] mb-2">
+              <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#f5d384] mb-2">
                 <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
-                <span>Acharya Ganesh · Jyotish &amp; Muhurat</span>
+                <span>Acharya Ganesh · Jyotish &amp; Muhurat · Moon Sign System</span>
               </div>
 
               <h2
                 id="horoscope-panchang-heading"
-                className="font-serif-display text-2xl sm:text-3xl lg:text-[2.35rem] font-bold text-[#fff8e9] leading-[1.15] tracking-[-0.01em] [text-wrap:balance]"
+                className="font-serif-display text-2xl sm:text-3xl lg:text-[2.4rem] font-bold text-[#fff8e9] leading-[1.15] tracking-[-0.01em] [text-wrap:balance]"
               >
                 Daily Horoscope &amp; Today’s Panchang
               </h2>
@@ -190,6 +201,18 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
               <p className="mt-2.5 max-w-2xl mx-auto text-sm sm:text-[15.5px] text-[#e8dcc7] leading-relaxed">
                 Get Your Rashi Predictions, Auspicious Timings and Vedic Guidance — All in One Place
               </p>
+
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={scrollToCalculator}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-[#e3b963]/70 bg-[#fff8e9]/10 hover:bg-[#fff8e9]/20 px-4 py-1.5 text-xs font-semibold text-[#fae091] transition-colors cursor-pointer"
+                >
+                  <Moon className="w-3.5 h-3.5" aria-hidden="true" />
+                  <span>Calculate Your Moon Sign (Rashi)</span>
+                  <ArrowDown className="w-3.5 h-3.5" aria-hidden="true" />
+                </button>
+              </div>
 
               {/* Mobile Expert Credit */}
               <p className="mt-3 text-xs text-[#f2d084] md:hidden">
@@ -222,6 +245,15 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
           </div>
         </div>
 
+        {/* Interactive Moon Sign (Chandra Rashi) Calculator */}
+        <MoonSignCalculator
+          activePeriod={selectedPeriod}
+          selectedSignId={selectedSignId}
+          onApplySign={setSelectedSignId}
+          onOpenBooking={onOpenBooking}
+          compactHeader
+        />
+
         {/* Main Dual-Column Interactive Panel: Horoscope (Left) + Panchang (Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-stretch">
           {/* LEFT SIDE: TODAY'S HOROSCOPE */}
@@ -229,15 +261,22 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
             {/* Heading + Period Tabs */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3.5 pb-4 border-b border-[#e5d5bc]">
               <div className="flex items-center gap-2.5">
-                <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#cfa053] bg-[#f7ebd4] text-[#6e121b]">
-                  <Compass className="w-4.5 h-4.5" aria-hidden="true" />
+                <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#cfa053] bg-[#f7ebd4] text-[#6e121b]">
+                  <Compass className="w-5 h-5" aria-hidden="true" />
                 </span>
                 <div>
                   <h3 className="font-serif-display text-xl sm:text-2xl font-bold text-[#6e121b] leading-tight">
                     Today’s Horoscope
                   </h3>
-                  <p className="text-[11px] font-medium text-[#75624f]">
-                    Select a period and your Rashi for instant Vedic guidance
+                  <p className="text-[11px] sm:text-xs font-medium text-[#75624f]">
+                    Based on Vedic Moon Sign (Chandra Rashi) ·{' '}
+                    <button
+                      type="button"
+                      onClick={scrollToCalculator}
+                      className="font-semibold text-[#6e121b] underline decoration-[#cfa053] underline-offset-2 hover:text-[#9e6b16] cursor-pointer"
+                    >
+                      Check yours above
+                    </button>
                   </p>
                 </div>
               </div>
@@ -271,7 +310,7 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
               </div>
             </div>
 
-            {/* 12 Zodiac Signs Grid */}
+            {/* 12 Zodiac Signs Grid with English & Vedic Rashi Names */}
             <div
               role="listbox"
               aria-label="Select Zodiac Sign"
@@ -307,6 +346,13 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
                     >
                       {sign.name}
                     </span>
+                    <span
+                      className={`text-[10px] font-medium whitespace-nowrap ${
+                        isSelected ? 'text-[#f4d48e]' : 'text-[#846d57]'
+                      }`}
+                    >
+                      {sign.vedicName}
+                    </span>
                   </button>
                 );
               })}
@@ -315,7 +361,7 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
             {/* Featured Horoscope Card */}
             <div
               key={`${activeProfile.id}-${selectedPeriod}`}
-              className="horoscope-panel-enter mt-4 flex-1 flex flex-col justify-between rounded-2xl border border-[#d6b989] bg-gradient-to-br from-[#fffdf9] via-[#fbf5ea] to-[#f4e9d6] p-4 sm:p-5"
+              className="horoscope-panel-enter mt-4 flex-1 flex flex-col justify-between rounded-2xl border border-[#d6b989] bg-gradient-to-br from-[#fffdf9] via-[#fbf5ea] to-[#f4e9d6] p-4 sm:p-6"
             >
               <div>
                 {/* Top Summary Split with Framed Zodiac Visual */}
@@ -339,55 +385,63 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
                     <p className="mt-0.5 text-xs font-semibold text-[#1b3a75] tabular-nums">
                       {periodContent.dateLabel} · {activeProfile.vedicName} Rashi · {activeProfile.rulingPlanet}
                     </p>
-                    <p className="mt-2 text-sm text-[#31261d] leading-relaxed">
+                    <p className="mt-2.5 text-sm text-[#31261d] leading-relaxed">
                       {periodContent.overall}
                     </p>
                   </div>
                 </div>
 
-                {/* 4 Compact Life-Area Blocks: Career, Love, Finance, Health */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-4">
-                  <div className="rounded-xl border border-[#e3d2b8] bg-[#fffdf8] p-3">
+                {/* 4 Clean 2x2 Life-Area Sections */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+                  <div className="rounded-xl border border-[#e5d5bc] bg-[#fffdf8] px-3.5 py-3">
                     <div className="flex items-center gap-1.5 text-[#6e121b] mb-1">
                       <Briefcase className="w-3.5 h-3.5 text-[#9e6b16] shrink-0" aria-hidden="true" />
-                      <span className="text-xs font-bold">Career</span>
+                      <span className="text-xs font-bold uppercase tracking-wide">Career</span>
                     </div>
-                    <p className="text-xs text-[#3b2f24] leading-[1.45]">{periodContent.career}</p>
+                    <p className="text-xs sm:text-[13px] text-[#3b2f24] leading-[1.48]">
+                      {periodContent.career}
+                    </p>
                   </div>
 
-                  <div className="rounded-xl border border-[#e3d2b8] bg-[#fffdf8] p-3">
+                  <div className="rounded-xl border border-[#e5d5bc] bg-[#fffdf8] px-3.5 py-3">
                     <div className="flex items-center gap-1.5 text-[#6e121b] mb-1">
                       <Heart className="w-3.5 h-3.5 text-[#7c1d26] shrink-0" aria-hidden="true" />
-                      <span className="text-xs font-bold">Love</span>
+                      <span className="text-xs font-bold uppercase tracking-wide">Love</span>
                     </div>
-                    <p className="text-xs text-[#3b2f24] leading-[1.45]">{periodContent.love}</p>
+                    <p className="text-xs sm:text-[13px] text-[#3b2f24] leading-[1.48]">
+                      {periodContent.love}
+                    </p>
                   </div>
 
-                  <div className="rounded-xl border border-[#e3d2b8] bg-[#fffdf8] p-3">
+                  <div className="rounded-xl border border-[#e5d5bc] bg-[#fffdf8] px-3.5 py-3">
                     <div className="flex items-center gap-1.5 text-[#6e121b] mb-1">
                       <Coins className="w-3.5 h-3.5 text-[#9e6b16] shrink-0" aria-hidden="true" />
-                      <span className="text-xs font-bold">Finance</span>
+                      <span className="text-xs font-bold uppercase tracking-wide">Finance</span>
                     </div>
-                    <p className="text-xs text-[#3b2f24] leading-[1.45]">{periodContent.finance}</p>
+                    <p className="text-xs sm:text-[13px] text-[#3b2f24] leading-[1.48]">
+                      {periodContent.finance}
+                    </p>
                   </div>
 
-                  <div className="rounded-xl border border-[#e3d2b8] bg-[#fffdf8] p-3">
+                  <div className="rounded-xl border border-[#e5d5bc] bg-[#fffdf8] px-3.5 py-3">
                     <div className="flex items-center gap-1.5 text-[#6e121b] mb-1">
                       <Activity className="w-3.5 h-3.5 text-[#0e4d3b] shrink-0" aria-hidden="true" />
-                      <span className="text-xs font-bold">Health</span>
+                      <span className="text-xs font-bold uppercase tracking-wide">Health</span>
                     </div>
-                    <p className="text-xs text-[#3b2f24] leading-[1.45]">{periodContent.health}</p>
+                    <p className="text-xs sm:text-[13px] text-[#3b2f24] leading-[1.48]">
+                      {periodContent.health}
+                    </p>
                   </div>
                 </div>
               </div>
 
-              {/* Lucky Colour, Lucky Number & Focus Strip + CTA */}
-              <div className="mt-4 pt-3.5 border-t border-[#e5d5bc] space-y-3.5">
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
-                  <div className="flex items-center gap-2 rounded-lg border border-[#e3d2b8] bg-[#fffaf1] px-3 py-2">
+              {/* Clean Hairline-Divided Lucky & Focus Strip + CTA */}
+              <div className="mt-4 pt-4 border-t border-[#e5d5bc] space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[#e5d5bc] rounded-xl border border-[#e3d2b8] bg-[#fffaf1] text-xs">
+                  <div className="flex items-center gap-2.5 px-3.5 py-2.5">
                     <span
                       aria-hidden="true"
-                      className="inline-block h-3.5 w-3.5 shrink-0 rounded-full border border-black/15"
+                      className="inline-block h-4 w-4 shrink-0 rounded-full border border-black/20"
                       style={{ backgroundColor: periodContent.luckyColourHex }}
                     />
                     <div>
@@ -396,8 +450,8 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 rounded-lg border border-[#e3d2b8] bg-[#fffaf1] px-3 py-2">
-                    <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#6e121b] text-[11px] font-bold text-[#fff5dc] tabular-nums">
+                  <div className="flex items-center gap-2.5 px-3.5 py-2.5">
+                    <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#6e121b] text-[11px] font-bold text-[#fff5dc] tabular-nums">
                       {periodContent.luckyNumber}
                     </span>
                     <div>
@@ -406,7 +460,7 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 rounded-lg border border-[#e3d2b8] bg-[#fffaf1] px-3 py-2">
+                  <div className="flex items-center gap-2.5 px-3.5 py-2.5">
                     <Compass className="w-4 h-4 shrink-0 text-[#9e6b16]" aria-hidden="true" />
                     <div className="min-w-0">
                       <p className="text-[11px] font-medium text-[#73604e]">{periodContent.focusLabel}</p>
@@ -415,7 +469,7 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
                   </div>
                 </div>
 
-                <div className="flex justify-center sm:justify-start">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <AppLink
                     href={fullHoroscopeHref}
                     className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-[#b57b1d] bg-gradient-to-b from-[#fae091] via-[#e6b34d] to-[#c98b24] hover:brightness-105 px-6 py-2.5 text-xs sm:text-sm font-bold text-[#460709] shadow-[0_6px_16px_-6px_rgba(128,82,12,0.5)] transition-all whitespace-nowrap"
@@ -423,6 +477,10 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
                     <span>Read Full {activeProfile.name} Horoscope</span>
                     <ArrowRight className="w-4 h-4" aria-hidden="true" />
                   </AppLink>
+
+                  <span className="text-[11px] font-medium text-[#75624f] text-center sm:text-right">
+                    Element: {activeProfile.element} · Ruler: {activeProfile.rulingPlanet}
+                  </span>
                 </div>
               </div>
             </div>
@@ -434,8 +492,8 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
               {/* Header */}
               <div className="flex items-start justify-between gap-3 pb-4 border-b border-[#e5d5bc]">
                 <div className="flex items-center gap-2.5">
-                  <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#cfa053] bg-[#f7ebd4] text-[#6e121b]">
-                    <CalendarDays className="w-4.5 h-4.5" aria-hidden="true" />
+                  <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#cfa053] bg-[#f7ebd4] text-[#6e121b]">
+                    <CalendarDays className="w-5 h-5" aria-hidden="true" />
                   </span>
                   <div>
                     <h3 className="font-serif-display text-xl sm:text-2xl font-bold text-[#6e121b] leading-tight">
@@ -447,77 +505,77 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
                   </div>
                 </div>
                 <span className="text-[11px] font-semibold text-[#1b3a75] shrink-0 pt-1">
-                  New Delhi
+                  New Delhi · IST
                 </span>
               </div>
 
+              {/* Clean Solar & Lunar Timing Summary Strip */}
+              <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-2.5 text-xs">
+                <div className="rounded-xl border border-[#e5d5bc] bg-[#fffaf1] px-3 py-2 flex items-center justify-between gap-2">
+                  <span className="flex items-center gap-1.5 font-semibold text-[#4d3b2c]">
+                    <Sunrise className="w-3.5 h-3.5 text-[#b5651d]" aria-hidden="true" />
+                    <span>Sunrise</span>
+                  </span>
+                  <span className="font-bold text-[#2c221a] tabular-nums">{panchang.sunrise}</span>
+                </div>
+                <div className="rounded-xl border border-[#e5d5bc] bg-[#fffaf1] px-3 py-2 flex items-center justify-between gap-2">
+                  <span className="flex items-center gap-1.5 font-semibold text-[#4d3b2c]">
+                    <Sunset className="w-3.5 h-3.5 text-[#9e6b16]" aria-hidden="true" />
+                    <span>Sunset</span>
+                  </span>
+                  <span className="font-bold text-[#2c221a] tabular-nums">{panchang.sunset}</span>
+                </div>
+                <div className="rounded-xl border border-[#e5d5bc] bg-[#fffaf1] px-3 py-2 flex items-center justify-between gap-2">
+                  <span className="flex items-center gap-1.5 font-semibold text-[#4d3b2c]">
+                    <Moon className="w-3.5 h-3.5 text-[#1b3a75]" aria-hidden="true" />
+                    <span>Moonrise</span>
+                  </span>
+                  <span className="font-bold text-[#2c221a] tabular-nums">{panchang.moonrise}</span>
+                </div>
+                <div className="rounded-xl border border-[#e5d5bc] bg-[#fffaf1] px-3 py-2 flex items-center justify-between gap-2">
+                  <span className="flex items-center gap-1.5 font-semibold text-[#4d3b2c]">
+                    <Moon className="w-3.5 h-3.5 text-[#5b4d6d]" aria-hidden="true" />
+                    <span>Moonset</span>
+                  </span>
+                  <span className="font-bold text-[#2c221a] tabular-nums">{panchang.moonset}</span>
+                </div>
+              </div>
+
               {/* Primary Panchang Limbs */}
-              <dl className="divide-y divide-[#ebdcca] text-xs sm:text-[13px] mt-2">
-                <div className="py-2 flex items-start justify-between gap-4">
+              <dl className="divide-y divide-[#ebdcca] text-xs sm:text-[13px] mt-3">
+                <div className="py-2.5 flex items-start justify-between gap-4">
                   <dt className="flex items-center gap-2 font-semibold text-[#4d3b2c] shrink-0">
                     <Sparkles className="w-3.5 h-3.5 text-[#9e6b16]" aria-hidden="true" />
                     <span>Tithi</span>
                   </dt>
                   <dd className="text-right font-medium text-[#2c221a]">{panchang.tithi}</dd>
                 </div>
-                <div className="py-2 flex items-start justify-between gap-4">
+                <div className="py-2.5 flex items-start justify-between gap-4">
                   <dt className="flex items-center gap-2 font-semibold text-[#4d3b2c] shrink-0">
                     <Sun className="w-3.5 h-3.5 text-[#9e6b16]" aria-hidden="true" />
                     <span>Nakshatra</span>
                   </dt>
                   <dd className="text-right font-medium text-[#2c221a]">{panchang.nakshatra}</dd>
                 </div>
-                <div className="py-2 flex items-start justify-between gap-4">
+                <div className="py-2.5 flex items-start justify-between gap-4">
                   <dt className="flex items-center gap-2 font-semibold text-[#4d3b2c] shrink-0">
                     <Flame className="w-3.5 h-3.5 text-[#9e6b16]" aria-hidden="true" />
                     <span>Yoga</span>
                   </dt>
                   <dd className="text-right font-medium text-[#2c221a]">{panchang.yoga}</dd>
                 </div>
-                <div className="py-2 flex items-start justify-between gap-4">
+                <div className="py-2.5 flex items-start justify-between gap-4">
                   <dt className="flex items-center gap-2 font-semibold text-[#4d3b2c] shrink-0">
                     <Compass className="w-3.5 h-3.5 text-[#9e6b16]" aria-hidden="true" />
                     <span>Karana</span>
                   </dt>
                   <dd className="text-right font-medium text-[#2c221a]">{panchang.karana}</dd>
                 </div>
-                <div className="py-2 grid grid-cols-2 gap-3">
-                  <div className="flex items-center justify-between gap-2">
-                    <dt className="flex items-center gap-1.5 font-semibold text-[#4d3b2c]">
-                      <Sunrise className="w-3.5 h-3.5 text-[#b5651d]" aria-hidden="true" />
-                      <span>Sunrise</span>
-                    </dt>
-                    <dd className="font-semibold text-[#2c221a] tabular-nums">{panchang.sunrise}</dd>
-                  </div>
-                  <div className="flex items-center justify-between gap-2">
-                    <dt className="flex items-center gap-1.5 font-semibold text-[#4d3b2c]">
-                      <Sunset className="w-3.5 h-3.5 text-[#9e6b16]" aria-hidden="true" />
-                      <span>Sunset</span>
-                    </dt>
-                    <dd className="font-semibold text-[#2c221a] tabular-nums">{panchang.sunset}</dd>
-                  </div>
-                </div>
-                <div className="py-2 grid grid-cols-2 gap-3">
-                  <div className="flex items-center justify-between gap-2">
-                    <dt className="flex items-center gap-1.5 font-semibold text-[#4d3b2c]">
-                      <Moon className="w-3.5 h-3.5 text-[#1b3a75]" aria-hidden="true" />
-                      <span>Moonrise</span>
-                    </dt>
-                    <dd className="font-semibold text-[#2c221a] tabular-nums">{panchang.moonrise}</dd>
-                  </div>
-                  <div className="flex items-center justify-between gap-2">
-                    <dt className="flex items-center gap-1.5 font-semibold text-[#4d3b2c]">
-                      <Moon className="w-3.5 h-3.5 text-[#5b4d6d]" aria-hidden="true" />
-                      <span>Moonset</span>
-                    </dt>
-                    <dd className="font-semibold text-[#2c221a] tabular-nums">{panchang.moonset}</dd>
-                  </div>
-                </div>
               </dl>
 
               {/* Separate Visual Treatment: Inauspicious vs Auspicious Timings */}
-              <div className="mt-3 space-y-2">
-                <div className="rounded-xl border border-[#dfb5ba] bg-[#faeff0] px-3.5 py-2.5 flex items-center justify-between gap-3">
+              <div className="mt-3.5 space-y-2.5">
+                <div className="rounded-xl border border-[#dfb5ba] border-l-4 border-l-[#8c1d24] bg-[#faeff0] px-3.5 py-2.5 flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
                     <XCircle className="w-4 h-4 text-[#8c1d24] shrink-0" aria-hidden="true" />
                     <div>
@@ -532,7 +590,7 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
                   </span>
                 </div>
 
-                <div className="rounded-xl border border-[#a5cfc0] bg-[#eef7f2] px-3.5 py-2.5 flex items-center justify-between gap-3">
+                <div className="rounded-xl border border-[#a5cfc0] border-l-4 border-l-[#0e5942] bg-[#eef7f2] px-3.5 py-2.5 flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#0e5942] shrink-0" aria-hidden="true" />
                     <div>
@@ -558,7 +616,7 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
             </div>
 
             {/* Panchang Detail CTA */}
-            <div className="mt-4 pt-3 border-t border-[#e5d5bc]">
+            <div className="mt-4 pt-3.5 border-t border-[#e5d5bc]">
               <AppLink
                 href="/panchang/today/"
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#b57b1d] bg-gradient-to-b from-[#fae091] via-[#e6b34d] to-[#c98b24] hover:brightness-105 px-6 py-2.5 text-xs sm:text-sm font-bold text-[#460709] shadow-[0_6px_16px_-6px_rgba(128,82,12,0.5)] transition-all whitespace-nowrap"
@@ -612,19 +670,25 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
                 <AppLink
                   key={card.title}
                   href={card.href}
-                  className="group flex items-start gap-3.5 rounded-xl border border-[#d9c095] bg-[#fdfaf3] hover:bg-[#fffdf9] hover:border-[#b98735] p-4 shadow-xs hover:shadow-md transition-all duration-200 hover:-translate-y-0.5"
+                  className="group flex items-start justify-between gap-3 rounded-xl border border-[#d9c095] bg-[#fdfaf3] hover:bg-[#fffdf9] hover:border-[#b98735] p-4 shadow-xs hover:shadow-md transition-all duration-200 hover:-translate-y-0.5"
                 >
-                  <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#e0c18a] bg-[#f7ebd4] text-[#8c4f12] group-hover:bg-[#6e121b] group-hover:text-[#f9dc92] transition-colors">
-                    <CardIcon className="w-5 h-5" aria-hidden="true" />
-                  </span>
-                  <div className="min-w-0">
-                    <h4 className="font-serif-display text-base font-bold text-[#4a1117] group-hover:text-[#6e121b] transition-colors">
-                      {card.title}
-                    </h4>
-                    <p className="mt-0.5 text-xs text-[#645342] leading-relaxed">
-                      {card.description}
-                    </p>
+                  <div className="flex items-start gap-3.5 min-w-0">
+                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#e0c18a] bg-[#f7ebd4] text-[#8c4f12] group-hover:bg-[#6e121b] group-hover:text-[#f9dc92] transition-colors">
+                      <CardIcon className="w-5 h-5" aria-hidden="true" />
+                    </span>
+                    <div className="min-w-0">
+                      <h4 className="font-serif-display text-base font-bold text-[#4a1117] group-hover:text-[#6e121b] transition-colors">
+                        {card.title}
+                      </h4>
+                      <p className="mt-0.5 text-xs text-[#645342] leading-relaxed">
+                        {card.description}
+                      </p>
+                    </div>
                   </div>
+                  <ArrowRight
+                    className="w-4 h-4 shrink-0 text-[#9e6b16] opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all mt-1"
+                    aria-hidden="true"
+                  />
                 </AppLink>
               );
             })}

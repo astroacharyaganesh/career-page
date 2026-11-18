@@ -34,6 +34,7 @@ import { getIndiaCalendarInfo } from '../../data/panchangData';
 import { BreadcrumbItem } from '../../data/seoRoutes';
 import { AppLink } from '../AppLink';
 import { Breadcrumbs } from '../Breadcrumbs';
+import { MoonSignCalculator } from '../MoonSignCalculator';
 
 interface HoroscopeDetailPageProps {
   periodSlug: HoroscopePeriodSlug;
@@ -273,8 +274,8 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
             )}
 
             {/* Lucky Colour, Lucky Number, Important Focus Strip */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-              <div className="rounded-xl border border-[#e0c79c] bg-[#f7efe0] px-4 py-3 flex items-center gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[#e5d5bc] rounded-xl border border-[#e0c79c] bg-[#f7efe0] mt-2">
+              <div className="px-4 py-3 flex items-center gap-3">
                 <span
                   aria-hidden="true"
                   className="h-5 w-5 shrink-0 rounded-full border border-black/20"
@@ -288,7 +289,7 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
                 </div>
               </div>
 
-              <div className="rounded-xl border border-[#e0c79c] bg-[#f7efe0] px-4 py-3 flex items-center gap-3">
+              <div className="px-4 py-3 flex items-center gap-3">
                 <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#6e121b] text-xs font-bold text-[#fff5dc] tabular-nums">
                   {lucky.number}
                 </span>
@@ -300,7 +301,7 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
                 </div>
               </div>
 
-              <div className="rounded-xl border border-[#e0c79c] bg-[#f7efe0] px-4 py-3 flex items-center gap-3">
+              <div className="px-4 py-3 flex items-center gap-3">
                 <Compass className="w-5 h-5 shrink-0 text-[#9e6b16]" aria-hidden="true" />
                 <div>
                   <span className="block text-[11px] font-semibold uppercase tracking-wider text-[#73604e]">
@@ -329,6 +330,14 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
               ))}
             </div>
           </section>
+
+          {/* Interactive Moon Sign (Chandra Rashi) Verification Calculator */}
+          <MoonSignCalculator
+            activePeriod={period}
+            selectedSignId={profile.id}
+            onOpenBooking={onOpenBooking}
+            compactHeader
+          />
         </div>
 
         {/* Right Sidebar: Consultation CTA + Related Signs + Panchang */}

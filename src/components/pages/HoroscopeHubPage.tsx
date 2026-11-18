@@ -14,6 +14,7 @@ import { getIndiaCalendarInfo, getPanchangSnapshot } from '../../data/panchangDa
 import { BreadcrumbItem } from '../../data/seoRoutes';
 import { AppLink } from '../AppLink';
 import { Breadcrumbs } from '../Breadcrumbs';
+import { MoonSignCalculator } from '../MoonSignCalculator';
 
 interface HoroscopeHubPageProps {
   onOpenBooking: () => void;
@@ -32,7 +33,7 @@ export const HoroscopeHubPage: React.FC<HoroscopeHubPageProps> = ({ onOpenBookin
   return (
     <div className="bg-[#f9f3e7] text-[#2c221a]">
       {/* Celestial Royal Header */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-[#0e1b36] via-[#172c54] to-[#3f2913] border-b border-[#c79948]/60 py-8 sm:py-11">
+      <section className="relative overflow-hidden bg-gradient-to-r from-[#0a152c] via-[#14274c] to-[#3b2511] border-b border-[#c79948]/70 py-8 sm:py-11">
         <svg
           aria-hidden="true"
           viewBox="0 0 1200 280"
@@ -52,13 +53,13 @@ export const HoroscopeHubPage: React.FC<HoroscopeHubPageProps> = ({ onOpenBookin
             <div className="max-w-3xl">
               <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#f5d384] mb-2">
                 <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
-                <span>Vedic Rashifal · {cal.fullHeading}</span>
+                <span>Vedic Moon Sign (Chandra Rashi) · {cal.fullHeading}</span>
               </p>
-              <h1 className="font-serif-display text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-[#fff8e9] leading-[1.14]">
+              <h1 className="font-serif-display text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-[#fff8e9] leading-[1.14] [text-wrap:balance]">
                 Daily, Weekly, Monthly &amp; Yearly Horoscope for All 12 Signs
               </h1>
               <p className="mt-3 text-sm sm:text-base text-[#e6dac4] leading-relaxed max-w-2xl">
-                Explore authentic Rashi guidance across career, love, finance, family and health, shaped by Vedic Jyotish principles at Acharya Ganesh under the guidance of Hanish Bagga.
+                Explore authentic Chandra Rashi guidance across career, love, finance, family and health, shaped by Vedic Jyotish principles at Acharya Ganesh under the guidance of Hanish Bagga.
               </p>
             </div>
 
@@ -94,6 +95,9 @@ export const HoroscopeHubPage: React.FC<HoroscopeHubPageProps> = ({ onOpenBookin
 
       {/* Main Content Grid */}
       <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
+        {/* Moon Sign Calculator */}
+        <MoonSignCalculator activePeriod={selectedPeriod} onOpenBooking={onOpenBooking} />
+
         {/* 12 Zodiac Sign Directory */}
         <section aria-labelledby="all-signs-heading">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
@@ -105,7 +109,7 @@ export const HoroscopeHubPage: React.FC<HoroscopeHubPageProps> = ({ onOpenBookin
                 Choose Your Zodiac Sign ({selectedPeriod} Predictions)
               </h2>
               <p className="mt-1 text-sm text-[#635343]">
-                Select any Rashi card below to read its complete {selectedPeriod.toLowerCase()} forecast, or jump straight to weekly, monthly and yearly guides.
+                Select your Vedic Moon Sign (Rashi) below to read its complete {selectedPeriod.toLowerCase()} forecast, or switch straight to weekly, monthly and yearly guides.
               </p>
             </div>
             <AppLink

@@ -160,10 +160,10 @@ export const HomeHeader: React.FC<HomeHeaderProps> = ({ onOpenBooking }) => {
             return (
               <li key={link.label}>
                 <AppLink
-                  className={`transition whitespace-nowrap px-2.5 py-1 rounded-md ${
+                  className={`transition whitespace-nowrap px-1 py-1.5 border-b-2 ${
                     active
-                      ? 'text-[#6e121b] bg-[#f7ebd4] border border-[#cfa053]/65'
-                      : 'hover:text-primary border border-transparent'
+                      ? 'text-[#6e121b] border-[#7c1519]'
+                      : 'text-foreground/90 border-transparent hover:text-[#6e121b] hover:border-[#cfa053]'
                   }`}
                   href={link.href}
                 >
