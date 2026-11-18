@@ -11,8 +11,7 @@ export const StudentReviewsSection: React.FC = () => {
   return (
     <section
       id="student-reviews"
-      className="w-full bg-muted bg-cover bg-center bg-no-repeat py-12 sm:py-16"
-      style={{ backgroundImage: "url('/ag-images/testimonial-bg.png')" }}
+      className="w-full bg-muted bg-[url('/ag-images/testimonial-bg.png')] bg-cover bg-center bg-no-repeat py-12 sm:py-16"
     >
       <div className="w-full max-w-[1536px] mx-auto px-4 sm:px-10 lg:px-20 relative overflow-hidden rounded-2xl py-8 sm:rounded-[24px] lg:rounded-[32px] lg:py-12">
         <div className="relative">

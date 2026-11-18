@@ -34,6 +34,8 @@ interface VedicChakraEmblemProps {
   compact?: boolean;
 }
 
+const roundSvg = (value: number): number => Math.round(value * 100) / 100;
+
 const VedicChakraEmblem: React.FC<VedicChakraEmblemProps> = ({ className = '', compact = false }) => {
   const rimId = compact ? 'chakraRimGlowMobile' : 'chakraRimGlowDesktop';
   const strokeId = compact ? 'chakraGoldStrokeMobile' : 'chakraGoldStrokeDesktop';
@@ -78,10 +80,10 @@ const VedicChakraEmblem: React.FC<VedicChakraEmblemProps> = ({ className = '', c
             return (
               <line
                 key={`tick-${idx}`}
-                x1={140 + Math.cos(angle) * inner}
-                y1={140 + Math.sin(angle) * inner}
-                x2={140 + Math.cos(angle) * 135}
-                y2={140 + Math.sin(angle) * 135}
+                x1={roundSvg(140 + Math.cos(angle) * inner)}
+                y1={roundSvg(140 + Math.sin(angle) * inner)}
+                x2={roundSvg(140 + Math.cos(angle) * 135)}
+                y2={roundSvg(140 + Math.sin(angle) * 135)}
                 stroke="#7a3c09"
                 strokeWidth={idx % 6 === 0 ? '1.4' : '0.7'}
               />
@@ -92,18 +94,18 @@ const VedicChakraEmblem: React.FC<VedicChakraEmblemProps> = ({ className = '', c
         {ZODIAC_GLYPHS.map((glyph, idx) => {
           const spokeAngle = (idx * 30 * Math.PI) / 180;
           const labelAngle = ((idx * 30 + 15) * Math.PI) / 180;
-          const lx = 140 + Math.cos(labelAngle) * 106.5;
-          const ly = 140 + Math.sin(labelAngle) * 106.5;
-          const starX = 140 + Math.cos(spokeAngle) * 80;
-          const starY = 140 + Math.sin(spokeAngle) * 80;
+          const lx = roundSvg(140 + Math.cos(labelAngle) * 106.5);
+          const ly = roundSvg(140 + Math.sin(labelAngle) * 106.5);
+          const starX = roundSvg(140 + Math.cos(spokeAngle) * 80);
+          const starY = roundSvg(140 + Math.sin(spokeAngle) * 80);
 
           return (
             <g key={idx}>
               <line
-                x1={140 + Math.cos(spokeAngle) * 85}
-                y1={140 + Math.sin(spokeAngle) * 85}
-                x2={140 + Math.cos(spokeAngle) * 135}
-                y2={140 + Math.sin(spokeAngle) * 135}
+                x1={roundSvg(140 + Math.cos(spokeAngle) * 85)}
+                y1={roundSvg(140 + Math.sin(spokeAngle) * 85)}
+                x2={roundSvg(140 + Math.cos(spokeAngle) * 135)}
+                y2={roundSvg(140 + Math.sin(spokeAngle) * 135)}
                 stroke="#925016"
                 strokeWidth="1.4"
               />
@@ -160,8 +162,8 @@ const VedicChakraEmblem: React.FC<VedicChakraEmblemProps> = ({ className = '', c
         {/* 12-Point Interlaced Sacred Lotus Star */}
         {Array.from({ length: 12 }).map((_, idx) => {
           const angle = (idx * 30 * Math.PI) / 180;
-          const x = 140 + Math.cos(angle) * 80;
-          const y = 140 + Math.sin(angle) * 80;
+          const x = roundSvg(140 + Math.cos(angle) * 80);
+          const y = roundSvg(140 + Math.sin(angle) * 80);
           return <circle key={`nak-${idx}`} cx={x} cy={y} r="1.8" fill="#c47e27" />;
         })}
         <rect

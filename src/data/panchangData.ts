@@ -82,8 +82,28 @@ export interface IndiaCalendarInfo {
   dayOfYearSeed: number;
 }
 
+let serverSnapshotNowMs: number | null = null;
+
+export function setSsrSnapshotNowMs(nowMs: number | null): void {
+  serverSnapshotNowMs = nowMs;
+}
+
+function resolveSnapshotDate(dateInput?: Date): Date {
+  if (dateInput) return dateInput;
+  if (typeof window !== 'undefined') {
+    const winNow = (window as Window & { __AG_SSR_NOW_MS__?: unknown }).__AG_SSR_NOW_MS__;
+    if (typeof winNow === 'number' && Number.isFinite(winNow)) {
+      return new Date(winNow);
+    }
+  }
+  if (serverSnapshotNowMs !== null) {
+    return new Date(serverSnapshotNowMs);
+  }
+  return new Date();
+}
+
 export function getIndiaCalendarInfo(dateInput?: Date): IndiaCalendarInfo {
-  const now = dateInput ?? new Date();
+  const now = resolveSnapshotDate(dateInput);
   const parts = new Intl.DateTimeFormat('en-GB', {
     timeZone: 'Asia/Kolkata',
     year: 'numeric',

@@ -72,13 +72,7 @@ export const CoursesCarouselSection: React.FC = () => {
             <div
               ref={trackRef}
               onScroll={handleScroll}
-              className="flex gap-6 overflow-x-auto scroll-smooth py-4 px-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden snap-x snap-mandatory"
-              style={{
-                maskImage:
-                  'linear-gradient(to right, transparent 0, black 16px, black calc(100% - 16px), transparent 100%)',
-                WebkitMaskImage:
-                  'linear-gradient(to right, transparent 0, black 16px, black calc(100% - 16px), transparent 100%)'
-              }}
+              className="carousel-edge-mask flex gap-6 overflow-x-auto scroll-smooth py-4 px-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden snap-x snap-mandatory"
             >
               {HOME_COURSES.map((course, idx) => (
                 <div

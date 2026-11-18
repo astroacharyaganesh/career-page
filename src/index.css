@@ -291,3 +291,8 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #b5651d;
 }
+
+.carousel-edge-mask {
+  mask-image: linear-gradient(to right, transparent 0, black 16px, black calc(100% - 16px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, black 16px, black calc(100% - 16px), transparent 100%);
+}
