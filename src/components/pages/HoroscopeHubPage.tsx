@@ -14,6 +14,7 @@ import { BreadcrumbItem } from '../../data/seoRoutes';
 import { AppLink } from '../AppLink';
 import { Breadcrumbs } from '../Breadcrumbs';
 import { MoonSignCalculator } from '../MoonSignCalculator';
+import { HoroscopeVideoForecasts } from '../HoroscopeVideoForecasts';
 
 interface HoroscopeHubPageProps {
   onOpenBooking: () => void;
@@ -195,6 +196,9 @@ export const HoroscopeHubPage: React.FC<HoroscopeHubPageProps> = ({ onOpenBookin
             })}
           </div>
         </section>
+
+        {/* Auto-Updated Monthly & Yearly Horoscope YouTube Videos */}
+        <HoroscopeVideoForecasts />
 
         {/* Cross-Link Panchang Snapshot Banner + Expert Consultation */}
         <section aria-labelledby="hub-panchang-bridge" className="grid grid-cols-1 lg:grid-cols-12 gap-6">

@@ -29,12 +29,12 @@ import {
   getZodiacImagePath,
   getZodiacProfile
 } from '../../data/horoscopeData';
-import { getPeriodDetailedPrediction } from '../../data/horoscopeNarratives';
+import { getPeriodDetailedSections } from '../../data/horoscopeNarratives';
 import { getIndiaCalendarInfo } from '../../data/panchangData';
 import { BreadcrumbItem } from '../../data/seoRoutes';
 import { AppLink } from '../AppLink';
 import { Breadcrumbs } from '../Breadcrumbs';
-import { MoonSignCalculator } from '../MoonSignCalculator';
+import { MonthlyHoroscopeVideoCard } from '../MonthlyHoroscopeVideoCard';
 
 interface HoroscopeDetailPageProps {
   periodSlug: HoroscopePeriodSlug;
@@ -85,7 +85,7 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
   const period = SLUG_TO_PERIOD[periodSlug];
   const profile = getZodiacProfile(signId);
   const cal = getIndiaCalendarInfo();
-  const detailedParagraphs = getPeriodDetailedPrediction(profile, period);
+  const detailedSections = getPeriodDetailedSections(profile, period);
   const focusText = getHoroscopeFocus(profile.id, period);
 
   const periodSubtitle =
@@ -190,8 +190,8 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
       </section>
 
       {/* Main Content */}
-      <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-8 space-y-8">
+      <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 grid grid-cols-1 lg:grid-cols-12 items-start gap-8">
+        <div className="lg:col-span-8">
           {/* Overall + Structured Life Area Predictions */}
           <section aria-labelledby="predictions-overview-heading" className="rounded-2xl border border-[#d6b989] bg-[#fdfaf4] p-5 sm:p-7 shadow-xs space-y-5">
             <div>
@@ -314,30 +314,6 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
               </div>
             </div>
           </section>
-
-          {/* Detailed Astrological Narrative */}
-          <section
-            aria-labelledby="detailed-prediction-heading"
-            className="rounded-2xl border border-[#d6b989] bg-[#fdfaf4] p-5 sm:p-7 shadow-xs space-y-4"
-          >
-            <h2 id="detailed-prediction-heading" className="font-serif-display text-2xl font-bold text-[#4a1117]">
-              Detailed {profile.name} {period} Horoscope &amp; Vedic Guidance
-            </h2>
-
-            <div className="space-y-4 text-sm sm:text-[15px] text-[#31261d] leading-relaxed">
-              {detailedParagraphs.map((para, idx) => (
-                <p key={idx}>{para}</p>
-              ))}
-            </div>
-          </section>
-
-          {/* Interactive Moon Sign (Chandra Rashi) Verification Calculator */}
-          <MoonSignCalculator
-            activePeriod={period}
-            selectedSignId={profile.id}
-            onOpenBooking={onOpenBooking}
-            compactHeader
-          />
         </div>
 
         {/* Right Sidebar: Consultation CTA + Related Signs + Panchang */}
@@ -422,6 +398,34 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
             </div>
           </div>
         </aside>
+
+        {/* Monthly Horoscope YouTube Video (shown on all 12 monthly horoscope pages) */}
+        {period === 'Monthly' && (
+          <MonthlyHoroscopeVideoCard signName={profile.name} vedicName={profile.vedicName} />
+        )}
+
+        {/* Full-Width Bottom Narrative Section */}
+        <section
+          aria-labelledby="detailed-prediction-heading"
+          className="lg:col-span-12 rounded-2xl border border-[#d6b989] bg-[#fdfaf4] p-5 sm:p-7 shadow-xs space-y-6"
+        >
+          <h2 id="detailed-prediction-heading" className="font-serif-display text-2xl sm:text-[1.75rem] font-bold text-[#4a1117] border-b border-[#e5d5bc] pb-3">
+            Detailed {profile.name} {period} Horoscope &amp; Vedic Guidance
+          </h2>
+
+          <div className="space-y-6">
+            {detailedSections.map((section, idx) => (
+              <div key={idx} className="space-y-2">
+                <h2 className="font-serif-display text-lg sm:text-xl font-bold text-[#6e121b]">
+                  {section.heading}
+                </h2>
+                <p className="text-sm sm:text-[15px] text-[#31261d] leading-relaxed">
+                  {section.paragraph}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );

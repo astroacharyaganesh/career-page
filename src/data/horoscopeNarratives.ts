@@ -182,40 +182,101 @@ const SIGN_TRAITS: Record<ZodiacId, SignNarrativeTraits> = {
   }
 };
 
-export function getPeriodDetailedPrediction(
+export interface DetailedNarrativeSection {
+  heading: string;
+  paragraph: string;
+}
+
+function stripTrailingPunctuation(text: string): string {
+  return text.trim().replace(/[.?!]+$/, '');
+}
+
+function lowerFirst(text: string): string {
+  const trimmed = text.trim();
+  if (!trimmed) return trimmed;
+  return trimmed.charAt(0).toLowerCase() + trimmed.slice(1);
+}
+
+export function getPeriodDetailedSections(
   profile: ZodiacHoroscopeProfile,
   period: HoroscopePeriod
-): string[] {
+): DetailedNarrativeSection[] {
   const traits = SIGN_TRAITS[profile.id];
 
   if (period === 'Daily') {
     return [
-      `For ${profile.name} (${profile.vedicName} Rashi), governed by ${traits.karakaPlanet} and spanning ${traits.nakshatras}, today invites steady presence across practical responsibilities and personal relationships. ${profile.daily.overall} ${traits.dailyGuidance}`,
-      `In professional and financial matters, ${profile.daily.career.charAt(0).toLowerCase() + profile.daily.career.slice(1)} Alongside this, ${profile.daily.finance.charAt(0).toLowerCase() + profile.daily.finance.slice(1)} Keeping written clarity before major commitments prevents avoidable friction while preserving productive focus.`,
-      `On the personal front, ${profile.daily.love.charAt(0).toLowerCase() + profile.daily.love.slice(1)} ${profile.daily.family} Tend to ${traits.bodyZone}—${profile.daily.health.charAt(0).toLowerCase() + profile.daily.health.slice(1)} Vedic tip from Hanish Bagga: ${traits.sacredRemedy}`
+      {
+        heading: `${profile.name} (${profile.vedicName} Rashi) Daily Lunar Alignment`,
+        paragraph: `For ${profile.name} (${profile.vedicName} Rashi), governed by ${traits.karakaPlanet} and spanning ${traits.nakshatras}, today invites steady presence across practical responsibilities and personal relationships. ${profile.daily.overall} ${traits.dailyGuidance}`
+      },
+      {
+        heading: 'Career, Finances & Work Priorities',
+        paragraph: `In professional and financial matters, ${lowerFirst(profile.daily.career)} Alongside this, ${lowerFirst(profile.daily.finance)} Keeping written clarity before major commitments prevents avoidable friction while preserving productive focus.`
+      },
+      {
+        heading: 'Relationships, Family, Health & Daily Remedy',
+        paragraph: `On the personal front, ${lowerFirst(profile.daily.love)} ${profile.daily.family} Tend to ${traits.bodyZone}—${lowerFirst(profile.daily.health)} Vedic tip from Hanish Bagga: ${traits.sacredRemedy}`
+      }
     ];
   }
 
   if (period === 'Weekly') {
     return [
-      `This week’s planetary rhythm for ${profile.name} (${profile.vedicName} Rashi) emphasizes balanced execution under ${traits.karakaPlanet}. ${profile.weekly.overall} ${traits.weeklyTheme}`,
-      `Work & Wealth Outlook: ${profile.weekly.career} Financially, ${profile.weekly.finance.charAt(0).toLowerCase() + profile.weekly.finance.slice(1)} Scheduling key meetings during auspicious midday windows such as Abhijit Muhurat sharpens constructive outcomes while avoiding rushed decisions during Rahu Kaal.`,
-      `Relationships, Home & Wellness: ${profile.weekly.love} ${profile.weekly.family} With focus on ${traits.bodyZone}, ${profile.weekly.health.charAt(0).toLowerCase() + profile.weekly.health.slice(1)} Align your week thoughtfully: ${traits.sacredRemedy}`
+      {
+        heading: `${profile.name} (${profile.vedicName} Rashi) Weekly Planetary Rhythm`,
+        paragraph: `This week’s planetary rhythm for ${profile.name} (${profile.vedicName} Rashi) emphasizes balanced execution under ${traits.karakaPlanet}. ${profile.weekly.overall} ${traits.weeklyTheme}`
+      },
+      {
+        heading: 'Work & Wealth Outlook',
+        paragraph: `${profile.weekly.career} Financially, ${lowerFirst(profile.weekly.finance)} Scheduling key meetings during auspicious midday windows such as Abhijit Muhurat sharpens constructive outcomes while avoiding rushed decisions during Rahu Kaal.`
+      },
+      {
+        heading: 'Relationships, Home & Wellness',
+        paragraph: `${profile.weekly.love} ${profile.weekly.family} With focus on ${traits.bodyZone}, ${lowerFirst(profile.weekly.health)} Align your week thoughtfully: ${traits.sacredRemedy}`
+      }
     ];
   }
 
   if (period === 'Monthly') {
     return [
-      `Across this month, ${profile.name} (${profile.vedicName} Rashi) moves through a meaningful planning phase shaped by ${profile.rulingPlanet} and ${profile.element} element dynamics. ${profile.monthly.overview} ${traits.monthlyStrategy}`,
-      `Career, Business & Prosperity: ${profile.monthly.careerBusiness} On the financial ledger, ${profile.monthly.moneyFinance.charAt(0).toLowerCase() + profile.monthly.moneyFinance.slice(1)} Key windows of opportunity centre on ${profile.monthly.opportunities.toLowerCase()}, provided you stay mindful of things to avoid: ${profile.monthly.avoid.toLowerCase()}`,
-      `Relationships, Family & Well-Being: ${profile.monthly.loveMarriage} Within household affairs, ${profile.monthly.familyRelationships.charAt(0).toLowerCase() + profile.monthly.familyRelationships.slice(1)} Supporting ${traits.bodyZone}, ${profile.monthly.health.charAt(0).toLowerCase() + profile.monthly.health.slice(1)} Guided remedy: ${traits.sacredRemedy}`
+      {
+        heading: `${profile.name} (${profile.vedicName} Rashi) Monthly Planning Phase`,
+        paragraph: `Across this month, ${profile.name} (${profile.vedicName} Rashi) moves through a meaningful planning phase shaped by ${profile.rulingPlanet} and ${profile.element} element dynamics. ${profile.monthly.overview} ${traits.monthlyStrategy}`
+      },
+      {
+        heading: 'Career, Business & Prosperity',
+        paragraph: `${profile.monthly.careerBusiness} On the financial ledger, ${lowerFirst(profile.monthly.moneyFinance)} Key windows of opportunity centre on ${stripTrailingPunctuation(lowerFirst(profile.monthly.opportunities))}, provided you stay mindful of things to avoid: ${lowerFirst(profile.monthly.avoid)}`
+      },
+      {
+        heading: 'Relationships, Family & Well-Being',
+        paragraph: `${profile.monthly.loveMarriage} Within household affairs, ${lowerFirst(profile.monthly.familyRelationships)} Supporting ${traits.bodyZone}, ${lowerFirst(profile.monthly.health)} Guided remedy: ${traits.sacredRemedy}`
+      }
     ];
   }
 
   return [
-    `Annual Vedic Outlook for ${profile.name} (${profile.vedicName} Rashi): Governed by ${traits.karakaPlanet} across ${traits.nakshatras}, 2026 unfolds as a strategic chapter. ${profile.yearly.overview} ${traits.yearlyArc}`,
-    `Career Elevation, Enterprise & Wealth Architecture: ${profile.yearly.careerGrowth} Business natives see that ${profile.yearly.business.charAt(0).toLowerCase() + profile.yearly.business.slice(1)} Financially, ${profile.yearly.moneyWealth.charAt(0).toLowerCase() + profile.yearly.moneyWealth.slice(1)} Peak harvest months (${profile.yearly.bestMonths}) strongly reward prepared initiatives around ${profile.yearly.opportunities.toLowerCase()}, while patience pays off during tighter intervals: ${profile.yearly.challengingPeriods.charAt(0).toLowerCase() + profile.yearly.challengingPeriods.slice(1)}`,
-    `Love, Marriage, Family & Education: In matters of the heart, ${profile.yearly.loveRelationships.charAt(0).toLowerCase() + profile.yearly.loveRelationships.slice(1)} ${profile.yearly.marriage} At home, ${profile.yearly.family.charAt(0).toLowerCase() + profile.yearly.family.slice(1)} Students and scholars notice that ${profile.yearly.education.charAt(0).toLowerCase() + profile.yearly.education.slice(1)} Additionally, ${profile.yearly.travel.charAt(0).toLowerCase() + profile.yearly.travel.slice(1)}`,
-    `Vitality & Personalized Jyotish Guidance: Caring for ${traits.bodyZone}, ${profile.yearly.healthWellness.charAt(0).toLowerCase() + profile.yearly.healthWellness.slice(1)} Because transits interact uniquely with your Natal Moon, Lagna, and running Mahadasha-Antardasha, pair these Rashi insights with simple observance: ${traits.sacredRemedy}`
+    {
+      heading: `Annual Vedic Outlook for ${profile.name} (${profile.vedicName} Rashi)`,
+      paragraph: `Governed by ${traits.karakaPlanet} across ${traits.nakshatras}, 2026 unfolds as a strategic chapter. ${profile.yearly.overview} ${traits.yearlyArc}`
+    },
+    {
+      heading: 'Career Elevation, Enterprise & Wealth Architecture',
+      paragraph: `${profile.yearly.careerGrowth} Business natives see that ${lowerFirst(profile.yearly.business)} Financially, ${lowerFirst(profile.yearly.moneyWealth)} Peak harvest months (${profile.yearly.bestMonths}) strongly reward prepared initiatives around ${stripTrailingPunctuation(lowerFirst(profile.yearly.opportunities))}, while patience pays off during tighter intervals: ${lowerFirst(profile.yearly.challengingPeriods)}`
+    },
+    {
+      heading: 'Love, Marriage, Family & Education',
+      paragraph: `In matters of the heart, ${lowerFirst(profile.yearly.loveRelationships)} ${profile.yearly.marriage} At home, ${lowerFirst(profile.yearly.family)} Students and scholars notice that ${lowerFirst(profile.yearly.education)} Additionally, ${lowerFirst(profile.yearly.travel)}`
+    },
+    {
+      heading: 'Vitality & Personalized Jyotish Guidance',
+      paragraph: `Caring for ${traits.bodyZone}, ${lowerFirst(profile.yearly.healthWellness)} Because transits interact uniquely with your Natal Moon, Lagna, and running Mahadasha-Antardasha, pair these Rashi insights with simple observance: ${traits.sacredRemedy}`
+    }
   ];
+}
+
+export function getPeriodDetailedPrediction(
+  profile: ZodiacHoroscopeProfile,
+  period: HoroscopePeriod
+): string[] {
+  return getPeriodDetailedSections(profile, period).map((section) => section.paragraph);
 }

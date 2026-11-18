@@ -32,6 +32,7 @@ import {
 import { getIndiaCalendarInfo, getPanchangSnapshot } from '../../data/panchangData';
 import { AppLink } from '../AppLink';
 import { MoonSignCalculator } from '../MoonSignCalculator';
+import { HoroscopeVideoForecasts } from '../HoroscopeVideoForecasts';
 
 interface HoroscopePanchangSectionProps {
   onOpenBooking?: () => void;
@@ -627,6 +628,9 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
             </div>
           </div>
         </div>
+
+        {/* Auto-Updated Monthly & Yearly Horoscope YouTube Videos */}
+        <HoroscopeVideoForecasts selectedSignId={selectedSignId} />
 
         {/* Explore More Compact 4-Card Row */}
         <div className="pt-2">
