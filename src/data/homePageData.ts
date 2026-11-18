@@ -101,14 +101,13 @@ export const PROMO_MARQUEE_ITEMS: PromoMarqueeItem[] = [
 ];
 
 export const HEADER_NAV_LINKS = [
-  { label: 'Home', href: '#top' },
-  { label: 'About', href: '#best-astrologer-india' },
-  { label: 'Courses', href: '#astrology-courses' },
-  { label: 'Products', href: 'https://acharyaganesh.com/products' },
-  { label: 'Reports', href: 'https://acharyaganesh.com/reports' },
-  { label: 'Services', href: '#services-offered' },
-  { label: 'Contact', href: '#footer-contact' },
-  { label: 'Blogs', href: '#astrology-insights' }
+  { label: 'Home', href: '/' },
+  { label: 'Horoscope', href: '/horoscope/' },
+  { label: 'Panchang', href: '/panchang/' },
+  { label: 'Services', href: '/#services-offered' },
+  { label: 'Courses', href: '/#astrology-courses' },
+  { label: 'About', href: '/#best-astrologer-india' },
+  { label: 'Contact', href: '/#footer-contact' }
 ];
 
 export const HERO_SLIDES: HeroSlide[] = [
@@ -581,16 +580,16 @@ export const HOME_FAQS: HomeFaqItem[] = [
 ];
 
 export const FOOTER_QUICK_LINKS = [
-  { label: 'Home', href: '#top' },
+  { label: 'Home', href: '/' },
+  { label: 'Horoscope', href: '/horoscope/' },
+  { label: 'Today’s Panchang', href: '/panchang/today/' },
+  { label: 'Panchang & Muhurat', href: '/panchang/' },
+  { label: 'Courses', href: '/#astrology-courses' },
+  { label: 'Services', href: '/#services-offered' },
   { label: 'About', href: 'https://acharyaganesh.com/about-us' },
-  { label: 'Courses', href: '#astrology-courses' },
-  { label: 'Services', href: '#services-offered' },
   { label: 'Reports', href: 'https://acharyaganesh.com/reports' },
   { label: 'Online Puja', href: 'https://acharyaganesh.com/online-puja' },
-  { label: 'Web Stories', href: 'https://acharyaganesh.com/web-stories' },
-  { label: 'Spirituality', href: 'https://acharyaganesh.com/spirituality' },
-  { label: 'Contact', href: 'https://acharyaganesh.com/contact' },
-  { label: 'FAQs', href: '#home-faqs' }
+  { label: 'FAQs', href: '/#home-faqs' }
 ];
 
 export const FOOTER_CITIES_COL_1 = [

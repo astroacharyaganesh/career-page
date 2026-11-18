@@ -858,3 +858,114 @@ export const ZODIAC_HOROSCOPES: ZodiacHoroscopeProfile[] = [
     }
   }
 ];
+
+export type HoroscopePeriodSlug = 'daily' | 'weekly' | 'monthly' | 'yearly';
+
+export const PERIOD_TO_SLUG: Record<HoroscopePeriod, HoroscopePeriodSlug> = {
+  Daily: 'daily',
+  Weekly: 'weekly',
+  Monthly: 'monthly',
+  Yearly: 'yearly'
+};
+
+export const SLUG_TO_PERIOD: Record<HoroscopePeriodSlug, HoroscopePeriod> = {
+  daily: 'Daily',
+  weekly: 'Weekly',
+  monthly: 'Monthly',
+  yearly: 'Yearly'
+};
+
+const SIGN_FOCUS_BY_PERIOD: Record<ZodiacId, Record<HoroscopePeriod, string>> = {
+  aries: {
+    Daily: 'Stay consistent and avoid overthinking.',
+    Weekly: 'Pair early initiative with clear documentation.',
+    Monthly: 'Channel boldness into structured weekly checkpoints.',
+    Yearly: 'Build enduring authority through measured patience.'
+  },
+  taurus: {
+    Daily: 'Protect steady pacing and calm dialogue.',
+    Weekly: 'Prioritize reliable routines over rushed changes.',
+    Monthly: 'Strengthen savings and nurture loyal partnerships.',
+    Yearly: 'Grow lasting prosperity through patient stewardship.'
+  },
+  gemini: {
+    Daily: 'Complete your top priority before multitasking.',
+    Weekly: 'Back swift negotiations with verified numbers.',
+    Monthly: 'Focus energy on two flagship collaborations.',
+    Yearly: 'Turn clear communication into lasting influence.'
+  },
+  cancer: {
+    Daily: 'Honour quiet intuition and emotional boundaries.',
+    Weekly: 'Keep domestic comfort anchored while pacing tasks.',
+    Monthly: 'Balance family harmony with disciplined saving.',
+    Yearly: 'Root lasting security in home and trusted counsel.'
+  },
+  leo: {
+    Daily: 'Lead with quiet warmth rather than impulse.',
+    Weekly: 'Refine key metrics before high-stakes pitches.',
+    Monthly: 'Share credit generously while guarding budgets.',
+    Yearly: 'Transform creative vision into respected legacy.'
+  },
+  virgo: {
+    Daily: 'Resolve one nagging detail early for peace.',
+    Weekly: 'Soften self-criticism and celebrate steady gains.',
+    Monthly: 'Modernize systems and maintain preventive health.',
+    Yearly: 'Compound disciplined craft into quiet mastery.'
+  },
+  libra: {
+    Daily: 'Make small decisions promptly with grace.',
+    Weekly: 'Voice personal needs clearly in partnerships.',
+    Monthly: 'Protect equitable contracts without deferring action.',
+    Yearly: 'Build harmonious alliances with firm boundaries.'
+  },
+  scorpio: {
+    Daily: 'Observe silently before committing your stance.',
+    Weekly: 'Restructure obligations calmly behind the scenes.',
+    Monthly: 'Trade guarded silence for transparent trust.',
+    Yearly: 'Turn deep resilience into enduring leadership.'
+  },
+  sagittarius: {
+    Daily: 'Ground optimistic ideas in one concrete step.',
+    Weekly: 'Confirm travel and legal fine print attentively.',
+    Monthly: 'Invest wisely in credentials and global ties.',
+    Yearly: 'Anchor broad vision in steady Dharmic discipline.'
+  },
+  capricorn: {
+    Daily: 'Honour steady habits without overworking.',
+    Weekly: 'Delegate routine tasks to protect vitality.',
+    Monthly: 'Couple executive focus with warm family time.',
+    Yearly: 'Step into lasting leadership with balanced rest.'
+  },
+  aquarius: {
+    Daily: 'Test bright ideas against practical timelines.',
+    Weekly: 'Safeguard digital clarity and evening sleep.',
+    Monthly: 'Align progressive alliances with clear budgets.',
+    Yearly: 'Convert original insight into structured impact.'
+  },
+  pisces: {
+    Daily: 'Write clear priorities before offering help.',
+    Weekly: 'Pair creative inspiration with simple structure.',
+    Monthly: 'Match compassionate listening with firm budgets.',
+    Yearly: 'Embody serene wisdom alongside steady execution.'
+  }
+};
+
+export function getHoroscopeFocus(signId: ZodiacId, period: HoroscopePeriod): string {
+  return SIGN_FOCUS_BY_PERIOD[signId]?.[period] || 'Stay calm, purposeful, and aligned with Vedic timing.';
+}
+
+export function getZodiacProfile(id?: string): ZodiacHoroscopeProfile {
+  return (
+    ZODIAC_HOROSCOPES.find((item) => item.id === id?.toLowerCase()) || ZODIAC_HOROSCOPES[0]
+  );
+}
+
+export function getZodiacImagePath(id: ZodiacId): string {
+  return `/ag-images/zodiac-${id}.webp`;
+}
+
+export function getPeriodHref(period: HoroscopePeriod | HoroscopePeriodSlug, signId: ZodiacId): string {
+  const slug = period in PERIOD_TO_SLUG ? PERIOD_TO_SLUG[period as HoroscopePeriod] : (period as HoroscopePeriodSlug);
+  return `/horoscope/${slug}/${signId}/`;
+}
+

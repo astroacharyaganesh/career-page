@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Phone, Menu, X, ChevronRight, User } from 'lucide-react';
 import { PROMO_MARQUEE_ITEMS, HEADER_NAV_LINKS } from '../../data/homePageData';
+import { AppLink } from '../AppLink';
+import { useAppRouter } from '../RouterContext';
 
 interface HomeHeaderProps {
   onOpenBooking: () => void;
@@ -8,6 +10,14 @@ interface HomeHeaderProps {
 
 export const HomeHeader: React.FC<HomeHeaderProps> = ({ onOpenBooking }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { pathname } = useAppRouter();
+
+  const isNavActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    if (href.startsWith('/horoscope/')) return pathname.startsWith('/horoscope/');
+    if (href.startsWith('/panchang/')) return pathname.startsWith('/panchang/');
+    return false;
+  };
 
   return (
     <header
@@ -65,7 +75,7 @@ export const HomeHeader: React.FC<HomeHeaderProps> = ({ onOpenBooking }) => {
       {/* Middle Row: Logo + Contacts + Login Actions */}
       <div className="w-full">
         <div className="mx-auto flex min-h-[80px] max-w-[1536px] items-center justify-between px-4 sm:px-6 lg:px-8">
-          <a className="z-50 shrink-0" href="#top">
+          <AppLink className="z-50 shrink-0" href="/">
             <img
               src="/ag-images/logo.webp"
               alt="Acharya Ganesh Logo"
@@ -73,7 +83,7 @@ export const HomeHeader: React.FC<HomeHeaderProps> = ({ onOpenBooking }) => {
               height={72}
               className="object-contain h-[72px] w-[72px]"
             />
-          </a>
+          </AppLink>
 
           {/* Desktop Contacts + Login Buttons */}
           <div className="hidden lg:flex items-center gap-8 text-sm font-medium">
@@ -144,18 +154,21 @@ export const HomeHeader: React.FC<HomeHeaderProps> = ({ onOpenBooking }) => {
 
       {/* Bottom Desktop Navigation Row */}
       <nav aria-label="Main Navigation" className="hidden w-full border-t border-border lg:block">
-        <ul className="mx-auto flex max-w-[1536px] flex-wrap items-center justify-center gap-12 py-4 text-base font-semibold text-foreground">
+        <ul className="mx-auto flex max-w-[1536px] flex-wrap items-center justify-center gap-8 xl:gap-11 py-3.5 text-[15px] font-semibold text-foreground">
           {HEADER_NAV_LINKS.map((link) => {
-            const isExternal = link.href.startsWith('http');
+            const active = isNavActive(link.href);
             return (
               <li key={link.label}>
-                <a
-                  className="hover:text-primary transition whitespace-nowrap"
+                <AppLink
+                  className={`transition whitespace-nowrap px-2.5 py-1 rounded-md ${
+                    active
+                      ? 'text-[#6e121b] bg-[#f7ebd4] border border-[#cfa053]/65'
+                      : 'hover:text-primary border border-transparent'
+                  }`}
                   href={link.href}
-                  {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 >
                   {link.label}
-                </a>
+                </AppLink>
               </li>
             );
           })}
@@ -167,18 +180,19 @@ export const HomeHeader: React.FC<HomeHeaderProps> = ({ onOpenBooking }) => {
         <div className="lg:hidden border-t border-border bg-background px-4 py-4 shadow-xl space-y-4">
           <ul className="flex flex-col space-y-2 border-b border-border pb-3">
             {HEADER_NAV_LINKS.map((link) => {
-              const isExternal = link.href.startsWith('http');
+              const active = isNavActive(link.href);
               return (
                 <li key={link.label}>
-                  <a
+                  <AppLink
                     href={link.href}
-                    {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-between py-2 text-sm font-semibold text-foreground hover:text-primary"
+                    className={`flex items-center justify-between py-2 text-sm font-semibold ${
+                      active ? 'text-[#6e121b]' : 'text-foreground hover:text-primary'
+                    }`}
                   >
                     <span>{link.label}</span>
                     <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                  </a>
+                  </AppLink>
                 </li>
               );
             })}

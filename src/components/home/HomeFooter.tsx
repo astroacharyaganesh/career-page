@@ -6,6 +6,7 @@ import {
   FOOTER_CITIES_COL_2,
   FOOTER_SERVICES
 } from '../../data/homePageData';
+import { AppLink } from '../AppLink';
 
 export const HomeFooter: React.FC = () => {
   return (
@@ -16,7 +17,7 @@ export const HomeFooter: React.FC = () => {
       <div className="mx-auto max-w-[1536px] grid grid-cols-1 gap-10 sm:grid-cols-2 xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)_minmax(0,3fr)_minmax(0,2fr)] xl:gap-8">
         {/* Column 1: Brand + Tagline + Contact */}
         <div className="flex min-w-0 flex-col items-center text-center sm:col-span-2 xl:col-span-1 xl:items-start xl:text-left">
-          <a className="mb-5 inline-block" href="#top">
+          <AppLink className="mb-5 inline-block" href="/">
             <img
               src="/ag-images/brand-logo.webp"
               alt="Acharya Ganesh Logo"
@@ -24,7 +25,7 @@ export const HomeFooter: React.FC = () => {
               height={80}
               className="object-contain"
             />
-          </a>
+          </AppLink>
 
           <p className="font-display text-lg font-bold text-accent mb-2">
             Trusted Guidance. Positive Life.
@@ -67,13 +68,13 @@ export const HomeFooter: React.FC = () => {
               return (
                 <li key={item.label} className="flex items-center gap-1.5">
                   <ChevronRight className="w-3.5 h-3.5 text-accent shrink-0" />
-                  <a
+                  <AppLink
                     href={item.href}
                     {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     className="text-sm opacity-80 transition-all hover:text-accent hover:opacity-100 font-sans"
                   >
                     {item.label}
-                  </a>
+                  </AppLink>
                 </li>
               );
             })}

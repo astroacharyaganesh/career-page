@@ -5,7 +5,7 @@ import { StatsBarSection } from './components/home/StatsBarSection';
 import { AstrologyQnaSection } from './components/home/AstrologyQnaSection';
 import { ServicesOfferedSection } from './components/home/ServicesOfferedSection';
 import { CoursesCarouselSection } from './components/home/CoursesCarouselSection';
-import { HoroscopeSection } from './components/home/HoroscopeSection';
+import { HoroscopePanchangSection } from './components/home/HoroscopePanchangSection';
 import { MemoriesGallerySection } from './components/home/MemoriesGallerySection';
 import { YouTubeInsightsSection } from './components/home/YouTubeInsightsSection';
 import { StudentReviewsSection } from './components/home/StudentReviewsSection';
@@ -13,9 +13,18 @@ import { SeoAndFaqSection } from './components/home/SeoAndFaqSection';
 import { HomeFooter } from './components/home/HomeFooter';
 import { FloatingControls } from './components/FloatingControls';
 import { BookingModal } from './components/BookingModal';
+import { RouterProvider, useAppRouter } from './components/RouterContext';
+import { HoroscopeHubPage } from './components/pages/HoroscopeHubPage';
+import { HoroscopeDetailPage } from './components/pages/HoroscopeDetailPage';
+import { PanchangPage } from './components/pages/PanchangPage';
 import { ConsultationTier } from './types';
 
-export default function App() {
+interface AppProps {
+  initialPath?: string;
+}
+
+const AppShell: React.FC = () => {
+  const { route } = useAppRouter();
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [selectedTier, setSelectedTier] = useState<ConsultationTier>('executive');
 
@@ -31,38 +40,52 @@ export default function App() {
       {/* Top Sticky Header with Promo Marquee, Contact Bar & Primary Navigation */}
       <HomeHeader onOpenBooking={() => handleOpenBooking('executive')} />
 
-      {/* Main Home Page Sections matching https://acharyaganesh.com/ */}
-      <main className="flex-1">
-        {/* 1. Hero Consultation Carousel (Match Making, Career, Wealth) */}
-        <HomeHeroSection onOpenBooking={() => handleOpenBooking('executive')} />
+      {/* Main Route View */}
+      {route.kind === 'home' ? (
+        <main className="flex-1">
+          {/* 1. Hero Consultation Carousel (Match Making, Career, Wealth) */}
+          <HomeHeroSection onOpenBooking={() => handleOpenBooking('executive')} />
 
-        {/* 2. Stats & Google Reviews Strip */}
-        <StatsBarSection />
+          {/* 2. Stats & Google Reviews Strip */}
+          <StatsBarSection />
 
-        {/* Compact Astrology Q&A Module */}
-        <AstrologyQnaSection onOpenBooking={() => handleOpenBooking('executive')} />
+          {/* Compact Astrology Q&A Module */}
+          <AstrologyQnaSection onOpenBooking={() => handleOpenBooking('executive')} />
 
-        {/* 3. Services Offered */}
-        <ServicesOfferedSection onOpenBooking={() => handleOpenBooking('executive')} />
+          {/* 3. Services Offered */}
+          <ServicesOfferedSection onOpenBooking={() => handleOpenBooking('executive')} />
 
-        {/* 4. India’s Highly Rated Astrology Courses */}
-        <CoursesCarouselSection />
+          {/* 4. India’s Highly Rated Astrology Courses */}
+          <CoursesCarouselSection />
 
-        {/* 5. Interactive Horoscope (Daily / Weekly / Monthly / Yearly) */}
-        <HoroscopeSection onOpenBooking={() => handleOpenBooking('executive')} />
+          {/* 5. Daily Horoscope & Today’s Panchang Section */}
+          <HoroscopePanchangSection onOpenBooking={() => handleOpenBooking('executive')} />
 
-        {/* 6. Memories Over The Years */}
-        <MemoriesGallerySection />
+          {/* 6. Memories Over The Years */}
+          <MemoriesGallerySection />
 
-        {/* 7. Astrology Insights & Guidance (YouTube Player + Recommended Videos) */}
-        <YouTubeInsightsSection />
+          {/* 7. Astrology Insights & Guidance (YouTube Player + Recommended Videos) */}
+          <YouTubeInsightsSection />
 
-        {/* 8. Our Students Reviews */}
-        <StudentReviewsSection />
+          {/* 8. Our Students Reviews */}
+          <StudentReviewsSection />
 
-        {/* 9 & 10. Best Astrologer in India Editorial Prose + Frequently Asked Questions */}
-        <SeoAndFaqSection />
-      </main>
+          {/* 9 & 10. Best Astrologer in India Editorial Prose + Frequently Asked Questions */}
+          <SeoAndFaqSection />
+        </main>
+      ) : route.kind === 'horoscope-hub' ? (
+        <HoroscopeHubPage onOpenBooking={() => handleOpenBooking('executive')} />
+      ) : route.kind === 'horoscope-detail' ? (
+        <HoroscopeDetailPage
+          periodSlug={route.periodSlug}
+          signId={route.signId}
+          onOpenBooking={() => handleOpenBooking('executive')}
+        />
+      ) : route.kind === 'panchang-today' ? (
+        <PanchangPage mode="today" onOpenBooking={() => handleOpenBooking('executive')} />
+      ) : (
+        <PanchangPage mode="hub" onOpenBooking={() => handleOpenBooking('executive')} />
+      )}
 
       {/* Dark Charcoal 4-Column Footer */}
       <HomeFooter />
@@ -80,5 +103,13 @@ export default function App() {
         initialTier={selectedTier}
       />
     </div>
+  );
+};
+
+export default function App({ initialPath }: AppProps) {
+  return (
+    <RouterProvider initialPath={initialPath}>
+      <AppShell />
+    </RouterProvider>
   );
 }
