@@ -346,6 +346,52 @@
   animation: sacred-sheen-glide 9s ease-in-out infinite;
 }
 
+@keyframes rashi-card-seq-glow {
+  0%, 100% {
+    border-color: #e3cfa8;
+    background-color: #fdf8ee;
+    box-shadow: 0 1px 2px rgba(92, 54, 14, 0.04);
+  }
+  7% {
+    border-color: #c88722;
+    background-color: #fff6dc;
+    box-shadow: 0 0 16px rgba(219, 157, 52, 0.38), inset 0 0 10px rgba(250, 224, 145, 0.38);
+  }
+  16% {
+    border-color: #e3cfa8;
+    background-color: #fdf8ee;
+    box-shadow: 0 1px 2px rgba(92, 54, 14, 0.04);
+  }
+}
+
+@keyframes rashi-name-seq-glow {
+  0%, 100% {
+    background-position: 0% 50%;
+    filter: drop-shadow(0 0 0 rgba(214, 152, 54, 0));
+  }
+  7% {
+    background-position: 100% 50%;
+    filter: drop-shadow(0 0 8px rgba(219, 146, 36, 0.52));
+  }
+  16% {
+    background-position: 0% 50%;
+    filter: drop-shadow(0 0 0 rgba(214, 152, 54, 0));
+  }
+}
+
+.rashi-seq-card {
+  animation: rashi-card-seq-glow 6.6s ease-in-out infinite;
+}
+
+.rashi-seq-name {
+  background-image: linear-gradient(95deg, #3a1a0e 0%, #7a141f 35%, #c67d14 60%, #4a1117 100%);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rashi-name-seq-glow 6.6s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .qna-fade-slide,
   .qna-progress-bar,
@@ -363,8 +409,15 @@
   .diya-flame-breath,
   .sacred-aura-pulse,
   .sacred-orb-float,
-  .sacred-sheen-glide {
+  .sacred-sheen-glide,
+  .rashi-seq-card,
+  .rashi-seq-name {
     animation: none;
+  }
+
+  .rashi-seq-name {
+    background-image: none;
+    color: #3a2a1d;
   }
 }
 

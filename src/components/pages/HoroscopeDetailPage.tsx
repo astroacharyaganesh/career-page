@@ -553,37 +553,127 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
             </AppLink>
           </div>
 
-          {/* Card 3: Crisp Ivory Other Signs Directory (Stretches to align column bottom) */}
-          <div className="flex-1 flex flex-col justify-between rounded-2xl border border-[#cfa458] bg-[#fffdf9] p-5 shadow-xs">
+          {/* Card 3: Crisp Ivory Other Signs Directory with Sequential Gradient Glow & Vedic Finder */}
+          <div className="flex-1 flex flex-col gap-4 rounded-2xl border border-[#cfa458] bg-[#fffdf9] p-5 shadow-xs">
             <div>
               <div className="flex items-center justify-between gap-2 mb-3">
                 <h2 className="font-serif-display text-lg font-bold text-[#4a1117]">
                   Other Signs ({period})
                 </h2>
                 <span className="text-[10.5px] font-bold uppercase tracking-wider text-[#8c520d]">
-                  11 Rashis
+                  12 Rashis
                 </span>
               </div>
-              <ul className="grid grid-cols-2 gap-2">
-                {otherSigns.map((other) => (
+
+              <ul className="grid grid-cols-2 gap-2.5">
+                {otherSigns.map((other, idx) => (
                   <li key={other.id}>
                     <AppLink
                       href={getPeriodHref(period, other.id)}
-                      className="flex items-center gap-2 rounded-lg border border-[#e3d2b8] bg-[#fdf8ee] hover:border-[#b98735] hover:bg-[#f6ead3] px-2.5 py-2 text-xs font-semibold text-[#3a2a1d] transition-colors"
+                      style={{ animationDelay: `${(idx * 0.55).toFixed(2)}s` }}
+                      className="rashi-seq-card group flex items-center gap-2.5 rounded-xl border border-[#e3cfa8] bg-[#fdf8ee] hover:border-[#b98735] hover:bg-[#f6ead3] px-2.5 py-2.5 transition-all"
                     >
                       <span
                         aria-hidden="true"
-                        className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-white border border-[#e4cfa6] text-xs text-[#7c2418]"
+                        className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white border border-[#e4cfa6] text-sm text-[#7c2418] shadow-2xs group-hover:border-[#c98b24]"
                       >
                         {other.glyph}
                       </span>
-                      <span className="truncate">{other.name}</span>
+                      <span className="min-w-0">
+                        <span
+                          style={{ animationDelay: `${(idx * 0.55).toFixed(2)}s` }}
+                          className="rashi-seq-name block truncate text-xs font-extrabold tracking-tight"
+                        >
+                          {other.name}
+                        </span>
+                        <span className="block truncate text-[10px] font-medium text-[#755f49]">
+                          {other.vedicName} · {other.element}
+                        </span>
+                      </span>
                     </AppLink>
                   </li>
                 ))}
+
+                {/* Balanced 12th Cell: Active Rashi Badge */}
+                <li>
+                  <div className="flex items-center gap-2.5 rounded-xl border border-[#c98b24] bg-gradient-to-r from-[#520f17] to-[#741620] px-2.5 py-2.5 text-[#fffcf4] shadow-xs">
+                    <span
+                      aria-hidden="true"
+                      className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#fae091] text-sm font-bold text-[#4a0d14]"
+                    >
+                      {profile.glyph}
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block truncate text-xs font-bold text-[#fae091]">
+                        {profile.name}
+                      </span>
+                      <span className="block truncate text-[10px] font-medium text-[#f2dec0]">
+                        Viewing Now
+                      </span>
+                    </span>
+                  </div>
+                </li>
               </ul>
             </div>
-            <div className="mt-4 pt-3 border-t border-[#eadbc4]">
+
+            {/* Live Chandra Transit & Yoga Pulse Strip */}
+            <div className="rounded-xl border border-[#e3cba0] bg-gradient-to-br from-[#fbf3e1] to-[#f6e6c5] p-3.5 space-y-2">
+              <div className="flex items-center justify-between">
+                <p className="text-[10.5px] font-bold uppercase tracking-[0.14em] text-[#6e121b]">
+                  Today’s Sky Transit
+                </p>
+                <span className="text-[10px] font-semibold text-[#8c520d]">
+                  {todayPanchang.paksha}
+                </span>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="rounded-lg bg-white/85 border border-[#e6d0a4] px-2.5 py-2">
+                  <span className="block text-[10px] font-semibold uppercase tracking-wider text-[#73604e]">
+                    Chandra Rashi
+                  </span>
+                  <span className="block truncate text-xs font-bold text-[#4a1117]">
+                    {todayPanchang.chandraRashi}
+                  </span>
+                </div>
+                <div className="rounded-lg bg-white/85 border border-[#e6d0a4] px-2.5 py-2">
+                  <span className="block text-[10px] font-semibold uppercase tracking-wider text-[#73604e]">
+                    Vedic Yoga
+                  </span>
+                  <span className="block truncate text-xs font-bold text-[#4a1117]">
+                    {todayPanchang.yoga} Yoga
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Moon Sign Finder Mini Spotlight */}
+            <div className="relative overflow-hidden rounded-xl border border-[#c79948] bg-gradient-to-br from-[#0e1b36] via-[#162950] to-[#451319] p-4 text-[#fffcf4]">
+              <div className="flex items-start gap-3">
+                <span
+                  aria-hidden="true"
+                  className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#fae091]/15 border border-[#fae091]/40 text-[#fae091]"
+                >
+                  <Moon className="w-4 h-4" />
+                </span>
+                <div className="space-y-1.5">
+                  <h3 className="font-serif-display text-sm font-bold text-[#fae091]">
+                    Unsure of Your Moon Sign?
+                  </h3>
+                  <p className="text-[11.5px] text-[#e8dcc6] leading-relaxed">
+                    All forecasts follow your Vedic Chandra Rashi from birth details—not your solar calendar date.
+                  </p>
+                  <AppLink
+                    href="/#moon-sign-calculator"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-[#cfa053] bg-gradient-to-b from-[#fae091] to-[#d99d34] px-3.5 py-1.5 text-[11px] font-bold text-[#450608] hover:brightness-105 transition-all"
+                  >
+                    <span>Calculate Free Moon Sign</span>
+                    <ArrowRight className="w-3 h-3" aria-hidden="true" />
+                  </AppLink>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-auto pt-3 border-t border-[#eadbc4]">
               <AppLink
                 href="/horoscope/"
                 className="inline-flex items-center gap-1.5 text-xs font-bold text-[#6e121b] hover:text-[#9e6b16] hover:underline transition-colors"
