@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Expand, RefreshCw, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { GALLERY_MEMORIES, GalleryMemoryItem } from '../../data/homePageData';
+import { SacredDividerOrnament, SacredMandalaAccent } from '../SacredMandalaAccent';
 
 export const MemoriesGallerySection: React.FC = () => {
   const [batchIndex, setBatchIndex] = useState(0);
@@ -29,15 +30,31 @@ export const MemoriesGallerySection: React.FC = () => {
   };
 
   return (
-    <section id="memories-gallery" className="w-full bg-background py-10 sm:py-12">
-      <div className="w-full max-w-[1536px] mx-auto px-4 sm:px-10 lg:px-20">
+    <section
+      id="memories-gallery"
+      className="relative overflow-hidden w-full bg-gradient-to-br from-[#0b162f] via-[#13254a] to-[#3b1218] text-[#fffcf4] border-y border-[#cfa458]/60 py-12 sm:py-14"
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-20 -top-20 text-[#f4ce7c] opacity-15"
+      >
+        <SacredMandalaAccent className="w-[340px] h-[340px]" />
+      </div>
+
+      <div className="relative z-10 w-full max-w-[1536px] mx-auto px-4 sm:px-10 lg:px-20">
         <div className="text-center mb-8 sm:mb-10">
-          <h2 className="font-display font-bold text-section-title sm:text-4xl lg:text-5xl text-heading mb-3">
+          <div className="inline-flex items-center justify-center gap-3 mb-2">
+            <SacredDividerOrnament className="w-5 h-5 text-[#fae091]" />
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#fae091]">
+              Milestones &amp; Celebrations
+            </span>
+            <SacredDividerOrnament className="w-5 h-5 text-[#fae091]" />
+          </div>
+          <h2 className="font-display font-bold text-section-title sm:text-4xl lg:text-5xl text-[#fffcf4] mb-3">
             Memories Over The Years
           </h2>
-          <div className="w-24 h-1 bg-primary rounded-full opacity-20 mx-auto mb-5" />
-          <p className="max-w-xl text-muted-foreground text-sm sm:text-base mx-auto">
-            A curated glimpse into moments, milestones, and celebrations across our journey.
+          <p className="max-w-xl text-[#e6dac4] text-sm sm:text-base mx-auto">
+            A curated glimpse into moments, convocations, and sacred milestones across our journey.
           </p>
         </div>
 
@@ -58,7 +75,7 @@ export const MemoriesGallerySection: React.FC = () => {
                     isLarge ? 'col-span-2 row-span-2' : 'col-span-1 row-span-1'
                   }`}
                 >
-                  <div className="group relative overflow-hidden rounded-lg aspect-square w-full bg-card border border-border/50">
+                  <div className="group relative overflow-hidden rounded-xl aspect-square w-full bg-[#091224] border border-[#cfa458]/55 shadow-md hover:border-[#fae091] transition-colors">
                     <img
                       src={memory.image}
                       alt={memory.alt}
@@ -69,7 +86,7 @@ export const MemoriesGallerySection: React.FC = () => {
                       type="button"
                       onClick={() => setLightboxItem(memory)}
                       aria-label={`View full size: ${memory.alt}`}
-                      className="inline-flex shrink-0 items-center justify-center rounded-md h-8 w-8 border border-border/80 bg-card/90 text-heading shadow-sm backdrop-blur-sm hover:border-primary/35 hover:bg-card hover:shadow-md absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity duration-200 cursor-pointer"
+                      className="inline-flex shrink-0 items-center justify-center rounded-md h-8 w-8 border border-[#fae091]/60 bg-[#0d1830]/90 text-[#fae091] shadow-sm backdrop-blur-sm hover:bg-[#6e121b] hover:shadow-md absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity duration-200 cursor-pointer"
                     >
                       <Expand className="w-4 h-4" />
                     </button>
@@ -81,11 +98,11 @@ export const MemoriesGallerySection: React.FC = () => {
         </div>
 
         {/* Gallery Action Buttons */}
-        <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <button
             type="button"
             onClick={() => setShowAllModal(true)}
-            className="inline-flex items-center justify-center rounded-full border border-border bg-card px-5 py-2.5 text-xs sm:text-sm font-semibold text-heading shadow-2xs transition hover:border-primary hover:bg-muted cursor-pointer"
+            className="inline-flex items-center justify-center rounded-full border border-[#cfa458]/80 bg-white/10 hover:bg-white/18 px-6 py-2.5 text-xs sm:text-sm font-semibold text-[#fffcf4] transition cursor-pointer"
           >
             View all
           </button>
@@ -93,7 +110,7 @@ export const MemoriesGallerySection: React.FC = () => {
           <button
             type="button"
             onClick={handleRefresh}
-            className="inline-flex items-center gap-2 justify-center rounded-full bg-secondary px-5 py-2.5 text-xs sm:text-sm font-semibold text-heading shadow-2xs transition hover:bg-secondary/85 cursor-pointer"
+            className="inline-flex items-center gap-2 justify-center rounded-full border border-[#b57b1d] bg-gradient-to-b from-[#fae091] via-[#e6b34d] to-[#c98b24] hover:brightness-105 px-6 py-2.5 text-xs sm:text-sm font-bold text-[#460709] shadow-sm transition cursor-pointer"
           >
             <RefreshCw className="w-3.5 h-3.5" />
             <span>Refresh memories</span>

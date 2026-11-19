@@ -52,7 +52,7 @@ interface DetailBlockProps {
   label: string;
   text: string;
   icon: React.ReactNode;
-  tone?: 'neutral' | 'emerald' | 'maroon' | 'gold';
+  tone?: 'neutral' | 'emerald' | 'maroon' | 'gold' | 'indigo' | 'rose' | 'terracotta';
   className?: string;
 }
 
@@ -64,24 +64,33 @@ const DetailBlock: React.FC<DetailBlockProps> = ({
   className = ''
 }) => {
   const toneClasses: Record<NonNullable<DetailBlockProps['tone']>, string> = {
-    neutral: 'bg-white border-[#e2d1b1] hover:border-[#b98735] hover:shadow-xs',
-    emerald: 'bg-[#e9f5ef] border-[#82c3aa] hover:border-[#2e8563]',
-    maroon: 'bg-[#faecee] border-[#d898a0] hover:border-[#a73a47]',
-    gold: 'bg-[#fbf1dc] border-[#d8b46e] hover:border-[#b57b1d]'
+    neutral: 'bg-white border-[#e2d1b1] hover:border-[#b98735] hover:shadow-sm',
+    emerald: 'bg-gradient-to-br from-[#eaf6f0] to-[#f5fbf8] border-[#82c3aa] hover:border-[#2e8563] hover:shadow-sm',
+    maroon: 'bg-gradient-to-br from-[#faecee] to-[#fdf5f6] border-[#d898a0] hover:border-[#a73a47] hover:shadow-sm',
+    gold: 'bg-gradient-to-br from-[#fcf2dc] to-[#fef9ee] border-[#dfc07f] hover:border-[#b57b1d] hover:shadow-sm',
+    indigo: 'bg-gradient-to-br from-[#eef2fb] to-[#f7f9fe] border-[#b7c7e8] hover:border-[#4c6fb3] hover:shadow-sm',
+    rose: 'bg-gradient-to-br from-[#fcf0f3] to-[#fff8fa] border-[#e6bec9] hover:border-[#b84c6b] hover:shadow-sm',
+    terracotta: 'bg-gradient-to-br from-[#fbf1e8] to-[#fef9f4] border-[#e2c2a8] hover:border-[#b86730] hover:shadow-sm'
   };
 
   const labelToneClasses: Record<NonNullable<DetailBlockProps['tone']>, string> = {
     neutral: 'text-[#4a0d14]',
     emerald: 'text-[#0e4d3b]',
     maroon: 'text-[#6e121b]',
-    gold: 'text-[#6c4207]'
+    gold: 'text-[#6c4207]',
+    indigo: 'text-[#1c3568]',
+    rose: 'text-[#731c38]',
+    terracotta: 'text-[#6e3214]'
   };
 
   const iconWrapClasses: Record<NonNullable<DetailBlockProps['tone']>, string> = {
     neutral: 'bg-[#faf2e4] border-[#e6cf9f] text-[#8c520d]',
-    emerald: 'bg-white/80 border-[#82c3aa] text-[#0e4d3b]',
-    maroon: 'bg-white/80 border-[#d898a0] text-[#7a1622]',
-    gold: 'bg-white/80 border-[#d8b46e] text-[#8c520d]'
+    emerald: 'bg-white/90 border-[#82c3aa] text-[#0e4d3b]',
+    maroon: 'bg-white/90 border-[#d898a0] text-[#7a1622]',
+    gold: 'bg-white/90 border-[#d8b46e] text-[#8c520d]',
+    indigo: 'bg-white/90 border-[#b7c7e8] text-[#1c3568]',
+    rose: 'bg-white/90 border-[#e6bec9] text-[#8c1d40]',
+    terracotta: 'bg-white/90 border-[#e2c2a8] text-[#8f4216]'
   };
 
   return (
@@ -89,7 +98,7 @@ const DetailBlock: React.FC<DetailBlockProps> = ({
       <h3 className={`flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] mb-2 ${labelToneClasses[tone]}`}>
         <span
           aria-hidden="true"
-          className={`inline-flex h-6 w-6 items-center justify-center rounded-md border ${iconWrapClasses[tone]}`}
+          className={`inline-flex h-6.5 w-6.5 items-center justify-center rounded-md border ${iconWrapClasses[tone]}`}
         >
           {icon}
         </span>
@@ -109,7 +118,7 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
   const profile = getZodiacProfile(signId);
   const cal = getIndiaCalendarInfo();
   const todayPanchang = getPanchangSnapshot('new-delhi');
-  const sacredMeta = getSignSacredMeta(profile.id);
+  const sacredMeta = getSignSacredMeta(profile.id, period);
   const detailedSections = getPeriodDetailedSections(profile, period);
   const focusText = getHoroscopeFocus(profile.id, period);
 
@@ -217,7 +226,7 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
             {/* Crawlable Period Switcher Links */}
             <nav
               aria-label={`Switch ${profile.name} horoscope period`}
-              className="inline-flex self-start md:self-auto flex-wrap items-center gap-1.5 rounded-xl border border-[#cfa053]/65 bg-[#0e1b36]/85 p-1.5"
+              className="grid grid-cols-4 md:inline-flex w-full md:w-auto items-center gap-1.5 rounded-xl border border-[#cfa053]/65 bg-[#0e1b36]/85 p-1.5"
             >
               {HOROSCOPE_PERIODS.map((p) => {
                 const slug = PERIOD_TO_SLUG[p];
@@ -227,7 +236,7 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
                     key={p}
                     href={`/horoscope/${slug}/${profile.id}/`}
                     aria-current={isActive ? 'page' : undefined}
-                    className={`rounded-lg px-3.5 py-2 text-xs sm:text-sm font-semibold whitespace-nowrap transition-colors ${
+                    className={`rounded-lg px-2 sm:px-3.5 py-2 text-center text-xs sm:text-sm font-semibold whitespace-nowrap transition-colors ${
                       isActive
                         ? 'bg-gradient-to-b from-[#fae091] to-[#cf9129] text-[#450608] shadow-xs'
                         : 'text-[#ede0ca] hover:bg-white/10'
@@ -288,31 +297,31 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
             <div className="p-5 sm:p-7 space-y-5">
               {period === 'Daily' && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  <DetailBlock label="Career" text={profile.daily.career} icon={<Briefcase className="w-4 h-4" />} />
-                  <DetailBlock label="Love" text={profile.daily.love} icon={<Heart className="w-4 h-4" />} />
-                  <DetailBlock label="Finance" text={profile.daily.finance} icon={<Coins className="w-4 h-4" />} />
-                  <DetailBlock label="Health" text={profile.daily.health} icon={<Activity className="w-4 h-4" />} />
-                  <DetailBlock label="Family" text={profile.daily.family} icon={<Home className="w-4 h-4" />} className="sm:col-span-2" />
+                  <DetailBlock tone="indigo" label="Career" text={profile.daily.career} icon={<Briefcase className="w-4 h-4" />} />
+                  <DetailBlock tone="rose" label="Love" text={profile.daily.love} icon={<Heart className="w-4 h-4" />} />
+                  <DetailBlock tone="gold" label="Finance" text={profile.daily.finance} icon={<Coins className="w-4 h-4" />} />
+                  <DetailBlock tone="emerald" label="Health" text={profile.daily.health} icon={<Activity className="w-4 h-4" />} />
+                  <DetailBlock tone="terracotta" label="Family" text={profile.daily.family} icon={<Home className="w-4 h-4" />} className="sm:col-span-2" />
                 </div>
               )}
 
               {period === 'Weekly' && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  <DetailBlock label="Career" text={profile.weekly.career} icon={<Briefcase className="w-4 h-4" />} />
-                  <DetailBlock label="Love & Relationships" text={profile.weekly.love} icon={<Heart className="w-4 h-4" />} />
-                  <DetailBlock label="Finance" text={profile.weekly.finance} icon={<Coins className="w-4 h-4" />} />
-                  <DetailBlock label="Health" text={profile.weekly.health} icon={<Activity className="w-4 h-4" />} />
-                  <DetailBlock label="Family" text={profile.weekly.family} icon={<Home className="w-4 h-4" />} className="sm:col-span-2" />
+                  <DetailBlock tone="indigo" label="Career" text={profile.weekly.career} icon={<Briefcase className="w-4 h-4" />} />
+                  <DetailBlock tone="rose" label="Love & Relationships" text={profile.weekly.love} icon={<Heart className="w-4 h-4" />} />
+                  <DetailBlock tone="gold" label="Finance" text={profile.weekly.finance} icon={<Coins className="w-4 h-4" />} />
+                  <DetailBlock tone="emerald" label="Health" text={profile.weekly.health} icon={<Activity className="w-4 h-4" />} />
+                  <DetailBlock tone="terracotta" label="Family" text={profile.weekly.family} icon={<Home className="w-4 h-4" />} className="sm:col-span-2" />
                 </div>
               )}
 
               {period === 'Monthly' && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  <DetailBlock label="Career & Business" text={profile.monthly.careerBusiness} icon={<Briefcase className="w-4 h-4" />} />
-                  <DetailBlock label="Love & Marriage" text={profile.monthly.loveMarriage} icon={<Heart className="w-4 h-4" />} />
-                  <DetailBlock label="Money & Finance" text={profile.monthly.moneyFinance} icon={<Coins className="w-4 h-4" />} />
-                  <DetailBlock label="Health" text={profile.monthly.health} icon={<Activity className="w-4 h-4" />} />
-                  <DetailBlock label="Family & Relationships" text={profile.monthly.familyRelationships} icon={<Users className="w-4 h-4" />} className="sm:col-span-2" />
+                  <DetailBlock tone="indigo" label="Career & Business" text={profile.monthly.careerBusiness} icon={<Briefcase className="w-4 h-4" />} />
+                  <DetailBlock tone="rose" label="Love & Marriage" text={profile.monthly.loveMarriage} icon={<Heart className="w-4 h-4" />} />
+                  <DetailBlock tone="gold" label="Money & Finance" text={profile.monthly.moneyFinance} icon={<Coins className="w-4 h-4" />} />
+                  <DetailBlock tone="emerald" label="Health" text={profile.monthly.health} icon={<Activity className="w-4 h-4" />} />
+                  <DetailBlock tone="terracotta" label="Family & Relationships" text={profile.monthly.familyRelationships} icon={<Users className="w-4 h-4" />} className="sm:col-span-2" />
                   <DetailBlock tone="emerald" label="Important Opportunities" text={profile.monthly.opportunities} icon={<TrendingUp className="w-4 h-4" />} />
                   <DetailBlock tone="maroon" label="Things To Avoid" text={profile.monthly.avoid} icon={<AlertTriangle className="w-4 h-4" />} />
                 </div>
@@ -320,15 +329,15 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
 
               {period === 'Yearly' && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  <DetailBlock label="Career & Professional Growth" text={profile.yearly.careerGrowth} icon={<Briefcase className="w-4 h-4" />} />
-                  <DetailBlock label="Business" text={profile.yearly.business} icon={<Building2 className="w-4 h-4" />} />
-                  <DetailBlock label="Love & Relationships" text={profile.yearly.loveRelationships} icon={<Heart className="w-4 h-4" />} />
-                  <DetailBlock label="Marriage" text={profile.yearly.marriage} icon={<Users className="w-4 h-4" />} />
-                  <DetailBlock label="Money & Wealth" text={profile.yearly.moneyWealth} icon={<Coins className="w-4 h-4" />} />
-                  <DetailBlock label="Health & Wellness" text={profile.yearly.healthWellness} icon={<Activity className="w-4 h-4" />} />
-                  <DetailBlock label="Family" text={profile.yearly.family} icon={<Home className="w-4 h-4" />} />
-                  <DetailBlock label="Education" text={profile.yearly.education} icon={<BookOpen className="w-4 h-4" />} />
-                  <DetailBlock label="Travel" text={profile.yearly.travel} icon={<Plane className="w-4 h-4" />} />
+                  <DetailBlock tone="indigo" label="Career & Professional Growth" text={profile.yearly.careerGrowth} icon={<Briefcase className="w-4 h-4" />} />
+                  <DetailBlock tone="gold" label="Business" text={profile.yearly.business} icon={<Building2 className="w-4 h-4" />} />
+                  <DetailBlock tone="rose" label="Love & Relationships" text={profile.yearly.loveRelationships} icon={<Heart className="w-4 h-4" />} />
+                  <DetailBlock tone="rose" label="Marriage" text={profile.yearly.marriage} icon={<Users className="w-4 h-4" />} />
+                  <DetailBlock tone="gold" label="Money & Wealth" text={profile.yearly.moneyWealth} icon={<Coins className="w-4 h-4" />} />
+                  <DetailBlock tone="emerald" label="Health & Wellness" text={profile.yearly.healthWellness} icon={<Activity className="w-4 h-4" />} />
+                  <DetailBlock tone="terracotta" label="Family" text={profile.yearly.family} icon={<Home className="w-4 h-4" />} />
+                  <DetailBlock tone="indigo" label="Education" text={profile.yearly.education} icon={<BookOpen className="w-4 h-4" />} />
+                  <DetailBlock tone="terracotta" label="Travel" text={profile.yearly.travel} icon={<Plane className="w-4 h-4" />} />
                   <DetailBlock tone="gold" label="Best Months" text={profile.yearly.bestMonths} icon={<CalendarDays className="w-4 h-4" />} />
                   <DetailBlock tone="emerald" label="Important Opportunities" text={profile.yearly.opportunities} icon={<TrendingUp className="w-4 h-4" />} />
                   <DetailBlock tone="maroon" label="Challenging Periods" text={profile.yearly.challengingPeriods} icon={<AlertTriangle className="w-4 h-4" />} />
@@ -378,10 +387,10 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
             </div>
           </section>
 
-          {/* Section 2: Antique Sanctuary Parchment — Cosmic Signature & Chandra Rashi Upaya */}
+          {/* Section 2: Antique Sanctuary Parchment — Cosmic Signature, Remedy & Period Strategy */}
           <section
             aria-labelledby="cosmic-signature-heading"
-            className="flex-1 flex flex-col justify-between rounded-2xl border border-[#cfa458] bg-gradient-to-br from-[#fbf2df] via-[#f8ebd0] to-[#f2dfb9] p-5 sm:p-6 shadow-xs gap-4"
+            className="flex-1 flex flex-col justify-center gap-4 rounded-2xl border border-[#cfa458] bg-gradient-to-br from-[#fbf2df] via-[#f8ebd0] to-[#f2dfb9] p-5 sm:p-6 shadow-xs"
           >
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#dfc28b] pb-3">
               <div className="flex items-center gap-2.5">
@@ -399,7 +408,7 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
-              <div className="rounded-xl border border-[#e1c693] bg-[#fffdf8]/90 px-3.5 py-3">
+              <div className="rounded-xl border border-[#e1c693] bg-[#fffdf8]/95 px-3.5 py-3">
                 <p className="text-[10.5px] font-bold uppercase tracking-wider text-[#8c520d] flex items-center gap-1.5">
                   <Moon className="w-3.5 h-3.5" aria-hidden="true" />
                   <span>Nakshatra Span</span>
@@ -409,7 +418,7 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
                 </p>
               </div>
 
-              <div className="rounded-xl border border-[#e1c693] bg-[#fffdf8]/90 px-3.5 py-3">
+              <div className="rounded-xl border border-[#e1c693] bg-[#fffdf8]/95 px-3.5 py-3">
                 <p className="text-[10.5px] font-bold uppercase tracking-wider text-[#8c520d] flex items-center gap-1.5">
                   <Sun className="w-3.5 h-3.5" aria-hidden="true" />
                   <span>Karaka &amp; Tatva</span>
@@ -419,7 +428,7 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
                 </p>
               </div>
 
-              <div className="rounded-xl border border-[#e1c693] bg-[#fffdf8]/90 px-3.5 py-3">
+              <div className="rounded-xl border border-[#e1c693] bg-[#fffdf8]/95 px-3.5 py-3">
                 <p className="text-[10.5px] font-bold uppercase tracking-wider text-[#8c520d]">
                   Namakshar Sounds
                 </p>
@@ -428,7 +437,7 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
                 </p>
               </div>
 
-              <div className="rounded-xl border border-[#e1c693] bg-[#fffdf8]/90 px-3.5 py-3">
+              <div className="rounded-xl border border-[#e1c693] bg-[#fffdf8]/95 px-3.5 py-3">
                 <p className="text-[10.5px] font-bold uppercase tracking-wider text-[#8c520d]">
                   Wellness Focus
                 </p>
@@ -438,8 +447,8 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
               </div>
             </div>
 
-            <div className="rounded-xl border border-[#cfa458]/80 bg-[#fffcf6] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="flex items-start gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="rounded-xl border border-[#cfa458]/85 bg-[#fffcf6] p-4 flex items-start gap-3">
                 <span
                   aria-hidden="true"
                   className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#6e121b] text-[#fae091] mt-0.5"
@@ -450,56 +459,70 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
                   <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#6e121b]">
                     Chandra Rashi Remedy by Hanish Bagga
                   </p>
-                  <p className="mt-0.5 text-xs sm:text-sm font-medium text-[#2c221a] leading-relaxed">
+                  <p className="mt-1 text-xs sm:text-sm font-medium text-[#2c221a] leading-relaxed">
                     {sacredMeta.sacredRemedy}
                   </p>
                 </div>
               </div>
-              <AppLink
-                href="/#moon-sign-calculator"
-                className="shrink-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#6e121b] hover:text-[#9e6b16] hover:underline whitespace-nowrap"
-              >
-                <span>Verify Moon Sign</span>
-                <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
-              </AppLink>
+
+              <div className="rounded-xl border border-[#cfa458]/85 bg-[#fffcf6] p-4 flex flex-col justify-between gap-2">
+                <div>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#8c520d] flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-[#9e6b16]" aria-hidden="true" />
+                    <span>{period} Jyotish Alignment</span>
+                  </p>
+                  <p className="mt-1 text-xs sm:text-sm font-medium text-[#2c221a] leading-relaxed">
+                    {sacredMeta.periodGuidance}
+                  </p>
+                </div>
+                <div className="pt-1">
+                  <AppLink
+                    href="/#moon-sign-calculator"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#6e121b] hover:text-[#9e6b16] hover:underline"
+                  >
+                    <span>Verify Your Chandra Rashi</span>
+                    <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                  </AppLink>
+                </div>
+              </div>
             </div>
           </section>
         </div>
 
-        {/* Right Sidebar: Three Distinct Visual Identities Aligned to Column Height */}
-        <aside className="lg:col-span-4 flex flex-col gap-6">
+        {/* Right Sidebar: Three Distinct Visual Identities Proportionally Sized */}
+        <aside className="lg:col-span-4 flex flex-col gap-5">
           {/* Card 1: Royal Midnight-Maroon Consultation CTA */}
-          <div className="relative overflow-hidden rounded-2xl border border-[#c79948] bg-gradient-to-br from-[#0e1b36] via-[#182e57] to-[#481219] p-5 sm:p-6 text-white shadow-md">
+          <div className="relative overflow-hidden rounded-2xl border border-[#c79948] bg-gradient-to-br from-[#0e1b36] via-[#182e57] to-[#481219] p-5 text-white shadow-md">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -right-10 -bottom-10 text-[#f4ce7c] opacity-15"
             >
-              <SacredMandalaAccent className="w-44 h-44" />
+              <SacredMandalaAccent className="w-40 h-40" />
             </div>
             <div className="relative z-10">
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3.5">
                 <img
                   src={hanishPortrait}
                   alt="Hanish Bagga — Acharya Ganesh"
-                  className="h-18 w-18 shrink-0 rounded-full border-2 border-[#e0b458] bg-[#fdfaf4]/10 object-cover object-top"
+                  className="h-16 w-16 shrink-0 rounded-full border-2 border-[#e0b458] bg-[#fdfaf4]/10 object-cover object-top"
                 />
                 <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#f5d384]">
+                  <p className="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-[#f5d384]">
                     Acharya Ganesh
                   </p>
-                  <h2 className="font-serif-display text-xl font-bold text-[#fff8e9]">
+                  <h2 className="font-serif-display text-lg sm:text-xl font-bold text-[#fff8e9]">
                     Consult Hanish Bagga
                   </h2>
                   <p className="text-xs text-[#e6dac4]">Astro Vastu Expert</p>
                 </div>
               </div>
-              <p className="mt-3.5 text-xs sm:text-sm text-[#e6dac4] leading-relaxed">
+              <p className="mt-3 text-xs sm:text-[13px] text-[#e6dac4] leading-relaxed">
                 Ready for answers rooted in your exact Lagna, Nakshatra, Dasha, and birth chart? Schedule a private session tailored to {profile.name} and your personal Kundli.
               </p>
               <button
                 type="button"
                 onClick={onOpenBooking}
-                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#b57b1d] bg-gradient-to-b from-[#fae091] via-[#e6b34d] to-[#c98b24] hover:brightness-105 px-5 py-2.5 text-sm font-bold text-[#460709] cursor-pointer shadow-xs"
+                className="mt-3.5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#b57b1d] bg-gradient-to-b from-[#fae091] via-[#e6b34d] to-[#c98b24] hover:brightness-105 px-5 py-2 text-xs sm:text-sm font-bold text-[#460709] cursor-pointer shadow-xs"
               >
                 <span>Book Personal Consultation</span>
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -508,18 +531,18 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
           </div>
 
           {/* Card 2: Sacred Botanical Emerald Almanac — Today’s Muhurat Snapshot */}
-          <div className="rounded-2xl border border-[#82c3aa] bg-gradient-to-br from-[#e7f4ee] via-[#f2faf6] to-[#fbfdfb] p-5 space-y-3 shadow-xs">
+          <div className="rounded-2xl border border-[#82c3aa] bg-gradient-to-br from-[#e7f4ee] via-[#f2faf6] to-[#fbfdfb] p-4.5 space-y-2.5 shadow-xs">
             <div className="flex items-center justify-between gap-2">
               <h2 className="font-serif-display text-lg font-bold text-[#0e4d3b]">
                 Plan by Today’s Muhurat
               </h2>
-              <span className="text-[10.5px] font-bold uppercase tracking-wider text-[#1e6a52] tabular-nums">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#1e6a52] tabular-nums">
                 IST Almanac
               </span>
             </div>
 
-            <div className="grid grid-cols-2 gap-2.5">
-              <div className="rounded-xl border border-[#a9d5c4] bg-white/85 px-3 py-2.5">
+            <div className="grid grid-cols-2 gap-2">
+              <div className="rounded-xl border border-[#a9d5c4] bg-white/85 px-3 py-2">
                 <p className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-[#0e4d3b]">
                   <Clock className="w-3 h-3" aria-hidden="true" />
                   <span>Abhijit</span>
@@ -528,7 +551,7 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
                   {todayPanchang.abhijitMuhurat}
                 </p>
               </div>
-              <div className="rounded-xl border border-[#dfafb6] bg-[#fdf5f6] px-3 py-2.5">
+              <div className="rounded-xl border border-[#dfafb6] bg-[#fdf5f6] px-3 py-2">
                 <p className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-[#7a1622]">
                   <ShieldAlert className="w-3 h-3" aria-hidden="true" />
                   <span>Rahu Kaal</span>
@@ -554,9 +577,9 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
           </div>
 
           {/* Card 3: Crisp Ivory Other Signs Directory with Sequential Gradient Glow & Vedic Finder */}
-          <div className="flex-1 flex flex-col gap-4 rounded-2xl border border-[#cfa458] bg-[#fffdf9] p-5 shadow-xs">
+          <div className="flex-1 flex flex-col gap-3.5 rounded-2xl border border-[#cfa458] bg-[#fffdf9] p-4.5 shadow-xs">
             <div>
-              <div className="flex items-center justify-between gap-2 mb-3">
+              <div className="flex items-center justify-between gap-2 mb-2.5">
                 <h2 className="font-serif-display text-lg font-bold text-[#4a1117]">
                   Other Signs ({period})
                 </h2>
@@ -565,28 +588,28 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
                 </span>
               </div>
 
-              <ul className="grid grid-cols-2 gap-2.5">
+              <ul className="grid grid-cols-2 gap-2">
                 {otherSigns.map((other, idx) => (
                   <li key={other.id}>
                     <AppLink
                       href={getPeriodHref(period, other.id)}
                       style={{ animationDelay: `${(idx * 0.55).toFixed(2)}s` }}
-                      className="rashi-seq-card group flex items-center gap-2.5 rounded-xl border border-[#e3cfa8] bg-[#fdf8ee] hover:border-[#b98735] hover:bg-[#f6ead3] px-2.5 py-2.5 transition-all"
+                      className="rashi-seq-card group flex items-center gap-2 rounded-xl border border-[#e3cfa8] bg-[#fdf8ee] hover:border-[#b98735] hover:bg-[#f6ead3] px-2.5 py-2 transition-all"
                     >
                       <span
                         aria-hidden="true"
-                        className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white border border-[#e4cfa6] text-sm text-[#7c2418] shadow-2xs group-hover:border-[#c98b24]"
+                        className="inline-flex h-6.5 w-6.5 shrink-0 items-center justify-center rounded-lg bg-white border border-[#e4cfa6] text-xs text-[#7c2418] shadow-2xs group-hover:border-[#c98b24]"
                       >
                         {other.glyph}
                       </span>
                       <span className="min-w-0">
                         <span
                           style={{ animationDelay: `${(idx * 0.55).toFixed(2)}s` }}
-                          className="rashi-seq-name block truncate text-xs font-extrabold tracking-tight"
+                          className="rashi-seq-name block truncate text-xs font-extrabold tracking-tight leading-tight"
                         >
                           {other.name}
                         </span>
-                        <span className="block truncate text-[10px] font-medium text-[#755f49]">
+                        <span className="block truncate text-[10px] font-medium text-[#755f49] leading-tight">
                           {other.vedicName} · {other.element}
                         </span>
                       </span>
@@ -596,18 +619,18 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
 
                 {/* Balanced 12th Cell: Active Rashi Badge */}
                 <li>
-                  <div className="flex items-center gap-2.5 rounded-xl border border-[#c98b24] bg-gradient-to-r from-[#520f17] to-[#741620] px-2.5 py-2.5 text-[#fffcf4] shadow-xs">
+                  <div className="flex items-center gap-2 rounded-xl border border-[#c98b24] bg-gradient-to-r from-[#520f17] to-[#741620] px-2.5 py-2 text-[#fffcf4] shadow-xs">
                     <span
                       aria-hidden="true"
-                      className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#fae091] text-sm font-bold text-[#4a0d14]"
+                      className="inline-flex h-6.5 w-6.5 shrink-0 items-center justify-center rounded-lg bg-[#fae091] text-xs font-bold text-[#4a0d14]"
                     >
                       {profile.glyph}
                     </span>
                     <span className="min-w-0">
-                      <span className="block truncate text-xs font-bold text-[#fae091]">
+                      <span className="block truncate text-xs font-bold text-[#fae091] leading-tight">
                         {profile.name}
                       </span>
-                      <span className="block truncate text-[10px] font-medium text-[#f2dec0]">
+                      <span className="block truncate text-[10px] font-medium text-[#f2dec0] leading-tight">
                         Viewing Now
                       </span>
                     </span>
@@ -617,9 +640,9 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
             </div>
 
             {/* Live Chandra Transit & Yoga Pulse Strip */}
-            <div className="rounded-xl border border-[#e3cba0] bg-gradient-to-br from-[#fbf3e1] to-[#f6e6c5] p-3.5 space-y-2">
+            <div className="rounded-xl border border-[#e3cba0] bg-gradient-to-br from-[#fbf3e1] to-[#f6e6c5] p-3 space-y-1.5">
               <div className="flex items-center justify-between">
-                <p className="text-[10.5px] font-bold uppercase tracking-[0.14em] text-[#6e121b]">
+                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#6e121b]">
                   Today’s Sky Transit
                 </p>
                 <span className="text-[10px] font-semibold text-[#8c520d]">
@@ -627,16 +650,16 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
                 </span>
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <div className="rounded-lg bg-white/85 border border-[#e6d0a4] px-2.5 py-2">
-                  <span className="block text-[10px] font-semibold uppercase tracking-wider text-[#73604e]">
+                <div className="rounded-lg bg-white/90 border border-[#e6d0a4] px-2.5 py-1.5">
+                  <span className="block text-[9.5px] font-semibold uppercase tracking-wider text-[#73604e]">
                     Chandra Rashi
                   </span>
                   <span className="block truncate text-xs font-bold text-[#4a1117]">
                     {todayPanchang.chandraRashi}
                   </span>
                 </div>
-                <div className="rounded-lg bg-white/85 border border-[#e6d0a4] px-2.5 py-2">
-                  <span className="block text-[10px] font-semibold uppercase tracking-wider text-[#73604e]">
+                <div className="rounded-lg bg-white/90 border border-[#e6d0a4] px-2.5 py-1.5">
+                  <span className="block text-[9.5px] font-semibold uppercase tracking-wider text-[#73604e]">
                     Vedic Yoga
                   </span>
                   <span className="block truncate text-xs font-bold text-[#4a1117]">
@@ -647,24 +670,24 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
             </div>
 
             {/* Moon Sign Finder Mini Spotlight */}
-            <div className="relative overflow-hidden rounded-xl border border-[#c79948] bg-gradient-to-br from-[#0e1b36] via-[#162950] to-[#451319] p-4 text-[#fffcf4]">
-              <div className="flex items-start gap-3">
+            <div className="relative overflow-hidden rounded-xl border border-[#c79948] bg-gradient-to-br from-[#0e1b36] via-[#162950] to-[#451319] p-3.5 text-[#fffcf4]">
+              <div className="flex items-start gap-2.5">
                 <span
                   aria-hidden="true"
-                  className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#fae091]/15 border border-[#fae091]/40 text-[#fae091]"
+                  className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#fae091]/15 border border-[#fae091]/40 text-[#fae091]"
                 >
-                  <Moon className="w-4 h-4" />
+                  <Moon className="w-3.5 h-3.5" />
                 </span>
                 <div className="space-y-1.5">
                   <h3 className="font-serif-display text-sm font-bold text-[#fae091]">
                     Unsure of Your Moon Sign?
                   </h3>
-                  <p className="text-[11.5px] text-[#e8dcc6] leading-relaxed">
-                    All forecasts follow your Vedic Chandra Rashi from birth details—not your solar calendar date.
+                  <p className="text-[11px] text-[#e8dcc6] leading-snug">
+                    Forecasts follow your Vedic Chandra Rashi from birth details—not solar calendar dates.
                   </p>
                   <AppLink
                     href="/#moon-sign-calculator"
-                    className="inline-flex items-center gap-1.5 rounded-full border border-[#cfa053] bg-gradient-to-b from-[#fae091] to-[#d99d34] px-3.5 py-1.5 text-[11px] font-bold text-[#450608] hover:brightness-105 transition-all"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-[#cfa053] bg-gradient-to-b from-[#fae091] to-[#d99d34] px-3 py-1 text-[11px] font-bold text-[#450608] hover:brightness-105 transition-all"
                   >
                     <span>Calculate Free Moon Sign</span>
                     <ArrowRight className="w-3 h-3" aria-hidden="true" />
@@ -673,7 +696,7 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
               </div>
             </div>
 
-            <div className="mt-auto pt-3 border-t border-[#eadbc4]">
+            <div className="mt-auto pt-2.5 border-t border-[#eadbc4]">
               <AppLink
                 href="/horoscope/"
                 className="inline-flex items-center gap-1.5 text-xs font-bold text-[#6e121b] hover:text-[#9e6b16] hover:underline transition-colors"
@@ -683,6 +706,17 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
               </AppLink>
             </div>
           </div>
+
+          {period === 'Yearly' && (
+            <div className="rounded-2xl border border-[#d6b373] bg-gradient-to-br from-[#fbf2df] to-[#f4e2bc] p-4.5 space-y-2 shadow-xs">
+              <p className="text-[10.5px] font-bold uppercase tracking-[0.14em] text-[#6e121b]">
+                {cal.year} Mahadasha &amp; Lagna Note
+              </p>
+              <p className="text-xs text-[#2c221a] leading-relaxed">
+                Annual Rashi transits interact uniquely with your Natal Lagna, Nakshatra pada, and active Vimshottari Mahadasha. For high-stakes career, property, or marriage decisions in {cal.year}, review your individual Janma Kundli.
+              </p>
+            </div>
+          )}
         </aside>
 
         {/* Monthly Horoscope YouTube Video (shown on all 12 monthly horoscope pages) */}
@@ -696,7 +730,13 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
           className="lg:col-span-12 rounded-2xl border border-[#cfa458] bg-[#fffdf9] overflow-hidden shadow-xs"
         >
           <div className="relative overflow-hidden bg-gradient-to-r from-[#4a0d14] via-[#6e121b] to-[#3c080d] px-5 sm:px-7 py-5 border-b border-[#cfa458]">
-            <div className="flex flex-wrap items-center justify-between gap-3">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-12 -top-12 text-[#fae091] opacity-15"
+            >
+              <SacredMandalaAccent className="w-[220px] h-[220px]" />
+            </div>
+            <div className="relative z-10 flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-3">
                 <SacredDividerOrnament className="w-6 h-6 text-[#fae091] shrink-0" />
                 <h2
@@ -712,13 +752,16 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
             </div>
           </div>
 
-          <div className="divide-y divide-[#eadbc4] px-5 sm:px-7">
+          <div className="p-5 sm:p-7 space-y-4">
             {detailedSections.map((section, idx) => (
-              <div key={idx} className="py-5 sm:py-6 space-y-2.5">
-                <div className="flex items-baseline gap-3">
+              <div
+                key={idx}
+                className="rounded-xl border border-[#ead5ae] bg-gradient-to-br from-[#fffcf7] to-[#faf2e3] p-5 sm:p-6 transition-all duration-200 hover:border-[#c9953e] hover:shadow-xs space-y-2.5"
+              >
+                <div className="flex items-center gap-3">
                   <span
                     aria-hidden="true"
-                    className="font-serif-display text-base sm:text-lg font-bold text-[#b57b1d] tabular-nums shrink-0"
+                    className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#6e121b] font-serif-display text-sm font-bold text-[#fae091] tabular-nums shadow-2xs"
                   >
                     {String(idx + 1).padStart(2, '0')}
                   </span>
@@ -726,7 +769,7 @@ export const HoroscopeDetailPage: React.FC<HoroscopeDetailPageProps> = ({
                     {section.heading}
                   </h2>
                 </div>
-                <p className="text-[15px] sm:text-base text-[#261b12] leading-[1.75]">
+                <p className="text-[15px] sm:text-base text-[#261b12] leading-[1.78]">
                   {section.paragraph}
                 </p>
               </div>

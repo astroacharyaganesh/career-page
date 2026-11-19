@@ -183,7 +183,7 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
             <circle cx="965" cy="40" r="1.5" fill="#fde9b5" opacity="0.82" />
           </svg>
 
-          <div className="relative z-10 grid grid-cols-1 md:grid-cols-[200px_1fr_200px] lg:grid-cols-[235px_1fr_220px] items-center gap-4 px-5 py-6 sm:px-8 sm:py-7 lg:py-0">
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-[200px_1fr_200px] lg:grid-cols-[235px_1fr_220px] items-center gap-4 px-4 py-6 sm:px-8 sm:py-7 lg:py-0">
             {/* Left Portrait: Hanish Bagga */}
             <div className="hidden md:flex items-end justify-center self-end pt-3">
               <img
@@ -195,19 +195,19 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
 
             {/* Center Headline & Supporting Line */}
             <div className="text-center md:py-7">
-              <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#fae091] mb-2">
-                <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
-                <span>Acharya Ganesh · Jyotish &amp; Muhurat · Moon Sign System</span>
+              <div className="inline-flex flex-wrap items-center justify-center gap-1.5 text-[10.5px] sm:text-[11px] font-semibold uppercase tracking-[0.16em] sm:tracking-[0.2em] text-[#fae091] mb-2">
+                <Sparkles className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                <span>Acharya Ganesh · Jyotish &amp; Moon Sign System</span>
               </div>
 
               <h2
                 id="horoscope-panchang-heading"
-                className="font-serif-display text-2xl sm:text-3xl lg:text-[2.45rem] font-bold text-[#fffcf4] leading-[1.14] tracking-[-0.01em] [text-wrap:balance]"
+                className="font-serif-display text-[1.6rem] sm:text-3xl lg:text-[2.45rem] font-bold text-[#fffcf4] leading-[1.16] tracking-[-0.01em] [text-wrap:balance]"
               >
                 Daily Horoscope &amp; Today’s Panchang
               </h2>
 
-              <p className="mt-2.5 max-w-2xl mx-auto text-sm sm:text-[15.5px] text-[#f2e8d5] leading-relaxed">
+              <p className="mt-2.5 max-w-2xl mx-auto text-[13.5px] sm:text-[15.5px] text-[#f2e8d5] leading-relaxed">
                 Get Your Rashi Predictions, Auspicious Timings and Vedic Guidance — All in One Place
               </p>
 
@@ -215,11 +215,11 @@ export const HoroscopePanchangSection: React.FC<HoroscopePanchangSectionProps> =
                 <button
                   type="button"
                   onClick={scrollToCalculator}
-                  className="inline-flex items-center gap-2 rounded-full border border-[#f0c76e]/85 bg-gradient-to-b from-[#fae091] via-[#e6b34d] to-[#c98b24] hover:brightness-105 hover:-translate-y-0.5 active:translate-y-0 px-5 py-2 text-xs font-bold text-[#460709] shadow-[0_8px_20px_-6px_rgba(246,204,110,0.45)] transition-all duration-200 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#f0c76e]/85 bg-gradient-to-b from-[#fae091] via-[#e6b34d] to-[#c98b24] hover:brightness-105 hover:-translate-y-0.5 active:translate-y-0 px-4 sm:px-5 py-2 text-[11.5px] sm:text-xs font-bold text-[#460709] shadow-[0_8px_20px_-6px_rgba(246,204,110,0.45)] transition-all duration-200 cursor-pointer whitespace-nowrap"
                 >
-                  <Moon className="w-3.5 h-3.5" aria-hidden="true" />
+                  <Moon className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                   <span>Calculate Your Moon Sign (Rashi)</span>
-                  <ArrowDown className="w-3.5 h-3.5" aria-hidden="true" />
+                  <ArrowDown className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                 </button>
               </div>
 

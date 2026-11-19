@@ -222,30 +222,30 @@ export const HoroscopeHubPage: React.FC<HoroscopeHubPageProps> = ({ onOpenBookin
 
         {/* Cross-Link Panchang Snapshot Banner + Expert Consultation */}
         <section aria-labelledby="hub-panchang-bridge" className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-6 rounded-2xl border border-[#d6b989] bg-[#fdfaf4] p-6 flex flex-col justify-between">
+          <div className="lg:col-span-6 rounded-2xl border border-[#82c3aa] bg-gradient-to-br from-[#e7f4ee] via-[#f2faf6] to-[#fbfdfb] p-6 flex flex-col justify-between shadow-xs">
             <div>
-              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#9e6b16] mb-2">
+              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0e4d3b] mb-2">
                 <CalendarDays className="w-4 h-4" aria-hidden="true" />
                 <span>Today’s Vedic Almanac</span>
               </div>
-              <h2 id="hub-panchang-bridge" className="font-serif-display text-2xl font-bold text-[#4a1117]">
+              <h2 id="hub-panchang-bridge" className="font-serif-display text-2xl font-bold text-[#0c3f30]">
                 Pair Your Rashi with Today’s Panchang
               </h2>
-              <p className="mt-2 text-sm text-[#5d4d3e] leading-relaxed">
+              <p className="mt-2 text-sm text-[#24483b] leading-relaxed">
                 For {panchang.fullDateHeading} in New Delhi, {panchang.tithi} and {panchang.nakshatra} prevail under {panchang.hinduMonth} ({panchang.paksha}). Plan important actions around Abhijit Muhurat ({panchang.abhijitMuhurat}) and pause fresh undertakings during Rahu Kaal ({panchang.rahuKaal}).
               </p>
             </div>
             <div className="mt-5 flex flex-wrap gap-3">
               <AppLink
                 href="/panchang/today/"
-                className="inline-flex items-center gap-2 rounded-full border border-[#b57b1d] bg-gradient-to-b from-[#fae091] via-[#e6b34d] to-[#c98b24] px-5 py-2.5 text-xs sm:text-sm font-bold text-[#460709]"
+                className="inline-flex items-center gap-2 rounded-full border border-[#2d8064] bg-[#0e4d3b] hover:bg-[#13634c] px-5 py-2.5 text-xs sm:text-sm font-bold text-[#fffcf4] transition-colors"
               >
                 <span>View Detailed Today’s Panchang</span>
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </AppLink>
               <AppLink
                 href="/panchang/"
-                className="inline-flex items-center gap-2 rounded-full border border-[#cfa053] bg-[#fffaf1] px-5 py-2.5 text-xs sm:text-sm font-semibold text-[#6e121b] hover:bg-[#f6ead3]"
+                className="inline-flex items-center gap-2 rounded-full border border-[#82c3aa] bg-white hover:bg-[#e5f4ed] px-5 py-2.5 text-xs sm:text-sm font-semibold text-[#0e4d3b] transition-colors"
               >
                 <Compass className="w-4 h-4" aria-hidden="true" />
                 <span>Panchang Guide</span>

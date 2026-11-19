@@ -6,10 +6,13 @@ export const CoursesCarouselSection: React.FC = () => {
   const trackRef = useRef<HTMLDivElement>(null);
   const [activeDot, setActiveDot] = useState(0);
 
+  const getStep = (container: HTMLDivElement) =>
+    container.clientWidth < 640 ? Math.max(220, container.clientWidth - 68) : 340;
+
   const scrollByCard = (direction: 'prev' | 'next') => {
     const container = trackRef.current;
     if (!container) return;
-    const step = 340;
+    const step = getStep(container);
     const nextLeft =
       direction === 'next' ? container.scrollLeft + step : container.scrollLeft - step;
     container.scrollTo({ left: nextLeft, behavior: 'smooth' });
@@ -18,19 +21,21 @@ export const CoursesCarouselSection: React.FC = () => {
   const handleScroll = () => {
     const container = trackRef.current;
     if (!container) return;
-    const index = Math.round(container.scrollLeft / 340);
+    const step = getStep(container);
+    const index = Math.round(container.scrollLeft / step);
     setActiveDot(Math.min(HOME_COURSES.length - 1, Math.max(0, index)));
   };
 
   const scrollToDot = (index: number) => {
     const container = trackRef.current;
     if (!container) return;
-    container.scrollTo({ left: index * 340, behavior: 'smooth' });
+    const step = getStep(container);
+    container.scrollTo({ left: index * step, behavior: 'smooth' });
     setActiveDot(index);
   };
 
   return (
-    <section id="astrology-courses" className="w-full bg-muted pt-6 pb-12 sm:pt-8 sm:pb-16">
+    <section id="astrology-courses" className="w-full overflow-hidden bg-muted pt-6 pb-12 sm:pt-8 sm:pb-16">
       <div className="w-full max-w-[1536px] mx-auto px-4 sm:px-10 lg:px-20">
         <div className="text-center mb-10 sm:mb-12">
           <h2 className="font-display font-bold text-section-title sm:text-4xl lg:text-5xl text-heading mb-3">
@@ -49,12 +54,12 @@ export const CoursesCarouselSection: React.FC = () => {
             aria-roledescription="carousel"
             aria-label="Astrology Courses Carousel"
           >
-            {/* Prev / Next Navigation Buttons */}
+            {/* Prev / Next Navigation Buttons — stays cleanly inside mobile viewport */}
             <button
               type="button"
               onClick={() => scrollByCard('prev')}
               aria-label="Previous slide"
-              className="inline-flex shrink-0 items-center justify-center rounded-full h-10 w-10 sm:h-11 sm:w-11 border border-border bg-card/90 text-heading shadow-md backdrop-blur-sm transition-all duration-300 hover:bg-card hover:shadow-lg absolute left-0 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+              className="inline-flex shrink-0 items-center justify-center rounded-full h-9 w-9 sm:h-11 sm:w-11 border border-border bg-card/95 text-heading shadow-md backdrop-blur-sm transition-all duration-300 hover:bg-card hover:shadow-lg absolute left-1 sm:left-0 top-1/2 z-30 sm:-translate-x-1/2 -translate-y-1/2 cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -63,7 +68,7 @@ export const CoursesCarouselSection: React.FC = () => {
               type="button"
               onClick={() => scrollByCard('next')}
               aria-label="Next slide"
-              className="inline-flex shrink-0 items-center justify-center rounded-full h-10 w-10 sm:h-11 sm:w-11 border border-border bg-card/90 text-heading shadow-md backdrop-blur-sm transition-all duration-300 hover:bg-card hover:shadow-lg absolute right-0 top-1/2 z-30 translate-x-1/2 -translate-y-1/2 cursor-pointer"
+              className="inline-flex shrink-0 items-center justify-center rounded-full h-9 w-9 sm:h-11 sm:w-11 border border-border bg-card/95 text-heading shadow-md backdrop-blur-sm transition-all duration-300 hover:bg-card hover:shadow-lg absolute right-1 sm:right-0 top-1/2 z-30 sm:translate-x-1/2 -translate-y-1/2 cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -72,12 +77,12 @@ export const CoursesCarouselSection: React.FC = () => {
             <div
               ref={trackRef}
               onScroll={handleScroll}
-              className="carousel-edge-mask flex gap-6 overflow-x-auto scroll-smooth py-4 px-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden snap-x snap-mandatory"
+              className="carousel-edge-mask flex gap-5 sm:gap-6 overflow-x-auto scroll-smooth py-4 px-11 sm:px-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden snap-x snap-mandatory"
             >
               {HOME_COURSES.map((course, idx) => (
                 <div
                   key={idx}
-                  className="shrink-0 w-[290px] sm:w-[316px] snap-start"
+                  className="shrink-0 w-[calc(100vw-7rem)] max-w-[290px] sm:w-[316px] sm:max-w-none snap-center sm:snap-start"
                 >
                   <article className="group/card flex h-full w-full flex-col">
                     <div className="relative mx-auto flex w-full flex-1 flex-col">

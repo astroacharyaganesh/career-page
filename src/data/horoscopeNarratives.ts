@@ -279,15 +279,29 @@ export interface SignSacredMeta {
   karakaPlanet: string;
   bodyZone: string;
   sacredRemedy: string;
+  periodGuidance: string;
 }
 
-export function getSignSacredMeta(signId: ZodiacId): SignSacredMeta {
+export function getSignSacredMeta(
+  signId: ZodiacId,
+  period: HoroscopePeriod = 'Daily'
+): SignSacredMeta {
   const traits = SIGN_TRAITS[signId];
+  const periodGuidance =
+    period === 'Daily'
+      ? traits.dailyGuidance
+      : period === 'Weekly'
+      ? traits.weeklyTheme
+      : period === 'Monthly'
+      ? traits.monthlyStrategy
+      : traits.yearlyArc;
+
   return {
     nakshatras: traits.nakshatras,
     karakaPlanet: traits.karakaPlanet,
     bodyZone: traits.bodyZone,
-    sacredRemedy: traits.sacredRemedy
+    sacredRemedy: traits.sacredRemedy,
+    periodGuidance
   };
 }
 
