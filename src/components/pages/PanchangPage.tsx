@@ -8,11 +8,8 @@ import {
   Download,
   Flame,
   MapPin,
-  Moon,
   Sparkles,
   Sun,
-  Sunrise,
-  Sunset,
   X,
   XCircle,
   ZoomIn
@@ -23,6 +20,8 @@ import { PANCHANG_LOCATIONS, getPanchangSnapshot } from '../../data/panchangData
 import { BreadcrumbItem } from '../../data/seoRoutes';
 import { AppLink } from '../AppLink';
 import { Breadcrumbs } from '../Breadcrumbs';
+import { SacredMandalaAccent } from '../SacredMandalaAccent';
+import { SolarLunarArcDial } from '../SolarLunarArcDial';
 
 interface PanchangPageProps {
   mode: 'hub' | 'today';
@@ -63,17 +62,23 @@ export const PanchangPage: React.FC<PanchangPageProps> = ({ mode, onOpenBooking 
   return (
     <div className="bg-[#f9f3e7] text-[#2c221a]">
       {/* Celestial Royal Header Banner */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-[#0e1b36] via-[#172c54] to-[#3f2913] border-b border-[#c79948]/60 py-8 sm:py-10">
+      <section className="relative overflow-hidden bg-gradient-to-r from-[#09142b] via-[#13254a] to-[#3f1c16] border-b border-[#d6a956] py-8 sm:py-10">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-14 -top-14 text-[#f4ce7c] opacity-30"
+        >
+          <SacredMandalaAccent className="w-[340px] h-[340px]" />
+        </div>
         <svg
           aria-hidden="true"
           viewBox="0 0 1200 260"
           preserveAspectRatio="xMidYMid slice"
-          className="pointer-events-none absolute inset-0 h-full w-full opacity-45"
+          className="pointer-events-none absolute inset-0 h-full w-full opacity-55"
           fill="none"
         >
-          <circle cx="960" cy="130" r="120" stroke="#f0c874" strokeOpacity="0.35" strokeWidth="1" strokeDasharray="3 5" />
-          <circle cx="960" cy="130" r="175" stroke="#f0c874" strokeOpacity="0.2" strokeWidth="0.8" />
-          <path d="M80 220 Q 600 -20 1120 200" stroke="#f0c874" strokeOpacity="0.22" strokeWidth="1" strokeDasharray="4 6" />
+          <path d="M80 220 Q 600 -20 1120 200" stroke="#f2c872" strokeOpacity="0.28" strokeWidth="1" strokeDasharray="4 6" />
+          <circle cx="440" cy="46" r="1.6" fill="#fde9b5" className="qna-star-twinkle" />
+          <circle cx="780" cy="42" r="1.8" fill="#fde9b5" className="qna-star-twinkle" />
         </svg>
 
         <div className="relative z-10 max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 space-y-5">
@@ -81,18 +86,18 @@ export const PanchangPage: React.FC<PanchangPageProps> = ({ mode, onOpenBooking 
 
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div className="max-w-3xl">
-              <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#f5d384] mb-2">
+              <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#fae091] mb-2">
                 <CalendarDays className="w-3.5 h-3.5" aria-hidden="true" />
                 <span>{panchang.vikramSamvat} · {panchang.hinduMonth}, {panchang.paksha}</span>
               </p>
 
-              <h1 className="font-serif-display text-3xl sm:text-4xl lg:text-[2.7rem] font-bold text-[#fff8e9] leading-tight">
+              <h1 className="font-serif-display text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-[#fffcf4] leading-tight">
                 {mode === 'today'
                   ? `Today’s Panchang – ${panchang.dateFormatted}`
                   : 'Vedic Panchang & Today’s Muhurat Guide'}
               </h1>
 
-              <p className="mt-2.5 text-sm sm:text-base text-[#e6dac4] leading-relaxed">
+              <p className="mt-2.5 text-sm sm:text-base text-[#f2e8d5] leading-relaxed">
                 {panchang.fullDateHeading} · Accurate Tithi, Nakshatra, Yoga, Karana, Sunrise, Sunset, Auspicious Muhurat &amp; Rahu Kaal curated by Acharya Ganesh.
               </p>
             </div>
@@ -137,109 +142,92 @@ export const PanchangPage: React.FC<PanchangPageProps> = ({ mode, onOpenBooking 
           {/* Five Limbs + Hindu Calendar Metadata */}
           <section
             aria-labelledby="five-limbs-heading"
-            className="lg:col-span-7 rounded-2xl border border-[#d6b989] bg-[#fdfaf4] p-5 sm:p-6 shadow-xs space-y-5"
+            className="lg:col-span-7 rounded-2xl border border-[#cfa458] bg-[#fffdf9] p-5 sm:p-6 shadow-[0_14px_34px_-16px_rgba(92,58,20,0.16)] space-y-5"
           >
             <div className="flex flex-wrap items-center justify-between gap-2 pb-3.5 border-b border-[#e5d5bc]">
               <div>
-                <h2 id="five-limbs-heading" className="font-serif-display text-2xl font-bold text-[#6e121b]">
+                <h2 id="five-limbs-heading" className="font-serif-display text-2xl font-bold text-[#4a0d14]">
                   Core Five Limbs (Panchanga)
                 </h2>
-                <p className="text-xs text-[#645342] mt-0.5">
-                  Timings calibrated for <strong className="text-[#4a1117]">{currentLocation.name}</strong> ({panchang.fullDateHeading})
+                <p className="text-xs text-[#544333] mt-0.5">
+                  Timings calibrated for <strong className="text-[#4a0d14]">{currentLocation.name}</strong> ({panchang.fullDateHeading})
                 </p>
               </div>
-              <span className="text-xs font-bold text-[#1b3a75]">
+              <span className="text-xs font-bold text-[#143068]">
                 {panchang.shakaSamvat}
               </span>
             </div>
 
             <dl className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-sm">
-              <div className="rounded-xl border border-[#e3d2b8] bg-[#fffdf8] p-3.5">
-                <dt className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#6e121b] mb-1">
-                  <Sparkles className="w-3.5 h-3.5 text-[#9e6b16]" aria-hidden="true" />
-                  <span>Tithi</span>
+              <div className="rounded-xl border border-[#e0cfa9] bg-white hover:border-[#b98735] hover:-translate-y-0.5 p-3.5 transition-all duration-200">
+                <dt className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#4a0d14] mb-1.5">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-[#f7ebd4] text-[#8c520d]">
+                    <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
+                  </span>
+                  <span>तिथि · Tithi</span>
                 </dt>
-                <dd className="font-bold text-[#2c221a]">{panchang.tithi}</dd>
-                <dd className="text-xs text-[#645342] mt-1">{panchang.tithiDetails}</dd>
+                <dd className="font-bold text-[#1f160e]">{panchang.tithi}</dd>
+                <dd className="text-xs text-[#544333] mt-1">{panchang.tithiDetails}</dd>
               </div>
 
-              <div className="rounded-xl border border-[#e3d2b8] bg-[#fffdf8] p-3.5">
-                <dt className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#6e121b] mb-1">
-                  <Sun className="w-3.5 h-3.5 text-[#9e6b16]" aria-hidden="true" />
-                  <span>Nakshatra</span>
+              <div className="rounded-xl border border-[#e0cfa9] bg-white hover:border-[#b98735] hover:-translate-y-0.5 p-3.5 transition-all duration-200">
+                <dt className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#4a0d14] mb-1.5">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-[#f7ebd4] text-[#8c520d]">
+                    <Sun className="w-3.5 h-3.5" aria-hidden="true" />
+                  </span>
+                  <span>नक्षत्र · Nakshatra</span>
                 </dt>
-                <dd className="font-bold text-[#2c221a]">{panchang.nakshatra}</dd>
-                <dd className="text-xs text-[#645342] mt-1">{panchang.nakshatraDetails}</dd>
+                <dd className="font-bold text-[#1f160e]">{panchang.nakshatra}</dd>
+                <dd className="text-xs text-[#544333] mt-1">{panchang.nakshatraDetails}</dd>
               </div>
 
-              <div className="rounded-xl border border-[#e3d2b8] bg-[#fffdf8] p-3.5">
-                <dt className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#6e121b] mb-1">
-                  <Flame className="w-3.5 h-3.5 text-[#9e6b16]" aria-hidden="true" />
-                  <span>Yoga</span>
+              <div className="rounded-xl border border-[#e0cfa9] bg-white hover:border-[#b98735] hover:-translate-y-0.5 p-3.5 transition-all duration-200">
+                <dt className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#4a0d14] mb-1.5">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-[#f7ebd4] text-[#8c520d]">
+                    <Flame className="w-3.5 h-3.5" aria-hidden="true" />
+                  </span>
+                  <span>योग · Yoga</span>
                 </dt>
-                <dd className="font-bold text-[#2c221a]">{panchang.yoga}</dd>
-                <dd className="text-xs text-[#645342] mt-1">{panchang.yogaDetails}</dd>
+                <dd className="font-bold text-[#1f160e]">{panchang.yoga}</dd>
+                <dd className="text-xs text-[#544333] mt-1">{panchang.yogaDetails}</dd>
               </div>
 
-              <div className="rounded-xl border border-[#e3d2b8] bg-[#fffdf8] p-3.5">
-                <dt className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#6e121b] mb-1">
-                  <Compass className="w-3.5 h-3.5 text-[#9e6b16]" aria-hidden="true" />
-                  <span>Karana</span>
+              <div className="rounded-xl border border-[#e0cfa9] bg-white hover:border-[#b98735] hover:-translate-y-0.5 p-3.5 transition-all duration-200">
+                <dt className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#4a0d14] mb-1.5">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-[#f7ebd4] text-[#8c520d]">
+                    <Compass className="w-3.5 h-3.5" aria-hidden="true" />
+                  </span>
+                  <span>करण · Karana</span>
                 </dt>
-                <dd className="font-bold text-[#2c221a]">{panchang.karana}</dd>
-                <dd className="text-xs text-[#645342] mt-1">{panchang.karanaDetails}</dd>
+                <dd className="font-bold text-[#1f160e]">{panchang.karana}</dd>
+                <dd className="text-xs text-[#544333] mt-1">{panchang.karanaDetails}</dd>
               </div>
             </dl>
 
-            {/* Paksha, Hindu Month, Rashi & Sun/Moon Timings */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
-              <div className="rounded-xl border border-[#e3d2b8] bg-[#fffaf1] p-3">
-                <div className="flex items-center gap-1.5 text-xs font-semibold text-[#645342]">
-                  <Sunrise className="w-3.5 h-3.5 text-[#b5651d]" aria-hidden="true" />
-                  <span>Sunrise</span>
-                </div>
-                <p className="mt-1 text-sm font-bold text-[#4a1117] tabular-nums">{panchang.sunrise}</p>
-              </div>
-
-              <div className="rounded-xl border border-[#e3d2b8] bg-[#fffaf1] p-3">
-                <div className="flex items-center gap-1.5 text-xs font-semibold text-[#645342]">
-                  <Sunset className="w-3.5 h-3.5 text-[#9e6b16]" aria-hidden="true" />
-                  <span>Sunset</span>
-                </div>
-                <p className="mt-1 text-sm font-bold text-[#4a1117] tabular-nums">{panchang.sunset}</p>
-              </div>
-
-              <div className="rounded-xl border border-[#e3d2b8] bg-[#fffaf1] p-3">
-                <div className="flex items-center gap-1.5 text-xs font-semibold text-[#645342]">
-                  <Moon className="w-3.5 h-3.5 text-[#1b3a75]" aria-hidden="true" />
-                  <span>Moonrise</span>
-                </div>
-                <p className="mt-1 text-sm font-bold text-[#4a1117] tabular-nums">{panchang.moonrise}</p>
-              </div>
-
-              <div className="rounded-xl border border-[#e3d2b8] bg-[#fffaf1] p-3">
-                <div className="flex items-center gap-1.5 text-xs font-semibold text-[#645342]">
-                  <Moon className="w-3.5 h-3.5 text-[#5b4d6d]" aria-hidden="true" />
-                  <span>Moonset</span>
-                </div>
-                <p className="mt-1 text-sm font-bold text-[#4a1117] tabular-nums">{panchang.moonset}</p>
-              </div>
-            </div>
+            {/* Animated Surya–Chandra Sky-Dome Horizon Transit Dial */}
+            <SolarLunarArcDial
+              sunrise={panchang.sunrise}
+              sunset={panchang.sunset}
+              moonrise={panchang.moonrise}
+              moonset={panchang.moonset}
+              suryaRashi={panchang.suryaRashi}
+              chandraRashi={panchang.chandraRashi}
+            />
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-1">
-              <div className="rounded-xl border border-[#e3d2b8] bg-[#fffdf8] px-3.5 py-2.5">
-                <span className="text-[#645342] block">Hindu Month &amp; Paksha</span>
-                <span className="font-bold text-[#4a1117]">
+              <div className="rounded-xl border border-[#e0cfa9] bg-white px-3.5 py-2.5">
+                <span className="text-[#544333] block">Hindu Month &amp; Paksha</span>
+                <span className="font-bold text-[#3a0c10]">
                   {panchang.hinduMonth} · {panchang.paksha}
                 </span>
               </div>
-              <div className="rounded-xl border border-[#e3d2b8] bg-[#fffdf8] px-3.5 py-2.5">
-                <span className="text-[#645342] block">Surya Rashi (Sun Sign)</span>
-                <span className="font-bold text-[#4a1117]">{panchang.suryaRashi}</span>
+              <div className="rounded-xl border border-[#e0cfa9] bg-white px-3.5 py-2.5">
+                <span className="text-[#544333] block">Surya Rashi (Sun Sign)</span>
+                <span className="font-bold text-[#3a0c10]">{panchang.suryaRashi}</span>
               </div>
-              <div className="rounded-xl border border-[#e3d2b8] bg-[#fffdf8] px-3.5 py-2.5">
-                <span className="text-[#645342] block">Chandra Rashi (Moon Sign)</span>
-                <span className="font-bold text-[#4a1117]">{panchang.chandraRashi}</span>
+              <div className="rounded-xl border border-[#e0cfa9] bg-white px-3.5 py-2.5">
+                <span className="text-[#544333] block">Chandra Rashi (Moon Sign)</span>
+                <span className="font-bold text-[#3a0c10]">{panchang.chandraRashi}</span>
               </div>
             </div>
           </section>
@@ -251,65 +239,65 @@ export const PanchangPage: React.FC<PanchangPageProps> = ({ mode, onOpenBooking 
             </h2>
 
             {/* Auspicious Panel */}
-            <div className="rounded-2xl border border-[#9ac7b5] bg-[#eef7f2] p-5 shadow-xs space-y-3">
-              <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-[#b9ddd0]">
-                <h3 className="flex items-center gap-2 font-serif-display text-xl font-bold text-[#0e4d3b]">
-                  <CheckCircle2 className="w-5 h-5 text-[#0e5942]" aria-hidden="true" />
+            <div className="rounded-2xl border border-[#82c3aa] bg-[#e9f5ef] p-5 shadow-xs space-y-3">
+              <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-[#add8c5]">
+                <h3 className="flex items-center gap-2 font-serif-display text-xl font-bold text-[#083d2c]">
+                  <CheckCircle2 className="w-5 h-5 text-[#0b4b38]" aria-hidden="true" />
                   <span>Auspicious Timings (Shubh)</span>
                 </h3>
-                <span className="text-[11px] font-semibold text-[#185c45]">Favourable</span>
+                <span className="text-[11px] font-bold text-[#0e523d]">Favourable</span>
               </div>
 
-              <dl className="divide-y divide-[#c6e2d7] text-sm">
+              <dl className="divide-y divide-[#b8ded0] text-sm">
                 <div className="py-2 flex items-center justify-between gap-3">
-                  <dt className="font-semibold text-[#163d30]">Abhijit Muhurat</dt>
-                  <dd className="font-bold text-[#0c3f30] tabular-nums">{panchang.abhijitMuhurat}</dd>
+                  <dt className="font-semibold text-[#11362a]">Abhijit Muhurat</dt>
+                  <dd className="font-bold text-[#063325] tabular-nums">{panchang.abhijitMuhurat}</dd>
                 </div>
                 <div className="py-2 flex items-center justify-between gap-3">
-                  <dt className="font-semibold text-[#163d30]">Brahma Muhurat</dt>
-                  <dd className="font-bold text-[#0c3f30] tabular-nums">{panchang.brahmaMuhurat}</dd>
+                  <dt className="font-semibold text-[#11362a]">Brahma Muhurat</dt>
+                  <dd className="font-bold text-[#063325] tabular-nums">{panchang.brahmaMuhurat}</dd>
                 </div>
                 <div className="py-2 flex items-center justify-between gap-3">
-                  <dt className="font-semibold text-[#163d30]">Amrit Kaal</dt>
-                  <dd className="font-bold text-[#0c3f30] tabular-nums">{panchang.amritKaal}</dd>
+                  <dt className="font-semibold text-[#11362a]">Amrit Kaal</dt>
+                  <dd className="font-bold text-[#063325] tabular-nums">{panchang.amritKaal}</dd>
                 </div>
                 <div className="py-2 flex items-center justify-between gap-3">
-                  <dt className="font-semibold text-[#163d30]">Vijaya Muhurat</dt>
-                  <dd className="font-bold text-[#0c3f30] tabular-nums">{panchang.vijayaMuhurat}</dd>
+                  <dt className="font-semibold text-[#11362a]">Vijaya Muhurat</dt>
+                  <dd className="font-bold text-[#063325] tabular-nums">{panchang.vijayaMuhurat}</dd>
                 </div>
                 <div className="py-2 flex items-center justify-between gap-3">
-                  <dt className="font-semibold text-[#163d30]">Godhuli Muhurat</dt>
-                  <dd className="font-bold text-[#0c3f30] tabular-nums">{panchang.godhuliMuhurat}</dd>
+                  <dt className="font-semibold text-[#11362a]">Godhuli Muhurat</dt>
+                  <dd className="font-bold text-[#063325] tabular-nums">{panchang.godhuliMuhurat}</dd>
                 </div>
               </dl>
             </div>
 
             {/* Inauspicious Panel */}
-            <div className="rounded-2xl border border-[#dfb5ba] bg-[#faeff0] p-5 shadow-xs space-y-3">
-              <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-[#e9c8cc]">
-                <h3 className="flex items-center gap-2 font-serif-display text-xl font-bold text-[#6e121b]">
-                  <XCircle className="w-5 h-5 text-[#8c1d24]" aria-hidden="true" />
+            <div className="rounded-2xl border border-[#d898a0] bg-[#faecee] p-5 shadow-xs space-y-3">
+              <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-[#e5bcc1]">
+                <h3 className="flex items-center gap-2 font-serif-display text-xl font-bold text-[#520b12]">
+                  <XCircle className="w-5 h-5 text-[#7c121c]" aria-hidden="true" />
                   <span>Inauspicious Timings (Ashubh)</span>
                 </h3>
-                <span className="text-[11px] font-semibold text-[#8c3d44]">Pause New Starts</span>
+                <span className="text-[11px] font-bold text-[#7c1d26]">Pause New Starts</span>
               </div>
 
-              <dl className="divide-y divide-[#ecd0d4] text-sm">
+              <dl className="divide-y divide-[#e8c6ca] text-sm">
                 <div className="py-2 flex items-center justify-between gap-3">
-                  <dt className="font-semibold text-[#4d1419]">Rahu Kaal</dt>
-                  <dd className="font-bold text-[#6e121b] tabular-nums">{panchang.rahuKaal}</dd>
+                  <dt className="font-semibold text-[#420c11]">Rahu Kaal</dt>
+                  <dd className="font-bold text-[#520b12] tabular-nums">{panchang.rahuKaal}</dd>
                 </div>
                 <div className="py-2 flex items-center justify-between gap-3">
-                  <dt className="font-semibold text-[#4d1419]">Yamaganda</dt>
-                  <dd className="font-bold text-[#6e121b] tabular-nums">{panchang.yamaganda}</dd>
+                  <dt className="font-semibold text-[#420c11]">Yamaganda</dt>
+                  <dd className="font-bold text-[#520b12] tabular-nums">{panchang.yamaganda}</dd>
                 </div>
                 <div className="py-2 flex items-center justify-between gap-3">
-                  <dt className="font-semibold text-[#4d1419]">Gulika Kaal</dt>
-                  <dd className="font-bold text-[#6e121b] tabular-nums">{panchang.gulikaKaal}</dd>
+                  <dt className="font-semibold text-[#420c11]">Gulika Kaal</dt>
+                  <dd className="font-bold text-[#520b12] tabular-nums">{panchang.gulikaKaal}</dd>
                 </div>
               </dl>
 
-              <p className="text-xs text-[#612127] pt-1">
+              <p className="text-xs text-[#4d1218] pt-1">
                 <span className="font-bold">Disha Shool:</span> {panchang.dishaShool}
               </p>
             </div>
@@ -321,7 +309,13 @@ export const PanchangPage: React.FC<PanchangPageProps> = ({ mode, onOpenBooking 
           aria-labelledby="daily-patrika-heading"
           className="relative overflow-hidden rounded-2xl border border-[#cfa458] bg-gradient-to-br from-[#fffdf8] via-[#f9efdc] to-[#f1e0c1] p-5 sm:p-7 shadow-[0_14px_34px_-16px_rgba(92,58,20,0.18)]"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-16 -bottom-16 text-[#9e6b16] opacity-[0.12]"
+          >
+            <SacredMandalaAccent className="w-72 h-72" />
+          </div>
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
             {/* Framed Patrika Visual */}
             <div className="lg:col-span-5 flex flex-col items-center">
               <button

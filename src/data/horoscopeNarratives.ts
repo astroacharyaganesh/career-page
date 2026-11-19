@@ -274,6 +274,23 @@ export function getPeriodDetailedSections(
   ];
 }
 
+export interface SignSacredMeta {
+  nakshatras: string;
+  karakaPlanet: string;
+  bodyZone: string;
+  sacredRemedy: string;
+}
+
+export function getSignSacredMeta(signId: ZodiacId): SignSacredMeta {
+  const traits = SIGN_TRAITS[signId];
+  return {
+    nakshatras: traits.nakshatras,
+    karakaPlanet: traits.karakaPlanet,
+    bodyZone: traits.bodyZone,
+    sacredRemedy: traits.sacredRemedy
+  };
+}
+
 export function getPeriodDetailedPrediction(
   profile: ZodiacHoroscopeProfile,
   period: HoroscopePeriod

@@ -15,6 +15,7 @@ import { AppLink } from '../AppLink';
 import { Breadcrumbs } from '../Breadcrumbs';
 import { MoonSignCalculator } from '../MoonSignCalculator';
 import { HoroscopeVideoForecasts } from '../HoroscopeVideoForecasts';
+import { SacredMandalaAccent } from '../SacredMandalaAccent';
 
 interface HoroscopeHubPageProps {
   onOpenBooking: () => void;
@@ -33,17 +34,23 @@ export const HoroscopeHubPage: React.FC<HoroscopeHubPageProps> = ({ onOpenBookin
   return (
     <div className="bg-[#f9f3e7] text-[#2c221a]">
       {/* Celestial Royal Header */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-[#0a152c] via-[#14274c] to-[#3b2511] border-b border-[#c79948]/70 py-8 sm:py-11">
+      <section className="relative overflow-hidden bg-gradient-to-r from-[#09142b] via-[#13254a] to-[#3f1c16] border-b border-[#d6a956] py-8 sm:py-11">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-14 -top-14 text-[#f4ce7c] opacity-30"
+        >
+          <SacredMandalaAccent className="w-[340px] h-[340px]" />
+        </div>
         <svg
           aria-hidden="true"
           viewBox="0 0 1200 280"
           preserveAspectRatio="xMidYMid slice"
-          className="pointer-events-none absolute inset-0 h-full w-full opacity-45"
+          className="pointer-events-none absolute inset-0 h-full w-full opacity-55"
           fill="none"
         >
-          <circle cx="960" cy="140" r="135" stroke="#f0c874" strokeOpacity="0.32" strokeWidth="1" strokeDasharray="3 5" />
-          <circle cx="960" cy="140" r="190" stroke="#f0c874" strokeOpacity="0.2" strokeWidth="0.8" />
-          <path d="M120 240 Q 600 -20 1120 220" stroke="#f0c874" strokeOpacity="0.22" strokeWidth="1" strokeDasharray="4 6" />
+          <path d="M120 240 Q 600 -20 1120 220" stroke="#f2c872" strokeOpacity="0.28" strokeWidth="1" strokeDasharray="4 6" />
+          <circle cx="460" cy="40" r="1.6" fill="#fde9b5" className="qna-star-twinkle" />
+          <circle cx="810" cy="52" r="1.8" fill="#fde9b5" className="qna-star-twinkle" />
         </svg>
 
         <div className="relative z-10 max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 space-y-5">
@@ -51,14 +58,14 @@ export const HoroscopeHubPage: React.FC<HoroscopeHubPageProps> = ({ onOpenBookin
 
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
             <div className="max-w-3xl">
-              <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#f5d384] mb-2">
+              <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#fae091] mb-2">
                 <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
                 <span>Vedic Moon Sign (Chandra Rashi) · {cal.fullHeading}</span>
               </p>
-              <h1 className="font-serif-display text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-[#fff8e9] leading-[1.14] [text-wrap:balance]">
+              <h1 className="font-serif-display text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-[#fffcf4] leading-[1.14] [text-wrap:balance]">
                 Daily, Weekly, Monthly &amp; Yearly Horoscope for All 12 Signs
               </h1>
-              <p className="mt-3 text-sm sm:text-base text-[#e6dac4] leading-relaxed max-w-2xl">
+              <p className="mt-3 text-sm sm:text-base text-[#f2e8d5] leading-relaxed max-w-2xl">
                 Explore authentic Chandra Rashi guidance across career, love, finance, family and health, shaped by Vedic Jyotish principles at Acharya Ganesh under the guidance of Hanish Bagga.
               </p>
             </div>
@@ -129,34 +136,47 @@ export const HoroscopeHubPage: React.FC<HoroscopeHubPageProps> = ({ onOpenBookin
               return (
                 <article
                   key={sign.id}
-                  className="group flex flex-col justify-between rounded-2xl border border-[#d6b989] bg-[#fdfaf4] p-5 shadow-xs hover:border-[#b98735] hover:shadow-md transition-all"
+                  className="group relative overflow-hidden flex flex-col justify-between rounded-2xl border border-[#cfa458] bg-[#fffdf9] p-5 shadow-xs hover:border-[#b57b1d] hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-14px_rgba(92,58,20,0.28)] transition-all duration-200"
                 >
-                  <div className="flex items-start gap-3.5 pb-3.5 border-b border-[#eadbc4]">
-                    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-[#c79948] bg-[#162849]">
-                      <img
-                        src={getZodiacImagePath(sign.id)}
-                        alt={`${sign.name} (${sign.vedicName}) zodiac illustration`}
-                        loading="lazy"
-                        className="h-full w-full object-cover object-top scale-[1.18] origin-top"
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -right-10 -bottom-10 text-[#9e6b16] opacity-[0.07] group-hover:opacity-[0.18] transition-opacity duration-300"
+                  >
+                    <SacredMandalaAccent className="w-36 h-36" />
+                  </div>
+
+                  <div className="relative z-10 flex items-start gap-3.5 pb-3.5 border-b border-[#eadbc4]">
+                    <div className="relative shrink-0">
+                      <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute -inset-1 rounded-xl border border-dashed border-[#cfa053]/0 group-hover:border-[#cfa053]/80 transition-colors"
                       />
+                      <div className="relative h-16 w-16 overflow-hidden rounded-xl border border-[#c79948] bg-[#162849]">
+                        <img
+                          src={getZodiacImagePath(sign.id)}
+                          alt={`${sign.name} (${sign.vedicName}) zodiac illustration`}
+                          loading="lazy"
+                          className="h-full w-full object-cover object-top scale-[1.18] origin-top"
+                        />
+                      </div>
                     </div>
 
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center justify-between gap-2">
-                        <h3 className="font-serif-display text-xl font-bold text-[#6e121b]">
-                          <AppLink href={mainHref} className="hover:underline underline-offset-4">
+                        <h3 className="font-serif-display text-xl font-bold text-[#4a0d14]">
+                          <AppLink href={mainHref} className="hover:text-[#9e6b16] hover:underline underline-offset-4 transition-colors">
                             {sign.name}
                           </AppLink>
                         </h3>
-                        <span aria-hidden="true" className="text-xl text-[#9e6b16] font-semibold">
+                        <span aria-hidden="true" className="text-xl text-[#9e6b16] font-semibold group-hover:scale-110 transition-transform">
                           {sign.glyph}
                         </span>
                       </div>
-                      <p className="text-xs font-medium text-[#1b3a75]">
+                      <p className="text-xs font-semibold text-[#143068]">
                         {sign.vedicName} (Chandra Rashi) · {sign.element} Element
                       </p>
-                      <p className="text-[11px] text-[#746352] mt-0.5">
-                        Planet: {sign.rulingPlanet}
+                      <p className="text-[11px] text-[#544333] mt-0.5">
+                        Planet: <strong className="font-semibold text-[#2c1f14]">{sign.rulingPlanet}</strong> · {sign.moonSyllables}
                       </p>
                     </div>
                   </div>

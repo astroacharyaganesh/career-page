@@ -254,7 +254,96 @@
 }
 
 .horoscope-panel-enter {
-  animation: horoscope-panel-enter 0.24s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: horoscope-panel-enter 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes celestial-wheel-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.celestial-wheel-spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: celestial-wheel-spin 84s linear infinite;
+}
+
+.celestial-wheel-reverse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: celestial-wheel-spin 116s linear infinite reverse;
+}
+
+@keyframes diya-flame-breath {
+  0%, 100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+.diya-flame-breath {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: diya-flame-breath 3.4s ease-in-out infinite;
+}
+
+@keyframes sacred-aura-pulse {
+  0%, 100% {
+    opacity: 0.36;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.62;
+    transform: scale(1.03);
+  }
+}
+
+.sacred-aura-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sacred-aura-pulse 5.2s ease-in-out infinite;
+}
+
+@keyframes sacred-orb-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2.5px);
+  }
+}
+
+.sacred-orb-float {
+  animation: sacred-orb-float 4.8s ease-in-out infinite;
+}
+
+@keyframes sacred-sheen-glide {
+  0% {
+    transform: translateX(-130%) skewX(-18deg);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.45;
+  }
+  75% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateX(240%) skewX(-18deg);
+    opacity: 0;
+  }
+}
+
+.sacred-sheen-glide {
+  animation: sacred-sheen-glide 9s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -268,7 +357,13 @@
   .qna-badge-glint,
   .qna-armillary-spin,
   .qna-cursor-blink,
-  .horoscope-panel-enter {
+  .horoscope-panel-enter,
+  .celestial-wheel-spin,
+  .celestial-wheel-reverse,
+  .diya-flame-breath,
+  .sacred-aura-pulse,
+  .sacred-orb-float,
+  .sacred-sheen-glide {
     animation: none;
   }
 }

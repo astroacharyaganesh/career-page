@@ -7,6 +7,7 @@ import {
   INITIAL_HOROSCOPE_VIDEOS,
   formatVideoDateUtc
 } from '../data/horoscopeVideos';
+import { SacredMandalaAccent } from './SacredMandalaAccent';
 
 interface MonthlyHoroscopeVideoCardProps {
   signName: string;
@@ -49,12 +50,19 @@ export const MonthlyHoroscopeVideoCard: React.FC<MonthlyHoroscopeVideoCardProps>
   return (
     <section
       aria-labelledby="monthly-horoscope-video-heading"
-      className="lg:col-span-12 rounded-2xl border border-[#d6b989] bg-[#fdfaf4] p-5 sm:p-7 shadow-xs"
+      className="lg:col-span-12 relative overflow-hidden rounded-2xl border border-[#cfa458] bg-gradient-to-r from-[#09142b] via-[#14274c] to-[#3f161c] p-5 sm:p-7 text-[#fffcf4] shadow-md"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-14 -bottom-16 text-[#f4ce7c] opacity-15"
+      >
+        <SacredMandalaAccent className="w-[300px] h-[300px]" />
+      </div>
+
+      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
         {/* Interactive YouTube Player / Thumbnail */}
         <div className="lg:col-span-5">
-          <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-[#cfa053] bg-[#0e1b36] shadow-sm">
+          <div className="relative aspect-video w-full overflow-hidden rounded-xl border-2 border-[#e0b458] bg-[#070f21] shadow-lg">
             {isPlaying ? (
               <iframe
                 src={`https://www.youtube.com/embed/${video.id}?autoplay=1`}
@@ -93,8 +101,8 @@ export const MonthlyHoroscopeVideoCard: React.FC<MonthlyHoroscopeVideoCardProps>
 
         {/* Heading, Details & YouTube Actions */}
         <div className="lg:col-span-7 space-y-3">
-          <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs font-semibold uppercase tracking-[0.12em] text-[#9e6b16] tabular-nums">
-            <span className="inline-flex items-center gap-1.5 text-[#6e121b]">
+          <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#fae091] tabular-nums">
+            <span className="inline-flex items-center gap-1.5 text-[#f6cf77]">
               <Calendar className="w-3.5 h-3.5" aria-hidden="true" />
               <span>Monthly Horoscope Video</span>
             </span>
@@ -110,25 +118,25 @@ export const MonthlyHoroscopeVideoCard: React.FC<MonthlyHoroscopeVideoCardProps>
 
           <h2
             id="monthly-horoscope-video-heading"
-            className="font-serif-display text-2xl sm:text-[1.75rem] font-bold text-[#4a1117] leading-snug"
+            className="font-serif-display text-2xl sm:text-[1.75rem] font-bold text-[#fffcf4] leading-snug"
           >
             <a
               href={video.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#9e6b16] transition-colors"
+              className="hover:text-[#fae091] transition-colors"
             >
               {video.title}
             </a>
           </h2>
 
-          <p className="text-sm sm:text-[15px] text-[#31261d] leading-relaxed">
+          <p className="text-sm sm:text-[15px] text-[#efe5d2] leading-relaxed">
             Watch Acharya Ganesh’s latest monthly planetary transit video alongside your{' '}
-            <strong className="font-semibold text-[#4a1117]">
+            <strong className="font-semibold text-[#fae091]">
               {signName} ({vedicName} Chandra Rashi)
             </strong>{' '}
             Monthly Horoscope. Each month’s new forecast video is synced automatically from{' '}
-            <span className="font-medium text-[#6e121b]">@acharyaganeshchannel</span>.
+            <span className="font-medium text-[#f5d384]">@acharyaganeshchannel</span>.
           </p>
 
           <div className="pt-2 flex flex-wrap items-center gap-3">
@@ -136,7 +144,7 @@ export const MonthlyHoroscopeVideoCard: React.FC<MonthlyHoroscopeVideoCardProps>
               <button
                 type="button"
                 onClick={() => setIsPlaying(true)}
-                className="inline-flex items-center gap-2 rounded-full border border-[#b57b1d] bg-gradient-to-b from-[#fae091] via-[#e6b34d] to-[#c98b24] hover:brightness-105 px-5 py-2.5 text-xs sm:text-sm font-bold text-[#460709] cursor-pointer transition-all"
+                className="inline-flex items-center gap-2 rounded-full border border-[#b57b1d] bg-gradient-to-b from-[#fae091] via-[#e6b34d] to-[#c98b24] hover:brightness-105 px-5 py-2.5 text-xs sm:text-sm font-bold text-[#460709] cursor-pointer transition-all shadow-sm"
               >
                 <Play className="w-4 h-4 fill-current" aria-hidden="true" />
                 <span>Play Monthly Video</span>
@@ -147,9 +155,9 @@ export const MonthlyHoroscopeVideoCard: React.FC<MonthlyHoroscopeVideoCardProps>
               href={video.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-[#cfa053] bg-[#fffaf1] hover:bg-[#f6ead3] px-5 py-2.5 text-xs sm:text-sm font-bold text-[#6e121b] transition-colors"
+              className="inline-flex items-center gap-2 rounded-full border border-[#cfa458]/80 bg-white/10 hover:bg-white/18 px-5 py-2.5 text-xs sm:text-sm font-bold text-[#fffcf4] transition-colors"
             >
-              <Youtube className="w-4 h-4 text-[#c41c24]" aria-hidden="true" />
+              <Youtube className="w-4 h-4 text-[#ff6b6b]" aria-hidden="true" />
               <span>Watch on YouTube</span>
               <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
             </a>
@@ -158,7 +166,7 @@ export const MonthlyHoroscopeVideoCard: React.FC<MonthlyHoroscopeVideoCardProps>
               href={ACHARYA_GANESH_YOUTUBE_VIDEOS_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#1b3a75] hover:text-[#6e121b] hover:underline px-2 py-2 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#fae091] hover:text-white hover:underline px-2 py-2 transition-colors"
             >
               <span>More Videos on YouTube</span>
               <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
